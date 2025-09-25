@@ -14,12 +14,3 @@ This handoff document ensures seamless switching between platforms and agents.
 | `<#.`  | Agent-Visible Read-Only  | Agents can read, cannot modify              |
 | `<@.`  | Agent-Interactive        | Agents can read and write                   |
 | `<~.`  | Agent-Managed            | Agents can autonomously modify/maintain     |
-
-**Example**
-```ps
-function authenticate(user, password) {
-  </. TODO: handle edge case for null passwords >
-  <#. Using bcrypt with salt rounds = 10 >
-  <@. Check for timing attack risks >
-  return bcrypt.compare(password, user.hashedPassword);
-}
