@@ -278,42 +278,15 @@ A: Yes, the Cursor/VSCode extensions will include full syntax highlighting for a
 
 We welcome contributions! The project will be open source under MIT license.
 
-```bash
-# Clone the repository (coming soon)
-git clone https://github.com/<#. github-org >/ps-lang.git
-
-# Install dependencies
-cd ps-lang && npm install
-
-# Run tests
-npm test
-
-# Try the CLI
-npm run cli -- parse example.ps
-
-# Test AI Meta Tags
-npm run cli -- meta example.ps
-```
-
-## Success Metrics
-
-- **Technical**: <10ms parsing, 100% zone accuracy, zero privacy breaches, accurate AI Meta Tags
-- **Adoption**: 1,000 GitHub stars (6 months), 10,000 npm downloads (1 year)
-- **Enterprise**: 5 customers (18 months)
-- **Community**: 50 contributors, 100+ custom commands shared
 
 ## Resources
 
 - **Website**: [ps-lang.dev](https://ps-lang.dev) (coming soon)
-- **Community**: [psst.dev](https://psst.dev) (coming soon)
-- **GitHub**: [github.com/<#. github-org >/ps-lang](https://github.com/<#. github-org >/ps-lang) (coming soon)
-- **NPM**: [@<#. npm-org >/ps-lang](https://www.npmjs.com/package/@<#. npm-org >/ps-lang) (coming soon)
 
 ## Team
 
-- **Project Lead**: Anton (vummo)
-- **Initial Development**: Briefify.app team
-- **AI Assistants**: Claude Opus 4.1, Cursor AI, ChatGPT
+- **Project Lead**: Anton K.
+
 
 ## License
 
@@ -321,6 +294,5 @@ MIT License (pending release)
 
 ---
 
-*PS-LANG: Taking back control in the age of Agentic AI - one privacy zone at a time.*
 
-**Your code. Your rules. Your privacy. Your AI Meta Tags.**
+**Your prompts. Your rules. Your privacy. Your AI Meta Tags.**
