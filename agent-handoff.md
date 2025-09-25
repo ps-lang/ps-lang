@@ -116,14 +116,6 @@ Today's coding session reduced 12-hour task to 3 hours using Claude
 
 ### 3. Secure Pipeline Operations
 
-**CI/CD with Hidden Credentials**
-```ps-lang
-.deploy production
-  </. AWS_KEY=abc123secret >
-  <#. Using us-west-2 region >
-  <@. Run deployment checks >
-```
-
 ### 4. Email & Communication Templates
 
 ```ps-lang
@@ -242,79 +234,11 @@ class ClaudeAgent implements PSLangAgent {
 <meta name="context-tags" content="quiet-coding,night-development">
 ```
 
-## Integration Strategies
-
-### 1. Briefify.app Integration
-
-```javascript
-// In briefify.app context
-import { PSLangProcessor } from '@vummo/ps-lang';
-
-const processor = new PSLangProcessor({
-  agentBlindZones: true,
-  preservePrivacy: true
-});
-
-// Process user content
-const processedContent = processor.sanitize(userInput);
-```
-
-### 2. Medal.tv Clip Processing
-
-```ps-lang
-.medal-clip process
-  </. User's private API key >
-  <#. Clip ID: abc123 >
-  <@. Generate AI highlights and timestamps >
-```
-
-### 3. GitHub Integration
-
-```bash
-# .github/workflows/ps-lang.yml
-name: PS-Lang Privacy Check
-on: [push, pull_request]
-jobs:
-  privacy-scan:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: vummo/ps-lang-action@v1
-        with:
-          check-private-zones: true
-          fail-on-exposed-secrets: true
-```
-
-### 4. Claude Code Integration
-
-```javascript
-// Claude Code command
-class PSLangCommand {
-  async execute(args) {
-    const content = await this.readFile(args.file);
-    const zones = this.extractPrivacyZones(content);
-
-    // Only process non-private zones
-    const publicContent = zones
-      .filter(z => z.visibility !== 'agent-blind')
-      .map(z => z.content)
-      .join('');
-
-    return this.processWithAI(publicContent);
-  }
-}
-```
-
 ## Domain & Branding Strategy
 
 ### Primary Domains
 - **ps-lang.dev** - Main documentation and specification
-- **psst.dev** - Community and philosophy hub
 - **ps-lang.com** - Commercial/enterprise offering
-
-### Alternative Domains (if primary unavailable)
-- **silent.dev** - Emphasizes privacy aspect
-- **vibe-lang.com** - Aligns with vibe-mode concept
-- **quietcode.dev** - Night development philosophy
 
 ### Tagline Options
 1. "Take control of what you `</#` say or chat" (current)
@@ -338,8 +262,6 @@ class PSLangCommand {
 
 ### Phase 3: Ecosystem (Weeks 9-12)
 - [ ] MCP server implementation
-- [ ] Medal.tv integration
-- [ ] Briefify.app production integration
 - [ ] Documentation site (ps-lang.dev)
 
 ### Phase 4: Community (Ongoing)
@@ -498,6 +420,6 @@ The project is positioned to become the standard for privacy-conscious AI intera
 
 ---
 
-*This handoff document contains all knowledge from the briefify.app project regarding ps-lang. Created on 2025-09-25 for transition to standalone repository.*
+*This handoff document contains all knowledge from ps-lang. Created on 2025-09-25 for transition to standalone repository.*
 
 **Next Step**: Create `github.com/vummo/ps-lang` repository and begin implementation with this specification.
