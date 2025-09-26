@@ -2,7 +2,7 @@
 
 website: https://ps-lang.dev
 
-<. take control of what you say > 
+<. take control of what you say or don't say > 
 
 what is ps-lang
 

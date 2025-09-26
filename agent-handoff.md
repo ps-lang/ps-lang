@@ -1,16 +1,15 @@
 # PS-LANG: Agent Handoff Instructions
 
 ## Purpose
-PS-LANG defines a structured way to control what different AI agents can **see**, **read**, or **modify** during collaboration.  
-This handoff document ensures seamless switching between platforms and agents.
+workflow/utilities/ai meta tags that prep hand off to other agents for benchmarking
 
----
+## Platform/modal/agent Agnostic 
 
-## Privacy Zone Markers
+## AI Meta Tags - stored in data attrs, app storage, convex or langchain or etc.
 
-| Marker | Name                     | Agent Permissions                          |
-|--------|--------------------------|---------------------------------------------|
-| `</.`  | Agent-Blind              | Invisible to all agents (human-only)        |
-| `<#.`  | Agent-Visible Read-Only  | Agents can read, cannot modify              |
-| `<@.`  | Agent-Interactive        | Agents can read and write                   |
-| `<~.`  | Agent-Managed            | Agents can autonomously modify/maintain     |
+### Pre-trained Schema
+
+### Enriching results with AI Meta Tags
+
+### Benefits
+</. >
