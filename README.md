@@ -101,7 +101,7 @@ npm install @<#. github >/ps-lang
 
 ### GitHub Action (Planned)
 ```yaml
-- uses: <#. github >/ps-lang-action@v.0.1
+- uses: <#. github >/ps-lang-action@v0.1
   with:
     check-private-zones: true
     fail-on-exposed-secrets: true

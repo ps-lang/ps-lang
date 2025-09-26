@@ -1,5 +1,7 @@
 # Logs
 /logs/
+/blog/
+/journal/
 
 # Dependencies
 node_modules/
@@ -27,6 +29,7 @@ Thumbs.db
 dist/
 build/
 out/
+.next/
 
 # Testing
 coverage/
