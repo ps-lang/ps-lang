@@ -1,0 +1,78 @@
+{
+  "name": "ps-lang",
+  "version": "0.1.0",
+  "description": "Privacy-First Agent Command Language with AI meta tagging and RL training support",
+  "main": "ps-lang-cli.js",
+  "bin": {
+    "ps-lang": "./ps-lang-cli.js",
+    "ps-lang-cli": "./ps-lang-cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Tests coming soon\" && exit 0",
+    "install-global": "npm install -g .",
+    "demo": "node ps-lang-cli.js check README.md",
+    "validate": "node ps-lang-cli.js config"
+  },
+  "keywords": [
+    "privacy",
+    "ai",
+    "agent",
+    "command-language",
+    "ps-lang",
+    "sp-lang",
+    "reinforcement-learning",
+    "meta-tagging",
+    "claude",
+    "gpt",
+    "copilot",
+    "cursor",
+    "anthropic",
+    "openai"
+  ],
+  "author": "Anton K.",
+  "license": "MIT",
+  "files": [
+    "ps-lang-cli.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antonk52/ps-lang.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antonk52/ps-lang/issues"
+  },
+  "homepage": "https://ps-lang.dev",
+  "preferGlobal": true,
+  "psLang": {
+    "version": "0.1.0",
+    "features": [
+      "privacy-zones",
+      "ai-meta-tagging",
+      "rl-training-support",
+      "sp-pattern-recognition",
+      "agent-awareness",
+      "npx-compatibility"
+    ],
+    "supportedAgents": [
+      "claude",
+      "gpt",
+      "copilot",
+      "cursor",
+      "custom"
+    ],
+    "privacyLevels": [
+      "agent-blind",
+      "agent-visible-readonly",
+      "agent-interactive",
+      "agent-managed"
+    ]
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {}
+}
