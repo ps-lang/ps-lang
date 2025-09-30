@@ -1,152 +1,160 @@
 # PS-LANG.dev - Marketing Website
 
-**Official documentation and marketing site for PS-LANG (Privacy-First Agent Command Language)**
+Official marketing website for **PS-LANG** (Multi-Agent Context Control Language).
 
-## 🎯 Purpose
-
-This Next.js website serves as the primary marketing and documentation hub for PS-LANG, designed to:
-- Showcase multi-agent workflow control and clean handoff patterns
-- Demonstrate benchmarking and context precision benefits
-- Provide comprehensive agent pipeline documentation
-- Offer an interactive playground for testing multi-agent scenarios
-
-## 🚀 Development Setup
+## 🚀 Quick Start
 
 ```bash
-# Install dependencies
 npm install
-
-# Run development server
 npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the site.
+Open [http://localhost:3000](http://localhost:3000)
 
-## 📁 Site Structure
+## 📁 Project Structure
 
 ```
 ps-lang.dev/
 ├── app/
-│   ├── page.tsx          # Landing page with hero and value props
-│   ├── docs/            # Documentation pages
-│   ├── examples/        # Code examples and use cases
-│   ├── playground/      # Interactive PS-LANG tester
-│   ├── get-started/     # Onboarding flow
-│   ├── about/           # About PS-LANG and team
-│   ├── pricing/         # Pricing tiers (free/pro)
-│   └── blog/           # Blog posts and updates
-├── components/          # Reusable UI components
-├── lib/                # Utility functions and PS-LANG parser
-└── public/             # Static assets
+│   ├── page.tsx              # Homepage
+│   ├── layout.tsx            # Root layout (SEO, analytics)
+│   └── api/newsletter/       # Newsletter signup API
+├── components/
+│   ├── newsletter-modal.tsx  # Newsletter modal
+│   ├── newsletter-signup.tsx # Signup form
+│   └── navigation.tsx        # Site navigation
+├── public/
+│   ├── sitemap.xml          # SEO sitemap
+│   ├── robots.txt           # Crawler rules
+│   └── *.png                # Favicons & OG images
+└── scripts/
+    ├── generate-favicons.mjs # Automated favicon generation
+    └── generate-og-image.mjs # OG image generation
 ```
 
-## 🎨 Key Features
+## 🔧 Environment Variables
 
-### User Experience
-- **Hero Section**: Multi-agent workflow value proposition with handoff examples
-- **Interactive Playground**: Real-time agent pipeline testing
-- **Context Zones Visualizer**: Visual guide to agent visibility controls
-- **Pipeline Gallery**: Real-world multi-agent chains and benchmarking scenarios
-- **Getting Started Flow**: Step-by-step agent workflow setup
+Create `.env.local`:
 
-### Technical Features
-- **Next.js 14**: App router with server components
-- **Tailwind CSS**: Responsive design system
-- **shadcn/ui**: Accessible component library
-- **TypeScript**: Full type safety
-- **PS-LANG Parser**: Client-side syntax validation
+```env
+# Newsletter (Required)
+RESEND_API_KEY=re_xxx
+RESEND_AUDIENCE_ID=aud_xxx
 
-## 📊 Content Strategy
+# Analytics (Optional)
+NEXT_PUBLIC_POSTHOG_KEY=phc_xxx
+NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com
+NEXT_PUBLIC_GA_ID=G-xxx
+```
 
-### Target Audiences
-1. **AI Engineers**: Multi-agent system architects and pipeline builders
-2. **ML Researchers**: Benchmarking and agent performance testing
-3. **Dev Teams**: Agent workflow automation and context management
-4. **MCP Developers**: Model Context Protocol integration and agent chains
+## 🎨 Design System
 
-### Key Pages
-- `/` - Hero landing with value props
-- `/docs` - Technical documentation
-- `/examples` - Use case library
-- `/playground` - Interactive testing
-- `/get-started` - Quick start guide
-- `/about` - PS-LANG story and name meanings
-- `/blog` - Updates and tutorials
+**Brand Color**: `#2D1300` (dark brown)
+**Typography**: Inter (body), JetBrains Mono (code)
+**Palette**: Tailwind stone colors (50-900)
+**Aesthetic**: Minimal, clean, developer-focused
 
-## 🔤 About PS-LANG (Marketing Copy)
+## 📊 Analytics & Tracking
 
-### Primary Value Propositions
-- **"Control what each agent sees"** - Main tagline focused on multi-agent workflows
-- **Clean Handoffs**: Pass only relevant context between agents in pipelines
-- **Better Benchmarks**: Test agent performance without upstream contamination
-- **Pipeline Control**: Precise information flow in agent chains
+- **PostHog**: Event tracking (use case clicks, newsletter signups)
+- **Google Analytics**: Page views and traffic
+- **Resend**: Email newsletter (Vummo Labs audience)
 
-### Name Interpretation (Marketing)
-The flexible "PS-LANG" name resonates with different user types:
-- **Prompt Script Language** - For AI prompt engineers
-- **Privacy Script Language** - For security-conscious developers
-- **Post Scriptum Language** - For content creators (like "P.S." notes)
-- **Personal Space Language** - For individual privacy needs
+## 🎯 SEO Configuration
 
-## 🛠️ Technology Stack
+✅ **Canonical URL**: `https://ps-lang.dev`
+✅ **Sitemap**: `/sitemap.xml`
+✅ **Robots**: `/robots.txt`
+✅ **Schema.org**: Organization, SoftwareApplication, WebSite
+✅ **OG Images**: 1200x630 social previews
 
-- **Framework**: Next.js 14 with App Router
-- **Styling**: Tailwind CSS + shadcn/ui components
-- **Language**: TypeScript for type safety
-- **Parser**: Client-side PS-LANG syntax processor
-- **Analytics**: Privacy-focused analytics (TBD)
-- **Hosting**: Vercel deployment
-
-## 📝 Content Guidelines
-
-### Voice & Tone
-- **Technical & Precise**: Explain multi-agent architecture patterns clearly
-- **Performance-Focused**: Emphasize benchmarking and optimization benefits
-- **System-Oriented**: Focus on pipeline architecture, not individual privacy
-- **Developer-First**: Speak to AI engineers building agent systems
-
-### SEO Strategy
-- Target keywords: "multi-agent workflows", "agent pipeline control", "AI benchmarking"
-- Technical keywords: "agent handoff", "context pruning", "MCP integration"
-- Long-tail: "clean agent handoffs", "test AI agent performance", "agent-to-agent context"
-
-## 🚀 Deployment
+## 🛠️ Build & Deploy
 
 ```bash
-# Build and deploy to Vercel
-npm run build
-vercel deploy
+# Development
+npm run dev
 
-# Or deploy via Git integration
-git push origin main  # Auto-deploys to ps-lang.dev
+# Production build
+npm run build
+npm start
+
+# Asset generation
+npm run generate:favicons  # 7 favicon sizes
+npm run generate:og        # Social preview image
 ```
 
-## 📈 Analytics & Goals
+**Deployment**: Vercel (auto-deploys from `main` branch)
 
-### Key Metrics
-- **Adoption**: Multi-agent pipeline implementations, MCP integrations
-- **Technical Engagement**: Benchmarking examples, agent handoff patterns
-- **Developer Activity**: GitHub contributions, agent workflow repos
+## 📝 Content Updates
 
-### Success Criteria
-- AI engineers understand multi-agent value proposition
-- Active use in production agent pipelines
-- Benchmark case studies and performance data
-- Growing multi-agent developer community
+### Update Version Number
+**Footer**: `app/page.tsx` (search for "v0.2")
+**Schema**: `app/layout.tsx` (softwareVersion field)
 
-## 🔗 Cross-References
+### Update Newsletter Interests
+**Edit**: `components/newsletter-signup.tsx` (interestOptions array)
 
-- **Main Repository**: [github.com/vummo/ps-lang](https://github.com/vummo/ps-lang)
-- **Technical Docs**: Root README for developer-focused content
-- **NPM Package**: `ps-lang` CLI installation
-- **Examples**: Live examples with embedded playground
+### Update SEO
+**Metadata**: `app/layout.tsx` (metadata object)
+**Sitemap**: `public/sitemap.xml` (add new pages)
+
+## 📧 Newsletter Integration
+
+**Provider**: Resend (shared Vummo Labs audience)
+**Form**: `components/newsletter-signup.tsx`
+**API**: `app/api/newsletter/route.ts`
+**Tracking**: Email domain, interests, source
+
+## 🎨 Asset Generation
+
+All assets generated from `public/ps-lang-logomark.png`:
+
+```bash
+npm run generate:favicons  # Creates 7 sizes (16x16 to 512x512)
+npm run generate:og        # Creates 1200x630 social preview
+```
+
+## 🎯 Target Audiences
+
+1. **AI Engineers** - Multi-agent system architects
+2. **ML Researchers** - Benchmarking and testing
+3. **Dev Teams** - Agent workflow automation
+4. **MCP Developers** - Model Context Protocol chains
+
+## 💡 Value Propositions
+
+- **Clean Handoffs**: Pass only relevant context between agents
+- **Better Benchmarks**: Test agent performance without contamination
+- **Pipeline Control**: Precise information flow in agent chains
+
+## 📦 Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS
+- **Language**: TypeScript
+- **Email**: Resend
+- **Analytics**: PostHog, Google Analytics
+- **Deployment**: Vercel
+
+## 🚧 TODO
+
+- [ ] Create `/docs` pages
+- [ ] Add newsletter welcome sequence
+- [ ] Implement privacy policy page
+- [ ] Add blog section
+- [ ] Create example repositories
+
+## 🔗 Key Links
+
+- **Production**: https://ps-lang.dev
+- **GitHub**: https://github.com/vummo/ps-lang
+- **Vummo Labs**: https://vummo.com
+- **Main README**: [../README.md](../README.md)
+
+## 📄 License
+
+MIT License - See [../LICENSE](../LICENSE)
 
 ---
 
-**Building the future of controlled multi-agent workflows**
+**Built by [Vummo Labs](https://vummo.com)**
