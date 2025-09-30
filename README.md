@@ -1,5 +1,7 @@
 <div align="center">
-  <img src="./ps-lang-logomark.png" alt="PS-LANG Logo" width="200"/>
+  <a href="https://ps-lang.dev">
+    <img src="./ps-lang-logomark.png" alt="PS-LANG Logo" width="200"/>
+  </a>
 
   <br/>
   <br/>
@@ -14,7 +16,7 @@
 
   ---
 
-  **[ps-lang.dev](https://ps-lang.dev)** — Documentation, playground, and examples
+  **→ [ps-lang.dev](https://ps-lang.dev) ←**
 
   ---
 </div>
