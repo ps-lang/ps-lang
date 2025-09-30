@@ -12,31 +12,31 @@ export default function HomePage() {
       <NewsletterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       {/* Hero Section */}
-      <section className="max-w-4xl mx-auto px-8 py-24">
-        <div className="text-center mb-20">
-          <div className="inline-block mb-8">
+      <section className="max-w-4xl mx-auto px-4 sm:px-8 py-12 sm:py-24">
+        <div className="text-center mb-12 sm:mb-20">
+          <div className="inline-block mb-6 sm:mb-8">
             <span className="text-xs tracking-[0.2em] text-stone-500 font-medium uppercase">Privacy-First Language</span>
           </div>
 
-          <h1 className="text-6xl md:text-8xl font-light text-stone-900 mb-8 tracking-tight">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-light text-stone-900 mb-6 sm:mb-8 tracking-tight px-4">
             PS-LANG
           </h1>
 
-          <p className="text-xl text-stone-600 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-base sm:text-xl text-stone-600 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed font-light px-4">
             Control what each AI agent sees in multi-agent workflows. Clean handoffs, better benchmarks, precise context control.
           </p>
 
           {/* Hero Buttons */}
-          <div className="flex justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4">
             <Link
               href="https://github.com/vummo/ps-lang"
-              className="border border-[#2D1300] px-8 py-3 bg-[#2D1300] text-white hover:bg-[#1a0b00] transition-all duration-300 text-sm tracking-wide"
+              className="border border-[#2D1300] px-6 sm:px-8 py-3 bg-[#2D1300] text-white hover:bg-[#1a0b00] transition-all duration-300 text-sm tracking-wide text-center"
             >
               VIEW ON GITHUB
             </Link>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="border border-[#2D1300] px-8 py-3 text-[#2D1300] hover:bg-[#2D1300] hover:text-white transition-all duration-300 text-sm tracking-wide"
+              className="border border-[#2D1300] px-6 sm:px-8 py-3 text-[#2D1300] hover:bg-[#2D1300] hover:text-white transition-all duration-300 text-sm tracking-wide"
             >
               SUBSCRIBE
             </button>
@@ -44,12 +44,12 @@ export default function HomePage() {
         </div>
 
         {/* Privacy Zones Example */}
-        <div className="border border-stone-200 bg-white p-12 mb-20">
-          <div className="mb-8">
-            <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Agent Handoff Example</span>
+        <div className="border border-stone-200 bg-white p-3 [@media(min-width:420px)]:p-4 sm:p-8 md:p-12 mb-12 sm:mb-20">
+          <div className="mb-3 [@media(min-width:420px)]:mb-4 sm:mb-8">
+            <span className="text-[10px] [@media(min-width:420px)]:text-xs tracking-[0.15em] text-stone-400 uppercase">Agent Handoff Example</span>
           </div>
 
-          <pre className="font-mono text-sm text-stone-700 leading-relaxed overflow-x-auto">
+          <pre className="font-mono text-[10px] [@media(min-width:420px)]:text-xs sm:text-sm text-stone-700 leading-[1.4] [@media(min-width:420px)]:leading-relaxed overflow-x-auto whitespace-pre-wrap break-words">
             {`<. Agent A internal reasoning - hidden from Agent B >
 Research notes, debug info, not needed downstream
 
@@ -65,7 +65,7 @@ Generated content, autonomous updates`}
         </div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-24">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 mb-16 sm:mb-24 px-4">
           <div className="text-center">
             <div className="mb-6">
               <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Clean Handoffs</span>
@@ -98,16 +98,16 @@ Generated content, autonomous updates`}
         </div>
 
         {/* Auto-Tagged Commands Section */}
-        <div className="border border-stone-200 bg-white p-12 mb-24">
-          <div className="mb-8">
+        <div className="border border-stone-200 bg-white p-4 sm:p-8 md:p-12 mb-16 sm:mb-24">
+          <div className="mb-4 sm:mb-8">
             <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Auto-Tagged Commands</span>
           </div>
 
-          <p className="text-sm text-stone-600 mb-8 leading-relaxed">
+          <p className="text-sm text-stone-600 mb-6 sm:mb-8 leading-relaxed">
             Commands automatically structure output with PS-LANG context zones. No manual tagging needed.
           </p>
 
-          <pre className="font-mono text-sm text-stone-700 leading-relaxed overflow-x-auto">
+          <pre className="font-mono text-xs sm:text-sm text-stone-700 leading-relaxed overflow-x-auto whitespace-pre-wrap break-words">
             {`.login          # Start your day
 .daily          # Review schedule
 .journal        # Auto-tagged daily entry
@@ -127,9 +127,9 @@ Generated content, autonomous updates`}
         {/* Use Cases */}
         {/* <#. Analytics: Track use case interest via PostHog click events > */}
         {/* <@. AI Meta Tag: usecase-interest-tracking, conversion-optimization > */}
-        <div className="text-center mb-24">
-          <h2 className="text-2xl font-light text-stone-900 mb-12">Multi-Agent Use Cases</h2>
-          <div className="flex flex-wrap gap-4 justify-center max-w-2xl mx-auto">
+        <div className="text-center mb-16 sm:mb-24 px-4">
+          <h2 className="text-xl sm:text-2xl font-light text-stone-900 mb-8 sm:mb-12">Multi-Agent Use Cases</h2>
+          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center max-w-2xl mx-auto">
             {[
               "Agent Pipelines",
               "Benchmark Testing",
@@ -159,23 +159,23 @@ Generated content, autonomous updates`}
         </div>
 
         {/* CTA Section */}
-        <div className="text-center">
-          <div className="mb-8">
+        <div className="text-center px-4">
+          <div className="mb-6 sm:mb-8">
             <span className="text-xs tracking-[0.2em] text-stone-500 font-medium uppercase">Open Source</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-light text-stone-900 mb-12 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-stone-900 mb-8 sm:mb-12 tracking-tight">
             Build smarter agent workflows. Control every handoff.
           </h2>
-          <div className="flex justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <Link
               href="https://github.com/vummo/ps-lang"
-              className="border border-[#2D1300] px-8 py-3 bg-[#2D1300] text-white hover:bg-[#1a0b00] transition-all duration-300 text-sm tracking-wide"
+              className="border border-[#2D1300] px-6 sm:px-8 py-3 bg-[#2D1300] text-white hover:bg-[#1a0b00] transition-all duration-300 text-sm tracking-wide text-center"
             >
               VIEW ON GITHUB
             </Link>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="border border-[#2D1300] px-8 py-3 text-[#2D1300] hover:bg-[#2D1300] hover:text-white transition-all duration-300 text-sm tracking-wide"
+              className="border border-[#2D1300] px-6 sm:px-8 py-3 text-[#2D1300] hover:bg-[#2D1300] hover:text-white transition-all duration-300 text-sm tracking-wide"
             >
               SUBSCRIBE
             </button>
@@ -184,9 +184,9 @@ Generated content, autonomous updates`}
       </section>
 
       {/* Footer */}
-      <footer className="bg-stone-800 text-stone-400 py-8">
-        <div className="max-w-4xl mx-auto px-8 text-center">
-          <p className="text-sm">
+      <footer className="bg-stone-800 text-stone-400 py-6 sm:py-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-8 text-center">
+          <p className="text-xs sm:text-sm">
             © 2025{" "}
             <a
               href="https://vummo.com"
