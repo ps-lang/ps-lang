@@ -32,6 +32,20 @@ export const metadata = {
   description: "Control what each AI agent sees in multi-agent workflows. Clean handoffs, better benchmarks, precise context control.",
   keywords: "ps-lang, multi-agent, AI pipelines, agent handoff, context control, benchmarking, MCP integration, agent workflows",
   authors: [{ name: "Anton K." }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://ps-lang.dev',
+  },
   icons: {
     icon: [
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
@@ -53,7 +67,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: '/og-image.png',
+        url: 'https://ps-lang.dev/og-image.png',
         width: 1200,
         height: 630,
         alt: 'PS-LANG - Multi-Agent Context Control',
@@ -64,7 +78,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "PS-LANG - Multi-Agent Context Control",
     description: "Clean handoffs for AI agent pipelines",
-    images: ['/og-image.png'],
+    images: ['https://ps-lang.dev/og-image.png'],
   },
 }
 
@@ -73,9 +87,66 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://ps-lang.dev/#organization",
+        "name": "Vummo Labs",
+        "url": "https://vummo.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://ps-lang.dev/ps-lang-logomark.png",
+          "width": 200,
+          "height": 200
+        },
+        "sameAs": [
+          "https://github.com/vummo/ps-lang"
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://ps-lang.dev/#softwareapplication",
+        "name": "PS-LANG",
+        "applicationCategory": "DeveloperApplication",
+        "description": "Multi-Agent Context Control Language for AI workflows. Control what each AI agent sees in agent pipelines with clean handoffs and accurate benchmarks.",
+        "url": "https://ps-lang.dev",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "operatingSystem": "Cross-platform",
+        "publisher": {
+          "@id": "https://ps-lang.dev/#organization"
+        },
+        "softwareVersion": "0.2",
+        "releaseNotes": "Multi-agent context control with 7 privacy zones",
+        "keywords": "multi-agent, AI pipelines, agent handoff, context control, benchmarking, MCP integration"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://ps-lang.dev/#website",
+        "url": "https://ps-lang.dev",
+        "name": "PS-LANG",
+        "description": "Control what each AI agent sees in multi-agent workflows",
+        "publisher": {
+          "@id": "https://ps-lang.dev/#organization"
+        },
+        "inLanguage": "en-US"
+      }
+    ]
+  };
+
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${courierPrime.variable} ${crimsonText.variable} antialiased`}>
       <head>
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         {/* Google Analytics */}
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>

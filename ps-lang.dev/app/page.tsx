@@ -1,10 +1,16 @@
 "use client"
 
 import Link from "next/link"
+import { useState } from "react"
+import NewsletterModal from "@/components/newsletter-modal"
 
 export default function HomePage() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-stone-50">
+      <NewsletterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
       {/* Hero Section */}
       <section className="max-w-4xl mx-auto px-8 py-24">
         <div className="text-center mb-20">
@@ -12,11 +18,29 @@ export default function HomePage() {
             <span className="text-xs tracking-[0.2em] text-stone-500 font-medium uppercase">Privacy-First Language</span>
           </div>
 
-          <h1 className="text-6xl md:text-8xl font-light text-stone-900 mb-8 tracking-tight">PS-LANG</h1>
+          <h1 className="text-6xl md:text-8xl font-light text-stone-900 mb-8 tracking-tight">
+            PS-LANG
+          </h1>
 
           <p className="text-xl text-stone-600 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
             Control what each AI agent sees in multi-agent workflows. Clean handoffs, better benchmarks, precise context control.
           </p>
+
+          {/* Hero Buttons */}
+          <div className="flex justify-center gap-4">
+            <Link
+              href="https://github.com/vummo/ps-lang"
+              className="border border-[#2D1300] px-8 py-3 bg-[#2D1300] text-white hover:bg-[#1a0b00] transition-all duration-300 text-sm tracking-wide"
+            >
+              VIEW ON GITHUB
+            </Link>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="border border-[#2D1300] px-8 py-3 text-[#2D1300] hover:bg-[#2D1300] hover:text-white transition-all duration-300 text-sm tracking-wide"
+            >
+              SUBSCRIBE
+            </button>
+          </div>
         </div>
 
         {/* Privacy Zones Example */}
@@ -142,16 +166,40 @@ Generated content, autonomous updates`}
           <h2 className="text-3xl md:text-4xl font-light text-stone-900 mb-12 tracking-tight">
             Build smarter agent workflows. Control every handoff.
           </h2>
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-4">
             <Link
               href="https://github.com/vummo/ps-lang"
-              className="border border-stone-900 px-8 py-3 text-stone-900 hover:bg-stone-900 hover:text-white transition-all duration-300 text-sm tracking-wide"
+              className="border border-[#2D1300] px-8 py-3 bg-[#2D1300] text-white hover:bg-[#1a0b00] transition-all duration-300 text-sm tracking-wide"
             >
               VIEW ON GITHUB
             </Link>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="border border-[#2D1300] px-8 py-3 text-[#2D1300] hover:bg-[#2D1300] hover:text-white transition-all duration-300 text-sm tracking-wide"
+            >
+              SUBSCRIBE
+            </button>
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-stone-800 text-stone-400 py-8">
+        <div className="max-w-4xl mx-auto px-8 text-center">
+          <p className="text-sm">
+            © 2025{" "}
+            <a
+              href="https://vummo.com"
+              target="_blank"
+              title="Visit Vummo Labs - AI development tools and multi-agent workflow solutions"
+              className="underline hover:text-white transition-colors"
+            >
+              Vummo Labs
+            </a>
+            {" "}· v0.2
+          </p>
+        </div>
+      </footer>
     </div>
   )
 }
