@@ -28,21 +28,43 @@ const crimsonText = Crimson_Text({
 })
 
 export const metadata = {
-  title: "PS-LANG - Privacy-First Agent Command Language",
-  description: "Take control of what you say to AI. Granular privacy zones for human-AI collaboration.",
-  keywords: "ps-lang, privacy, AI, agents, command language, human sovereignty, AI meta tags",
+  title: "PS-LANG - Multi-Agent Context Control Language",
+  description: "Control what each AI agent sees in multi-agent workflows. Clean handoffs, better benchmarks, precise context control.",
+  keywords: "ps-lang, multi-agent, AI pipelines, agent handoff, context control, benchmarking, MCP integration, agent workflows",
   authors: [{ name: "Anton K." }],
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'icon', url: '/favicon.ico' },
+    ],
+  },
   openGraph: {
-    title: "PS-LANG - Privacy-First Agent Command Language",
-    description: "Revolutionary syntax for granular privacy control in human-AI collaboration",
+    title: "PS-LANG - Multi-Agent Context Control Language",
+    description: "Control what each AI agent sees in multi-agent workflows. Clean handoffs, better benchmarks, precise context control.",
     url: "https://ps-lang.dev",
     siteName: "PS-LANG",
     type: "website",
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'PS-LANG - Multi-Agent Context Control',
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PS-LANG - Privacy-First Agent Command Language",
-    description: "Take control of what you say to AI",
+    title: "PS-LANG - Multi-Agent Context Control",
+    description: "Clean handoffs for AI agent pipelines",
+    images: ['/og-image.png'],
   },
 }
 

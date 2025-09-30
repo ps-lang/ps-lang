@@ -1,8 +1,16 @@
-# PS-LANG Documentation Site
+# PS-LANG.dev - Marketing Website
 
-Official documentation website for PS-LANG (Privacy-First Agent Command Language).
+**Official documentation and marketing site for PS-LANG (Privacy-First Agent Command Language)**
 
-## 🚀 Quick Start
+## 🎯 Purpose
+
+This Next.js website serves as the primary marketing and documentation hub for PS-LANG, designed to:
+- Showcase multi-agent workflow control and clean handoff patterns
+- Demonstrate benchmarking and context precision benefits
+- Provide comprehensive agent pipeline documentation
+- Offer an interactive playground for testing multi-agent scenarios
+
+## 🚀 Development Setup
 
 ```bash
 # Install dependencies
@@ -20,91 +28,125 @@ npm start
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-## 📁 Project Structure
+## 📁 Site Structure
 
 ```
 ps-lang.dev/
 ├── app/
-│   ├── page.tsx          # Landing page
+│   ├── page.tsx          # Landing page with hero and value props
 │   ├── docs/            # Documentation pages
-│   ├── examples/        # PS-LANG examples
-│   ├── playground/      # Interactive playground
-│   ├── get-started/     # Getting started guide
-│   └── about/           # About PS-LANG
+│   ├── examples/        # Code examples and use cases
+│   ├── playground/      # Interactive PS-LANG tester
+│   ├── get-started/     # Onboarding flow
+│   ├── about/           # About PS-LANG and team
+│   ├── pricing/         # Pricing tiers (free/pro)
+│   └── blog/           # Blog posts and updates
 ├── components/          # Reusable UI components
-└── lib/                # Utility functions
+├── lib/                # Utility functions and PS-LANG parser
+└── public/             # Static assets
 ```
 
-## 🎨 Features
+## 🎨 Key Features
 
-- **Interactive Playground**: Test PS-LANG syntax in real-time
-- **Documentation**: Comprehensive guides and API reference
-- **Examples**: Real-world use cases and code samples
-- **Privacy Zones Visualizer**: See how privacy zones work
-- **Command Reference**: All PS-LANG commands explained
+### User Experience
+- **Hero Section**: Multi-agent workflow value proposition with handoff examples
+- **Interactive Playground**: Real-time agent pipeline testing
+- **Context Zones Visualizer**: Visual guide to agent visibility controls
+- **Pipeline Gallery**: Real-world multi-agent chains and benchmarking scenarios
+- **Getting Started Flow**: Step-by-step agent workflow setup
 
-## 🔐 PS-LANG Core Concepts
+### Technical Features
+- **Next.js 14**: App router with server components
+- **Tailwind CSS**: Responsive design system
+- **shadcn/ui**: Accessible component library
+- **TypeScript**: Full type safety
+- **PS-LANG Parser**: Client-side syntax validation
 
-### Privacy Zones
-- `<.` Agent-Blind - Invisible to AI agents
-- `<#.` Read-Only - AI can read but not modify
-- `<@.` Interactive - Full AI interaction
-- `<~.` Agent-Managed - AI autonomous control
+## 📊 Content Strategy
 
-### Commands
-- `.login` - Start session
-- `.journal` - Daily journaling
-- `.blog` - Generate blog posts
-- `.commit` - Git commits with privacy
+### Target Audiences
+1. **AI Engineers**: Multi-agent system architects and pipeline builders
+2. **ML Researchers**: Benchmarking and agent performance testing
+3. **Dev Teams**: Agent workflow automation and context management
+4. **MCP Developers**: Model Context Protocol integration and agent chains
 
-## 🔤 About the Name: PS-LANG
+### Key Pages
+- `/` - Hero landing with value props
+- `/docs` - Technical documentation
+- `/examples` - Use case library
+- `/playground` - Interactive testing
+- `/get-started` - Quick start guide
+- `/about` - PS-LANG story and name meanings
+- `/blog` - Updates and tutorials
 
-The name "PS-LANG" can be interpreted in several meaningful ways:
+## 🔤 About PS-LANG (Marketing Copy)
 
-### Primary Meanings
-- **Privacy Script Language** - A scripting language focused on privacy control
-- **Prompt Script Language** - Language for scripting AI prompts and interactions 
-- **Post Scriptum Language** - Like "P.S." in letters, by adding private ai meta tags before public distribution automation
+### Primary Value Propositions
+- **"Control what each agent sees"** - Main tagline focused on multi-agent workflows
+- **Clean Handoffs**: Pass only relevant context between agents in pipelines
+- **Better Benchmarks**: Test agent performance without upstream contamination
+- **Pipeline Control**: Precise information flow in agent chains
 
-### Alternative Interpretations
-- **Pseudocode Language** - Structured way to write human-readable code logic
-- **Personal Space Language** - Defining personal boundaries in AI interactions
-- **Private Syntax Language** - Syntax for marking private vs public content
-- **Programming Sanctuary Language** - Safe space for sensitive code and data
+### Name Interpretation (Marketing)
+The flexible "PS-LANG" name resonates with different user types:
+- **Prompt Script Language** - For AI prompt engineers
+- **Privacy Script Language** - For security-conscious developers
+- **Post Scriptum Language** - For content creators (like "P.S." notes)
+- **Personal Space Language** - For individual privacy needs
 
-### Technical Perspectives
-- **Parser State Language** - Language that manages different parsing states for content
-- **Permission Scope Language** - Defining permission scopes for different content areas
-- **Processing Selector Language** - Selecting how different content should be processed
+## 🛠️ Technology Stack
 
-The flexibility of the name reflects the language's adaptable nature - it can mean different things to different users while maintaining its core mission of privacy-first AI interaction.
+- **Framework**: Next.js 14 with App Router
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Language**: TypeScript for type safety
+- **Parser**: Client-side PS-LANG syntax processor
+- **Analytics**: Privacy-focused analytics (TBD)
+- **Hosting**: Vercel deployment
 
-## 🛠️ Development
+## 📝 Content Guidelines
 
-This site is built with:
-- **Next.js 14** - React framework
-- **Tailwind CSS** - Styling
-- **shadcn/ui** - Component library
-- **TypeScript** - Type safety
+### Voice & Tone
+- **Technical & Precise**: Explain multi-agent architecture patterns clearly
+- **Performance-Focused**: Emphasize benchmarking and optimization benefits
+- **System-Oriented**: Focus on pipeline architecture, not individual privacy
+- **Developer-First**: Speak to AI engineers building agent systems
 
-## 📝 Contributing
+### SEO Strategy
+- Target keywords: "multi-agent workflows", "agent pipeline control", "AI benchmarking"
+- Technical keywords: "agent handoff", "context pruning", "MCP integration"
+- Long-tail: "clean agent handoffs", "test AI agent performance", "agent-to-agent context"
 
-1. Fork the repository
-2. Create your feature branch
-3. Commit changes with PS-LANG markers
-4. Push to your branch
-5. Open a Pull Request
+## 🚀 Deployment
 
-## 📄 License
+```bash
+# Build and deploy to Vercel
+npm run build
+vercel deploy
 
-MIT License - See LICENSE file for details
+# Or deploy via Git integration
+git push origin main  # Auto-deploys to ps-lang.dev
+```
 
-## 🔗 Links
+## 📈 Analytics & Goals
 
-- [PS-LANG GitHub](https://github.com/Vummo/ps-lang)
-- [PS-LANG Specification](https://github.com/Vummo/ps-lang/blob/main/README.md)
-- [Documentation](https://ps-lang.dev)
+### Key Metrics
+- **Adoption**: Multi-agent pipeline implementations, MCP integrations
+- **Technical Engagement**: Benchmarking examples, agent handoff patterns
+- **Developer Activity**: GitHub contributions, agent workflow repos
+
+### Success Criteria
+- AI engineers understand multi-agent value proposition
+- Active use in production agent pipelines
+- Benchmark case studies and performance data
+- Growing multi-agent developer community
+
+## 🔗 Cross-References
+
+- **Main Repository**: [github.com/vummo/ps-lang](https://github.com/vummo/ps-lang)
+- **Technical Docs**: Root README for developer-focused content
+- **NPM Package**: `ps-lang` CLI installation
+- **Examples**: Live examples with embedded playground
 
 ---
 
-**PS-LANG**: Take control of what you say to AI
+**Building the future of controlled multi-agent workflows**

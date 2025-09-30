@@ -3,6 +3,8 @@
 /blog/
 /journal/
 /todos/
+/research/
+/faqs/
 
 # Dependencies
 node_modules/
@@ -22,6 +24,14 @@ yarn-error.log*
 *.swp
 *.swo
 *~
+
+# Prototype and experimental files
+ai-meta-tags.json
+ai-meta-tags.js
+ps-lang-cli.js
+sp-pattern-awareness.js
+*.proto.js
+*.experimental.js
 
 # OS files
 .DS_Store

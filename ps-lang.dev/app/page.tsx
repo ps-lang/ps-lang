@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 
 export default function HomePage() {
@@ -13,44 +15,28 @@ export default function HomePage() {
           <h1 className="text-6xl md:text-8xl font-light text-stone-900 mb-8 tracking-tight">PS-LANG</h1>
 
           <p className="text-xl text-stone-600 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
-            Take control of what you say to AI. Revolutionary syntax for granular privacy control
-            in human-AI collaboration.
+            Control what each AI agent sees in multi-agent workflows. Clean handoffs, better benchmarks, precise context control.
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Link
-              href="/get-started"
-              className="border border-stone-900 px-8 py-3 text-stone-900 hover:bg-stone-900 hover:text-white transition-all duration-300 text-sm tracking-wide"
-            >
-              GET STARTED
-            </Link>
-            <Link
-              href="/playground"
-              className="text-stone-600 hover:text-stone-900 transition-colors text-sm tracking-wide"
-            >
-              Try Playground →
-            </Link>
-          </div>
         </div>
 
         {/* Privacy Zones Example */}
         <div className="border border-stone-200 bg-white p-12 mb-20">
           <div className="mb-8">
-            <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Example</span>
+            <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Agent Handoff Example</span>
           </div>
 
           <pre className="font-mono text-sm text-stone-700 leading-relaxed overflow-x-auto">
-            {`<. Private note - AI agents can't see this >
-This is completely invisible to all AI agents
+            {`<. Agent A internal reasoning - hidden from Agent B >
+Research notes, debug info, not needed downstream
 
-<#. Read-only zone for agents >
-AI can read this but cannot modify
+<#. Agent B receives only clean context >
+Processed findings ready for next step
 
-<@. Interactive zone >
-Full AI interaction allowed here
+<@. Agent B can collaborate here >
+Active workspace for current agent
 
-<~. Agent-managed zone >
-AI can autonomously modify this section`}
+<~. Agent-managed outputs >
+Generated content, autonomous updates`}
           </pre>
         </div>
 
@@ -58,74 +44,92 @@ AI can autonomously modify this section`}
         <div className="grid md:grid-cols-3 gap-8 mb-24">
           <div className="text-center">
             <div className="mb-6">
-              <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Privacy</span>
+              <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Clean Handoffs</span>
             </div>
-            <h3 className="text-lg font-light text-stone-900 mb-4">Agent-Blind Zones</h3>
+            <h3 className="text-lg font-light text-stone-900 mb-4">Selective Context</h3>
             <p className="text-sm text-stone-600 leading-relaxed">
-              Create genuine blind spots where AI cannot access content. Your secrets stay secret.
+              Pass only relevant context between agents. No contamination, no noise, just clean inputs.
             </p>
           </div>
 
           <div className="text-center">
             <div className="mb-6">
-              <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Control</span>
+              <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Benchmarking</span>
             </div>
-            <h3 className="text-lg font-light text-stone-900 mb-4">Granular Permissions</h3>
+            <h3 className="text-lg font-light text-stone-900 mb-4">Accurate Testing</h3>
             <p className="text-sm text-stone-600 leading-relaxed">
-              Four distinct privacy zones give you complete control over AI agent interactions.
+              Test each agent's true performance without upstream hints or reasoning contamination.
             </p>
           </div>
 
           <div className="text-center">
             <div className="mb-6">
-              <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Meta Tags</span>
+              <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Multi-Agent</span>
             </div>
-            <h3 className="text-lg font-light text-stone-900 mb-4">AI Context</h3>
+            <h3 className="text-lg font-light text-stone-900 mb-4">Pipeline Control</h3>
             <p className="text-sm text-stone-600 leading-relaxed">
-              Add semantic AI Meta Tags without compromising privacy. Context-aware automation.
+              Define information flow in agent chains. Research → Analysis → Output, with precision.
             </p>
           </div>
         </div>
 
-        {/* Commands Section */}
+        {/* Auto-Tagged Commands Section */}
         <div className="border border-stone-200 bg-white p-12 mb-24">
           <div className="mb-8">
-            <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Commands</span>
+            <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Auto-Tagged Commands</span>
           </div>
+
+          <p className="text-sm text-stone-600 mb-8 leading-relaxed">
+            Commands automatically structure output with PS-LANG context zones. No manual tagging needed.
+          </p>
 
           <pre className="font-mono text-sm text-stone-700 leading-relaxed overflow-x-auto">
             {`.login          # Start your day
 .daily          # Review schedule
-.journal        # Daily journal entry
-.blog           # Generate blog post
-.commit         # Git commit with privacy
+.journal        # Auto-tagged daily entry
+.blog           # Auto-tagged content generation
+.commit         # Auto-tagged git commit
 .logout         # End session
 
+# Example: .journal auto-generates zones
 <.journal 09-26-25-ps-lang
-  <#. Public: Built PS-LANG specification >
-  <. Private: Feeling excited about launch >
-  <@. Generate blog post from today's work >
+  <#. Pass to writing agent: Built PS-LANG specification >
+  <. Hidden from agents: Debug notes, API keys, raw research data >
+  <@. Agent workspace: Generate blog post from today's work >
 >`}
           </pre>
         </div>
 
         {/* Use Cases */}
+        {/* <#. Analytics: Track use case interest via PostHog click events > */}
+        {/* <@. AI Meta Tag: usecase-interest-tracking, conversion-optimization > */}
         <div className="text-center mb-24">
-          <h2 className="text-2xl font-light text-stone-900 mb-12">Perfect For</h2>
+          <h2 className="text-2xl font-light text-stone-900 mb-12">Multi-Agent Use Cases</h2>
           <div className="flex flex-wrap gap-4 justify-center max-w-2xl mx-auto">
             {[
-              "Development Workflows",
-              "Daily Journaling",
-              "Documentation",
-              "CI/CD Pipelines",
-              "Email Templates",
-              "MCP Integration",
-              "Blog Content",
-              "Code Reviews"
+              "Agent Pipelines",
+              "Benchmark Testing",
+              "Context Pruning",
+              "Research → Writing",
+              "Analysis → Reporting",
+              "Code → Documentation",
+              "MCP Agent Chains",
+              "Role Separation"
             ].map((useCase) => (
-              <span key={useCase} className="border border-stone-200 px-4 py-2 text-xs tracking-wide text-stone-600">
+              <button
+                key={useCase}
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).posthog) {
+                    (window as any).posthog.capture('use_case_clicked', {
+                      use_case: useCase,
+                      section: 'homepage_use_cases'
+                    });
+                  }
+                }}
+                className="border border-stone-200 px-4 py-2 text-xs tracking-wide text-stone-600 hover:border-stone-400 hover:bg-stone-50 transition-colors cursor-pointer"
+              >
                 {useCase}
-              </span>
+              </button>
             ))}
           </div>
         </div>
@@ -136,20 +140,14 @@ AI can autonomously modify this section`}
             <span className="text-xs tracking-[0.2em] text-stone-500 font-medium uppercase">Open Source</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-light text-stone-900 mb-12 tracking-tight">
-            Your prompts. Your rules. Your privacy.
+            Build smarter agent workflows. Control every handoff.
           </h2>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <div className="flex justify-center">
             <Link
-              href="https://github.com/Vummo/ps-lang"
+              href="https://github.com/vummo/ps-lang"
               className="border border-stone-900 px-8 py-3 text-stone-900 hover:bg-stone-900 hover:text-white transition-all duration-300 text-sm tracking-wide"
             >
               VIEW ON GITHUB
-            </Link>
-            <Link
-              href="/docs"
-              className="text-stone-600 hover:text-stone-900 transition-colors text-sm tracking-wide"
-            >
-              Read Documentation →
             </Link>
           </div>
         </div>

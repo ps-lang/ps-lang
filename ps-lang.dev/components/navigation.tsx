@@ -14,27 +14,9 @@ export default function Navigation() {
             PS-LANG
           </Link>
 
-          <div className="hidden md:flex items-center space-x-12">
-            <Link href="/docs" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
-              Documentation
-            </Link>
-            <Link href="/examples" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
-              Examples
-            </Link>
-            <Link href="/playground" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
-              Playground
-            </Link>
-            <Link href="/about" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
-              About
-            </Link>
-          </div>
-
           <div className="hidden md:flex items-center">
-            <Link
-              href="/get-started"
-              className="border border-stone-900 px-6 py-2 text-stone-900 hover:bg-stone-900 hover:text-white transition-all duration-300 text-sm tracking-wide"
-            >
-              GET STARTED
+            <Link href="/docs" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
+              Docs
             </Link>
           </div>
 
@@ -46,22 +28,7 @@ export default function Navigation() {
         {isOpen && (
           <div className="md:hidden mt-6 space-y-6 pb-6">
             <Link href="/docs" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
-              Documentation
-            </Link>
-            <Link href="/examples" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
-              Examples
-            </Link>
-            <Link href="/playground" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
-              Playground
-            </Link>
-            <Link href="/about" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
-              About
-            </Link>
-            <Link
-              href="/get-started"
-              className="inline-block border border-stone-900 px-6 py-2 text-stone-900 hover:bg-stone-900 hover:text-white transition-all duration-300 text-sm tracking-wide"
-            >
-              GET STARTED
+              Docs
             </Link>
           </div>
         )}
