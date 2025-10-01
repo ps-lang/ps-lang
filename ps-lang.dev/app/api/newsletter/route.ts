@@ -4,31 +4,33 @@ import { NextResponse } from 'next/server';
 const resend = new Resend(process.env.RESEND_API_KEY || 're_placeholder');
 
 export async function POST(request: Request) {
+  // Parse request body outside try block so variables are in scope for catch
+  const { email, firstName, lastName, interests, source } = await request.json();
+
+  if (!email || !email.includes('@')) {
+    return NextResponse.json(
+      { error: 'Valid email is required' },
+      { status: 400 }
+    );
+  }
+
+  // Extract domain for segmentation
+  const emailDomain = email.split('@')[1];
+  const timestamp = new Date().toISOString();
+
+  // AI Metadata for analytics and personalization
+  const aiMetadata = {
+    signup_source: source || 'newsletter_modal',
+    interests: interests || [],
+    email_domain: emailDomain,
+    timestamp: timestamp,
+    project: 'ps-lang',
+    version: 'v0.1.0-alpha.1',
+    user_segment: emailDomain.includes('gmail.com') || emailDomain.includes('yahoo.com') ? 'consumer' : 'business',
+    intent: interests?.length > 0 ? 'high_intent' : 'general_interest'
+  };
+
   try {
-    const { email, firstName, lastName, interests, source } = await request.json();
-
-    if (!email || !email.includes('@')) {
-      return NextResponse.json(
-        { error: 'Valid email is required' },
-        { status: 400 }
-      );
-    }
-
-    // Extract domain for segmentation
-    const emailDomain = email.split('@')[1];
-    const timestamp = new Date().toISOString();
-
-    // AI Metadata for analytics and personalization
-    const aiMetadata = {
-      signup_source: source || 'newsletter_modal',
-      interests: interests || [],
-      email_domain: emailDomain,
-      timestamp: timestamp,
-      project: 'ps-lang',
-      version: 'v0.1.0-alpha.1',
-      user_segment: emailDomain.includes('gmail.com') || emailDomain.includes('yahoo.com') ? 'consumer' : 'business',
-      intent: interests?.length > 0 ? 'high_intent' : 'general_interest'
-    };
 
     // Add contact to Resend audience
     const response = await resend.contacts.create({
