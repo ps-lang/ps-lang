@@ -1,8 +1,10 @@
 # PS-LANG.dev - Marketing Website
 
-Official marketing website for **PS-LANG** (Multi-Agent Context Control Language).
+Official website for **PS-LANG** - Privacy-First Scripting Language for Multi-Agent Context Control.
 
 ## 🚀 Quick Start
+
+### Development Server
 
 ```bash
 npm install
@@ -10,6 +12,18 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
+
+### Using PS-LANG in Your Project
+
+```bash
+# One-time setup (recommended)
+npx ps-lang@alpha init
+
+# Or install as dev dependency
+npm install --save-dev ps-lang@alpha
+```
+
+View on npm: https://www.npmjs.com/package/ps-lang
 
 ## 📁 Project Structure
 
@@ -88,7 +102,8 @@ npm run generate:og        # Social preview image
 ## 📝 Content Updates
 
 ### Update Version Number
-**Footer**: `app/page.tsx` (search for "v0.2")
+**Current**: v0.1.0-alpha.1
+**Footer**: `app/page.tsx`
 **Schema**: `app/layout.tsx` (softwareVersion field)
 
 ### Update Newsletter Interests
@@ -121,11 +136,22 @@ npm run generate:og        # Creates 1200x630 social preview
 3. **Dev Teams** - Agent workflow automation
 4. **MCP Developers** - Model Context Protocol chains
 
-## 💡 Value Propositions
+## 💡 What is PS-LANG?
 
-- **Clean Handoffs**: Pass only relevant context between agents
-- **Better Benchmarks**: Test agent performance without contamination
-- **Pipeline Control**: Precise information flow in agent chains
+Zone-based syntax for controlling what AI agents see in multi-agent workflows.
+
+**Core concept:**
+- `<.>` Current agent only
+- `<#.>` Pass to next agent
+- `<@.>` Active workspace
+- `<$.>` Business/monetization context
+- `<~.>` AI-managed metadata
+
+**Why it matters:**
+- **Context engineering**: Control what each agent sees
+- **Better benchmarks**: Test agents without contamination
+- **Backwards compatible**: Add zones to existing logs
+- **Future:** Clerk encryption for secrets management
 
 ## 📦 Tech Stack
 
@@ -136,20 +162,25 @@ npm run generate:og        # Creates 1200x630 social preview
 - **Analytics**: PostHog, Google Analytics
 - **Deployment**: Vercel
 
-## 🚧 TODO
+## 🚧 Roadmap
 
-- [ ] Create `/docs` pages
-- [ ] Add newsletter welcome sequence
-- [ ] Implement privacy policy page
-- [ ] Add blog section
-- [ ] Create example repositories
+**Alpha** - Basic zone syntax, CLI tools, themes (✅ Published to npm)
+**Beta** - `.psl` file format, secrets management (Clerk integration)
+**v1.0** - Parser library, multi-agent framework integration, ChatGPT support
+
+**Website TODOs:**
+- [ ] Update homepage with alpha launch announcement
+- [ ] Add `/docs` pages
+- [ ] Create demo video embed
+- [ ] Add case studies section
+- [ ] Blog for launch posts
 
 ## 🔗 Key Links
 
-- **Production**: https://ps-lang.dev
+- **Website**: https://ps-lang.dev
+- **npm Package**: https://www.npmjs.com/package/ps-lang
 - **GitHub**: https://github.com/vummo/ps-lang
 - **Vummo Labs**: https://vummo.com
-- **Main README**: [../README.md](../README.md)
 
 ## 📄 License
 

@@ -23,14 +23,29 @@ export default function HomePage() {
           </h1>
 
           <p className="text-base sm:text-xl text-stone-600 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed font-light px-4">
-            Control what each AI agent sees in multi-agent workflows. Clean handoffs, better benchmarks, precise context control.
+            Zone-based syntax for controlling what AI agents see. Better benchmarks, clean handoffs, backwards compatible.
           </p>
+
+          {/* Install Instructions */}
+          <div className="mb-8 sm:mb-12">
+            <div className="border border-stone-200 bg-white p-4 sm:p-6 max-w-lg mx-auto">
+              <pre className="font-mono text-xs sm:text-sm text-stone-700">
+                npx ps-lang@alpha init
+              </pre>
+            </div>
+          </div>
 
           {/* Hero Buttons */}
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4">
             <Link
-              href="https://github.com/vummo/ps-lang"
+              href="https://www.npmjs.com/package/ps-lang"
               className="border border-[#2D1300] px-6 sm:px-8 py-3 bg-[#2D1300] text-white hover:bg-[#1a0b00] transition-all duration-300 text-sm tracking-wide text-center"
+            >
+              VIEW ON NPM
+            </Link>
+            <Link
+              href="https://github.com/vummo/ps-lang"
+              className="border border-[#2D1300] px-6 sm:px-8 py-3 text-[#2D1300] hover:bg-[#2D1300] hover:text-white transition-all duration-300 text-sm tracking-wide text-center"
             >
               VIEW ON GITHUB
             </Link>
@@ -43,6 +58,19 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Alpha Launch Announcement */}
+        <div className="border-l-4 border-[#2D1300] bg-stone-100 p-4 sm:p-6 mb-12 sm:mb-16">
+          <div className="flex items-start gap-3">
+            <span className="text-2xl">🎉</span>
+            <div>
+              <h3 className="text-sm font-medium text-stone-900 mb-2">Alpha Released - Now on npm!</h3>
+              <p className="text-xs text-stone-600 leading-relaxed">
+                PS-LANG v0.1.0-alpha.1 is now available. Install with <code className="bg-white px-2 py-1 font-mono">npx ps-lang@alpha init</code> and start controlling agent context today.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Privacy Zones Example */}
         <div className="border border-stone-200 bg-white p-3 [@media(min-width:420px)]:p-4 sm:p-8 md:p-12 mb-12 sm:mb-20">
           <div className="mb-3 [@media(min-width:420px)]:mb-4 sm:mb-8">
@@ -50,17 +78,20 @@ export default function HomePage() {
           </div>
 
           <pre className="font-mono text-[10px] [@media(min-width:420px)]:text-xs sm:text-sm text-stone-700 leading-[1.4] [@media(min-width:420px)]:leading-relaxed overflow-x-auto whitespace-pre-wrap break-words">
-            {`<. Agent A internal reasoning - hidden from Agent B >
-Research notes, debug info, not needed downstream
+            {`<. Current agent only - hidden from next agent .>
+Research notes, debug info, internal reasoning
 
-<#. Agent B receives only clean context >
-Processed findings ready for next step
+<#. Pass to next agent - clean context only #.>
+Processed findings ready for Agent B
 
-<@. Agent B can collaborate here >
-Active workspace for current agent
+<@. Active workspace - current agent can edit @.>
+Collaborative zone for current work
 
-<~. Agent-managed outputs >
-Generated content, autonomous updates`}
+<~. AI-managed metadata - auto-generated ~.>
+Timestamps, tags, benchmarks
+
+<$. Business context - monetization strategy $.>
+Pricing ideas, revenue notes`}
           </pre>
         </div>
 
@@ -196,7 +227,7 @@ Generated content, autonomous updates`}
             >
               Vummo Labs
             </a>
-            {" "}· v0.2
+            {" "}· v0.1.0-alpha.1
           </p>
         </div>
       </footer>
