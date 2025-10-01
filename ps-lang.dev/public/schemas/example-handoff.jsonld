@@ -1,0 +1,23 @@
+{
+  "@context": "https://ps-lang.dev/schemas/ps-lang-context.jsonld",
+  "type": "AgentHandoff",
+  "id": "handoff-001-20251001",
+  "ts": "2025-10-01T13:22:00Z",
+  "source_agent": "claude-sonnet-4.5",
+  "target_agent": "research",
+  "project_context": "ps-lang-alpha-testing",
+  "task_continuity_id": "6e9b2a0e-ctx",
+  "priority_level": "high",
+  "zone": "pass-through",
+  "purpose": "competitive-analysis",
+  "pii": false,
+  "retention": "P30D",
+  "export_ok": true,
+  "share_with": [
+    "agent:research-bot",
+    "role:documentation"
+  ],
+  "provenance": "claude-sonnet-4.5-20250929",
+  "importance": 0.9,
+  "confidence": 0.86
+}

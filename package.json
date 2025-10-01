@@ -1,17 +1,14 @@
 {
   "name": "ps-lang",
-  "version": "0.1.0",
-  "description": "Privacy-First Agent Command Language with AI meta tagging and RL training support",
-  "main": "ps-lang-cli.js",
+  "version": "0.1.0-alpha.1",
+  "description": "Privacy-First Scripting Language for multi-agent context control. Claude Code support for alpha testing.",
+  "main": "dist/index.js",
+  "type": "module",
   "bin": {
-    "ps-lang": "./ps-lang-cli.js",
-    "ps-lang-cli": "./ps-lang-cli.js"
+    "ps-lang": "./bin/ps-lang.js"
   },
   "scripts": {
-    "test": "echo \"Tests coming soon\" && exit 0",
-    "install-global": "npm install -g .",
-    "demo": "node ps-lang-cli.js check README.md",
-    "validate": "node ps-lang-cli.js config"
+    "test": "echo \"Tests coming soon\" && exit 0"
   },
   "keywords": [
     "privacy",
@@ -29,22 +26,28 @@
     "anthropic",
     "openai"
   ],
-  "author": "Anton K.",
+  "author": "Anton Korzhuk",
   "license": "MIT",
   "files": [
-    "ps-lang-cli.js",
+    "bin/ps-lang.js",
+    "templates/",
+    "schemas/",
+    ".vscode/themes/",
+    "dist/",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "llms.txt",
+    "llms-full.txt"
   ],
   "engines": {
     "node": ">=14.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/antonk52/ps-lang.git"
+    "url": "https://github.com/vummo/ps-lang.git"
   },
   "bugs": {
-    "url": "https://github.com/antonk52/ps-lang/issues"
+    "url": "https://github.com/vummo/ps-lang/issues"
   },
   "homepage": "https://ps-lang.dev",
   "preferGlobal": true,

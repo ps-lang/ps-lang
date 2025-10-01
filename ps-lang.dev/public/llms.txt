@@ -1,0 +1,57 @@
+# llms.txt — PS-LANG v0.1.0-alpha.1
+site: ps-lang.dev
+owner: Vummo Labs
+contact: hello@vummo.com
+license-code: MIT
+license-docs: CC BY 4.0
+preferred-citation: "PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (MIT License)"
+
+[overview]
+/README.md
+/llms-full.txt
+
+[zones]
+# The 7 PS-LANG zones for context control
+agent-blind: <.>
+pass-through: <#.>
+active-workspace: <@.>
+ai-managed: <~.>
+sensitive: <$.>
+question: <?.>
+benchmark: <.bm>
+
+[schemas]
+/schemas/ps-lang-context.jsonld
+/schemas/example-handoff.jsonld
+/schemas/example-benchmark.jsonld
+/schemas/pslang-journal-workflow-schema.json
+
+[examples]
+/.ps-lang/examples/basic-zones.md
+/.ps-lang/templates/journal-template.psl
+/.ps-lang/templates/log-template.psl
+
+[commands]
+/.ps-lang/config/claude-commands.json
+# Custom Claude Code slash commands
+
+[policies]
+/LICENSE
+# Privacy-first by default
+# export_ok=false for agent-blind and sensitive zones
+# Retention policies enforced per zone
+
+[installation]
+npx ps-lang init
+# One-time setup, creates .ps-lang/ folder
+
+[how-to-cite]
+Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v0.1.0-alpha.1) [Software]. https://github.com/vummo/ps-lang
+
+[rate-limits]
+crawl: polite
+snapshot: daily
+respect: robots.txt
+
+[llms-full]
+/llms-full.txt

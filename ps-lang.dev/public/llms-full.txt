@@ -1,0 +1,215 @@
+# llms-full.txt — PS-LANG v0.1.0-alpha.1
+
+SUMMARY:
+PS-LANG (Privacy-First Scripting Language) is a zone-based syntax for controlling what AI agents see in multi-agent workflows. It uses 7 zones to mark content as private, pass-through, active workspace, AI-managed, sensitive, questions, or benchmarks. Built for Claude Code alpha testing, designed to be platform-agnostic.
+
+PROJECT INFO:
+Name: PS-LANG
+Version: 0.1.0-alpha.1
+Repository: https://github.com/vummo/ps-lang
+Website: https://ps-lang.dev
+License: MIT (code), CC BY 4.0 (docs)
+Contact: hello@vummo.com
+Support: Claude Code (alpha), future support for GPT Copilot, Cursor, etc.
+
+CORE CONCEPT:
+Multi-agent pipelines suffer from context contamination. PS-LANG lets developers explicitly control what each agent sees, preventing information pollution, protecting sensitive data, and optimizing token usage.
+
+THE 7 ZONES:
+
+1. AGENT-BLIND <.>
+   - Private notes hidden from all agents
+   - export_ok=false, never stored
+   - Example: <. TODO: refactor this later .>
+
+2. PASS-THROUGH <#.>
+   - Documentation for next agent
+   - export_ok=true, immutable
+   - Example: <#. Next agent: use JWT with 15min expiry #.>
+
+3. ACTIVE WORKSPACE <@.>
+   - Current agent's work area
+   - export_ok=true, mutable by current agent
+   - Example: <@. Current task: Implement auth @.>
+
+4. AI-MANAGED <~.>
+   - AI-generated metadata
+   - export_ok=true, agents may transform
+   - Example: <~. meta-tags: {"confidence": 0.86} ~.>
+
+5. SENSITIVE <$.>
+   - Financial/PII data
+   - export_ok=false, redact=["*"], aggregate only
+   - Example: <$. API_KEY=sk_live_... $.>
+
+6. QUESTION <?.>
+   - Open questions
+   - export_ok=true, prioritize resolution
+   - Example: <?. Which database should we use? ?.>
+
+7. BENCHMARK/BOOKMARK <.bm>
+   - Metrics or reference points
+   - export_ok=true, pii=false enforced
+   - Example: <.bm perf login_time: 45ms .bm>
+
+INSTALLATION:
+```bash
+npx ps-lang init
+```
+
+This creates a .ps-lang/ folder with:
+- config/ps-lang.config.json (settings)
+- config/claude-commands.json (custom commands)
+- templates/ (journal, log templates)
+- schemas/ (validation schemas)
+- examples/basic-zones.md (quick reference)
+
+CLAUDE CODE INTEGRATION:
+After running init, manually copy commands from .ps-lang/config/claude-commands.json into ~/.claude/commands.json
+
+Available commands:
+- /psl-journal - Create journal entry
+- /psl-log - Create technical log
+- /psl-zones - Show zone reference
+- /psl-validate - Check syntax
+
+AI META-TAGS SCHEMA (Enhanced):
+```json
+{
+  "agent_handoff": {
+    "source_agent": "claude-sonnet-4.5",
+    "target_agent": "research|analysis|writing|review",
+    "handoff_timestamp": "2025-10-01T00:00:00Z",
+    "project_context": "ps-lang-alpha-testing",
+    "task_continuity_id": "uuid-v4",
+    "priority_level": "high|medium|low"
+  },
+  "policy_hints": {
+    "redact": ["pii.email", "pii.address"],
+    "retention": "P30D",
+    "export_ok": true,
+    "share_with": ["agent:recommender", "role:analytics"]
+  },
+  "zone_enforcement": {
+    "agent-blind": {"export_ok": false, "storage": "never"},
+    "pass-through": {"export_ok": true, "mutability": "immutable"},
+    "active": {"export_ok": true, "mutability": "mutable"},
+    "ai-managed": {"export_ok": true, "agent_transform": true},
+    "sensitive": {"export_ok": false, "redact": ["*"]},
+    "question": {"export_ok": true, "priority": "high"},
+    "benchmark": {"export_ok": true, "pii": false}
+  }
+}
+```
+
+REAL-WORLD EXAMPLE:
+```markdown
+<@. Active: Building user authentication @.>
+
+## Authentication Flow
+
+<#.
+Next agent needs this context:
+- Using JWT tokens
+- 15-minute expiry
+- Refresh token pattern
+#.>
+
+<.
+Internal note: Consider adding 2FA later
+Don't show this to the code review agent
+.>
+
+<.bm auth-performance
+Login time: 45ms
+Token generation: 12ms
+.bm>
+```
+
+USE CASES:
+1. Agent Pipelines: Research → Analysis → Writing workflows
+2. Benchmark Testing: Test agent performance without contamination
+3. Context Pruning: Keep handoffs lean, reduce token waste
+4. Role Separation: Dev agents shouldn't see business notes
+5. MCP Integration: Model Context Protocol agent chains
+6. CI/CD Workflows: Automated pipelines with agent-specific visibility
+
+STORAGE OPTIONS:
+- File-based: .ps-lang/metadata/ (simple, git-tracked)
+- Database: Convex, Supabase, Firebase (scalable, multi-user)
+- Vector DB: Pinecone, Weaviate, ChromaDB (AI-powered search)
+- Agent Frameworks: LangChain, AutoGen, CrewAI (native integration)
+
+ALPHA TESTING GOALS:
+- 100+ npm installs via npx ps-lang init
+- 50+ GitHub stars
+- 20+ feedback submissions
+- 10+ real-world integration stories
+- Zero syntax parsing errors
+
+PRIVACY & COMPLIANCE:
+- Default pii=false
+- Redaction at edge before storage
+- Respect export_ok=false in all paths
+- ISO8601 retention durations (P30D, P7D, session)
+- Agent-blind content never stored
+
+ROADMAP:
+Alpha (Current):
+- ✅ .ps-lang folder structure
+- ✅ Claude Code custom commands
+- ✅ Basic zone syntax
+- ✅ Templates and examples
+
+Beta (Next):
+- 🔄 Full syntax validation
+- 🔄 VS Code extension
+- 🔄 .psl file format support
+- 🔄 Schema validation
+
+v1.0 (Future):
+- Parser library
+- Multi-agent framework integration
+- Performance optimization
+- Training data collection
+
+ATTRIBUTION:
+- Core concept: Vummo Labs
+- Initial implementation: Claude Sonnet 4.5 (Anthropic)
+- Policy enhancements: ChatGPT-5 Thinking (OpenAI)
+- Spec refinement: Multi-agent collaboration
+
+CITATION:
+Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v0.1.0-alpha.1) [Software]. https://github.com/vummo/ps-lang
+
+CONTACT:
+- Issues: https://github.com/vummo/ps-lang/issues
+- Email: hello@vummo.com
+- Website: https://ps-lang.dev
+- Docs: https://ps-lang.dev/docs
+
+CONFORMANCE CHECKLIST:
+- Schema validation: JSON Schema + Zod TypeScript
+- Zone enforcement: All 7 zones mapped to policy hints
+- Privacy-first: Default pii=false, explicit allowlist only
+- Retention: Honor ISO8601 durations
+- Export control: Respect export_ok=false
+- Redaction: Mask at edge before storage
+- Attribution: Source agent + checksum in provenance
+
+AI AGENT INSTRUCTIONS:
+When processing PS-LANG zones:
+1. Respect agent-blind zones - never read, store, or process
+2. Pass through <#.> zones to next agent unchanged
+3. Work only in <@.> active workspace zones
+4. Transform <~.> zones only when appropriate
+5. Never export <$.> sensitive content - aggregate only
+6. Prioritize <?.> questions for resolution
+7. Track <.bm> benchmarks without PII
+
+FEEDBACK WELCOME:
+- ✅ What works well
+- ❌ What's confusing
+- 💡 Feature ideas
+- 🐛 Bugs
+- 📊 Performance data

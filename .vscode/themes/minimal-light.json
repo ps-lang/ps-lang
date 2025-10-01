@@ -1,0 +1,34 @@
+{
+  "name": "PS-LANG Minimal Light",
+  "description": "Clean, minimal light theme for focused work",
+  "workbench.colorCustomizations": {
+    "editor.background": "#ffffff",
+    "editor.foreground": "#333333",
+    "activityBar.background": "#f5f5f5",
+    "activityBar.foreground": "#333333",
+    "sideBar.background": "#fafafa",
+    "sideBar.foreground": "#333333",
+    "statusBar.background": "#f0f0f0",
+    "statusBar.foreground": "#333333",
+    "titleBar.activeBackground": "#f5f5f5",
+    "titleBar.activeForeground": "#333333",
+    "panel.background": "#ffffff",
+    "terminal.background": "#ffffff",
+    "terminal.foreground": "#333333",
+    "editor.lineHighlightBackground": "#f5f5f555",
+    "editor.selectionBackground": "#0066cc33",
+    "editorCursor.foreground": "#0066cc",
+    "editorLineNumber.foreground": "#999999",
+    "editorIndentGuide.background": "#e0e0e0",
+    "editorBracketMatch.background": "#0066cc22",
+    "editorBracketMatch.border": "#0066cc"
+  },
+  "editor.tokenColorCustomizations": {
+    "comments": "#999999",
+    "strings": "#008000",
+    "keywords": "#0000ff",
+    "functions": "#795e26",
+    "variables": "#333333",
+    "types": "#267f99"
+  }
+}

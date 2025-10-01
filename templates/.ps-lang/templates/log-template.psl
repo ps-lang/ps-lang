@@ -1,0 +1,98 @@
+<#. PS-LANG Technical Log Template .#>
+
+# 🔧 {{title}}
+
+**Date:** {{date}}
+**Session:** {{session_number}}
+**Agent:** {{agent_name}}
+**Operation:** {{operation}}
+
+---
+
+## ⚡ Quick Technical Summary
+
+{{technical_summary}}
+
+---
+
+## 🎯 Task Breakdown
+
+<@. Active tasks @.>
+
+### Completed Tasks
+- ✅ {{task_1}}
+- ✅ {{task_2}}
+
+### In Progress
+- 🔄 {{task_3}}
+
+### Pending
+- ⏳ {{task_4}}
+
+---
+
+## 📊 Performance Metrics
+
+<.bm {{operation}}-performance
+**Processing statistics:**
+- Input: {{input_size}}
+- Output: {{output_size}}
+- Processing time: {{time}}
+- Speedup vs manual: {{speedup}}
+
+**Context engineering:**
+- Full context: {{full_tokens}} tokens
+- Pruned context: {{pruned_tokens}} tokens
+- Reduction: {{reduction}}%
+- Next agent startup: {{startup_improvement}}
+.bm>
+
+---
+
+## 🔄 Agentic Pipeline Flow
+
+<#. Pass-through for implementation agents #.>
+
+```
+{{pipeline_diagram}}
+```
+
+**Next Agent Type:** {{next_agent_type}}
+**Context Zones Needed:** {{zones_needed}}
+**Excluded Zones:** {{zones_excluded}}
+
+---
+
+## 🤖 AI Meta Tags
+
+<~. AI-managed technical metadata ~.>
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "TechnicalLog",
+  "dateCreated": "{{iso_date}}",
+  "about": "{{about}}",
+  "ai_meta_tags": {
+    "operation_type": "{{operation_type}}",
+    "processing_mode": "{{mode}}",
+    "agent_type": "{{agent}}",
+    "one_shot_comprehension": "{{comprehension}}",
+    "processing_time_minutes": {{time}},
+    "speedup_vs_manual": "{{speedup}}",
+    "context_reduction_percent": {{reduction}},
+    "benchmarking": {
+      "parse_accuracy": "{{accuracy}}",
+      "zone_extraction_accuracy": "{{zone_accuracy}}"
+    }
+  }
+}
+```
+
+---
+
+<. Agent-blind technical notes .>
+
+Implementation challenges, debugging notes, or internal observations.
+
+.>

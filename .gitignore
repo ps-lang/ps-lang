@@ -5,6 +5,7 @@
 /todos/
 /research/
 /faqs/
+v-todos.md
 
 # Dependencies
 node_modules/
@@ -18,7 +19,6 @@ yarn-error.log*
 .env.*.local
 
 # IDE
-.vscode/
 .idea/
 .claude/
 *.swp
@@ -51,3 +51,15 @@ coverage/
 tmp/
 temp/
 *.tmp
+
+# NPM tarballs
+*.tgz
+
+# Handoffs (agent-to-agent docs)
+handoffs/
+
+# Development docs (specs, analysis, research)
+docs/
+
+# Examples (case studies, real-world usage)
+examples/
