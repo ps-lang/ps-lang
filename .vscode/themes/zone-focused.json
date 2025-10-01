@@ -1,0 +1,34 @@
+{
+  "name": "PS-LANG Zone Focused",
+  "description": "High contrast theme with zone-aware colors",
+  "workbench.colorCustomizations": {
+    "editor.background": "#0e1419",
+    "editor.foreground": "#e6e1dc",
+    "activityBar.background": "#0b0e14",
+    "activityBar.foreground": "#ffb454",
+    "sideBar.background": "#0e1419",
+    "sideBar.foreground": "#e6e1dc",
+    "statusBar.background": "#0b0e14",
+    "statusBar.foreground": "#ffb454",
+    "titleBar.activeBackground": "#0b0e14",
+    "titleBar.activeForeground": "#ffb454",
+    "panel.background": "#0e1419",
+    "terminal.background": "#0e1419",
+    "terminal.foreground": "#e6e1dc",
+    "editor.lineHighlightBackground": "#191f2655",
+    "editor.selectionBackground": "#ffb45444",
+    "editorCursor.foreground": "#ffb454",
+    "editorLineNumber.foreground": "#4d5566",
+    "editorIndentGuide.background": "#2d3640",
+    "editorBracketMatch.background": "#ffb45433",
+    "editorBracketMatch.border": "#ffb454"
+  },
+  "editor.tokenColorCustomizations": {
+    "comments": "#5c6773",
+    "strings": "#aad94c",
+    "keywords": "#ff8f40",
+    "functions": "#ffb454",
+    "variables": "#e6e1dc",
+    "types": "#39bae6"
+  }
+}

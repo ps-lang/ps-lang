@@ -1,0 +1,98 @@
+<#. PS-LANG Journal Entry Template .#>
+
+# {{title}}
+
+**Date:** {{date}}
+**Topic:** {{topic}}
+**Status:** {{status}}
+**Priority:** {{priority}}
+
+---
+
+## 🎯 Quick Summary
+
+{{summary}}
+
+---
+
+## 📝 Objectives
+
+<@. Active implementation tasks @.>
+
+### 1. {{objective_1}}
+- Status: {{status_1}}
+- Notes: {{notes_1}}
+
+<#. Documentation for next agent #.>
+
+### 2. {{objective_2}}
+- Status: {{status_2}}
+- Notes: {{notes_2}}
+
+---
+
+## 🤔 Open Questions
+
+<?.
+Question 1: {{question_1}}
+Question 2: {{question_2}}
+.?>
+
+---
+
+## 📅 Timeline
+
+**{{date}}:**
+- {{event_1}}
+- {{event_2}}
+
+---
+
+## 🔗 Related Context
+
+<#. Pass-through for future agents #.>
+
+**Files:**
+- {{file_1}}
+- {{file_2}}
+
+**Dependencies:**
+- {{dep_1}}
+- {{dep_2}}
+
+---
+
+<~. AI-generated metadata ~.>
+
+## 🤖 AI Metadata
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "JournalEntry",
+  "dateCreated": "{{iso_date}}",
+  "author": {
+    "@type": "{{author_type}}",
+    "name": "{{author_name}}"
+  },
+  "keywords": [
+    "{{keyword_1}}",
+    "{{keyword_2}}"
+  ],
+  "ai_meta_tags": {
+    "agent": "{{agent_name}}",
+    "timestamp": "{{timestamp}}",
+    "context_type": "journal_entry",
+    "one_shot_comprehension": "{{comprehension}}",
+    "agentic_pipeline_stage": "{{stage}}"
+  }
+}
+```
+
+---
+
+<. Private notes (agent-blind) .>
+
+Internal thoughts, strategies, or sensitive information that shouldn't be passed to other agents.
+
+.>

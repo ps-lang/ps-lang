@@ -1,0 +1,473 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ps-lang.dev/schemas/pslang-journal-workflow-schema.json",
+  "title": "PS-LANG Journal Workflow Schema",
+  "description": "Schema for .psl files containing PS-LANG annotated journal entries and technical logs",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["header", "content", "aiMetadata"],
+  "properties": {
+    "header": {
+      "type": "object",
+      "description": "File metadata and classification",
+      "required": ["date", "topic", "status", "priority"],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date (YYYY-MM-DD)",
+          "example": "2025-09-30"
+        },
+        "topic": {
+          "type": "string",
+          "description": "Main subject of this entry",
+          "minLength": 3,
+          "maxLength": 200,
+          "example": "PS-LANG journal workflow implementation"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "in_progress", "completed", "blocked"],
+          "description": "Current status of the work"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "urgent"],
+          "description": "Priority level"
+        },
+        "agent": {
+          "type": "string",
+          "description": "AI agent that created this entry",
+          "example": "claude-sonnet-4-5-20250929"
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "description": "Human-readable content sections",
+      "properties": {
+        "quickSummary": {
+          "type": "string",
+          "description": "1-2 sentence overview for quick scanning",
+          "maxLength": 500
+        },
+        "objectives": {
+          "type": "array",
+          "description": "List of goals and objectives",
+          "items": {
+            "type": "object",
+            "required": ["title", "status"],
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Objective name"
+              },
+              "description": {
+                "type": "string",
+                "description": "Detailed description"
+              },
+              "status": {
+                "type": "string",
+                "enum": ["pending", "in_progress", "completed"]
+              },
+              "psLangZones": {
+                "type": "array",
+                "description": "PS-LANG zones used in this objective",
+                "items": {
+                  "type": "string",
+                  "enum": ["<@.>", "<#.>", "<.>", "<~.>", "<$.>", "<?.>", "<-.>", "</. ./>"]
+                }
+              }
+            }
+          }
+        },
+        "questions": {
+          "type": "array",
+          "description": "Open questions marked with <?. .?>",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "type": "string"
+              },
+              "context": {
+                "type": "string"
+              },
+              "answered": {
+                "type": "boolean",
+                "default": false
+              },
+              "answer": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "timeline": {
+          "type": "array",
+          "description": "Chronological timeline of events",
+          "items": {
+            "type": "object",
+            "required": ["date", "event"],
+            "properties": {
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "event": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": ["completed", "in_progress", "pending"]
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "technicalContext": {
+      "type": "object",
+      "description": "Technical details and dependencies",
+      "properties": {
+        "relatedFiles": {
+          "type": "array",
+          "description": "Files referenced or related to this entry",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "description": "External dependencies (packages, services, etc.)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "agentHandoff": {
+          "type": "object",
+          "description": "Protocol for next agent in pipeline",
+          "properties": {
+            "nextAgentType": {
+              "type": "string",
+              "enum": ["implementation", "documentation", "testing", "review", "deployment"],
+              "description": "Type of agent that should handle next"
+            },
+            "contextZonesNeeded": {
+              "type": "array",
+              "description": "PS-LANG zones the next agent needs",
+              "items": {
+                "type": "string"
+              },
+              "examples": [["<@.>", "<#.>"]]
+            },
+            "contextZonesExcluded": {
+              "type": "array",
+              "description": "PS-LANG zones to hide from next agent",
+              "items": {
+                "type": "string"
+              },
+              "examples": [["<.>", "<$.>", "<.private>"]]
+            }
+          }
+        }
+      }
+    },
+    "aiMetadata": {
+      "type": "object",
+      "description": "AI-specific metadata following Schema.org conventions",
+      "required": ["@context", "@type", "ai_meta_tags"],
+      "properties": {
+        "@context": {
+          "type": "string",
+          "const": "https://schema.org",
+          "description": "Schema.org context"
+        },
+        "@type": {
+          "type": "string",
+          "enum": ["JournalEntry", "TechnicalLog", "BlogPost", "Documentation"],
+          "description": "Schema.org type"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp"
+        },
+        "author": {
+          "type": "object",
+          "description": "Author information (human or AI)",
+          "properties": {
+            "@type": {
+              "type": "string",
+              "enum": ["Person", "AIAgent"]
+            },
+            "name": {
+              "type": "string"
+            },
+            "affiliation": {
+              "type": "string"
+            }
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "description": "SEO and discovery keywords",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ai_meta_tags": {
+          "type": "object",
+          "description": "Custom AI metadata for agent training and RL",
+          "properties": {
+            "agent": {
+              "type": "string",
+              "description": "AI agent identifier",
+              "example": "claude-sonnet-4-5-20250929"
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "context_type": {
+              "type": "string",
+              "enum": ["journal_entry", "technical_log", "blog_draft", "documentation"]
+            },
+            "ps_lang_syntax_used": {
+              "type": "array",
+              "description": "List of PS-LANG syntax patterns used",
+              "items": {
+                "type": "string"
+              }
+            },
+            "one_shot_comprehension": {
+              "type": "string",
+              "enum": ["success", "partial", "fail"],
+              "description": "Did agent understand PS-LANG without training?"
+            },
+            "syntax_patterns_count": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of unique PS-LANG patterns"
+            },
+            "topics_identified": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of distinct topics extracted"
+            },
+            "priority_level": {
+              "type": "string",
+              "enum": ["low", "medium", "high", "urgent"]
+            },
+            "agentic_pipeline_stage": {
+              "type": "string",
+              "enum": ["planning", "implementation_planning", "implementation", "testing", "deployment", "maintenance"],
+              "description": "Current stage in agentic pipeline"
+            },
+            "estimated_completion_days": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Estimated days to completion"
+            },
+            "business_value": {
+              "type": "object",
+              "description": "Business/product value categorization",
+              "properties": {
+                "monetization_opportunity": {
+                  "type": "string"
+                },
+                "enterprise_feature": {
+                  "type": "string"
+                },
+                "community_engagement": {
+                  "type": "string"
+                },
+                "content_strategy": {
+                  "type": "string"
+                }
+              }
+            },
+            "next_agent_handoff": {
+              "type": "object",
+              "description": "Information for next agent in pipeline",
+              "properties": {
+                "agent_type": {
+                  "type": "string"
+                },
+                "context_zones_needed": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "exclude_zones": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "benchmarking": {
+          "type": "object",
+          "description": "Performance and benchmark data",
+          "properties": {
+            "processing_time_minutes": {
+              "type": "number",
+              "minimum": 0
+            },
+            "speedup_vs_manual": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?x$",
+              "example": "40x"
+            },
+            "context_reduction_percent": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "parse_accuracy": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?%$"
+            },
+            "zone_extraction_accuracy": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?%$"
+            }
+          }
+        },
+        "seo": {
+          "type": "object",
+          "description": "SEO optimization data",
+          "properties": {
+            "search_keywords": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "google_ai_search_phrases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "social_media_hashtags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "psLangZones": {
+      "type": "object",
+      "description": "PS-LANG zone definitions and usage",
+      "properties": {
+        "activeWorkspace": {
+          "type": "array",
+          "description": "Content in <@.> zones (active implementation)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "passThrough": {
+          "type": "array",
+          "description": "Content in <#.> zones (documentation, handoff)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "agentBlind": {
+          "type": "array",
+          "description": "Content in <.> zones (private, agent-blind)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "aiManaged": {
+          "type": "array",
+          "description": "Content in <~.> zones (AI-generated metadata)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sensitive": {
+          "type": "array",
+          "description": "Content in <$.> zones (financial, sensitive)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "questions": {
+          "type": "array",
+          "description": "Content in <?.> zones (questions, uncertainties)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "alternativeSyntax": {
+          "type": "array",
+          "description": "Content in <-.> zones (alternative syntax tests)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blockComments": {
+          "type": "array",
+          "description": "Content in </. ./> zones (block documentation)",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "header": {
+        "date": "2025-09-30",
+        "topic": "PS-LANG journal workflow implementation",
+        "status": "in_progress",
+        "priority": "high",
+        "agent": "claude-sonnet-4-5-20250929"
+      },
+      "content": {
+        "quickSummary": "Implementing pure PS-LANG journal entries across all projects with automated .psl file generation.",
+        "objectives": [
+          {
+            "title": "PS-LANG Journal Implementation",
+            "description": "All future journal entries use PS-LANG syntax",
+            "status": "in_progress",
+            "psLangZones": ["<@.>", "<#.>"]
+          }
+        ],
+        "timeline": [
+          {
+            "date": "2025-09-30",
+            "event": "Created v-todos.md with PS-LANG experiments",
+            "status": "completed"
+          }
+        ]
+      },
+      "aiMetadata": {
+        "@context": "https://schema.org",
+        "@type": "JournalEntry",
+        "ai_meta_tags": {
+          "agent": "claude-sonnet-4-5-20250929",
+          "one_shot_comprehension": "success",
+          "syntax_patterns_count": 11,
+          "agentic_pipeline_stage": "implementation_planning"
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

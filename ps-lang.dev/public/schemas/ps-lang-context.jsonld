@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "psl": "https://ps-lang.dev/ns#",
+    "type": "@type",
+    "id": "@id",
+
+    "PSLDocument": "psl:PSLDocument",
+    "Zone": "psl:Zone",
+    "AgentHandoff": "psl:AgentHandoff",
+    "Benchmark": "psl:Benchmark",
+    "Policy": "psl:Policy",
+
+    "ts": {
+      "@id": "schema:DateTime",
+      "@type": "schema:DateTime"
+    },
+    "zone": "psl:zone",
+    "zone_type": {
+      "@id": "psl:zoneType",
+      "@type": "@vocab",
+      "@context": {
+        "agent-blind": "psl:AgentBlind",
+        "pass-through": "psl:PassThrough",
+        "active": "psl:ActiveWorkspace",
+        "ai-managed": "psl:AIManaged",
+        "sensitive": "psl:Sensitive",
+        "question": "psl:Question",
+        "benchmark": "psl:Benchmark"
+      }
+    },
+
+    "purpose": "psl:purpose",
+    "pii": "psl:pii",
+    "retention": "psl:retention",
+    "export_ok": "psl:exportOk",
+    "share_with": {
+      "@id": "psl:shareWith",
+      "@container": "@set"
+    },
+    "redact": {
+      "@id": "psl:redact",
+      "@container": "@set"
+    },
+    "provenance": "psl:provenance",
+    "importance": "psl:importance",
+    "confidence": "psl:confidence",
+
+    "source_agent": "psl:sourceAgent",
+    "target_agent": "psl:targetAgent",
+    "handoff_timestamp": {
+      "@id": "psl:handoffTimestamp",
+      "@type": "schema:DateTime"
+    },
+    "project_context": "psl:projectContext",
+    "task_continuity_id": "psl:taskContinuityId",
+    "priority_level": "psl:priorityLevel",
+
+    "benchmark_name": "psl:benchmarkName",
+    "metric_type": "psl:metricType",
+    "value": "psl:value",
+    "unit": "psl:unit",
+    "target": "psl:target",
+
+    "agent": "psl:agent",
+    "version": "psl:version",
+    "capabilities": {
+      "@id": "psl:capabilities",
+      "@container": "@set"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://ps-lang.dev/schemas/config-schema.json",
+  "version": "0.1.0-alpha.1",
+  "project": {
+    "name": "My Project",
+    "description": "PS-LANG enabled project",
+    "created": "2025-09-30"
+  },
+  "zones": {
+    "agentBlind": {
+      "syntax": "<.>",
+      "description": "Content hidden from AI agents",
+      "enabled": true
+    },
+    "passThrough": {
+      "syntax": "<#.>",
+      "description": "Documentation passed to next agent",
+      "enabled": true
+    },
+    "activeWorkspace": {
+      "syntax": "<@.>",
+      "description": "Current agent's active work area",
+      "enabled": true
+    },
+    "aiManaged": {
+      "syntax": "<~.>",
+      "description": "AI-generated content",
+      "enabled": true
+    },
+    "sensitive": {
+      "syntax": "<$.>",
+      "description": "Financial or sensitive data",
+      "enabled": true
+    },
+    "questions": {
+      "syntax": "<?.>",
+      "description": "Questions and uncertainties",
+      "enabled": true
+    },
+    "benchmark": {
+      "syntax": "<.bm>",
+      "description": "Benchmarks or bookmarks (dual-purpose)",
+      "enabled": true
+    }
+  },
+  "features": {
+    "claudeCode": {
+      "enabled": true,
+      "commandsPath": ".ps-lang/config/claude-commands.json",
+      "respectZones": true
+    },
+    "schemaValidation": {
+      "enabled": true,
+      "schemaPath": ".ps-lang/schemas/psl-schema.json"
+    },
+    "autoTagging": {
+      "enabled": false,
+      "description": "Automatic AI meta tag generation (coming soon)"
+    }
+  },
+  "alpha": {
+    "tester": true,
+    "feedback": {
+      "url": "https://github.com/vummo/ps-lang/issues",
+      "email": "hello@vummo.com"
+    },
+    "experimental": [
+      "dual-purpose-bm-syntax",
+      "psl-file-format",
+      "claude-code-integration"
+    ]
+  }
+}

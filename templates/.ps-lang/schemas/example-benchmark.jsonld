@@ -1,0 +1,31 @@
+{
+  "@context": "https://ps-lang.dev/schemas/ps-lang-context.jsonld",
+  "type": "Benchmark",
+  "id": "bm-auth-performance",
+  "ts": "2025-10-01T13:22:00Z",
+  "benchmark_name": "auth-performance",
+  "zone": "benchmark",
+  "purpose": "performance-tracking",
+  "pii": false,
+  "retention": "P90D",
+  "export_ok": true,
+  "metrics": [
+    {
+      "metric_type": "execution_time",
+      "value": 45,
+      "unit": "ms",
+      "target": 50
+    },
+    {
+      "metric_type": "token_generation",
+      "value": 12,
+      "unit": "ms",
+      "target": 15
+    }
+  ],
+  "agent": "claude-sonnet-4.5",
+  "version": "0.1.0-alpha.1",
+  "provenance": "automated-testing-suite",
+  "importance": 0.8,
+  "confidence": 0.95
+}

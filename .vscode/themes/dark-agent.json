@@ -1,0 +1,34 @@
+{
+  "name": "PS-LANG Dark Agent",
+  "description": "Dark theme optimized for multi-agent development",
+  "workbench.colorCustomizations": {
+    "editor.background": "#1a1a1a",
+    "editor.foreground": "#e0e0e0",
+    "activityBar.background": "#0d0d0d",
+    "activityBar.foreground": "#00d9ff",
+    "sideBar.background": "#1a1a1a",
+    "sideBar.foreground": "#e0e0e0",
+    "statusBar.background": "#0d0d0d",
+    "statusBar.foreground": "#00d9ff",
+    "titleBar.activeBackground": "#0d0d0d",
+    "titleBar.activeForeground": "#00d9ff",
+    "panel.background": "#1a1a1a",
+    "terminal.background": "#1a1a1a",
+    "terminal.foreground": "#e0e0e0",
+    "editor.lineHighlightBackground": "#2a2a2a55",
+    "editor.selectionBackground": "#00d9ff44",
+    "editorCursor.foreground": "#00d9ff",
+    "editorLineNumber.foreground": "#666666",
+    "editorIndentGuide.background": "#333333",
+    "editorBracketMatch.background": "#00d9ff33",
+    "editorBracketMatch.border": "#00d9ff"
+  },
+  "editor.tokenColorCustomizations": {
+    "comments": "#666666",
+    "strings": "#98c379",
+    "keywords": "#c678dd",
+    "functions": "#61afef",
+    "variables": "#e0e0e0",
+    "types": "#e5c07b"
+  }
+}

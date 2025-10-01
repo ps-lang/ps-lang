@@ -1,0 +1,33 @@
+{
+  "_info": "PS-LANG Claude Code Integration Helper",
+  "_version": "0.1.0-alpha.1",
+  "_usage": "Copy commands below into your ~/.claude/commands.json file under the 'commands' key",
+  "_example": "See README.md for integration instructions",
+
+  "ps_lang_commands": {
+    "/psl-journal": {
+      "description": "Create a PS-LANG journal entry",
+      "prompt": "Create a journal entry using PS-LANG syntax in .ps-lang/journal/{{date}}-{{topic}}.psl\n\nStructure:\n- Human-readable summary at top\n- PS-LANG zone annotations throughout\n- AI metadata at bottom\n- Follow the template in .ps-lang/templates/journal-template.psl\n\nTopic: {{prompt}}\n\nUse appropriate zones:\n- <@.> for active tasks\n- <#.> for documentation\n- <.> for private notes\n- <~.> for AI-generated metadata"
+    },
+    "/psl-log": {
+      "description": "Create a PS-LANG technical log",
+      "prompt": "Create a technical log using PS-LANG syntax in .ps-lang/logs/{{date}}-{{topic}}.psl\n\nStructure:\n- Technical summary at top\n- Performance metrics\n- PS-LANG zone annotations\n- Benchmarking data at bottom\n- Follow the template in .ps-lang/templates/log-template.psl\n\nTopic: {{prompt}}\n\nInclude:\n- Processing statistics\n- Context reduction metrics\n- Agent handoff protocol"
+    },
+    "/psl-zones": {
+      "description": "Show PS-LANG zones reference",
+      "prompt": "Display all available PS-LANG zones from .ps-lang/config/ps-lang.config.json with:\n\n1. Zone syntax (e.g., <@.>, <#.>)\n2. Description of each zone\n3. Example usage\n4. When to use it\n\nFormat as a quick reference guide."
+    },
+    "/psl-validate": {
+      "description": "Validate PS-LANG syntax in current file",
+      "prompt": "Validate PS-LANG syntax in the current file:\n\n1. Check for properly closed zones\n2. Identify any syntax errors\n3. Verify zone nesting (if applicable)\n4. Suggest improvements\n\nReport:\n- Valid zones found\n- Any errors or warnings\n- Syntax score (0-100%)"
+    }
+  },
+
+  "_integration_steps": [
+    "1. Open your ~/.claude/commands.json file",
+    "2. Copy the commands from 'ps_lang_commands' above",
+    "3. Paste them into your 'commands' object",
+    "4. Save and restart Claude Code if needed",
+    "5. Test with /psl-zones to verify integration"
+  ]
+}
