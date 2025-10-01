@@ -127,8 +127,8 @@ async function init() {
   info('Next steps:');
   console.log('  1. Review .ps-lang/config/ps-lang.config.json');
   console.log('  2. Check .ps-lang/examples/basic-zones.md for syntax');
-  console.log('  3. Start using PS-LANG in your files!');
-  console.log('\n  Claude Code support: Custom commands loaded from .ps-lang/config/claude-commands.json');
+  console.log('  3. Start using PS-LANG zones in your files!');
+  console.log('\n  Optional: .ps-lang/config/claude-commands.json has PS-LANG enriched examples');
 
   // Offer theme setup
   console.log('');
@@ -285,12 +285,12 @@ function showZones() {
 
   const zones = [
     {
-      name: 'AGENT-BLIND',
+      name: 'CURRENT AGENT ONLY',
       syntax: '<.>',
-      description: 'Private notes, hidden from all agents',
-      policy: 'export_ok=false, never stored',
-      example: '<. TODO: refactor this later .>',
-      color: 'red'
+      description: 'Only current agent sees this context',
+      policy: 'export_ok=false, hidden from other agents',
+      example: '<. Agent A: note for myself only .>',
+      color: 'yellow'
     },
     {
       name: 'PASS-THROUGH',
@@ -317,11 +317,11 @@ function showZones() {
       color: 'cyan'
     },
     {
-      name: 'SENSITIVE',
+      name: 'BUSINESS/MONETIZATION',
       syntax: '<$.>',
-      description: 'Financial/PII data',
-      policy: 'export_ok=false, redact all, aggregate only',
-      example: '<$. API_KEY=sk_live_... $.>',
+      description: 'Business strategy, pricing, revenue',
+      policy: 'export_ok=false, strategic context',
+      example: '<$. Revenue target: $100k MRR $.>',
       color: 'red'
     },
     {
@@ -599,11 +599,11 @@ function extractZones(filepath) {
   log('╚═══════════════════════════════════════════════════════╝\n', 'cyan');
 
   const zonePatterns = [
-    { name: 'Agent-Blind', regex: /<\.[\s\S]*?\.>/g, color: 'red' },
+    { name: 'Current Agent Only', regex: /<\.[\s\S]*?\.>/g, color: 'yellow' },
     { name: 'Pass-Through', regex: /<#\.[\s\S]*?#\.>/g, color: 'blue' },
     { name: 'Active Workspace', regex: /<@\.[\s\S]*?@\.>/g, color: 'green' },
     { name: 'AI-Managed', regex: /<~\.[\s\S]*?~\.>/g, color: 'cyan' },
-    { name: 'Sensitive', regex: /<\$\.[\s\S]*?\$\.>/g, color: 'red' },
+    { name: 'Business/Monetization', regex: /<\$\.[\s\S]*?\$\.>/g, color: 'red' },
     { name: 'Question', regex: /<\?\.[\s\S]*?\?\.>/g, color: 'yellow' },
     { name: 'Benchmark', regex: /<\.bm[\s\S]*?\.bm>/g, color: 'blue' },
   ];
@@ -660,11 +660,11 @@ function showStats() {
 
     let totalZones = 0;
     const zoneTypes = {
-      'Agent-Blind': 0,
+      'Current Agent': 0,
       'Pass-Through': 0,
       'Active': 0,
       'AI-Managed': 0,
-      'Sensitive': 0,
+      'Business': 0,
       'Question': 0,
       'Benchmark': 0
     };
@@ -675,11 +675,11 @@ function showStats() {
         const content = readFileSync(filePath, 'utf-8');
 
         const patterns = [
-          { name: 'Agent-Blind', regex: /<\.[\s\S]*?\.>/g },
+          { name: 'Current Agent', regex: /<\.[\s\S]*?\.>/g },
           { name: 'Pass-Through', regex: /<#\.[\s\S]*?#\.>/g },
           { name: 'Active', regex: /<@\.[\s\S]*?@\.>/g },
           { name: 'AI-Managed', regex: /<~\.[\s\S]*?~\.>/g },
-          { name: 'Sensitive', regex: /<\$\.[\s\S]*?\$\.>/g },
+          { name: 'Business', regex: /<\$\.[\s\S]*?\$\.>/g },
           { name: 'Question', regex: /<\?\.[\s\S]*?\?\.>/g },
           { name: 'Benchmark', regex: /<\.bm[\s\S]*?\.bm>/g },
         ];
