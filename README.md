@@ -1,35 +1,42 @@
 <div align="center">
   <a href="https://ps-lang.dev">
-    <img src="./ps-lang-logomark.png" alt="PS-LANG Logo" width="200"/>
+    <img src="./ps-lang-logomark.png" alt="PS-LANG Logo" width="180"/>
   </a>
 
-  <br/>
-  <br/>
+  <h1>PS-LANG</h1>
 
-  # PS-LANG
+  <p><strong>Privacy-First Scripting Language for Multi-Agent Context Control</strong></p>
 
-  **Privacy-First Scripting Language for Multi-Agent Context Control**
+  <p>Control what AI agents see in your workflows.</p>
 
-  Control what AI agents see in your workflows.
+  <p>
+    <a href="https://www.npmjs.com/package/ps-lang"><img src="https://img.shields.io/npm/v/ps-lang.svg?style=flat-square&color=2D5AA0" alt="npm version"/></a>
+    <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-2D5AA0.svg?style=flat-square" alt="MIT License"/></a>
+    <a href="https://github.com/vummo/ps-lang"><img src="https://img.shields.io/github/stars/vummo/ps-lang?style=flat-square&color=2D5AA0" alt="GitHub stars"/></a>
+  </p>
 
-  [![npm version](https://img.shields.io/npm/v/ps-lang.svg)](https://www.npmjs.com/package/ps-lang)
-  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+  <p>
+    <strong>Version:</strong> 0.1.0-alpha.1 &nbsp;|&nbsp; <strong>Status:</strong> Alpha Testing Phase
+  </p>
 
-  ---
-
-  **→ [ps-lang.dev](https://ps-lang.dev) ←**
-
-  ---
+  <p>
+    <a href="https://ps-lang.dev"><strong>→ ps-lang.dev ←</strong></a>
+  </p>
 </div>
 
-> **Version:** 0.1.0-alpha.1
-> **Status:** Alpha Testing Phase
+<br/>
 
 ---
 
 ## What is PS-LANG?
 
-**PS-LANG** (Privacy-First Scripting Language) is a syntax for controlling what AI agents see in multi-agent workflows. Use **zones** to mark content as private, pass-through, or active workspace.
+**PS-LANG** (Privacy-First Scripting Language) is a flexible, platform-agnostic syntax for controlling what AI agents see in multi-agent workflows. Use **zones** to mark content as private, pass-through, or active workspace.
+
+**Designed to evolve with you:**
+- Override and extend the syntax for your needs
+- Platform/agent/model agnostic approach
+- Works with Claude, GPT, Cursor, Copilot, and custom agents
+- Community-driven development
 
 **Perfect for:**
 - Multi-agent pipelines (Research → Writing → Review)
@@ -39,9 +46,85 @@
 
 ---
 
-## Quick Start (2 minutes)
+## Why Start Using PS-LANG Now
 
-### 1. Install
+**You don't even need to install it.**
+
+As someone who writes prompts daily (Claude Code, Cursor, ChatGPT, etc.), PS-LANG just adds structure:
+
+```javascript
+// Before: Unstructured prompt
+// "Hey Claude, build auth. Don't show the next agent my messy notes about passwords."
+
+// After: Structured with PS-LANG
+<@. Build JWT authentication @.>
+<. Private: passwords are hashed with bcrypt, 10 rounds .>
+<#. Next agent: uses bcrypt for hashing, 15min token expiry #.>
+```
+
+**Two ways to use it:**
+1. **Write directly in prompts** - Add `<.>` zones as you write
+2. **Use a preprocessor** - Convert raw prompts to `.psl` files with PS-LANG context for benchmarking and RL workflows
+
+**What this gives you:**
+- **Context control** - Decide what each agent sees
+- **Cleaner handoffs** - Next agent gets only what they need
+- **Better logs** - Your work becomes structured, searchable
+- **Future-proof** - Syntax works today, unlocks encryption later
+
+**No installation, no setup, no friction.** Just write `<.>` in your next prompt.
+
+When you're ready for CLI tools, themes, and templates → install below.
+
+---
+
+## Use PS-LANG Right Now
+
+### Single Line (In Prompts)
+
+Start using zones in your everyday prompts. **Lazy closing works** - you don't need to match tags:
+
+```markdown
+<. Private note: trying a new approach >
+<#. Context for next agent: using JWT auth >
+<@. Current task: fix the login bug .>
+<?. Should we add 2FA? >
+<.bm target: 50ms response time .>
+
+# All of these are valid:
+<. text .>    # Match closing
+<. text .>    # Universal close
+<. text >     # Lazy close (space + >)
+```
+
+#### Multiline (In Documents)
+
+Use nested zones for complex workflows:
+
+```markdown
+# Authentication System
+
+<@. Active: Building JWT authentication
+  <#. For next agent: This uses bcrypt for hashing #.>
+  <. Private: Still unsure about refresh token strategy .>
+  <.bm current_performance
+    login: 45ms
+    token_gen: 12ms
+  .bm>
+@.>
+
+<#. API Endpoints:
+- POST /login
+- POST /refresh
+- GET /user
+#.>
+```
+
+---
+
+## Quick Start (Install CLI)
+
+Ready for CLI tools, themes, and templates?
 
 ```bash
 npx ps-lang init
@@ -49,55 +132,109 @@ npx ps-lang init
 
 This creates a `.ps-lang/` folder in your project with:
 - Configuration files
-- Claude Code custom commands
-- Templates and examples
+- PS-LANG syntax templates and examples
+- Example zone-enriched commands (optional)
 - Schema for validation
 
-### 2. Use PS-LANG Zones
-
-Start using zones in your files:
-
-```markdown
-# My Document
-
-<@. Current task: Implement auth @.>
-
-<#.
-API Documentation (passes to next agent):
-- POST /login
-- GET /user
-#.>
-
-<.
-Private note: Remember to review security
-.>
+**Commands:**
+```bash
+npx ps-lang zones       # Show zone reference
+npx ps-lang example     # Generate templates
+npx ps-lang extract     # Visualize zones in files
+npx ps-lang stats       # Project analytics
+npx ps-lang theme list  # VS Code themes
 ```
-
-### 3. Claude Code Integration
-
-**Manual setup required** - Copy commands from `.ps-lang/config/claude-commands.json` into your `~/.claude/commands.json`.
-
-Available commands (after setup):
-- `/psl-journal` - Create journal entry
-- `/psl-log` - Create technical log
-- `/psl-zones` - Show zone reference
-- `/psl-validate` - Check syntax
-
-See `.ps-lang/README.md` for detailed integration instructions.
 
 ---
 
-## The 7 Zones
+## Zone Syntax (Infinitely Extensible)
+
+**PS-LANG zones are patterns, not limits.** Create any zone that makes sense for your workflow.
+
+### Recommended Zones (Get Started)
+
+These 7 zones cover most use cases, but you can invent your own:
+
+```markdown
+<. Current agent only note .>
+<#. Pass-through info for next agent #.>
+<@. Active workspace @.>
+<~. AI-generated metadata ~.>
+<$. Business/monetization context $.>
+<?. Question for later ?.>
+<.bm metric: value .bm>
+```
+
+### Block Usage (Multiline)
+
+```markdown
+<.
+Current agent only:
+- Note 1
+- Note 2
+.>
+
+<#.
+For next agent:
+- Context item 1
+- Context item 2
+#.>
+
+<@.
+Active workspace:
+- Current task
+- Work in progress
+@.>
+
+<.bm performance
+load_time: 45ms
+memory: 128mb
+.bm>
+```
+
+### Recommended Zones Reference
 
 | Zone | Syntax | Purpose |
 |------|--------|---------|
-| **Agent-Blind** | `<.>` | Private notes, hidden from agents |
-| **Pass-Through** | `<#.>` | Documentation for next agent |
-| **Active Workspace** | `<@.>` | Current agent's work area |
-| **AI-Managed** | `<~.>` | AI-generated metadata |
-| **Sensitive** | `<$.>` | Financial/sensitive data |
-| **Questions** | `<?.>` | Open questions |
-| **Benchmark/Bookmark** | `<.bm>` | Metrics or references |
+| **Current Agent Only** | `<. text .>` | Only current agent sees |
+| **Pass-Through** | `<#. text #.>` | Documentation for next agent |
+| **Active Workspace** | `<@. text @.>` | Current agent's work area |
+| **AI-Managed** | `<~. text ~.>` | AI-generated metadata |
+| **Business/Monetization** | `<$. text $.>` | Business strategy, pricing, revenue |
+| **Questions** | `<?. text ?.>` | Open questions |
+| **Benchmark** | `<.bm text .bm>` | Metrics or references |
+
+### Invent Your Own
+
+**The pattern:** `<symbol. content symbol.>`
+
+Examples discovered by users:
+```markdown
+<-. review this later .->
+<:note note content :note>
+<:blog blog idea :blog>
+<abc. custom zone abc.>
+</!. urgent flag !.>
+```
+
+**You define the meaning.** PS-LANG is a convention you control.
+
+### Flexible Closing Syntax
+
+**You don't need to match closing tags exactly.** These all work:
+
+```markdown
+<. private note .>          # Traditional: match opening
+<. private note .>          # Universal close: just .>
+<. private note >           # Minimal: just >
+<#. context #.>             # Match opening
+<#. context .>              # Universal close
+<#. context >               # Minimal close
+```
+
+**Rule:** As long as there's a space before the closing `>`, PS-LANG recognizes it.
+
+**Why?** Flexibility. Write what feels natural. The opening tag defines the zone type.
 
 **Full reference:** `.ps-lang/examples/basic-zones.md`
 
@@ -118,8 +255,8 @@ Next agent needs this context:
 #.>
 
 <.
-Internal note: Consider adding 2FA later
-Don't show this to the code review agent
+Current agent only: Consider adding 2FA later
+Other agents won't see this note
 .>
 
 <.bm auth-performance
@@ -248,9 +385,9 @@ npm install ps-lang@alpha
 
 We need your help testing:
 
-1. **Claude Code Integration**
-   - Do custom commands work?
-   - Is zone syntax recognized?
+1. **Zone Syntax**
+   - Is the syntax clear and intuitive?
+   - Are 7 zones enough?
    - Any parsing issues?
 
 2. **`.ps-lang` Folder Structure**
@@ -275,7 +412,7 @@ We need your help testing:
 **We want to hear from you!**
 
 - **Issues:** https://github.com/vummo/ps-lang/issues
-- **Email:** hello@vummo.com
+- **Email:** ps-lang@vummo.com
 - **Discord:** Coming soon
 - **Docs:** https://ps-lang.dev
 
@@ -296,7 +433,7 @@ No! Add zones only where context control matters. Most files don't need any zone
 
 ### Q: What if I use a different AI tool?
 
-Alpha focuses on Claude Code. Future versions will support GPT, Cursor, Copilot, etc.
+PS-LANG works with any AI tool. The syntax is platform-agnostic.
 
 ### Q: Can I use this in production?
 
@@ -309,100 +446,22 @@ rm -rf .ps-lang
 # Remove from .gitignore if desired
 ```
 
-### Q: Do I commit `.ps-lang` to git?
-
-**Yes,** commit these:
-- config/ps-lang.config.json
-- config/claude-commands.json
-- templates/
-- schemas/
-- examples/
-
-**No,** gitignore these (auto-added):
-- config/user-*.json
-- .cache/
-
----
-
-## Use Cases
-
-- **Agent Pipelines**: Research → Analysis → Writing workflows with clean context
-- **Benchmark Testing**: Test agent performance without upstream contamination
-- **Context Pruning**: Keep handoffs lean, reduce token waste
-- **Role Separation**: Dev agents shouldn't see business strategy notes
-- **MCP Integration**: Model Context Protocol agent chains
-- **CI/CD Workflows**: Automated pipelines with agent-specific visibility
-
----
-
-## Examples
-
-See `.ps-lang/examples/basic-zones.md` for comprehensive examples.
-
-**Quick taste:**
-
-```javascript
-// Regular code
-function authenticate(user, password) {
-  <@. Active: Implementing password check @.>
-
-  <.
-  TODO: Add rate limiting
-  Don't show this to the documentation agent
-  .>
-
-  const hash = await bcrypt.hash(password, 10);
-
-  <#.
-  For next agent: This uses bcrypt with 10 rounds
-  Security review needed before production
-  #.>
-
-  return hash === user.passwordHash;
-}
-```
 
 ---
 
 ## Roadmap
 
-**Alpha (Current)**
-- ✅ `.ps-lang` folder structure
-- ✅ Claude Code custom commands
-- ✅ Basic zone syntax
-- ✅ Templates and examples
+**Alpha** - Basic zone syntax, CLI tools, themes
 
-**Beta (Next)**
-- 🔄 Full syntax validation
-- 🔄 VS Code extension
-- 🔄 `.psl` file format support
-- 🔄 Schema validation
+**Beta** - `.psl` file format, secrets management
 
-**v1.0 (Future)**
-- Parser library
-- Multi-agent framework integration
-- Performance optimization
-- Training data collection
+**v1.0** - Parser library, multi-agent framework integration, ChatGPT support
 
 ---
 
 ## Contributing
 
-1. Fork repository
-2. Create feature branch
-3. Add tests
-4. Submit PR
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
-
----
-
-## Support
-
-- **Docs:** https://ps-lang.dev/docs
-- **GitHub:** https://github.com/vummo/ps-lang
-- **Website:** https://ps-lang.dev
-- **Email:** hello@vummo.com
+We welcome new zone proposals, syntax improvements, and real-world use cases.
 
 ---
 
@@ -412,12 +471,4 @@ MIT - See [LICENSE](./LICENSE)
 
 ---
 
-## Thank You!
-
-Thank you for alpha testing PS-LANG! Your feedback shapes the future of multi-agent context control.
-
-**Let's build the future of privacy-first AI collaboration together.** 🚀
-
----
-
-**PS-LANG v0.1.0-alpha.1** - Claude Code Support
+**PS-LANG v0.1.0-alpha.1**
