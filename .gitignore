@@ -67,3 +67,10 @@ docs/
 
 # Examples (case studies, real-world usage)
 examples/
+# PS-LANG user-specific files
+.ps-lang/
+.ps-lang/config/user-*.json
+.ps-lang/.cache/
+
+# Benchmarks (private internal metrics)
+.benchmarks/

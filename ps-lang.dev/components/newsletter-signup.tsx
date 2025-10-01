@@ -4,18 +4,21 @@ import { useState } from "react"
 
 interface NewsletterSignupProps {
   onSuccess?: () => void
+  source?: string
 }
 
-export default function NewsletterSignup({ onSuccess }: NewsletterSignupProps = {}) {
+export default function NewsletterSignup({ onSuccess, source = 'newsletter_modal' }: NewsletterSignupProps = {}) {
   const [email, setEmail] = useState("")
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
   const [interests, setInterests] = useState<string[]>([])
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [message, setMessage] = useState("")
 
   const interestOptions = [
-    "AI Workflow Automation",
-    "AI-Powered User Experience",
-    "AI Meta Tag Experiments"
+    "Multi-Agent Workflows",
+    "Agent Benchmarking",
+    "Privacy-First Tools"
   ]
 
   const toggleInterest = (interest: string) => {
@@ -35,7 +38,7 @@ export default function NewsletterSignup({ onSuccess }: NewsletterSignupProps = 
       const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, interests }),
+        body: JSON.stringify({ email, firstName, lastName, interests, source }),
       })
 
       const data = await response.json()
@@ -44,6 +47,8 @@ export default function NewsletterSignup({ onSuccess }: NewsletterSignupProps = 
         setStatus("success")
         setMessage(data.message || "Successfully subscribed!")
         setEmail("")
+        setFirstName("")
+        setLastName("")
         setInterests([])
 
         // Track successful signup in PostHog
@@ -106,8 +111,31 @@ export default function NewsletterSignup({ onSuccess }: NewsletterSignupProps = 
           </div>
         </div>
 
-        {/* Email input and button */}
+        {/* Name inputs (optional) */}
         <div className="space-y-3 pt-2 border-t border-stone-200">
+          <p className="text-xs text-stone-500 font-medium uppercase tracking-wider">Your Details</p>
+          <div className="grid grid-cols-2 gap-3">
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="First name (optional)"
+              disabled={status === "loading"}
+              className="w-full px-4 py-2.5 border border-stone-300 bg-white text-stone-900 text-sm placeholder:text-stone-400 focus:outline-none focus:border-[#2D1300] focus:ring-1 focus:ring-[#2D1300] transition-colors disabled:opacity-50"
+            />
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Last name (optional)"
+              disabled={status === "loading"}
+              className="w-full px-4 py-2.5 border border-stone-300 bg-white text-stone-900 text-sm placeholder:text-stone-400 focus:outline-none focus:border-[#2D1300] focus:ring-1 focus:ring-[#2D1300] transition-colors disabled:opacity-50"
+            />
+          </div>
+        </div>
+
+        {/* Email input and button */}
+        <div className="space-y-3">
           <input
             type="email"
             value={email}

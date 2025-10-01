@@ -348,10 +348,15 @@ nav {
   border-radius: 2px;
 }
 
-/* Selection styles */
+/* Selection styles - PS-LANG brand with perfect contrast */
 ::selection {
-  background: rgba(196, 69, 54, 0.2);
-  color: #2c2416;
+  background-color: #fbbf24; /* amber-400 - bright amber */
+  color: #1c0a00; /* darker than #2D1300 for max contrast */
+}
+
+::-moz-selection {
+  background-color: #fbbf24; /* amber-400 */
+  color: #1c0a00;
 }
 
 /* Scrollbar styling */

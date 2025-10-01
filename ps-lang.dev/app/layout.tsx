@@ -121,7 +121,7 @@ export default function RootLayout({
         "publisher": {
           "@id": "https://ps-lang.dev/#organization"
         },
-        "softwareVersion": "0.2",
+        "softwareVersion": "0.1.0-alpha.1",
         "releaseNotes": "Multi-agent context control with 7 privacy zones",
         "keywords": "multi-agent, AI pipelines, agent handoff, context control, benchmarking, MCP integration"
       },
@@ -181,6 +181,103 @@ export default function RootLayout({
             `}
           </Script>
         )}
+
+        {/* Text Selection Tracking */}
+        <Script id="selection-tracking" strategy="afterInteractive">
+          {`
+            document.addEventListener('mouseup', function() {
+              const selectedText = window.getSelection().toString().trim();
+              if (selectedText && selectedText.length > 3) {
+                const selection = window.getSelection();
+                const container = selection.anchorNode?.parentElement?.closest('[data-track-section]');
+                const section = container?.getAttribute('data-track-section') || 'unknown';
+
+                // PostHog tracking
+                if (window.posthog) {
+                  window.posthog.capture('text_selected', {
+                    selected_text: selectedText,
+                    text_length: selectedText.length,
+                    section: section,
+                    page: window.location.pathname
+                  });
+                }
+
+                // Google Analytics tracking
+                if (window.gtag) {
+                  window.gtag('event', 'text_selection', {
+                    event_category: 'engagement',
+                    event_label: section,
+                    text_length: selectedText.length,
+                    selected_text: selectedText.substring(0, 100) // First 100 chars
+                  });
+                }
+              }
+            });
+          `}
+        </Script>
+
+        {/* Zoom/Pinch Tracking */}
+        <Script id="zoom-tracking" strategy="afterInteractive">
+          {`
+            let initialPinchDistance = 0;
+            let currentZoomLevel = 1;
+
+            // Track pinch-to-zoom on mobile
+            document.addEventListener('touchstart', function(e) {
+              if (e.touches.length === 2) {
+                initialPinchDistance = Math.hypot(
+                  e.touches[0].pageX - e.touches[1].pageX,
+                  e.touches[0].pageY - e.touches[1].pageY
+                );
+              }
+            });
+
+            document.addEventListener('touchmove', function(e) {
+              if (e.touches.length === 2) {
+                const currentDistance = Math.hypot(
+                  e.touches[0].pageX - e.touches[1].pageX,
+                  e.touches[0].pageY - e.touches[1].pageY
+                );
+                const zoomChange = currentDistance / initialPinchDistance;
+
+                if (Math.abs(zoomChange - currentZoomLevel) > 0.2) {
+                  currentZoomLevel = zoomChange;
+
+                  // Find what element is being zoomed
+                  const centerX = (e.touches[0].pageX + e.touches[1].pageX) / 2;
+                  const centerY = (e.touches[0].pageY + e.touches[1].pageY) / 2;
+                  const element = document.elementFromPoint(centerX, centerY);
+                  const section = element?.closest('[data-track-section]')?.getAttribute('data-track-section') || 'unknown';
+
+                  if (window.posthog) {
+                    window.posthog.capture('pinch_zoom', {
+                      zoom_level: zoomChange.toFixed(2),
+                      direction: zoomChange > 1 ? 'zoom_in' : 'zoom_out',
+                      section: section,
+                      page: window.location.pathname
+                    });
+                  }
+                }
+              }
+            });
+
+            // Track browser zoom (Ctrl/Cmd + scroll)
+            let lastZoomLevel = window.devicePixelRatio;
+            window.addEventListener('resize', function() {
+              const currentDPR = window.devicePixelRatio;
+              if (Math.abs(currentDPR - lastZoomLevel) > 0.1) {
+                if (window.posthog) {
+                  window.posthog.capture('browser_zoom', {
+                    zoom_level: (currentDPR * 100).toFixed(0) + '%',
+                    direction: currentDPR > lastZoomLevel ? 'zoom_in' : 'zoom_out',
+                    page: window.location.pathname
+                  });
+                }
+                lastZoomLevel = currentDPR;
+              }
+            });
+          `}
+        </Script>
       </head>
       <body className="min-h-screen bg-stone-50 text-stone-900 font-light">{children}</body>
     </html>
