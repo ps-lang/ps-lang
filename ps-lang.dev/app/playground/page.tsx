@@ -17,7 +17,7 @@ export default function PlaygroundPage() {
   const benchmarkData = useMemo(() => generateBenchmarkData(20), [])
   const [currentIteration, setCurrentIteration] = useState(1)
   const [isPlaying, setIsPlaying] = useState(false)
-  const metricView = "tokens" // Fixed to tokens only for now
+  const metricView = "tokens" as "tokens" | "cost" | "rounds" | "time" // Fixed to tokens only for now
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false)
   const [hoveredIteration, setHoveredIteration] = useState<number | null>(null)
   const [isHovering, setIsHovering] = useState(false)
@@ -654,14 +654,6 @@ export default function PlaygroundPage() {
                     data={chartData}
                     margin={{ top: 50, right: 40, left: 10, bottom: 50 }}
                     onMouseMove={(e: any) => {
-                      if (e && e.activeLabel) {
-                        const iteration = parseInt(e.activeLabel)
-                        setHoveredIteration(iteration)
-                        setCurrentIteration(iteration)
-                        setIsPlaying(false)
-                      }
-                    }}
-                    onTouchMove={(e: any) => {
                       if (e && e.activeLabel) {
                         const iteration = parseInt(e.activeLabel)
                         setHoveredIteration(iteration)

@@ -116,7 +116,7 @@ export default function JournalingPage() {
               </div>
               <h3 className="font-typewriter font-bold text-ink mb-2">Write Prompts with Zones</h3>
               <p className="font-typewriter text-sm text-ink-light">
-                Use PS-LANG zone syntax (<code className="bg-stone-100 px-1 rounded">&lt;#.</code>, <code className="bg-stone-100 px-1 rounded">&lt;.</code>, <code className="bg-stone-100 px-1 rounded">&lt;$.></code>) to structure your prompts with metadata, benchmarks, and private notes.
+                Use PS-LANG zone syntax (<code className="bg-stone-100 px-1 rounded">&lt;#.</code>, <code className="bg-stone-100 px-1 rounded">&lt;.</code>, <code className="bg-stone-100 px-1 rounded">&lt;$.&gt;</code>) to structure your prompts with metadata, benchmarks, and private notes.
               </p>
             </div>
 
