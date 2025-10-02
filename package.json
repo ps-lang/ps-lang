@@ -75,7 +75,7 @@
       "agent-managed"
     ]
   },
-  "dependencies": {},
-  "devDependencies": {},
-  "peerDependencies": {}
+  "dependencies": {
+    "framer-motion": "^12.23.22"
+  }
 }

@@ -1,0 +1,384 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PS-LANG Playground Data Contract",
+  "description": "Export schema for simulation runs with disclosure levels",
+  "version": "0.1.0",
+  "definitions": {
+    "SimulationRun": {
+      "type": "object",
+      "required": [
+        "run_id",
+        "ts",
+        "seed",
+        "model",
+        "scenario",
+        "pslang",
+        "disclosure",
+        "metrics",
+        "deltas_vs_no_ps",
+        "osm",
+        "attest"
+      ],
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "description": "Unique identifier for this simulation run",
+          "pattern": "^sim-[0-9]+-[a-z0-9]+$",
+          "example": "sim-42-l8k9m2n"
+        },
+        "ts": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of simulation run",
+          "example": "2025-10-01T14:23:45.123Z"
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 999999,
+          "description": "RNG seed for reproducibility",
+          "example": 42
+        },
+        "model": {
+          "type": "string",
+          "enum": [
+            "claude-sonnet-4.5",
+            "gpt-5-nano",
+            "gpt-5-thinking"
+          ],
+          "description": "AI model used in simulation",
+          "example": "claude-sonnet-4.5"
+        },
+        "scenario": {
+          "type": "string",
+          "enum": [
+            "rag-qa",
+            "multi-tool-agent",
+            "long-context-chat"
+          ],
+          "description": "Simulation scenario type",
+          "example": "multi-tool-agent"
+        },
+        "pslang": {
+          "type": "boolean",
+          "description": "Whether PS-LANG enforcement was enabled",
+          "example": true
+        },
+        "disclosure": {
+          "type": "string",
+          "enum": [
+            "public",
+            "passthrough",
+            "private_demo"
+          ],
+          "description": "Disclosure level for OSM formula details",
+          "example": "passthrough"
+        },
+        "metrics": {
+          "type": "object",
+          "required": [
+            "tokens_in",
+            "tokens_out",
+            "latency_ms",
+            "rounds",
+            "tool_calls",
+            "cost_usd"
+          ],
+          "properties": {
+            "tokens_in": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Input tokens consumed",
+              "example": 12450
+            },
+            "tokens_out": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Output tokens generated",
+              "example": 2150
+            },
+            "latency_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Total latency in milliseconds",
+              "example": 3280
+            },
+            "rounds": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Number of agent handoff rounds",
+              "example": 1
+            },
+            "tool_calls": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of tool invocations",
+              "example": 7
+            },
+            "cost_usd": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Total cost in USD",
+              "example": 0.83
+            }
+          }
+        },
+        "deltas_vs_no_ps": {
+          "type": "object",
+          "required": [
+            "tokens",
+            "latency",
+            "rounds",
+            "cost"
+          ],
+          "properties": {
+            "tokens": {
+              "type": "number",
+              "minimum": -1,
+              "maximum": 1,
+              "description": "Relative change in total tokens (-1 to 1, where -0.21 = 21% reduction)",
+              "example": -0.21
+            },
+            "latency": {
+              "type": "number",
+              "minimum": -1,
+              "maximum": 1,
+              "description": "Relative change in latency",
+              "example": -0.18
+            },
+            "rounds": {
+              "type": "number",
+              "minimum": -1,
+              "maximum": 1,
+              "description": "Relative change in handoff rounds",
+              "example": -0.75
+            },
+            "cost": {
+              "type": "number",
+              "minimum": -1,
+              "maximum": 1,
+              "description": "Relative change in cost",
+              "example": -0.24
+            },
+            "tool": {
+              "type": "number",
+              "minimum": -1,
+              "maximum": 1,
+              "description": "Relative change in tool calls (optional, scenario-dependent)",
+              "example": -0.18
+            }
+          }
+        },
+        "osm": {
+          "type": "object",
+          "required": [
+            "score_public",
+            "band",
+            "formula_public",
+            "profile"
+          ],
+          "properties": {
+            "score_public": {
+              "type": "number",
+              "minimum": -1,
+              "maximum": 1,
+              "description": "Public OSM score (disclosure-safe)",
+              "example": 0.68
+            },
+            "band": {
+              "type": "string",
+              "pattern": "^-?[0-9]\\.[0-9]{2}–-?[0-9]\\.[0-9]{2}$",
+              "description": "Confidence band (±3%)",
+              "example": "0.65–0.71"
+            },
+            "formula_public": {
+              "type": "string",
+              "description": "Public formula skeleton (no full weights)",
+              "example": "Σ(w_i * Δi) * Q − λP"
+            },
+            "profile": {
+              "type": "string",
+              "description": "OSM profile identifier (public)",
+              "example": "retriever.v1"
+            },
+            "coarse_weights": {
+              "type": "object",
+              "description": "Coarse weights (passthrough disclosure only)",
+              "properties": {
+                "tokens": {
+                  "type": "number",
+                  "example": 0.35
+                },
+                "latency": {
+                  "type": "number",
+                  "example": 0.15
+                },
+                "rounds": {
+                  "type": "number",
+                  "example": 0.15
+                }
+              }
+            },
+            "q_min": {
+              "type": "number",
+              "description": "Minimum quality threshold (passthrough disclosure only)",
+              "example": 0.75
+            },
+            "eval_suite_id": {
+              "type": "string",
+              "description": "Evaluation suite identifier (passthrough disclosure only)",
+              "example": "ps-lang-alpha-v1"
+            },
+            "private_metadata": {
+              "type": "object",
+              "description": "Full precision data (private_demo only, not exported publicly)",
+              "properties": {
+                "full_weights": {
+                  "type": "object",
+                  "properties": {
+                    "tokens": { "type": "number", "example": 0.35 },
+                    "latency": { "type": "number", "example": 0.15 },
+                    "rounds": { "type": "number", "example": 0.20 },
+                    "tool": { "type": "number", "example": 0.10 },
+                    "bleed": { "type": "number", "example": 0.20 }
+                  }
+                },
+                "lambda": {
+                  "type": "number",
+                  "description": "Penalty coefficient",
+                  "example": 0.08
+                },
+                "P": {
+                  "type": "number",
+                  "description": "Penalty value",
+                  "example": 0.22
+                },
+                "Q": {
+                  "type": "number",
+                  "description": "Quality gate value",
+                  "example": 0.94
+                }
+              }
+            }
+          }
+        },
+        "attest": {
+          "type": "object",
+          "required": [
+            "digest",
+            "bundle"
+          ],
+          "properties": {
+            "digest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{4,8}…[a-f0-9]{3}$",
+              "description": "SHA-256 digest (truncated for display)",
+              "example": "e7b1ca42…9ac"
+            },
+            "bundle": {
+              "type": "string",
+              "description": "Reference to private attestation bundle",
+              "example": "private_ref"
+            },
+            "full_digest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "description": "Complete SHA-256 hash (not displayed publicly)",
+              "example": "e7b1ca42f8d3e5a6c9b2d8f1a4e7c3b9e2d5f8a1c4b7e0d3f6a9c2e5b8d1f4a79ac"
+            }
+          }
+        }
+      }
+    },
+    "ExportCSV": {
+      "description": "CSV export format (flattened structure)",
+      "type": "string",
+      "example": "run_id,ts,seed,model,scenario,pslang,tokens_in,tokens_out,latency_ms,rounds,tool_calls,cost_usd,delta_tokens,delta_latency,delta_rounds,delta_cost,osm_score,osm_band,attest_digest\nsim-42-l8k9m2n,2025-10-01T14:23:45.123Z,42,claude-sonnet-4.5,multi-tool-agent,true,12450,2150,3280,1,7,0.83,-0.21,-0.18,-0.75,-0.24,0.68,0.65–0.71,e7b1ca42…9ac"
+    },
+    "ExportJSON": {
+      "description": "JSON export format (full structure)",
+      "$ref": "#/definitions/SimulationRun"
+    },
+    "ExportMethodology": {
+      "description": "Human-readable methodology export (markdown)",
+      "type": "string",
+      "example": "# PS-LANG Playground Simulation Methodology\n\n## Run Details\n- Seed: 42\n- Model: Claude Sonnet 4.5\n- Scenario: Multi-Tool Agent\n- PS-LANG: Enabled\n\n## Metrics\n- Tokens: 14,600 total (12,450 in / 2,150 out)\n- Latency: 3,280ms\n- Rounds: 1 (vs 4 baseline)\n- Cost: $0.83\n\n## Deltas vs Baseline\n- Tokens: -21%\n- Latency: -18%\n- Rounds: -75%\n- Cost: -24%\n\n## OSM Score\n- Public: 0.68 (band: 0.65–0.71)\n- Profile: retriever.v1\n- Formula: Σ(w_i * Δi) * Q − λP\n\n## Reproducibility\nUse seed `42` with same model and scenario to reproduce these exact results.\n\n## Attestation\nDigest: e7b1ca42…9ac\n\n---\n*Simulated data for demonstration purposes. Seeded RNG ensures reproducibility.*"
+    }
+  },
+  "examples": {
+    "public_disclosure": {
+      "run_id": "sim-42-l8k9m2n",
+      "ts": "2025-10-01T14:23:45.123Z",
+      "seed": 42,
+      "model": "claude-sonnet-4.5",
+      "scenario": "multi-tool-agent",
+      "pslang": true,
+      "disclosure": "public",
+      "metrics": {
+        "tokens_in": 12450,
+        "tokens_out": 2150,
+        "latency_ms": 3280,
+        "rounds": 1,
+        "tool_calls": 7,
+        "cost_usd": 0.83
+      },
+      "deltas_vs_no_ps": {
+        "tokens": -0.21,
+        "latency": -0.18,
+        "rounds": -0.75,
+        "cost": -0.24
+      },
+      "osm": {
+        "score_public": 0.68,
+        "band": "0.65–0.71",
+        "formula_public": "Σ(w_i * Δi) * Q − λP",
+        "profile": "retriever.v1"
+      },
+      "attest": {
+        "digest": "e7b1ca42…9ac",
+        "bundle": "private_ref"
+      }
+    },
+    "passthrough_disclosure": {
+      "run_id": "sim-42-l8k9m2n",
+      "ts": "2025-10-01T14:23:45.123Z",
+      "seed": 42,
+      "model": "claude-sonnet-4.5",
+      "scenario": "multi-tool-agent",
+      "pslang": true,
+      "disclosure": "passthrough",
+      "metrics": {
+        "tokens_in": 12450,
+        "tokens_out": 2150,
+        "latency_ms": 3280,
+        "rounds": 1,
+        "tool_calls": 7,
+        "cost_usd": 0.83
+      },
+      "deltas_vs_no_ps": {
+        "tokens": -0.21,
+        "latency": -0.18,
+        "rounds": -0.75,
+        "cost": -0.24,
+        "tool": -0.18
+      },
+      "osm": {
+        "score_public": 0.68,
+        "band": "0.65–0.71",
+        "formula_public": "Σ(w_i * Δi) * Q − λP",
+        "profile": "retriever.v1",
+        "coarse_weights": {
+          "tokens": 0.35,
+          "latency": 0.15,
+          "rounds": 0.15
+        },
+        "q_min": 0.75,
+        "eval_suite_id": "ps-lang-alpha-v1"
+      },
+      "attest": {
+        "digest": "e7b1ca42…9ac",
+        "bundle": "private_ref"
+      }
+    }
+  }
+}
