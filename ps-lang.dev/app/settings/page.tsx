@@ -30,15 +30,19 @@ export default function SettingsPage() {
   const [websiteUrl, setWebsiteUrl] = useState('')
   const [bio, setBio] = useState('')
 
+  // Focus states for inputs
+  const [displayNameFocused, setDisplayNameFocused] = useState(false)
+  const [bioFocused, setBioFocused] = useState(false)
+
   // Load all user metadata
   useEffect(() => {
-    if (user?.publicMetadata) {
-      setSelectedPersona((user.publicMetadata.persona as string) || 'explorer')
-      setDisplayName((user.publicMetadata.displayName as string) || '')
-      setGithubUrl((user.publicMetadata.githubUrl as string) || '')
-      setTwitterUrl((user.publicMetadata.twitterUrl as string) || '')
-      setWebsiteUrl((user.publicMetadata.websiteUrl as string) || '')
-      setBio((user.publicMetadata.bio as string) || '')
+    if (user?.unsafeMetadata) {
+      setSelectedPersona((user.unsafeMetadata.persona as string) || 'explorer')
+      setDisplayName((user.unsafeMetadata.displayName as string) || '')
+      setGithubUrl((user.unsafeMetadata.githubUrl as string) || '')
+      setTwitterUrl((user.unsafeMetadata.twitterUrl as string) || '')
+      setWebsiteUrl((user.unsafeMetadata.websiteUrl as string) || '')
+      setBio((user.unsafeMetadata.bio as string) || '')
       setIsInitialLoad(false)
     }
   }, [user])
@@ -50,8 +54,8 @@ export default function SettingsPage() {
 
     try {
       await user?.update({
-        publicMetadata: {
-          ...user.publicMetadata,
+        unsafeMetadata: {
+          ...user.unsafeMetadata,
           persona: personaId,
         },
       })
@@ -68,12 +72,10 @@ export default function SettingsPage() {
     setIsSaving(true)
     setShowSaved(false)
 
-    console.log('Saving profile:', { displayName, githubUrl, twitterUrl, websiteUrl, bio })
-
     try {
       await user?.update({
-        publicMetadata: {
-          ...user.publicMetadata,
+        unsafeMetadata: {
+          ...user.unsafeMetadata,
           displayName,
           githubUrl,
           twitterUrl,
@@ -81,7 +83,6 @@ export default function SettingsPage() {
           bio,
         },
       })
-      console.log('Profile saved successfully')
       setIsSaving(false)
       setShowSaved(true)
       setTimeout(() => setShowSaved(false), 3000)
@@ -95,28 +96,23 @@ export default function SettingsPage() {
   useEffect(() => {
     // Skip auto-save on initial load
     if (!user || isInitialLoad) {
-      console.log('Skipping auto-save:', { user: !!user, isInitialLoad })
       return
     }
 
-    console.log('Auto-save triggered, waiting 5 seconds...', { displayName, githubUrl, twitterUrl, websiteUrl, bio })
-
     // Show saving indicator after 3 seconds
     const savingTimer = setTimeout(() => {
-      console.log('Showing autosaving indicator...')
       setIsSaving(true)
     }, 3000)
 
     // Actually save after 5 seconds
     const saveTimer = setTimeout(async () => {
-      console.log('Executing save...')
       setIsSaving(true)
       setShowSaved(false)
 
       try {
         await user?.update({
-          publicMetadata: {
-            ...user.publicMetadata,
+          unsafeMetadata: {
+            ...user.unsafeMetadata,
             displayName,
             githubUrl,
             twitterUrl,
@@ -124,7 +120,6 @@ export default function SettingsPage() {
             bio,
           },
         })
-        console.log('Profile saved successfully')
         setIsSaving(false)
         setShowSaved(true)
         setTimeout(() => setShowSaved(false), 3000)
@@ -179,34 +174,58 @@ export default function SettingsPage() {
         <div className="border border-stone-300 bg-white p-8 sm:p-12 mb-6">
           <div className="mb-8 flex items-center justify-between">
             <span className="text-xs tracking-[0.15em] text-stone-400 uppercase font-medium">Profile</span>
-            {isSaving && (
-              <span className="text-xs text-stone-500 tracking-wide">Autosaving...</span>
-            )}
-            {showSaved && !isSaving && (
-              <span className="text-xs text-green-700 tracking-wide animate-fadeOut">Saved</span>
-            )}
+            <div className="flex items-center gap-4">
+              {isSaving && (
+                <span className="text-xs text-stone-500 tracking-wide">Autosaving...</span>
+              )}
+              {showSaved && !isSaving && (
+                <span className="text-xs text-green-700 tracking-wide animate-fadeOut">Saved</span>
+              )}
+              <button
+                onClick={handleProfileSave}
+                disabled={isSaving}
+                className="text-stone-600 hover:text-stone-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Save profile"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                </svg>
+              </button>
+            </div>
           </div>
           <div className="space-y-6">
             <div className="grid sm:grid-cols-2 gap-6">
-              <div className="sm:col-span-2">
-                <label className="text-xs tracking-wide text-stone-600 uppercase block mb-2 font-medium">Display Name</label>
+              <div className="sm:col-span-2 relative">
+                <label className={`text-xs tracking-wide text-stone-600 uppercase block mb-2 font-medium transition-all duration-300 ${
+                  displayNameFocused || displayName ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1'
+                }`}>
+                  Display Name
+                </label>
                 <input
                   type="text"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
+                  onFocus={() => setDisplayNameFocused(true)}
+                  onBlur={() => setDisplayNameFocused(false)}
                   placeholder="Username, pseudonym, pen name, or nom de plume"
-                  className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 bg-white focus:border-stone-900 focus:outline-none transition-colors"
+                  className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 placeholder:text-stone-400 bg-white focus:border-stone-900 focus:outline-none transition-colors"
                 />
               </div>
 
-              <div className="sm:col-span-2">
-                <label className="text-xs tracking-wide text-stone-600 uppercase block mb-2 font-medium">Bio</label>
+              <div className="sm:col-span-2 relative">
+                <label className={`text-xs tracking-wide text-stone-600 uppercase block mb-2 font-medium transition-all duration-300 ${
+                  bioFocused || bio ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1'
+                }`}>
+                  Bio
+                </label>
                 <textarea
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
+                  onFocus={() => setBioFocused(true)}
+                  onBlur={() => setBioFocused(false)}
                   placeholder="A few words about yourself"
                   rows={3}
-                  className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 bg-white focus:border-stone-900 focus:outline-none transition-colors resize-none"
+                  className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 placeholder:text-stone-400 bg-white focus:border-stone-900 focus:outline-none transition-colors resize-none"
                 />
               </div>
             </div>
@@ -253,6 +272,17 @@ export default function SettingsPage() {
               </div>
             </div>
 
+          </div>
+
+          {/* Footer Save Button */}
+          <div className="mt-8 pt-6 border-t border-stone-200">
+            <button
+              onClick={handleProfileSave}
+              disabled={isSaving}
+              className="w-full py-2.5 text-xs tracking-[0.15em] uppercase font-medium text-stone-900 border border-stone-300 hover:bg-stone-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSaving ? 'Saving...' : 'Save Profile'}
+            </button>
           </div>
         </div>
 

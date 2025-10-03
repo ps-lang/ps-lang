@@ -327,10 +327,6 @@ pre::before {
 
 /* Navigation enhancements */
 nav {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(44, 36, 22, 0.08);
-  box-shadow: 0 1px 3px rgba(44, 36, 22, 0.05);
 }
 
 /* Smooth transitions */

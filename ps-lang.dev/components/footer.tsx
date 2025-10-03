@@ -1,9 +1,11 @@
 'use client'
 
 import Link from 'next/link'
-import { useUser } from '@clerk/nextjs'
+import { useUser, SignInButton, useClerk } from '@clerk/nextjs'
 import { useState, useEffect } from 'react'
 import FeedbackModal from './feedback-modal'
+import PageContextHeader from './page-context-header'
+import AlphaSignupModal from './alpha-signup-modal'
 
 const PERSONA_SLOGANS: Record<string, string> = {
   explorer: 'Discover More · Learn As I Go',
@@ -16,13 +18,15 @@ const PERSONA_SLOGANS: Record<string, string> = {
 }
 
 export default function Footer() {
-  const { user } = useUser()
+  const { user, isSignedIn } = useUser()
+  const { signOut } = useClerk()
   const [personaSlogan, setPersonaSlogan] = useState('Discover More · Learn As I Go')
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false)
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
 
   useEffect(() => {
-    if (user?.publicMetadata?.persona) {
-      const persona = user.publicMetadata.persona as string
+    if (user?.unsafeMetadata?.persona) {
+      const persona = user.unsafeMetadata.persona as string
       setPersonaSlogan(PERSONA_SLOGANS[persona] || PERSONA_SLOGANS.explorer)
     }
   }, [user])
@@ -32,19 +36,19 @@ export default function Footer() {
       <div className="max-w-4xl mx-auto px-6 sm:px-8">
         {/* Zone-styled branding */}
         <div className="mb-8 sm:mb-10">
-          <div className="font-mono text-xs sm:text-sm text-stone-400 mb-3">
-            {`<#. 1-shot prompt optimizer >`}
+          <div className="font-mono text-xs text-stone-400 tracking-wide mb-3">
+            <PageContextHeader zoneOnly />
           </div>
           <div className="flex items-baseline gap-3">
-            <h3 className="text-2xl sm:text-3xl font-light text-stone-900 tracking-tight">
-              PS-LANG<sup className="text-[10px] ml-0.5 -top-3">™</sup>
-            </h3>
+            <h1 className="text-2xl font-light text-stone-900 tracking-tight">
+              PS-LANG<sup className="text-[10px] ml-0.5 -top-2">™</sup>
+            </h1>
             <button
               onClick={() => setIsFeedbackModalOpen(true)}
-              className="text-sm text-stone-500 font-mono hover:text-stone-900 transition-colors cursor-pointer"
-              title="Click to provide feedback"
+              className="text-xs text-stone-500 font-mono hover:text-stone-900 transition-colors cursor-pointer"
+              title="Click to provide feedback on this version"
             >
-              v0.1.0-alpha.1
+              Feedback on v0.1.0-alpha.1 →
             </button>
           </div>
         </div>
@@ -85,21 +89,54 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="col-span-2 sm:col-span-2">
+          <div>
             <h4 className="text-xs uppercase tracking-wider text-stone-400 mb-3 font-medium">Playground</h4>
             <div className="flex flex-col gap-2 text-sm">
               <Link
                 href="/playground/token-comparison"
                 className="text-stone-600 hover:text-stone-900 transition-colors"
               >
-                Token Comparison
+                Token Usage Comparison
               </Link>
               <Link
                 href="/playground/prompt-editor"
                 className="text-stone-600 hover:text-stone-900 transition-colors"
               >
-                Prompt Editor
+                1-Shot Prompt Editor
               </Link>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-xs uppercase tracking-wider text-stone-400 mb-3 font-medium">Account</h4>
+            <div className="flex flex-col gap-2 text-sm">
+              {isSignedIn ? (
+                <>
+                  <Link href="/settings" className="text-stone-600 hover:text-stone-900 transition-colors">
+                    Settings
+                  </Link>
+                  <button
+                    onClick={() => signOut()}
+                    className="text-left text-stone-600 hover:text-stone-900 transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <SignInButton mode="modal">
+                    <button className="text-left text-stone-600 hover:text-stone-900 transition-colors">
+                      Login
+                    </button>
+                  </SignInButton>
+                  <button
+                    onClick={() => setIsSignupModalOpen(true)}
+                    className="text-left text-stone-600 hover:text-stone-900 transition-colors"
+                  >
+                    Sign Up
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -140,6 +177,10 @@ export default function Footer() {
         isOpen={isFeedbackModalOpen}
         onClose={() => setIsFeedbackModalOpen(false)}
         version="v0.1.0-alpha.1"
+      />
+      <AlphaSignupModal
+        isOpen={isSignupModalOpen}
+        onClose={() => setIsSignupModalOpen(false)}
       />
     </footer>
   )

@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 
 import "./globals.css"
 import PostHogIdentifier from '@/components/posthog-identifier'
+import AnnouncementBar from '@/components/announcement-bar'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
 
@@ -293,6 +294,7 @@ export default function RootLayout({
         </head>
         <body className="min-h-screen bg-stone-50 text-stone-900 font-light flex flex-col">
           <PostHogIdentifier />
+          <AnnouncementBar />
           <Navigation />
           <main className="flex-1">
             {children}

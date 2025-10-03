@@ -22,39 +22,60 @@ export default function FeedbackModal({ isOpen, onClose, version }: FeedbackModa
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Track with PostHog
-    if (typeof window !== 'undefined' && (window as any).posthog) {
-      (window as any).posthog.capture('feedback_submitted', {
-        version: version,
-        role: role,
-        feedback_type: feedbackType,
-        rating: rating,
-        has_text_feedback: feedback.length > 0,
-        email_updates_opted_in: emailUpdates
+    try {
+      // Send to backend API
+      const response = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          role,
+          feedbackType,
+          feedback,
+          rating,
+          emailUpdates,
+          version
+        })
       })
+
+      if (!response.ok) {
+        throw new Error('Failed to submit feedback')
+      }
+
+      // Track with PostHog
+      if (typeof window !== 'undefined' && (window as any).posthog) {
+        (window as any).posthog.capture('feedback_submitted', {
+          version: version,
+          role: role,
+          feedback_type: feedbackType,
+          rating: rating,
+          has_text_feedback: feedback.length > 0,
+          email_updates_opted_in: emailUpdates
+        })
+      }
+
+      // Track with Google Analytics
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'feedback_submission', {
+          event_category: 'engagement',
+          event_label: version,
+          value: rating
+        })
+      }
+
+      // Reset form
+      setFeedback("")
+      setRating(5)
+      setEmailUpdates(false)
+      setIsSubmitting(false)
+
+      // Show success message and close
+      alert(`Thank you for your feedback on ${version}!`)
+      onClose()
+    } catch (error) {
+      console.error('Feedback submission error:', error)
+      alert('Failed to submit feedback. Please try again.')
+      setIsSubmitting(false)
     }
-
-    // Track with Google Analytics
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'feedback_submission', {
-        event_category: 'engagement',
-        event_label: version,
-        value: rating
-      })
-    }
-
-    // TODO: Send to backend API (Resend, Convex, etc.)
-    await new Promise(resolve => setTimeout(resolve, 1000)) // Simulate API call
-
-    // Reset form
-    setFeedback("")
-    setRating(5)
-    setEmailUpdates(false)
-    setIsSubmitting(false)
-
-    // Show success message and close
-    alert(`Thank you for your feedback on ${version}!`)
-    onClose()
   }
 
   return (

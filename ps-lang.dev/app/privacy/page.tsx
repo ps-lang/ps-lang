@@ -233,61 +233,6 @@ export default function PrivacyPage() {
           </section>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-stone-800 text-stone-400 py-8 sm:py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-8">
-          {/* Links */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 sm:gap-4 mb-6">
-            <div className="flex flex-wrap justify-center sm:justify-start gap-x-6 gap-y-3 text-sm">
-              <Link href="/" className="hover:text-white transition-colors">
-                Home
-              </Link>
-              <Link href="/privacy" className="hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="hover:text-white transition-colors">
-                Terms of Use
-              </Link>
-              <a
-                href="https://github.com/vummo/ps-lang"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                GitHub
-              </a>
-            </div>
-            <div className="text-sm text-center sm:text-left text-stone-500">
-              v0.1.0-alpha.1
-            </div>
-          </div>
-
-          {/* Copyright */}
-          <div className="border-t border-stone-700 pt-6">
-            <p className="text-xs text-center sm:text-left leading-relaxed">
-              © 2025{" "}
-              <a
-                href="https://vummo.com"
-                target="_blank"
-                className="hover:text-white transition-colors"
-              >
-                Vummo Labs
-              </a>
-              . Open source under{" "}
-              <a
-                href="https://github.com/vummo/ps-lang/blob/main/LICENSE"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                MIT License
-              </a>
-              .
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

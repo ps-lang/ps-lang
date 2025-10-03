@@ -6,9 +6,10 @@ import NewsletterSignup from "./newsletter-signup"
 interface NewsletterModalProps {
   isOpen: boolean
   onClose: () => void
+  source?: string
 }
 
-export default function NewsletterModal({ isOpen, onClose }: NewsletterModalProps) {
+export default function NewsletterModal({ isOpen, onClose, source = 'newsletter_modal' }: NewsletterModalProps) {
   if (!isOpen) return null
 
   return (
@@ -53,7 +54,7 @@ export default function NewsletterModal({ isOpen, onClose }: NewsletterModalProp
             </p>
           </div>
 
-          <NewsletterSignup onSuccess={onClose} />
+          <NewsletterSignup onSuccess={onClose} source={source} />
         </div>
       </div>
     </>

@@ -9,9 +9,16 @@ export default function PlaygroundLandingPage() {
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <div className="max-w-6xl mx-auto px-6 py-16">
+      <div className="max-w-6xl mx-auto px-8 py-8">
+        {/* Breadcrumb */}
+        <nav className="mb-6 flex items-center gap-2 font-mono text-[10px] tracking-wide">
+          <Link href="/" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Home</Link>
+          <span className="text-stone-300">→</span>
+          <span className="text-stone-900 font-semibold uppercase">Playground</span>
+        </nav>
+
         {/* Hero */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <div className="inline-block mb-4">
             <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">Interactive Demos</span>
           </div>
@@ -50,7 +57,7 @@ export default function PlaygroundLandingPage() {
             </div>
           </Link>
 
-          {/* Live Prompt Editor Card */}
+          {/* 1-Shot Prompt Editor Card */}
           <Link href="/playground/prompt-editor">
             <div className="border border-stone-300 bg-white p-12 hover:border-stone-400 transition-colors group">
               <div className="mb-6">
@@ -61,7 +68,7 @@ export default function PlaygroundLandingPage() {
                 </div>
               </div>
               <h2 className="text-2xl font-light text-stone-900 mb-4 tracking-tight">
-                Live Prompt Editor
+                1-Shot Prompt Editor
               </h2>
               <p className="text-sm text-stone-600 mb-6 leading-relaxed">
                 See how PS-LANG zones transform your prompts in real-time with side-by-side comparison

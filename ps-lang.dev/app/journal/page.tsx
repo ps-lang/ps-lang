@@ -4,12 +4,15 @@ import Link from "next/link"
 import { useState } from "react"
 import { useUser, SignInButton, UserButton } from "@clerk/nextjs"
 import { getUserRole, getRoleDisplayName, getRoleBadgeColor } from "@/lib/roles"
+import AlphaSignupModal from "@/components/alpha-signup-modal"
+import NewsletterModal from "@/components/newsletter-modal"
 
 export default function JournalingPage() {
   const { isSignedIn, user } = useUser()
   const userRole = getUserRole(user)
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false)
   const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false)
+  const [isAlphaSignupModalOpen, setIsAlphaSignupModalOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -26,6 +29,30 @@ export default function JournalingPage() {
             Track AI workflows, benchmark improvements, and maintain secure audit trails
           </p>
         </div>
+
+        {/* Alpha Signup CTA */}
+        {!isSignedIn && (
+          <div className="mb-16">
+            <div className="border text-white p-8 sm:p-10 text-center" style={{ backgroundColor: '#C5B9AA', borderColor: '#C5B9AA' }}>
+              <div className="inline-block mb-3">
+                <span className="text-[10px] tracking-[0.25em] text-white/70 font-medium uppercase font-mono">Alpha Testing</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-light mb-4 tracking-tight">
+                Help Shape PS-LANG's Future
+              </h2>
+              <p className="text-sm text-white/90 mb-6 max-w-md mx-auto leading-relaxed font-light">
+                Join our alpha testing program. Early access, direct feedback channel, and influence on feature roadmap.
+              </p>
+              <button
+                onClick={() => setIsAlphaSignupModalOpen(true)}
+                className="px-8 py-3 bg-white font-light text-sm hover:bg-white/90 transition-colors font-mono tracking-wide"
+                style={{ color: '#C5B9AA' }}
+              >
+                Sign Up for Alpha →
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Feature Overview */}
         <div className="mb-16">
@@ -174,75 +201,17 @@ export default function JournalingPage() {
       </div>
 
       {/* Newsletter Modal */}
-      {isNewsletterModalOpen && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
-            <button
-              onClick={() => setIsNewsletterModalOpen(false)}
-              className="absolute top-4 right-4 text-stone-400 hover:text-stone-900 transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+      <NewsletterModal
+        isOpen={isNewsletterModalOpen}
+        onClose={() => setIsNewsletterModalOpen(false)}
+        source="journal_page"
+      />
 
-            <h2 className="font-typewriter font-bold text-ink text-2xl mb-2">Subscribe to Updates</h2>
-            <p className="font-typewriter text-sm text-ink-light mb-6">
-              Get the latest PS-LANG features, journaling tools, and AI workflow tips.
-            </p>
-
-            <form className="space-y-4">
-              <div>
-                <label className="block font-typewriter text-sm text-ink mb-1.5">Email *</label>
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  className="w-full px-4 py-2.5 font-typewriter text-sm bg-white border border-stone-300 rounded-lg focus:outline-none focus:border-[#2D1300] focus:ring-1 focus:ring-[#2D1300] transition-colors"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block font-typewriter text-sm text-ink mb-1.5">Name (optional)</label>
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  className="w-full px-4 py-2.5 font-typewriter text-sm bg-white border border-stone-300 rounded-lg focus:outline-none focus:border-[#2D1300] focus:ring-1 focus:ring-[#2D1300] transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block font-typewriter text-sm text-ink mb-2">Interested in:</label>
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded border-stone-300 text-[#2D1300] focus:ring-[#2D1300]" />
-                    <span className="font-typewriter text-sm text-ink-light">Product updates & features</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded border-stone-300 text-[#2D1300] focus:ring-[#2D1300]" />
-                    <span className="font-typewriter text-sm text-ink-light">AI workflow tips & best practices</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded border-stone-300 text-[#2D1300] focus:ring-[#2D1300]" />
-                    <span className="font-typewriter text-sm text-ink-light">Community insights & case studies</span>
-                  </label>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full px-6 py-3 bg-[#2D1300] text-white font-typewriter text-sm rounded-lg hover:bg-[#2D1300]/90 transition-colors"
-              >
-                Subscribe
-              </button>
-
-              <p className="font-typewriter text-xs text-stone-500 text-center">
-                We respect your privacy. Unsubscribe anytime.
-              </p>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* Alpha Signup Modal */}
+      <AlphaSignupModal
+        isOpen={isAlphaSignupModalOpen}
+        onClose={() => setIsAlphaSignupModalOpen(false)}
+      />
     </div>
   )
 }

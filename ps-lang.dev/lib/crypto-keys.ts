@@ -82,7 +82,8 @@ export async function encryptPrivateKey(privateKeyPem: string, password: string)
     )
 
     // Combine IV + encrypted data
-    const combined = new Uint8Array(iv.length + encryptedData.byteLength)
+    const combinedBuffer = new ArrayBuffer(iv.length + encryptedData.byteLength)
+    const combined = new Uint8Array(combinedBuffer)
     combined.set(iv, 0)
     combined.set(new Uint8Array(encryptedData), iv.length)
 
@@ -179,7 +180,7 @@ function arrayBufferToPem(buffer: ArrayBuffer, label: string): string {
 /**
  * Convert ArrayBuffer to base64 string
  */
-function arrayBufferToBase64(buffer: Uint8Array): string {
+function arrayBufferToBase64(buffer: Uint8Array<ArrayBuffer>): string {
   let binary = ''
   const len = buffer.byteLength
   for (let i = 0; i < len; i++) {
@@ -191,10 +192,11 @@ function arrayBufferToBase64(buffer: Uint8Array): string {
 /**
  * Convert base64 string to ArrayBuffer
  */
-function base64ToArrayBuffer(base64: string): Uint8Array {
+function base64ToArrayBuffer(base64: string): Uint8Array<ArrayBuffer> {
   const binary = atob(base64)
   const len = binary.length
-  const bytes = new Uint8Array(len)
+  const buffer = new ArrayBuffer(len)
+  const bytes = new Uint8Array(buffer)
   for (let i = 0; i < len; i++) {
     bytes[i] = binary.charCodeAt(i)
   }
@@ -271,14 +273,15 @@ async function importPublicKey(publicKeyPem: string): Promise<CryptoKey> {
 
   const binaryDer = atob(pemBody)
   const len = binaryDer.length
-  const bytes = new Uint8Array(len)
+  const buffer = new ArrayBuffer(len)
+  const bytes = new Uint8Array(buffer)
   for (let i = 0; i < len; i++) {
     bytes[i] = binaryDer.charCodeAt(i)
   }
 
   return await window.crypto.subtle.importKey(
     'spki',
-    bytes.buffer,
+    buffer,
     { name: 'RSA-OAEP', hash: 'SHA-256' },
     true,
     ['encrypt']
@@ -296,14 +299,15 @@ async function importPrivateKey(privateKeyPem: string): Promise<CryptoKey> {
 
   const binaryDer = atob(pemBody)
   const len = binaryDer.length
-  const bytes = new Uint8Array(len)
+  const buffer = new ArrayBuffer(len)
+  const bytes = new Uint8Array(buffer)
   for (let i = 0; i < len; i++) {
     bytes[i] = binaryDer.charCodeAt(i)
   }
 
   return await window.crypto.subtle.importKey(
     'pkcs8',
-    bytes.buffer,
+    buffer,
     { name: 'RSA-OAEP', hash: 'SHA-256' },
     true,
     ['decrypt']

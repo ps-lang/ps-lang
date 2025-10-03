@@ -1,13 +1,14 @@
 {
+  "_comment": "This is a reference FAQ schema. The FAQSection component now generates JSON-LD structured data automatically based on the faqs prop. See components/faq-section.tsx for implementation.",
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is the Live Prompt Editor?",
+      "name": "What is the 1-Shot Prompt Editor?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The Live Prompt Editor lets you write prompts and see in real-time how PS-LANG zones transform them. Select a persona, insert zone syntax, and watch how your prompt gets enriched with structured context control."
+        "text": "The 1-Shot Prompt Editor lets you write prompts and see in real-time how PS-LANG zones transform them. Select a persona, insert zone syntax, and watch how your prompt gets enriched with structured context control."
       }
     },
     {

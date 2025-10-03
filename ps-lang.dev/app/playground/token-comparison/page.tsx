@@ -4,7 +4,9 @@ import { useState, useEffect, useMemo, useCallback } from "react"
 import { generateBenchmarkData } from "@/lib/ps-lang-filter"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 import { motion } from "framer-motion"
+import Link from "next/link"
 import AlphaSignupModal from "@/components/alpha-signup-modal"
+import FAQSection from "@/components/faq-section"
 
 export default function TokenComparisonPage() {
   const [datasetType, setDatasetType] = useState<'baseline' | 'heavy-zones' | 'benchmark-zones' | 'private-zones' | 'minimal-zones'>('baseline')
@@ -61,9 +63,18 @@ export default function TokenComparisonPage() {
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-8 py-8">
+        {/* Breadcrumb */}
+        <nav className="mb-6 flex items-center gap-2 font-mono text-[10px] tracking-wide">
+          <Link href="/" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Home</Link>
+          <span className="text-stone-300">→</span>
+          <Link href="/playground" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Playground</Link>
+          <span className="text-stone-300">→</span>
+          <span className="text-stone-900 font-semibold uppercase">Token Usage Comparison</span>
+        </nav>
+
         {/* Hero */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-8 pt-8 pb-12 sm:pt-12 sm:pb-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-8 pt-4 pb-8 sm:pt-6 sm:pb-10">
           <div className="text-center">
             <div className="inline-block mb-4 sm:mb-6">
               <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">Interactive Demo</span>
@@ -443,50 +454,31 @@ export default function TokenComparisonPage() {
         </div>
 
         {/* FAQ Section */}
-        <div className="mb-8 mt-12">
-          <div className="max-w-4xl mx-auto px-4 sm:px-8">
-            <div className="mb-8 text-center">
-              <div className="inline-block mb-4">
-                <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">FAQ</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-light text-stone-900 tracking-tight">
-                Understanding Token Metrics
-              </h2>
-            </div>
-
-            <div className="border border-stone-300 bg-white p-8 sm:p-12">
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-lg font-light text-stone-900 mb-3">What are these metrics showing?</h3>
-                  <p className="text-sm text-stone-600 leading-relaxed">
-                    This chart shows simulated token usage across 20 iterations, comparing regular prompting vs. prompting with PS-LANG syntax. The metrics demonstrate potential efficiency gains from structured context control.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-light text-stone-900 mb-3">How does PS-LANG reduce token usage?</h3>
-                  <p className="text-sm text-stone-600 leading-relaxed">
-                    PS-LANG uses zone-based syntax to control what context gets passed between agents. By filtering out unnecessary information and preventing context contamination, you pass only relevant data to each agent in your pipeline.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-light text-stone-900 mb-3">Are these real benchmarks?</h3>
-                  <p className="text-sm text-stone-600 leading-relaxed">
-                    These are sample metrics for demonstration purposes. Actual savings depend on your specific use case, prompt structure, and agent pipeline complexity. Real-world results will vary.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-light text-stone-900 mb-3">How do I get started with PS-LANG?</h3>
-                  <p className="text-sm text-stone-600 leading-relaxed">
-                    Install with <code className="bg-stone-100 px-2 py-1 font-mono text-xs">npx ps-lang@alpha init</code> and start adding zone syntax to your prompts. Check the <a href="https://github.com/vummo/ps-lang" className="text-stone-900 underline hover:text-stone-600 transition-colors">GitHub repo</a> for documentation.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <FAQSection
+          title="Understanding Token Metrics"
+          faqs={[
+            {
+              question: "What are these metrics showing?",
+              answer: "This chart shows simulated token usage across 20 iterations, comparing regular prompting vs. prompting with PS-LANG syntax. The metrics demonstrate potential efficiency gains from structured context control."
+            },
+            {
+              question: "How does PS-LANG reduce token usage?",
+              answer: "PS-LANG uses zone-based syntax to control what context gets passed between agents. By filtering out unnecessary information and preventing context contamination, you pass only relevant data to each agent in your pipeline."
+            },
+            {
+              question: "Are these real benchmarks?",
+              answer: "These are sample metrics for demonstration purposes. Actual savings depend on your specific use case, prompt structure, and agent pipeline complexity. Real-world results will vary."
+            },
+            {
+              question: "How do I get started with PS-LANG?",
+              answer: (
+                <>
+                  Install with <code className="bg-stone-100 px-2 py-1 font-mono text-xs">npx ps-lang@alpha init</code> and start adding zone syntax to your prompts. Check the <a href="https://github.com/vummo/ps-lang" className="text-stone-900 underline hover:text-stone-600 transition-colors">GitHub repo</a> for documentation.
+                </>
+              )
+            }
+          ]}
+        />
 
         {/* Alpha Testing CTA */}
         <div className="max-w-4xl mx-auto px-4 sm:px-8 mt-16 sm:mt-20 mb-16">

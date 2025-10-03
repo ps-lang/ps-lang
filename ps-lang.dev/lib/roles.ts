@@ -55,7 +55,7 @@ export function canAccessRoute(userRole: UserRole | undefined, route: string): b
   if (!routeKey) return true // No restriction on route
 
   const allowedRoles = ROUTE_PERMISSIONS[routeKey as keyof typeof ROUTE_PERMISSIONS]
-  return allowedRoles.includes(userRole)
+  return (allowedRoles as readonly UserRole[]).includes(userRole)
 }
 
 /**

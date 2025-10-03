@@ -55,7 +55,7 @@ export default function NewsletterSignup({ onSuccess, source = 'newsletter_modal
         if (typeof window !== 'undefined' && (window as any).posthog) {
           (window as any).posthog.capture('newsletter_signup', {
             email_domain: email.split('@')[1],
-            source: 'homepage_hero',
+            source: source,
             interests: interests
           })
         }

@@ -27,7 +27,7 @@ export default function AboutPage() {
             <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">About</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-light text-stone-900 mb-6 tracking-tight">
-            PS-LANG<sup className="text-[10px] ml-0.5 -top-3 relative">™</sup>
+            PS-LANG<sup className="text-[10px] ml-0.5 -top-6 relative">™</sup>
           </h1>
           <p className="text-lg text-stone-600 max-w-3xl mx-auto leading-relaxed font-light mb-4">
             Privacy-First Scripting Language for Multi-Agent Context Control
@@ -245,6 +245,64 @@ export default function AboutPage() {
           </div>
         </div>
 
+        {/* .PSL File Format */}
+        <div className="mb-16">
+          <div className="border border-stone-300 bg-white p-12">
+            <h2 className="text-2xl font-light text-stone-900 mb-6 tracking-tight">
+              .PSL File Format
+            </h2>
+            <p className="text-base text-stone-600 leading-relaxed max-w-3xl mb-6">
+              <span className="font-mono text-sm">.psl</span> stands for <strong>Prompt Script Language</strong> — a structured file format for organizing multi-agent workflows, context handoffs, and AI collaboration sessions.
+            </p>
+
+            <div className="bg-stone-50 border border-stone-200 p-6 mb-6">
+              <p className="text-sm text-stone-600 leading-relaxed mb-4">
+                Think of .psl files as executable prompts with zones:
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-sm text-stone-600 pl-4">
+                <li>Store multi-step workflows with zone-based context control</li>
+                <li>Version control your prompt engineering work</li>
+                <li>Share reproducible AI workflows with your team</li>
+                <li>Keep sensitive notes private with agent-blind zones</li>
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <p className="font-medium text-stone-900">Coming in Beta:</p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="flex gap-3">
+                  <span className="text-stone-400">•</span>
+                  <div>
+                    <p className="font-medium text-stone-900 text-sm">File Templates</p>
+                    <p className="text-sm text-stone-600">Pre-built .psl templates for common workflows</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <span className="text-stone-400">•</span>
+                  <div>
+                    <p className="font-medium text-stone-900 text-sm">Secrets Management</p>
+                    <p className="text-sm text-stone-600">Encrypted zones for API keys and credentials</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <span className="text-stone-400">•</span>
+                  <div>
+                    <p className="font-medium text-stone-900 text-sm">Preprocessing Tools</p>
+                    <p className="text-sm text-stone-600">CLI commands to validate and transform .psl files</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <span className="text-stone-400">•</span>
+                  <div>
+                    <p className="font-medium text-stone-900 text-sm">IDE Support</p>
+                    <p className="text-sm text-stone-600">Syntax highlighting for VS Code and other editors</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* CTA Section */}
         <div>
           <div className="border border-stone-300 bg-gradient-to-br from-stone-50 to-white p-12 sm:p-16 text-center">
@@ -273,7 +331,15 @@ export default function AboutPage() {
               </a>
             </div>
             <p className="text-xs text-stone-500 mt-8">
-              PS-LANG™ is a trademark of Vummo Labs · MIT License
+              PS-LANG<sup className="text-[8px]">™</sup> is a trademark of Vummo Labs ·{" "}
+              <a
+                href="https://github.com/vummo/ps-lang/blob/main/LICENSE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-stone-600 hover:text-stone-900 transition-colors underline"
+              >
+                MIT License
+              </a>
             </p>
           </div>
         </div>

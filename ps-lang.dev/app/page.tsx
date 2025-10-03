@@ -22,8 +22,8 @@ export default function HomePage() {
   const [personaSlogan, setPersonaSlogan] = useState('Discover More · Learn As I Go')
 
   useEffect(() => {
-    if (user?.publicMetadata?.persona) {
-      const persona = user.publicMetadata.persona as string
+    if (user?.unsafeMetadata?.persona) {
+      const persona = user.unsafeMetadata.persona as string
       setPersonaSlogan(PERSONA_SLOGANS[persona] || PERSONA_SLOGANS.explorer)
     }
   }, [user])
@@ -66,7 +66,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <NewsletterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <NewsletterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} source="homepage" />
       <FeedbackModal isOpen={isFeedbackModalOpen} onClose={() => setIsFeedbackModalOpen(false)} version="v0.1.0-alpha.1" />
       <UseCaseModal
         isOpen={isUseCaseModalOpen}
@@ -80,7 +80,7 @@ export default function HomePage() {
       <section className="max-w-4xl mx-auto px-4 sm:px-8 py-12 sm:py-24">
         <div className="text-center mb-12 sm:mb-20">
           <div className="inline-block mb-6 sm:mb-8">
-            <span className="text-xs tracking-[0.2em] text-stone-500 font-medium uppercase">Privacy-First Language</span>
+            <span className="text-xs tracking-[0.2em] text-stone-500 font-medium uppercase">Privacy-First Script Language<sup className="text-[8px] ml-0.5">™</sup></span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-light text-stone-900 mb-6 sm:mb-8 tracking-tight px-4">

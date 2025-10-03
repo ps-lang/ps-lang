@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { filterForAgent, EXAMPLE_PROMPTS } from "@/lib/ps-lang-filter"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import FAQSection from "@/components/faq-section"
 
 type ViewMode = "original" | "enriched" | "agent-1" | "agent-2"
 type Persona = "developer" | "analyst" | "designer" | "marketer" | "researcher" | "manager"
@@ -324,9 +325,18 @@ export default function PlaygroundPage() {
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-8 py-8">
+        {/* Breadcrumb */}
+        <nav className="mb-6 flex items-center gap-2 font-mono text-[10px] tracking-wide">
+          <Link href="/" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Home</Link>
+          <span className="text-stone-300">→</span>
+          <Link href="/playground" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Playground</Link>
+          <span className="text-stone-300">→</span>
+          <span className="text-stone-900 font-semibold uppercase">1-Shot Prompt Editor</span>
+        </nav>
+
         {/* Hero */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-8 pt-8 pb-12 sm:pt-12 sm:pb-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-8 pt-4 pb-8 sm:pt-6 sm:pb-10">
           <div className="text-center">
             <div className="inline-block mb-4 sm:mb-6">
               <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">Interactive Demo</span>
@@ -343,11 +353,11 @@ export default function PlaygroundPage() {
           </div>
         </div>
 
-        {/* Live Prompt Editor */}
+        {/* 1-Shot Prompt Editor */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="font-typewriter font-bold text-ink text-lg">Live Prompt Editor</h3>
+              <h3 className="font-typewriter font-bold text-ink text-lg">1-Shot Prompt Editor</h3>
               <p className="font-mono text-xs text-stone-500 mt-1">See how PS-LANG zones transform your prompts</p>
             </div>
           </div>
@@ -363,7 +373,7 @@ export default function PlaygroundPage() {
                   <div className="w-3 h-3 rounded-full bg-[#28CA42] border border-[#24A53B] shadow-sm"></div>
                 </div>
                 <div className="text-xs font-mono text-stone-600 font-medium">
-                  Prompt Builder
+                  Prompt Builder v0.1.0-alpha
                 </div>
               </div>
             </div>
@@ -693,48 +703,27 @@ export default function PlaygroundPage() {
       </div>
 
       {/* FAQ Section */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-8 pb-16">
-        <div className="mb-8 text-center">
-          <div className="inline-block mb-4">
-            <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">FAQ</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-light text-stone-900 tracking-tight">
-            Understanding the Editor
-          </h2>
-        </div>
-
-        <div className="border border-stone-300 bg-white p-8 sm:p-12">
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-lg font-light text-stone-900 mb-3">What is the Live Prompt Editor?</h3>
-              <p className="text-sm text-stone-600 leading-relaxed">
-                The Live Prompt Editor lets you write prompts and see in real-time how PS-LANG zones transform them. Select a persona, insert zone syntax, and watch how your prompt gets enriched with structured context control.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-light text-stone-900 mb-3">How do zone buttons work?</h3>
-              <p className="text-sm text-stone-600 leading-relaxed">
-                Click any zone button (Pass-through, Private, Public, etc.) to insert that zone syntax at your cursor position. Zones control what context gets passed between agents in multi-agent workflows.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-light text-stone-900 mb-3">What do the different personas do?</h3>
-              <p className="text-sm text-stone-600 leading-relaxed">
-                Personas (Developer, Analyst, Designer, etc.) provide role-specific example prompts to help you understand how different professionals might use PS-LANG zones in their workflows.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-light text-stone-900 mb-3">Can I use my own prompts?</h3>
-              <p className="text-sm text-stone-600 leading-relaxed">
-                This is currently a work-in-progress demo for learning and demonstration purposes. The editor shows example transformations to help you understand zone-based context control.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <FAQSection
+        title="Understanding the Editor"
+        faqs={[
+          {
+            question: "What is the 1-Shot Prompt Editor?",
+            answer: "The 1-Shot Prompt Editor lets you write prompts and see in real-time how PS-LANG zones transform them. Select a persona, insert zone syntax, and watch how your prompt gets enriched with structured context control."
+          },
+          {
+            question: "How do zone buttons work?",
+            answer: "Click any zone button (Pass-through, Private, Public, etc.) to insert that zone syntax at your cursor position. Zones control what context gets passed between agents in multi-agent workflows."
+          },
+          {
+            question: "What do the different personas do?",
+            answer: "Personas (Developer, Analyst, Designer, etc.) provide role-specific example prompts to help you understand how different professionals might use PS-LANG zones in their workflows."
+          },
+          {
+            question: "Can I use my own prompts?",
+            answer: "This is currently a work-in-progress demo for learning and demonstration purposes. The editor shows example transformations to help you understand zone-based context control."
+          }
+        ]}
+      />
 
       {/* CTA Section */}
       <div className="max-w-4xl mx-auto px-4 sm:px-8 pb-16">

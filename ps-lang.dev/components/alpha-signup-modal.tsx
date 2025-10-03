@@ -1,6 +1,8 @@
 "use client"
 
+import Link from 'next/link'
 import { useState } from "react"
+import { useSignUp } from '@clerk/nextjs'
 import { motion, AnimatePresence } from "framer-motion"
 
 interface AlphaSignupModalProps {
@@ -9,51 +11,71 @@ interface AlphaSignupModalProps {
 }
 
 export default function AlphaSignupModal({ isOpen, onClose }: AlphaSignupModalProps) {
-  const [email, setEmail] = useState("")
-  const [name, setName] = useState("")
-  const [role, setRole] = useState("Developer")
-  const [interests, setInterests] = useState("")
+  const { signUp, setActive } = useSignUp()
+  const [formData, setFormData] = useState({
+    email: '',
+    persona: 'solo_developer',
+    githubUrl: '',
+    interestedIn: [] as string[],
+  })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState("")
+  const [pendingVerification, setPendingVerification] = useState(false)
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleCheckboxChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      interestedIn: prev.interestedIn.includes(value)
+        ? prev.interestedIn.filter(item => item !== value)
+        : [...prev.interestedIn, value]
+    }))
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     setError("")
 
-    // Track with PostHog
-    if (typeof window !== 'undefined' && (window as any).posthog) {
-      (window as any).posthog.capture('alpha_signup_submitted', {
-        role: role,
-        has_interests: interests.length > 0,
-      })
-    }
-
     try {
-      const response = await fetch("/api/alpha-signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, name, role, interests }),
-      })
-
-      if (!response.ok) {
-        throw new Error("Failed to sign up")
+      if (!signUp) {
+        throw new Error('SignUp not initialized')
       }
 
-      setIsSuccess(true)
-      setEmail("")
-      setName("")
+      // Create signup with email only
+      await signUp.create({
+        emailAddress: formData.email,
+        unsafeMetadata: {
+          persona: formData.persona,
+          githubUrl: formData.githubUrl,
+          interestedIn: formData.interestedIn,
+          alphaSignup: true,
+          signupDate: new Date().toISOString(),
+        }
+      })
 
-      // Close modal after 2 seconds on success
-      setTimeout(() => {
-        onClose()
-        setIsSuccess(false)
-      }, 2000)
-    } catch (err) {
-      setError("Something went wrong. Please try again.")
+      // Send magic link to email
+      await signUp.prepareEmailAddressVerification({
+        strategy: 'email_link',
+        redirectUrl: `${window.location.origin}/verify-email`
+      })
+
+      // Track signup event with PostHog
+      if (typeof window !== 'undefined' && (window as any).posthog) {
+        (window as any).posthog.capture('alpha_signup_started', {
+          persona: formData.persona,
+          interested_in: formData.interestedIn,
+          has_github: !!formData.githubUrl,
+        })
+      }
+
+      setPendingVerification(true)
+    } catch (err: any) {
+      setError(err.errors?.[0]?.message || 'An error occurred. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
@@ -89,7 +111,7 @@ export default function AlphaSignupModal({ isOpen, onClose }: AlphaSignupModalPr
                       <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">Alpha Testing</span>
                     </div>
                     <h2 className="text-2xl font-light text-stone-900 tracking-tight">
-                      Join the Waitlist
+                      {pendingVerification ? 'Check Your Email' : 'Join Alpha Testing'}
                     </h2>
                   </div>
                   <button
@@ -105,8 +127,8 @@ export default function AlphaSignupModal({ isOpen, onClose }: AlphaSignupModalPr
               </div>
 
               {/* Content */}
-              <div className="px-8 py-8">
-                {isSuccess ? (
+              <div className="px-8 py-8 max-h-[70vh] overflow-y-auto">
+                {pendingVerification ? (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -114,11 +136,16 @@ export default function AlphaSignupModal({ isOpen, onClose }: AlphaSignupModalPr
                   >
                     <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                       <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                     </div>
-                    <h3 className="text-lg font-light text-stone-900 mb-2">You're on the list!</h3>
-                    <p className="text-sm text-stone-600">We'll notify you when alpha testing begins.</p>
+                    <h3 className="text-lg font-light text-stone-900 mb-2">Check Your Email</h3>
+                    <p className="text-sm text-stone-600 mb-4">
+                      We sent a magic link to <strong>{formData.email}</strong>
+                    </p>
+                    <p className="text-xs text-stone-500">
+                      Click the link in your email to complete signup. You can close this window.
+                    </p>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
@@ -127,29 +154,15 @@ export default function AlphaSignupModal({ isOpen, onClose }: AlphaSignupModalPr
                     </p>
 
                     <div>
-                      <label htmlFor="name" className="block text-xs tracking-wide text-stone-600 uppercase mb-2 font-medium">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Your name"
-                        className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 bg-white focus:border-stone-900 focus:outline-none transition-colors"
-                        required
-                      />
-                    </div>
-
-                    <div>
                       <label htmlFor="email" className="block text-xs tracking-wide text-stone-600 uppercase mb-2 font-medium">
-                        Email
+                        Email *
                       </label>
                       <input
                         type="email"
                         id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
                         placeholder="you@example.com"
                         className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 bg-white focus:border-stone-900 focus:outline-none transition-colors"
                         required
@@ -157,38 +170,65 @@ export default function AlphaSignupModal({ isOpen, onClose }: AlphaSignupModalPr
                     </div>
 
                     <div>
-                      <label htmlFor="role" className="block text-xs tracking-wide text-stone-600 uppercase mb-2 font-medium">
-                        I am a...
+                      <label htmlFor="persona" className="block text-xs tracking-wide text-stone-600 uppercase mb-2 font-medium">
+                        I am a... *
                       </label>
                       <select
-                        id="role"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
+                        id="persona"
+                        name="persona"
+                        value={formData.persona}
+                        onChange={handleInputChange}
                         className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 bg-white focus:border-stone-900 focus:outline-none transition-colors"
+                        required
                       >
-                        <option>Developer</option>
-                        <option>Designer</option>
-                        <option>Startup Founder</option>
-                        <option>Marketer</option>
-                        <option>Student</option>
-                        <option>Researcher</option>
-                        <option>Consultant</option>
-                        <option>Other</option>
+                        <option value="solo_developer">Solo Developer</option>
+                        <option value="researcher">Researcher</option>
+                        <option value="creator">Creator / Writer</option>
+                        <option value="analyst">Data Analyst</option>
+                        <option value="generalist">Generalist</option>
+                        <option value="explorer">Explorer / Learner</option>
+                        <option value="prefer_not_to_say">Prefer not to say</option>
                       </select>
                     </div>
 
                     <div>
-                      <label htmlFor="interests" className="block text-xs tracking-wide text-stone-600 uppercase mb-2 font-medium">
-                        What are you interested in? <span className="text-stone-400 normal-case">(Optional)</span>
+                      <label htmlFor="githubUrl" className="block text-xs tracking-wide text-stone-600 uppercase mb-2 font-medium">
+                        GitHub Profile <span className="text-stone-400 normal-case">(Optional)</span>
                       </label>
-                      <textarea
-                        id="interests"
-                        value={interests}
-                        onChange={(e) => setInterests(e.target.value)}
-                        placeholder="e.g., Multi-agent workflows, prompt optimization, context control..."
-                        rows={3}
-                        className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 bg-white focus:border-stone-900 focus:outline-none transition-colors resize-none"
+                      <input
+                        type="url"
+                        id="githubUrl"
+                        name="githubUrl"
+                        value={formData.githubUrl}
+                        onChange={handleInputChange}
+                        placeholder="https://github.com/username"
+                        className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 bg-white focus:border-stone-900 focus:outline-none transition-colors font-mono"
                       />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs tracking-wide text-stone-600 uppercase mb-3 font-medium">
+                        Interested In
+                      </label>
+                      <div className="space-y-2.5">
+                        {[
+                          { value: 'multi_agent', label: 'Multi-agent workflows' },
+                          { value: 'benchmarking', label: 'Benchmarking & testing' },
+                          { value: 'privacy', label: 'Privacy-first AI tools' },
+                          { value: 'journaling', label: 'AI workflow journaling' },
+                          { value: 'mcp_integration', label: 'MCP integration' },
+                        ].map(item => (
+                          <label key={item.value} className="flex items-center gap-2.5 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={formData.interestedIn.includes(item.value)}
+                              onChange={() => handleCheckboxChange(item.value)}
+                              className="w-4 h-4 border-stone-300 text-stone-900 focus:ring-stone-900 rounded"
+                            />
+                            <span className="text-sm text-stone-600">{item.label}</span>
+                          </label>
+                        ))}
+                      </div>
                     </div>
 
                     {error && (
@@ -198,10 +238,18 @@ export default function AlphaSignupModal({ isOpen, onClose }: AlphaSignupModalPr
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full px-6 py-4 bg-stone-900 text-white font-light text-sm hover:bg-stone-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full px-6 py-4 text-white font-light text-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed font-mono tracking-wide"
+                      style={{ backgroundColor: '#C5B9AA' }}
                     >
-                      {isSubmitting ? "Joining..." : "Join Alpha Waitlist"}
+                      {isSubmitting ? "Creating Account..." : "Sign Up for Alpha →"}
                     </button>
+
+                    <p className="text-xs text-stone-500 text-center">
+                      By signing up, you agree to our{' '}
+                      <Link href="/terms" className="underline hover:text-stone-900">Terms</Link>
+                      {' '}and{' '}
+                      <Link href="/privacy" className="underline hover:text-stone-900">Privacy Policy</Link>
+                    </p>
                   </form>
                 )}
               </div>

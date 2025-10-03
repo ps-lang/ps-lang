@@ -5,6 +5,7 @@ import { canAccessRoute, getUserRole } from './lib/roles'
 // Define which routes are public (don't require authentication)
 const isPublicRoute = createRouteMatcher([
   '/',
+  '/about(.*)',
   '/sign-in(.*)',
   '/sign-up(.*)',
   '/api/newsletter(.*)',

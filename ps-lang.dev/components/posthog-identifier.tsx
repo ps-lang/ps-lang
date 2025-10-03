@@ -3,24 +3,15 @@
 import { useUser } from '@clerk/nextjs'
 import { useEffect } from 'react'
 
-declare global {
-  interface Window {
-    posthog?: {
-      identify: (userId: string, properties?: Record<string, any>) => void
-      reset: () => void
-    }
-  }
-}
-
 export default function PostHogIdentifier() {
   const { user, isSignedIn } = useUser()
 
   useEffect(() => {
-    if (!window.posthog) return
+    if (typeof window === 'undefined' || !(window as any).posthog) return
 
     if (isSignedIn && user) {
       // Identify user with Clerk ID and metadata
-      window.posthog.identify(user.id, {
+      (window as any).posthog.identify(user.id, {
         email: user.primaryEmailAddress?.emailAddress,
         name: user.fullName,
         username: user.username,
@@ -31,7 +22,7 @@ export default function PostHogIdentifier() {
       })
     } else {
       // Reset PostHog when user signs out
-      window.posthog.reset()
+      (window as any).posthog.reset()
     }
   }, [isSignedIn, user])
 
