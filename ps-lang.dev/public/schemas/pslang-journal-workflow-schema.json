@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://ps-lang.dev/schemas/pslang-journal-workflow-schema.json",
-  "title": "PS-LANG Journal Workflow Schema",
-  "description": "Schema for .psl files containing PS-LANG annotated journal entries and technical logs",
+  "title": "PS-LANG™ Journal Workflow Schema",
+  "description": "Schema for .psl files containing PS-LANG™ annotated journal entries and technical logs",
   "version": "1.0.0",
   "type": "object",
   "required": ["header", "content", "aiMetadata"],

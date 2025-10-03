@@ -163,7 +163,10 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x)
 }
 
-export function generateBenchmarkData(iterations: number = 20): BenchmarkMetrics[] {
+export function generateBenchmarkData(
+  iterations: number = 20,
+  datasetType: 'baseline' | 'heavy-zones' | 'benchmark-zones' | 'private-zones' | 'minimal-zones' = 'baseline'
+): BenchmarkMetrics[] {
   const data: BenchmarkMetrics[] = []
 
   for (let i = 1; i <= iterations; i++) {
@@ -173,10 +176,38 @@ export function generateBenchmarkData(iterations: number = 20): BenchmarkMetrics
     const regularCost = regularTokens * 0.00003
     const regularTime = regularRounds * 2000 + seededRandom(i * 4) * 1000
 
-    // PS-LANG: starts better, improves consistently, stabilizes
+    // PS-LANG variations based on dataset type
+    let psLangRounds: number
+    let psLangTokens: number
     const learningCurve = 1 - Math.log(i + 1) / Math.log(iterations + 1)
-    const psLangRounds = Math.max(1, Math.round(2 - (i * 0.05)))
-    const psLangTokens = Math.round(18000 - (i * 200) + (seededRandom(i * 5) * 500 - 250))
+
+    switch (datasetType) {
+      case 'heavy-zones':
+        // Heavy zone usage: <#.>, <@.>, <.bm>, etc. - aggressive context pruning
+        psLangRounds = Math.max(1, Math.round(1.8 - (i * 0.08)))
+        psLangTokens = Math.round(15000 - (i * 280) + (seededRandom(i * 5) * 400 - 200))
+        break
+      case 'benchmark-zones':
+        // Using <.bm> zones frequently for AI metadata tracking
+        psLangRounds = Math.max(1, Math.round(2 - (i * 0.06)))
+        psLangTokens = Math.round(17000 - (i * 240) + (seededRandom(i * 5) * 450 - 225))
+        break
+      case 'private-zones':
+        // Heavy use of <. .> private zones to hide debug/internal info
+        psLangRounds = Math.max(1, Math.round(1.9 - (i * 0.07)))
+        psLangTokens = Math.round(16000 - (i * 260) + (seededRandom(i * 5) * 420 - 210))
+        break
+      case 'minimal-zones':
+        // Light zone usage - just basic pass-through zones
+        psLangRounds = Math.max(1, Math.round(2.2 - (i * 0.04)))
+        psLangTokens = Math.round(19000 - (i * 180) + (seededRandom(i * 5) * 550 - 275))
+        break
+      default: // baseline
+        // Baseline: moderate zone usage
+        psLangRounds = Math.max(1, Math.round(2 - (i * 0.05)))
+        psLangTokens = Math.round(18000 - (i * 200) + (seededRandom(i * 5) * 500 - 250))
+    }
+
     const psLangCost = psLangTokens * 0.00003
     const psLangTime = psLangRounds * 1500 + seededRandom(i * 6) * 500
 
@@ -216,7 +247,7 @@ export const EXAMPLE_PROMPTS = {
   // Formatted .md.psl with zones and AI metadata
   enriched: `# Q4 2024 Sales Analysis
 
-<#. task: quarterly_sales_analysis #.>
+<#. task: quarterly_sales_analysis .#>
 
 ## Objective
 Analyze the sales data from Q4 2024 and create a comprehensive report.
@@ -226,7 +257,7 @@ Analyze the sales data from Q4 2024 and create a comprehensive report.
   - revenue
   - customer_acquisition
   - product_performance
-$.>
+.$>
 
 ## Analysis Steps
 
@@ -242,7 +273,7 @@ Make sure to highlight key trends and provide actionable recommendations.
   type: structured_report
   sections: [executive_summary, revenue_analysis, customer_metrics, product_performance, trends, recommendations]
   charts: true
-@.>
+.@>
 
 ---
 

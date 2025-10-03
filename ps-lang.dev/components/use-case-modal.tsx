@@ -163,75 +163,78 @@ export default function UseCaseModal({ isOpen, onClose, useCase, onNext, onPrev 
 
   return (
     <div
-      className="fixed inset-0 bg-stone-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-stone-900/30 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
       <div
-        className="bg-white border border-stone-200 p-6 sm:p-8 max-w-2xl w-full shadow-xl max-h-[80vh] overflow-y-auto relative"
+        className="bg-stone-50 border border-stone-300 max-w-3xl w-full shadow-2xl max-h-[85vh] overflow-y-auto relative"
         onClick={(e) => e.stopPropagation()}
         data-track-section="use-case-modal"
       >
-        {/* Close X - top right */}
+        {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-stone-400 hover:text-stone-900 text-xl leading-none"
+          className="absolute top-6 right-6 text-stone-400 hover:text-stone-900 transition-colors"
           aria-label="Close"
         >
-          ×
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
 
-        <div className="mb-6">
-          <h2 className="text-2xl font-light text-stone-900 mb-2">{example.title}</h2>
-          <p className="text-sm text-stone-600 leading-relaxed">
+        {/* Header */}
+        <div className="bg-white border-b border-stone-300 px-8 py-8">
+          <div className="mb-3">
+            <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">Use Case</span>
+          </div>
+          <h2 className="text-3xl font-light text-stone-900 mb-4 tracking-tight">{example.title}</h2>
+          <p className="text-sm text-stone-600 leading-relaxed font-light">
             {example.description}
           </p>
         </div>
 
-        <div className="border border-stone-200 bg-stone-50 p-4 sm:p-6 mb-4">
-          <div className="mb-3">
-            <span className="text-xs tracking-[0.15em] text-stone-400 uppercase">Example</span>
+        {/* Example code */}
+        <div className="px-8 py-8">
+          <div className="border border-stone-300 bg-white p-6 sm:p-8">
+            <div className="mb-4">
+              <span className="text-xs tracking-[0.15em] text-stone-400 uppercase font-medium">Example</span>
+            </div>
+            <pre className="font-mono text-xs sm:text-sm text-stone-700 leading-[1.7] overflow-x-auto whitespace-pre-wrap break-words">
+              {example.example}
+            </pre>
           </div>
-          <pre className="font-mono text-xs sm:text-sm text-stone-700 leading-relaxed overflow-x-auto whitespace-pre-wrap break-words">
-            {example.example}
-          </pre>
         </div>
 
-        {/* Inline CTA + Navigation */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm">
-          <div className="flex gap-2">
-            {onPrev && (
-              <button
-                onClick={onPrev}
-                className="border border-stone-300 px-3 py-1.5 text-stone-600 hover:bg-stone-100 transition-colors text-xs tracking-wide"
-                title="Previous use case"
-              >
-← PREV
-              </button>
-            )}
-            {onNext && (
-              <button
-                onClick={onNext}
-                className="border border-stone-300 px-3 py-1.5 text-stone-600 hover:bg-stone-100 transition-colors text-xs tracking-wide"
-                title="Next use case"
-              >
-                NEXT USE CASE →
-              </button>
-            )}
-          </div>
+        {/* Footer navigation */}
+        <div className="bg-white border-t border-stone-300 px-8 py-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex gap-3">
+              {onPrev && (
+                <button
+                  onClick={onPrev}
+                  className="px-4 py-2 text-xs tracking-wide text-stone-600 hover:text-stone-900 transition-colors font-medium"
+                  title="Previous use case"
+                >
+                  ← PREV
+                </button>
+              )}
+              {onNext && (
+                <button
+                  onClick={onNext}
+                  className="px-4 py-2 text-xs tracking-wide text-stone-600 hover:text-stone-900 transition-colors font-medium"
+                  title="Next use case"
+                >
+                  NEXT USE CASE →
+                </button>
+              )}
+            </div>
 
-          <div className="text-xs text-stone-500">
-            Demo/Playground coming soon.{" "}
-            <button
-              onClick={() => {
-                onClose()
-                if (typeof window !== 'undefined') {
-                  window.dispatchEvent(new CustomEvent('open-newsletter-modal'))
-                }
-              }}
-              className="text-stone-700 hover:text-stone-900 underline font-medium"
+            <a
+              href="/playground"
+              className="text-sm text-stone-700 hover:text-stone-900 font-medium transition-colors"
             >
-              Sign up for news
-            </button>
+              Try it in the Playground →
+            </a>
           </div>
         </div>
       </div>

@@ -1,109 +1,280 @@
-import Navigation from "@/components/navigation"
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'About PS-LANG™ | Privacy-First Multi-Agent Context Control',
+  description: 'Learn about PS-LANG, the zone-based syntax for controlling what AI agents see in multi-agent workflows. Platform-agnostic, open-source, and designed for privacy-first AI collaboration.',
+  openGraph: {
+    title: 'About PS-LANG™ | Privacy-First Multi-Agent Context Control',
+    description: 'Control what AI agents see in your workflows with zone-based syntax. Works with Claude, GPT, Cursor, Copilot, and custom agents.',
+    url: 'https://ps-lang.dev/about',
+    siteName: 'PS-LANG',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About PS-LANG™ | Privacy-First Multi-Agent Context Control',
+    description: 'Control what AI agents see in your workflows with zone-based syntax. Works with Claude, GPT, Cursor, Copilot, and custom agents.',
+  },
+}
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen">
-      <Navigation />
-
-      <div className="max-w-4xl mx-auto px-6 py-8">
-        <div className="paper-card stacked-papers p-8 mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="font-editorial text-4xl font-bold text-ink">About ps-lang</h1>
-            <span className="ink-stamp text-stamp-red">Mission</span>
+    <div className="min-h-screen bg-stone-50">
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        {/* Hero Section */}
+        <div className="text-center mb-20">
+          <div className="inline-block mb-4">
+            <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">About</span>
           </div>
+          <h1 className="text-4xl sm:text-5xl font-light text-stone-900 mb-6 tracking-tight">
+            PS-LANG<sup className="text-[10px] ml-0.5 -top-3 relative">™</sup>
+          </h1>
+          <p className="text-lg text-stone-600 max-w-3xl mx-auto leading-relaxed font-light mb-4">
+            Privacy-First Scripting Language for Multi-Agent Context Control
+          </p>
+          <p className="text-base text-stone-500 max-w-2xl mx-auto leading-relaxed font-light">
+            Control what AI agents see in your workflows with zone-based syntax.
+          </p>
+        </div>
 
-          <div className="prose prose-lg max-w-none">
-            <p className="font-editorial text-ink-light text-xl mb-8">
-              ps-lang was born from the need to bridge the communication gap between human developers and AI systems. We
-              believe the future of programming lies in seamless collaboration between human creativity and machine
-              precision.
+        {/* What is PS-LANG */}
+        <div className="mb-16">
+          <div className="border border-stone-300 bg-white p-12">
+            <h2 className="text-2xl font-light text-stone-900 mb-6 tracking-tight">
+              What is PS-LANG?
+            </h2>
+            <p className="text-base text-stone-600 leading-relaxed max-w-3xl mb-6">
+              PS-LANG is a flexible, platform-agnostic syntax for controlling what AI agents see in multi-agent workflows. Use zones to mark content as private, pass-through, or active workspace.
             </p>
-
-            <div className="rubber-band mb-8"></div>
-
-            <h2 className="font-editorial text-2xl font-bold text-ink mb-4">The Problem</h2>
-            <p className="font-editorial text-ink-light mb-6">
-              Traditional programming languages are optimized for machines, not for human-AI collaboration. When working
-              with AI assistants, developers often struggle to communicate algorithmic concepts clearly, leading to
-              misunderstandings and inefficient iterations.
-            </p>
-
-            <h2 className="font-editorial text-2xl font-bold text-ink mb-4">Our Solution</h2>
-            <p className="font-editorial text-ink-light mb-6">
-              ps-lang provides a structured yet natural way to express algorithms that both humans and AI can understand
-              perfectly. It's pseudocode that actually runs, documentation that executes, and a common language for
-              human-machine collaboration.
-            </p>
-
-            <div className="paper-card p-6 mb-8">
-              <h3 className="font-typewriter font-bold text-ink mb-4">Design Philosophy</h3>
-              <div className="space-y-4">
-                <div className="flex gap-4">
-                  <span className="ink-stamp text-stamp-blue text-xs flex-shrink-0 mt-1">Clarity</span>
-                  <p className="font-editorial text-ink-light">
-                    Every program should be immediately understandable by any developer, regardless of their experience
-                    level.
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <span className="ink-stamp text-stamp-red text-xs flex-shrink-0 mt-1">Collaboration</span>
-                  <p className="font-editorial text-ink-light">
-                    Designed specifically for human-AI pair programming and knowledge transfer.
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <span className="ink-stamp text-stamp-blue text-xs flex-shrink-0 mt-1">Execution</span>
-                  <p className="font-editorial text-ink-light">
-                    Pseudocode that actually runs, eliminating the gap between design and implementation.
-                  </p>
-                </div>
-              </div>
+            <div className="space-y-3 text-sm text-stone-600 leading-relaxed max-w-3xl">
+              <p className="font-medium text-stone-900">Designed to evolve with you:</p>
+              <ul className="list-disc list-inside space-y-2 pl-4">
+                <li>Override and extend the syntax for your needs</li>
+                <li>Platform/agent/model agnostic approach</li>
+                <li>Works with Claude, GPT, Cursor, Copilot, and custom agents</li>
+                <li>Community-driven development</li>
+              </ul>
             </div>
+          </div>
+        </div>
 
-            <div className="rubber-band mb-8"></div>
-
-            <h2 className="font-editorial text-2xl font-bold text-ink mb-4">The Team</h2>
-            <p className="font-editorial text-ink-light mb-6">
-              ps-lang is developed by a passionate team of researchers, developers, and AI enthusiasts who believe in
-              the power of human-machine collaboration. We're building the tools that will define the next generation of
-              software development.
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="paper-card p-4">
-                <h4 className="font-typewriter font-bold text-ink mb-2">Open Source</h4>
-                <p className="font-editorial text-ink-light text-sm">
-                  ps-lang is completely open source, built by the community for the community.
+        {/* Perfect For Section */}
+        <div className="mb-16">
+          <div className="border border-stone-300 bg-white p-12">
+            <h2 className="text-2xl font-light text-stone-900 mb-8 tracking-tight">
+              Perfect For
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="border border-stone-200 p-6">
+                <h3 className="text-base font-light text-stone-900 mb-3 tracking-tight">Multi-Agent Pipelines</h3>
+                <p className="text-sm text-stone-600 leading-relaxed">
+                  Research → Writing → Review workflows with controlled context handoffs between agents.
                 </p>
               </div>
-              <div className="paper-card p-4">
-                <h4 className="font-typewriter font-bold text-ink mb-2">Research-Backed</h4>
-                <p className="font-editorial text-ink-light text-sm">
-                  Based on extensive research in human-computer interaction and AI collaboration.
+              <div className="border border-stone-200 p-6">
+                <h3 className="text-base font-light text-stone-900 mb-3 tracking-tight">Context Engineering</h3>
+                <p className="text-sm text-stone-600 leading-relaxed">
+                  Control exactly what each agent sees in your multi-step workflows.
+                </p>
+              </div>
+              <div className="border border-stone-200 p-6">
+                <h3 className="text-base font-light text-stone-900 mb-3 tracking-tight">Benchmarking</h3>
+                <p className="text-sm text-stone-600 leading-relaxed">
+                  Create clean test environments with isolated context for accurate benchmarks.
+                </p>
+              </div>
+              <div className="border border-stone-200 p-6">
+                <h3 className="text-base font-light text-stone-900 mb-3 tracking-tight">Privacy-First AI</h3>
+                <p className="text-sm text-stone-600 leading-relaxed">
+                  Keep sensitive notes private while collaborating with AI assistants.
                 </p>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div className="text-center">
-              <h3 className="font-editorial text-2xl font-bold text-ink mb-4">Join the Movement</h3>
-              <p className="font-editorial text-ink-light mb-6">
-                Help us build the future of human-AI collaboration in programming.
+        {/* Why Use PS-LANG */}
+        <div className="mb-16">
+          <div className="border border-stone-300 bg-white p-12">
+            <h2 className="text-2xl font-light text-stone-900 mb-6 tracking-tight">
+              Why Use PS-LANG?
+            </h2>
+            <p className="text-base text-stone-600 leading-relaxed max-w-3xl mb-8">
+              You don't even need to install it. As someone who writes prompts daily (Claude Code, Cursor, ChatGPT, etc.), PS-LANG just adds structure.
+            </p>
+
+            <div className="bg-stone-50 border border-stone-200 p-6 mb-8 font-mono text-sm">
+              <p className="text-stone-500 mb-4">// Before: Unstructured prompt</p>
+              <p className="text-stone-600 mb-6">"Hey Claude, build a data pipeline. Don't show the next agent my rough notes about the schema."</p>
+
+              <p className="text-stone-500 mb-4">// After: Structured with PS-LANG</p>
+              <p className="text-stone-900">&lt;@. Build ETL pipeline for user analytics @.&gt;</p>
+              <p className="text-stone-600">&lt;. Private: still deciding between Convex or Supabase realtime .&gt;</p>
+              <p className="text-stone-900">&lt;#. Next agent: uses daily batch processing, 24hr retention #.&gt;</p>
+            </div>
+
+            <div className="space-y-4">
+              <p className="font-medium text-stone-900">What this gives you:</p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="flex gap-3">
+                  <span className="text-stone-400">•</span>
+                  <div>
+                    <p className="font-medium text-stone-900 text-sm">Context Control</p>
+                    <p className="text-sm text-stone-600">Decide what each agent sees</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <span className="text-stone-400">•</span>
+                  <div>
+                    <p className="font-medium text-stone-900 text-sm">Cleaner Handoffs</p>
+                    <p className="text-sm text-stone-600">Next agent gets only what they need</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <span className="text-stone-400">•</span>
+                  <div>
+                    <p className="font-medium text-stone-900 text-sm">Better Logs</p>
+                    <p className="text-sm text-stone-600">Your work becomes structured, searchable</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <span className="text-stone-400">•</span>
+                  <div>
+                    <p className="font-medium text-stone-900 text-sm">Future-Proof</p>
+                    <p className="text-sm text-stone-600">Syntax works today, unlocks encryption later</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Zone Syntax */}
+        <div className="mb-16">
+          <div className="border border-stone-300 bg-white p-12">
+            <h2 className="text-2xl font-light text-stone-900 mb-6 tracking-tight">
+              Zone Syntax
+            </h2>
+            <p className="text-base text-stone-600 leading-relaxed max-w-3xl mb-8">
+              PS-LANG zones are patterns, not limits. Start with these 7 recommended zones, then invent your own.
+            </p>
+
+            <div className="space-y-4">
+              {[
+                { zone: "Current Agent Only", syntax: "<. text .>", purpose: "Only current agent sees" },
+                { zone: "Pass-Through", syntax: "<#. text #.>", purpose: "Documentation for next agent" },
+                { zone: "Active Workspace", syntax: "<@. text @.>", purpose: "Current agent's work area" },
+                { zone: "AI-Managed", syntax: "<~. text ~.>", purpose: "AI-generated metadata" },
+                { zone: "Business/Monetization", syntax: "<$. text $.>", purpose: "Business strategy, pricing" },
+                { zone: "Questions", syntax: "<?. text ?.>", purpose: "Open questions" },
+                { zone: "Benchmark", syntax: "<.bm text .bm>", purpose: "Metrics or references" }
+              ].map((item, i) => (
+                <div key={i} className="border border-stone-200 p-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-2">
+                    <span className="text-xs tracking-wider text-stone-500 font-medium uppercase">{item.zone}</span>
+                    <code className="text-sm font-mono text-stone-900 bg-stone-50 px-2 py-1">{item.syntax}</code>
+                  </div>
+                  <p className="text-sm text-stone-600">{item.purpose}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 p-6 bg-stone-50 border border-stone-200">
+              <p className="text-sm text-stone-600 leading-relaxed">
+                <span className="font-medium text-stone-900">Infinitely extensible:</span> Create any zone that makes sense for your workflow. The pattern is <code className="font-mono bg-white px-2 py-1">&lt;symbol. content symbol.&gt;</code>
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="/community"
-                  className="paper-card px-6 py-3 font-typewriter font-bold text-ink hover:text-stamp-red transition-colors"
-                >
-                  Join Community
-                </a>
-                <a
-                  href="/contribute"
-                  className="font-typewriter text-ink-light hover:text-ink transition-colors underline decoration-2 underline-offset-4"
-                >
-                  Contribute →
-                </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Alpha Status */}
+        <div className="mb-16">
+          <div className="border border-stone-300 bg-stone-50 p-12">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="px-3 py-1 bg-stone-900 text-white text-xs font-medium tracking-wide uppercase">
+                Alpha
+              </div>
+              <div>
+                <h2 className="text-xl font-light text-stone-900 mb-3 tracking-tight">
+                  v0.1.0-alpha.1
+                </h2>
+                <p className="text-sm text-stone-600 leading-relaxed max-w-2xl">
+                  PS-LANG is in active alpha testing. We're gathering feedback on zone syntax, CLI tools, and real-world usage patterns.
+                </p>
               </div>
             </div>
+
+            <div className="space-y-4 text-sm text-stone-600 leading-relaxed max-w-3xl">
+              <p className="font-medium text-stone-900">Help us test:</p>
+              <ul className="list-disc list-inside space-y-2 pl-4">
+                <li>Is the zone syntax clear and intuitive?</li>
+                <li>Are 7 zones enough, or do you need custom zones?</li>
+                <li>Does it solve your multi-agent workflow problems?</li>
+                <li>Any performance issues or integration friction?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Roadmap */}
+        <div className="mb-16">
+          <div className="border border-stone-300 bg-white p-12">
+            <h2 className="text-2xl font-light text-stone-900 mb-8 tracking-tight">
+              Roadmap
+            </h2>
+            <div className="space-y-6">
+              <div className="border-l-2 border-stone-900 pl-6">
+                <h3 className="text-base font-light text-stone-900 mb-2 tracking-tight">Alpha (Current)</h3>
+                <p className="text-sm text-stone-600 leading-relaxed">
+                  Basic zone syntax, CLI tools, VS Code themes, and community feedback collection.
+                </p>
+              </div>
+              <div className="border-l-2 border-stone-300 pl-6">
+                <h3 className="text-base font-light text-stone-900 mb-2 tracking-tight">Beta</h3>
+                <p className="text-sm text-stone-600 leading-relaxed">
+                  .psl file format, secrets management, and enhanced preprocessing tools.
+                </p>
+              </div>
+              <div className="border-l-2 border-stone-300 pl-6">
+                <h3 className="text-base font-light text-stone-900 mb-2 tracking-tight">v1.0</h3>
+                <p className="text-sm text-stone-600 leading-relaxed">
+                  Parser library, multi-agent framework integration, and official ChatGPT support.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div>
+          <div className="border border-stone-300 bg-gradient-to-br from-stone-50 to-white p-12 sm:p-16 text-center">
+            <h3 className="text-2xl sm:text-3xl font-light text-stone-900 mb-6 tracking-tight">
+              Get Started
+            </h3>
+            <p className="text-base text-stone-600 mb-10 max-w-xl mx-auto leading-relaxed">
+              Start using PS-LANG in your prompts today, or install the CLI for advanced features.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="https://github.com/vummo/ps-lang"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-8 py-4 bg-stone-900 text-white font-light text-sm hover:bg-stone-800 transition-colors"
+              >
+                View on GitHub →
+              </a>
+              <a
+                href="https://www.npmjs.com/package/ps-lang"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-8 py-4 border border-stone-300 text-stone-900 font-light text-sm hover:border-stone-400 transition-colors"
+              >
+                Install CLI
+              </a>
+            </div>
+            <p className="text-xs text-stone-500 mt-8">
+              PS-LANG™ is a trademark of Vummo Labs · MIT License
+            </p>
           </div>
         </div>
       </div>

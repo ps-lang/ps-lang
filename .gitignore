@@ -11,6 +11,12 @@ v-todos.psl
 # Strategic planning (private)
 VISION.md
 
+# Internal setup guides (not for public repo)
+*-GUIDE.md
+*-SETUP.md
+RBAC-SETUP.md
+ENCRYPTION-DASHBOARD-GUIDE.md
+
 # Dependencies
 node_modules/
 npm-debug.log*
@@ -76,3 +82,4 @@ examples/
 .benchmarks/
 v-todos.md
 v-todos.md.psl
+*.psl

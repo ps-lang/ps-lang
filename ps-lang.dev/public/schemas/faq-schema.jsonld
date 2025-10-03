@@ -1,0 +1,86 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Live Prompt Editor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Live Prompt Editor lets you write prompts and see in real-time how PS-LANG zones transform them. Select a persona, insert zone syntax, and watch how your prompt gets enriched with structured context control."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do zone buttons work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Click any zone button (Pass-through, Private, Public, etc.) to insert that zone syntax at your cursor position. Zones control what context gets passed between agents in multi-agent workflows."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do the different personas do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Personas (Developer, Analyst, Designer, etc.) provide role-specific example prompts to help you understand how different professionals might use PS-LANG zones in their workflows."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use my own prompts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is currently a work-in-progress demo for learning and demonstration purposes. The editor shows example transformations to help you understand zone-based context control."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this data based on real benchmarks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This interactive chart uses simulated data to demonstrate how PS-LANG zone syntax can improve token efficiency in multi-agent workflows. All metrics shown are sample data for visualization purposes. Real benchmarking results are coming soon!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does each metric mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Token Efficiency measures how well PS-LANG reduces unnecessary context in prompts. Context Accuracy tracks how precisely agents receive the right information. Response Quality reflects overall improvement in AI outputs when using zone-based context control."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is PS-LANG?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PS-LANG is a flexible, platform-agnostic syntax for controlling what AI agents see in multi-agent workflows. Use zones to mark content as private, pass-through, or active workspace. It works with Claude, GPT, Cursor, Copilot, and custom agents."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are PS-LANG zones?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PS-LANG zones are syntax patterns that control context visibility in multi-agent workflows. The 7 recommended zones are: Current Agent Only (<.>), Pass-Through (<#.>), Active Workspace (<@.>), AI-Managed (<~.>), Business/Monetization (<$.>), Questions (<?.>), and Benchmark (<.bm>). You can also create custom zones for your specific needs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I install PS-LANG?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can start using PS-LANG syntax immediately in your prompts without installation. For advanced features and CLI tools, install via npm: 'npm install -g ps-lang' or 'npx ps-lang init'. The CLI is available at https://www.npmjs.com/package/ps-lang"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is PS-LANG open source?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! PS-LANG is open source under the MIT License. The source code is available on GitHub at https://github.com/vummo/ps-lang. Contributions and feedback are welcome during the alpha testing phase."
+      }
+    }
+  ]
+}

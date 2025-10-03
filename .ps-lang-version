@@ -1,0 +1,84 @@
+{
+  "version": "0.1.0-alpha.1",
+  "release_date": "2025-10-02",
+  "release_name": "Privacy Zones Alpha",
+  "agent_detection": {
+    "lookup_method": "file_system_check",
+    "primary_source": ".ps-lang-version",
+    "fallback_sources": [
+      "package.json#version",
+      "schemas/pslang-journal-workflow-schema.json#version",
+      ".claude/commands.json#ps_lang_version_meta"
+    ]
+  },
+  "syntax_status": {
+    "zone_markers_defined": 11,
+    "zone_markers_stable": ["<#.>", "<@.>", "<.>", "<~.>", "<$.>", "<?.>"],
+    "zone_markers_experimental": ["<-.>", "</.>", "<!!.>", "<*.>", "</. ./>"],
+    "closing_syntax": "flexible",
+    "one_shot_comprehension": "partial_70_percent"
+  },
+  "ai_meta_tags": {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "PS-LANG",
+    "version": "0.1.0-alpha.1",
+    "programmingLanguage": "PS-LANG",
+    "description": "Privacy-first context control language for multi-agent AI workflows",
+    "author": {
+      "@type": "Person",
+      "name": "Anton K.",
+      "affiliation": "Vummo Labs"
+    },
+    "datePublished": "2025-10-02",
+    "license": "MIT",
+    "codeRepository": "https://github.com/vummo/ps-lang",
+    "keywords": [
+      "AI",
+      "multi-agent",
+      "context control",
+      "privacy",
+      "zones",
+      "RL training",
+      "one-shot optimization"
+    ]
+  },
+  "benchmarking_metadata": {
+    "version_fingerprint": "v0.1.0-alpha.1-20251002",
+    "zone_count": 11,
+    "syntax_patterns": 24,
+    "comprehension_score": 0.70,
+    "privacy_zones": ["<.>", "<$.>"],
+    "public_zones": ["<#.>"],
+    "active_zones": ["<@.>"],
+    "ai_managed_zones": ["<~.>"],
+    "question_zones": ["<?.>"],
+    "experimental_zones": ["<-.>", "<!!.>", "<*.>"],
+    "comment_zones": ["</. ./>"]
+  },
+  "agent_capabilities": {
+    "claude_sonnet_4_5": {
+      "version_awareness": "file_based_lookup",
+      "zone_parsing": "partial",
+      "privacy_preservation": "yes",
+      "export_control": "yes",
+      "one_shot_optimization": "active"
+    }
+  },
+  "changelog": [
+    {
+      "version": "0.1.0-alpha.1",
+      "date": "2025-10-02",
+      "changes": [
+        "Initial alpha release",
+        "11 zone markers defined",
+        "Privacy-first architecture",
+        "Export intelligence system",
+        "Secrets library integration",
+        "Prompt quality analysis",
+        "One-shot optimization",
+        "RL training data collection"
+      ]
+    }
+  ]
+}

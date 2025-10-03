@@ -1,6 +1,5 @@
 "use client"
 
-import Navigation from "@/components/navigation"
 import { useState, useEffect } from "react"
 import { runSimulation, SCENARIOS, type ModelType, type ScenarioType, type DisclosureLevel, type SimulationResult } from "@/lib/simulation-engine"
 
@@ -85,8 +84,6 @@ export default function PlaygroundDemoPage() {
 
   return (
     <div className="min-h-screen bg-paper">
-      <Navigation />
-
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="paper-card stacked-papers p-8 mb-8">

@@ -1,7 +1,11 @@
 import type React from "react"
 import Script from "next/script"
+import { ClerkProvider } from '@clerk/nextjs'
 
 import "./globals.css"
+import PostHogIdentifier from '@/components/posthog-identifier'
+import Navigation from '@/components/navigation'
+import Footer from '@/components/footer'
 
 import { Courier_Prime, Crimson_Text, Inter, JetBrains_Mono } from 'next/font/google'
 
@@ -140,8 +144,9 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${courierPrime.variable} ${crimsonText.variable} antialiased`}>
-      <head>
+    <ClerkProvider>
+      <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${courierPrime.variable} ${crimsonText.variable} antialiased`}>
+        <head>
         {/* Structured Data */}
         <script
           type="application/ld+json"
@@ -285,8 +290,16 @@ export default function RootLayout({
             });
           `}
         </Script>
-      </head>
-      <body className="min-h-screen bg-stone-50 text-stone-900 font-light">{children}</body>
-    </html>
+        </head>
+        <body className="min-h-screen bg-stone-50 text-stone-900 font-light flex flex-col">
+          <PostHogIdentifier />
+          <Navigation />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

@@ -3,7 +3,7 @@
     <img src="./ps-lang-logomark.png" alt="PS-LANG Logo" width="180"/>
   </a>
 
-  <h1>PS-LANG</h1>
+  <h1>PS-LANG™</h1>
 
   <p><strong>Privacy-First Scripting Language for Multi-Agent Context Control</strong></p>
 
@@ -471,4 +471,4 @@ MIT - See [LICENSE](./LICENSE)
 
 ---
 
-**PS-LANG v0.1.0-alpha.1**
+**PS-LANG™ v0.1.0-alpha.1** · PS-LANG is a trademark of Vummo Labs
