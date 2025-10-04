@@ -1,7 +1,10 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
+import { ConvexHttpClient } from 'convex/browser';
+import { api } from '@/convex/_generated/api';
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_placeholder');
+const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 export async function POST(request: Request) {
   // Parse request body outside try block so variables are in scope for catch
@@ -31,6 +34,14 @@ export async function POST(request: Request) {
   };
 
   try {
+    // Save to Convex database (upsert logic built-in)
+    await convex.mutation(api.newsletter.subscribe, {
+      email,
+      firstName,
+      lastName,
+      interests: interests || [],
+      source: source || 'newsletter_modal',
+    });
 
     // Add contact to Resend audience
     const response = await resend.contacts.create({

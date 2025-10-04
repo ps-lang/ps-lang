@@ -30,10 +30,12 @@ export const ROLE_LEVELS: Record<UserRole, number> = {
 
 // Route permissions
 export const ROUTE_PERMISSIONS = {
-  '/journal': ['super_admin', 'admin', 'reviewer'],
+  '/journal/admin': ['super_admin', 'admin'],
+  '/solo-dev-journaling': ['super_admin', 'admin', 'reviewer'],
   '/playground': ['super_admin', 'admin', 'reviewer', 'alpha_tester'],
-  '/admin': ['super_admin', 'admin'],
   '/admin/roles': ['super_admin'],
+  '/admin/data': ['super_admin', 'admin'],
+  '/admin': ['super_admin', 'admin'],
 } as const
 
 /**
@@ -50,8 +52,11 @@ export function hasRequiredRole(userRole: UserRole | undefined, requiredRole: Us
 export function canAccessRoute(userRole: UserRole | undefined, route: string): boolean {
   if (!userRole) return false
 
-  // Find matching route permission
-  const routeKey = Object.keys(ROUTE_PERMISSIONS).find(key => route.startsWith(key))
+  // Find matching route permission (check most specific routes first)
+  // Sort by length descending to match longest/most specific path first
+  const routeKeys = Object.keys(ROUTE_PERMISSIONS).sort((a, b) => b.length - a.length)
+  const routeKey = routeKeys.find(key => route.startsWith(key))
+
   if (!routeKey) return true // No restriction on route
 
   const allowedRoles = ROUTE_PERMISSIONS[routeKey as keyof typeof ROUTE_PERMISSIONS]

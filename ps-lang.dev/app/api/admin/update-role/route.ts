@@ -5,13 +5,17 @@ import { getUserRole } from '@/lib/roles'
 export async function POST(request: NextRequest) {
   try {
     // Verify the requester is a super admin
-    const { userId, sessionClaims } = await auth()
+    const { userId } = await auth()
 
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const requesterRole = getUserRole(sessionClaims)
+    // Get the current user to check their role
+    const client = await clerkClient()
+    const currentUser = await client.users.getUser(userId)
+    const requesterRole = getUserRole(currentUser)
+
     if (requesterRole !== 'super_admin') {
       return NextResponse.json({ error: 'Forbidden: Super admin access required' }, { status: 403 })
     }
@@ -29,7 +33,6 @@ export async function POST(request: NextRequest) {
     }
 
     // Update user metadata in Clerk
-    const client = await clerkClient()
     await client.users.updateUserMetadata(targetUserId, {
       publicMetadata: {
         role: role,

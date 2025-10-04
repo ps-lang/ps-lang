@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { siteConfig } from "@/config/site"
 
 export const metadata = {
   title: "Terms of Use - PS-LANG",
@@ -61,7 +62,7 @@ export default function TermsPage() {
             </p>
             <p className="text-sm text-stone-600 leading-relaxed mt-4">
               View the full license:{" "}
-              <a href="https://github.com/vummo/ps-lang/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" className="underline hover:text-stone-900">
+              <a href={siteConfig.urls.license} target="_blank" rel="noopener noreferrer" className="underline hover:text-stone-900">
                 github.com/vummo/ps-lang/blob/main/LICENSE
               </a>
             </p>
@@ -222,7 +223,7 @@ export default function TermsPage() {
               </p>
               <p className="text-sm text-stone-600">
                 <strong>GitHub:</strong>{" "}
-                <a href="https://github.com/vummo/ps-lang" target="_blank" rel="noopener noreferrer" className="underline hover:text-stone-900">
+                <a href={siteConfig.urls.github} target="_blank" rel="noopener noreferrer" className="underline hover:text-stone-900">
                   github.com/vummo/ps-lang
                 </a>
               </p>

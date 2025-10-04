@@ -13,11 +13,12 @@ const isPublicRoute = createRouteMatcher([
   '/terms(.*)',
   '/privacy(.*)',
   '/playground(.*)',
-  '/journal(.*)',
+  '/solo-dev-journaling(.*)',
 ])
 
 // Routes that require role-based access
-const isJournalRoute = createRouteMatcher(['/journal(.*)'])
+const isJournalAdminRoute = createRouteMatcher(['/journal/admin(.*)'])
+const isJournalRoute = createRouteMatcher(['/solo-dev-journaling(.*)'])
 const isPlaygroundRoute = createRouteMatcher(['/playground(.*)'])
 const isAdminRoute = createRouteMatcher(['/admin(.*)'])
 
@@ -40,12 +41,26 @@ export default clerkMiddleware(async (auth, request) => {
   // Only check role-based access for admin routes
   // Journal and Playground are now public (in alpha)
   if (isAdminRoute(request)) {
+    // Extract email from sessionClaims
+    const email = (sessionClaims as any)?.email ||
+                  (sessionClaims as any)?.primaryEmailAddress?.emailAddress ||
+                  (sessionClaims as any)?.email_addresses?.[0]?.email_address
+
     const userWithEmail = {
-      ...sessionClaims,
-      email: (sessionClaims as any)?.email || (sessionClaims as any)?.email_addresses?.[0]?.email_address,
-      publicMetadata: (sessionClaims as any)?.publicMetadata
+      primaryEmailAddress: {
+        emailAddress: email
+      },
+      publicMetadata: (sessionClaims as any)?.publicMetadata || {}
     }
     const userRole = getUserRole(userWithEmail)
+
+    console.log('🔍 Admin Route Access Check:', {
+      pathname,
+      userRole,
+      email: userWithEmail.primaryEmailAddress?.emailAddress,
+      sessionEmail: email,
+      canAccess: canAccessRoute(userRole, pathname)
+    })
 
     if (!canAccessRoute(userRole, pathname)) {
       // Redirect to unauthorized page

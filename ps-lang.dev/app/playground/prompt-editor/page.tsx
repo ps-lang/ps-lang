@@ -5,6 +5,7 @@ import { filterForAgent, EXAMPLE_PROMPTS } from "@/lib/ps-lang-filter"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import FAQSection from "@/components/faq-section"
+import { siteConfig } from "@/config/site"
 
 type ViewMode = "original" | "enriched" | "agent-1" | "agent-2"
 type Persona = "developer" | "analyst" | "designer" | "marketer" | "researcher" | "manager"
@@ -739,7 +740,7 @@ export default function PlaygroundPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://github.com/vummo/ps-lang"
+              href={siteConfig.urls.github}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-8 py-4 bg-stone-900 text-white font-light text-sm hover:bg-stone-800 transition-colors"
@@ -747,7 +748,7 @@ export default function PlaygroundPage() {
               View on GitHub →
             </a>
             <a
-              href="https://www.npmjs.com/package/ps-lang"
+              href={siteConfig.urls.npm}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-8 py-4 border border-stone-300 text-stone-900 font-light text-sm hover:border-stone-400 transition-colors"

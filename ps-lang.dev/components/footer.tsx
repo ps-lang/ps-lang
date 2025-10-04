@@ -1,11 +1,11 @@
 'use client'
 
 import Link from 'next/link'
-import { useUser, SignInButton, useClerk } from '@clerk/nextjs'
+import { useUser, SignInButton, SignUpButton, useClerk } from '@clerk/nextjs'
 import { useState, useEffect } from 'react'
 import FeedbackModal from './feedback-modal'
 import PageContextHeader from './page-context-header'
-import AlphaSignupModal from './alpha-signup-modal'
+import { siteConfig } from '@/config/site'
 
 const PERSONA_SLOGANS: Record<string, string> = {
   explorer: 'Discover More · Learn As I Go',
@@ -22,7 +22,6 @@ export default function Footer() {
   const { signOut } = useClerk()
   const [personaSlogan, setPersonaSlogan] = useState('Discover More · Learn As I Go')
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false)
-  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
 
   useEffect(() => {
     if (user?.unsafeMetadata?.persona) {
@@ -71,7 +70,7 @@ export default function Footer() {
             <h4 className="text-xs uppercase tracking-wider text-stone-400 mb-3 font-medium">Code</h4>
             <div className="flex flex-col gap-2 text-sm">
               <a
-                href="https://github.com/vummo/ps-lang"
+                href={siteConfig.urls.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-stone-600 hover:text-stone-900 transition-colors"
@@ -79,7 +78,7 @@ export default function Footer() {
                 GitHub ↗
               </a>
               <a
-                href="https://www.npmjs.com/package/ps-lang"
+                href={siteConfig.urls.npm}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-stone-600 hover:text-stone-900 transition-colors"
@@ -129,12 +128,11 @@ export default function Footer() {
                       Login
                     </button>
                   </SignInButton>
-                  <button
-                    onClick={() => setIsSignupModalOpen(true)}
-                    className="text-left text-stone-600 hover:text-stone-900 transition-colors"
-                  >
-                    Sign Up
-                  </button>
+                  <SignUpButton mode="modal">
+                    <button className="text-left text-stone-600 hover:text-stone-900 transition-colors">
+                      Sign Up
+                    </button>
+                  </SignUpButton>
                 </>
               )}
             </div>
@@ -147,7 +145,7 @@ export default function Footer() {
             <p className="text-center sm:text-left text-stone-500">
               © 2025{" "}
               <a
-                href="https://vummo.com"
+                href={siteConfig.urls.vummoLabs}
                 target="_blank"
                 rel="noopener"
                 className="text-stone-600 hover:text-stone-900 transition-colors underline"
@@ -157,7 +155,7 @@ export default function Footer() {
               </a>
               {" "}·{" "}
               <a
-                href="https://github.com/vummo/ps-lang/blob/main/LICENSE"
+                href={siteConfig.urls.license}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-stone-600 hover:text-stone-900 transition-colors underline"
@@ -177,10 +175,6 @@ export default function Footer() {
         isOpen={isFeedbackModalOpen}
         onClose={() => setIsFeedbackModalOpen(false)}
         version="v0.1.0-alpha.1"
-      />
-      <AlphaSignupModal
-        isOpen={isSignupModalOpen}
-        onClose={() => setIsSignupModalOpen(false)}
       />
     </footer>
   )

@@ -1,12 +1,14 @@
 import type React from "react"
 import Script from "next/script"
 import { ClerkProvider } from '@clerk/nextjs'
+import ConvexClientProvider from '@/components/convex-client-provider'
 
 import "./globals.css"
 import PostHogIdentifier from '@/components/posthog-identifier'
 import AnnouncementBar from '@/components/announcement-bar'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
+import { siteConfig } from '@/config/site'
 
 import { Courier_Prime, Crimson_Text, Inter, JetBrains_Mono } from 'next/font/google'
 
@@ -107,7 +109,7 @@ export default function RootLayout({
           "height": 200
         },
         "sameAs": [
-          "https://github.com/vummo/ps-lang"
+          siteConfig.urls.github
         ]
       },
       {
@@ -140,13 +142,84 @@ export default function RootLayout({
           "@id": "https://ps-lang.dev/#organization"
         },
         "inLanguage": "en-US"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ps-lang.dev/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is PS-LANG?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "PS-LANG is a zone-based syntax language for controlling what AI agents see in multi-agent workflows. It provides 7 privacy zones that let you control context flow between agents, reduce token usage by up to 60%, and create cleaner agent handoffs in AI pipelines."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does PS-LANG reduce token usage?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "PS-LANG uses zone-based syntax to mark content with specific privacy levels. When agents process prompts, they only see content within zones they have access to, reducing unnecessary context and cutting token usage by up to 60% in multi-agent workflows."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are PS-LANG zones?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "PS-LANG has 7 privacy zones: public (<@. .>), internal (<. .>), confidential (<#. #>), agent-specific (<.agent .agent>), bookmark (<.bm .bm>), log (<.log .log>), and system (<sys. .sys>). Each zone controls who can see the content inside."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is PS-LANG backwards compatible?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, PS-LANG is designed to be backwards compatible. You can add zone syntax to existing prompts without breaking them. Agents that don't understand PS-LANG will simply ignore the zone markers and process the full text."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I install PS-LANG?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Install PS-LANG using npm: 'npx ps-lang@alpha init'. This initializes PS-LANG in your project and sets up the necessary configuration for zone-based context control in your AI workflows."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is Solo Dev Journaling?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Solo Dev Journaling is PS-LANG's premium feature for tracking AI workflows, benchmarking improvements, and maintaining secure audit trails. It uses end-to-end encryption to store prompt history and workflow analytics."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does PS-LANG work with MCP?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, PS-LANG integrates seamlessly with Model Context Protocol (MCP) agent chains. You can use zone syntax within MCP workflows to control context between different agents in your pipeline."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How accurate are PS-LANG benchmarks?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "PS-LANG improves benchmark accuracy by controlling exactly what context each agent sees. This eliminates context contamination between test runs and ensures consistent, reproducible benchmark results."
+            }
+          }
+        ]
       }
     ]
   };
 
   return (
-    <ClerkProvider>
-      <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${courierPrime.variable} ${crimsonText.variable} antialiased`}>
+    <ConvexClientProvider>
+      <ClerkProvider>
+        <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${courierPrime.variable} ${crimsonText.variable} antialiased`}>
         <head>
         {/* Structured Data */}
         <script
@@ -291,6 +364,116 @@ export default function RootLayout({
             });
           `}
         </Script>
+
+        {/* Core Web Vitals Tracking */}
+        <Script id="web-vitals" strategy="afterInteractive">
+          {`
+            // Import web-vitals library
+            (function() {
+              // Largest Contentful Paint (LCP)
+              if (typeof PerformanceObserver !== 'undefined') {
+                try {
+                  const lcpObserver = new PerformanceObserver((entryList) => {
+                    const entries = entryList.getEntries();
+                    const lastEntry = entries[entries.length - 1];
+                    const lcpValue = lastEntry.renderTime || lastEntry.loadTime;
+
+                    if (window.gtag) {
+                      window.gtag('event', 'web_vitals', {
+                        event_category: 'Web Vitals',
+                        event_label: 'LCP',
+                        value: Math.round(lcpValue),
+                        metric_rating: lcpValue <= 2500 ? 'good' : lcpValue <= 4000 ? 'needs improvement' : 'poor',
+                        page: window.location.pathname
+                      });
+                    }
+
+                    if (window.posthog) {
+                      window.posthog.capture('core_web_vital_lcp', {
+                        value: Math.round(lcpValue),
+                        rating: lcpValue <= 2500 ? 'good' : lcpValue <= 4000 ? 'needs_improvement' : 'poor',
+                        page: window.location.pathname
+                      });
+                    }
+                  });
+                  lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+                } catch (e) {
+                  console.error('LCP observer error:', e);
+                }
+
+                // First Input Delay (FID)
+                try {
+                  const fidObserver = new PerformanceObserver((entryList) => {
+                    const entries = entryList.getEntries();
+                    entries.forEach((entry) => {
+                      const fidValue = entry.processingStart - entry.startTime;
+
+                      if (window.gtag) {
+                        window.gtag('event', 'web_vitals', {
+                          event_category: 'Web Vitals',
+                          event_label: 'FID',
+                          value: Math.round(fidValue),
+                          metric_rating: fidValue <= 100 ? 'good' : fidValue <= 300 ? 'needs improvement' : 'poor',
+                          page: window.location.pathname
+                        });
+                      }
+
+                      if (window.posthog) {
+                        window.posthog.capture('core_web_vital_fid', {
+                          value: Math.round(fidValue),
+                          rating: fidValue <= 100 ? 'good' : fidValue <= 300 ? 'needs_improvement' : 'poor',
+                          page: window.location.pathname
+                        });
+                      }
+                    });
+                  });
+                  fidObserver.observe({ type: 'first-input', buffered: true });
+                } catch (e) {
+                  console.error('FID observer error:', e);
+                }
+
+                // Cumulative Layout Shift (CLS)
+                try {
+                  let clsValue = 0;
+                  const clsObserver = new PerformanceObserver((entryList) => {
+                    const entries = entryList.getEntries();
+                    entries.forEach((entry) => {
+                      if (!entry.hadRecentInput) {
+                        clsValue += entry.value;
+                      }
+                    });
+                  });
+                  clsObserver.observe({ type: 'layout-shift', buffered: true });
+
+                  // Report CLS on page hide
+                  window.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'hidden') {
+                      if (window.gtag) {
+                        window.gtag('event', 'web_vitals', {
+                          event_category: 'Web Vitals',
+                          event_label: 'CLS',
+                          value: Math.round(clsValue * 1000),
+                          metric_rating: clsValue <= 0.1 ? 'good' : clsValue <= 0.25 ? 'needs improvement' : 'poor',
+                          page: window.location.pathname
+                        });
+                      }
+
+                      if (window.posthog) {
+                        window.posthog.capture('core_web_vital_cls', {
+                          value: Math.round(clsValue * 1000) / 1000,
+                          rating: clsValue <= 0.1 ? 'good' : clsValue <= 0.25 ? 'needs_improvement' : 'poor',
+                          page: window.location.pathname
+                        });
+                      }
+                    }
+                  });
+                } catch (e) {
+                  console.error('CLS observer error:', e);
+                }
+              }
+            })();
+          `}
+        </Script>
         </head>
         <body className="min-h-screen bg-stone-50 text-stone-900 font-light flex flex-col">
           <PostHogIdentifier />
@@ -303,5 +486,6 @@ export default function RootLayout({
         </body>
       </html>
     </ClerkProvider>
+    </ConvexClientProvider>
   )
 }

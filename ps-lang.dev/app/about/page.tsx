@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
 
 export const metadata: Metadata = {
   title: 'About PS-LANG™ | Privacy-First Multi-Agent Context Control',
@@ -314,7 +315,7 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="https://github.com/vummo/ps-lang"
+                href={siteConfig.urls.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-8 py-4 bg-stone-900 text-white font-light text-sm hover:bg-stone-800 transition-colors"
@@ -322,7 +323,7 @@ export default function AboutPage() {
                 View on GitHub →
               </a>
               <a
-                href="https://www.npmjs.com/package/ps-lang"
+                href={siteConfig.urls.npm}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-8 py-4 border border-stone-300 text-stone-900 font-light text-sm hover:border-stone-400 transition-colors"
@@ -333,7 +334,7 @@ export default function AboutPage() {
             <p className="text-xs text-stone-500 mt-8">
               PS-LANG<sup className="text-[8px]">™</sup> is a trademark of Vummo Labs ·{" "}
               <a
-                href="https://github.com/vummo/ps-lang/blob/main/LICENSE"
+                href={siteConfig.urls.license}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-stone-600 hover:text-stone-900 transition-colors underline"

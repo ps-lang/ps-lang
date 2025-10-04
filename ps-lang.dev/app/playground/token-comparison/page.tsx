@@ -5,8 +5,9 @@ import { generateBenchmarkData } from "@/lib/ps-lang-filter"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 import { motion } from "framer-motion"
 import Link from "next/link"
-import AlphaSignupModal from "@/components/alpha-signup-modal"
 import FAQSection from "@/components/faq-section"
+import { siteConfig } from "@/config/site"
+import AlphaSignupModal from "@/components/alpha-signup-modal"
 
 export default function TokenComparisonPage() {
   const [datasetType, setDatasetType] = useState<'baseline' | 'heavy-zones' | 'benchmark-zones' | 'private-zones' | 'minimal-zones'>('baseline')
@@ -473,7 +474,7 @@ export default function TokenComparisonPage() {
               question: "How do I get started with PS-LANG?",
               answer: (
                 <>
-                  Install with <code className="bg-stone-100 px-2 py-1 font-mono text-xs">npx ps-lang@alpha init</code> and start adding zone syntax to your prompts. Check the <a href="https://github.com/vummo/ps-lang" className="text-stone-900 underline hover:text-stone-600 transition-colors">GitHub repo</a> for documentation.
+                  Install with <code className="bg-stone-100 px-2 py-1 font-mono text-xs">npx ps-lang@alpha init</code> and start adding zone syntax to your prompts. Check the <a href={siteConfig.urls.github} className="text-stone-900 underline hover:text-stone-600 transition-colors">GitHub repo</a> for documentation.
                 </>
               )
             }

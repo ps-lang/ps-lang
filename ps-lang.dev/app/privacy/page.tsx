@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { siteConfig } from "@/config/site"
 
 export const metadata = {
   title: "Privacy Policy - PS-LANG",
@@ -207,7 +208,7 @@ export default function PrivacyPage() {
               </p>
               <p className="text-sm text-stone-600">
                 <strong>GitHub:</strong>{" "}
-                <a href="https://github.com/vummo/ps-lang/issues" target="_blank" rel="noopener noreferrer" className="underline hover:text-stone-900">
+                <a href={`${siteConfig.urls.github}/issues`} target="_blank" rel="noopener noreferrer" className="underline hover:text-stone-900">
                   github.com/vummo/ps-lang/issues
                 </a>
               </p>

@@ -4,6 +4,9 @@ import { useUser, SignOutButton } from '@clerk/nextjs'
 import { getUserRole, getRoleDisplayName, getRoleBadgeColor } from '@/lib/roles'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { useQuery, useMutation } from 'convex/react'
+import { api } from '@/convex/_generated/api'
+import { siteConfig } from '@/config/site'
 
 const PERSONAS = [
   { id: 'explorer', name: 'Explorer', slogan: 'Discover More · Learn As I Go', description: 'Let the system adapt to your style over time' },
@@ -13,6 +16,14 @@ const PERSONAS = [
   { id: 'analyst', name: 'Analyst', slogan: 'Measure Twice · Cut Once · Data-Driven', description: 'You optimize metrics, track performance, and make data-backed decisions' },
   { id: 'generalist', name: 'Generalist', slogan: 'Learn Everything · Master Anything · Stay Curious', description: 'You explore broadly, adapt quickly, and connect the dots' },
   { id: 'prefer_not_to_say', name: 'Prefer not to say', slogan: 'Privacy First · Keep It Simple', description: 'Keep your preferences private' },
+]
+
+const ALPHA_INTERESTS = [
+  { id: 'multi_agent_workflows', label: 'Multi-agent workflows' },
+  { id: 'benchmarking_testing', label: 'Benchmarking & testing' },
+  { id: 'privacy_first_tools', label: 'Privacy-first AI tools' },
+  { id: 'ai_workflow_journaling', label: 'AI workflow journaling' },
+  { id: 'mcp_integration', label: 'MCP integration' },
 ]
 
 export default function SettingsPage() {
@@ -33,6 +44,19 @@ export default function SettingsPage() {
   // Focus states for inputs
   const [displayNameFocused, setDisplayNameFocused] = useState(false)
   const [bioFocused, setBioFocused] = useState(false)
+
+  // Alpha access request state
+  const [alphaGithubUrl, setAlphaGithubUrl] = useState('')
+  const [alphaInterests, setAlphaInterests] = useState<string[]>([])
+  const [isSubmittingAlpha, setIsSubmittingAlpha] = useState(false)
+  const [alphaSubmitted, setAlphaSubmitted] = useState(false)
+
+  // Convex queries and mutations
+  const existingAlphaRequest = useQuery(
+    api.alphaRequests.getByClerkUserId,
+    user?.id ? { clerkUserId: user.id } : "skip"
+  )
+  const submitAlphaRequest = useMutation(api.alphaRequests.submitRequest)
 
   // Load all user metadata
   useEffect(() => {
@@ -90,6 +114,38 @@ export default function SettingsPage() {
       console.error('Failed to save profile:', error)
       setIsSaving(false)
     }
+  }
+
+  const handleAlphaSubmit = async () => {
+    if (!user?.id || !user?.primaryEmailAddress?.emailAddress) return
+
+    setIsSubmittingAlpha(true)
+
+    try {
+      await submitAlphaRequest({
+        clerkUserId: user.id,
+        email: user.primaryEmailAddress.emailAddress,
+        persona: selectedPersona,
+        githubUrl: alphaGithubUrl || undefined,
+        interestedIn: alphaInterests,
+      })
+
+      setAlphaSubmitted(true)
+      setTimeout(() => setAlphaSubmitted(false), 5000)
+    } catch (error) {
+      console.error('Failed to submit alpha request:', error)
+      alert('Failed to submit request. Please try again.')
+    } finally {
+      setIsSubmittingAlpha(false)
+    }
+  }
+
+  const toggleAlphaInterest = (interestId: string) => {
+    setAlphaInterests(prev =>
+      prev.includes(interestId)
+        ? prev.filter(id => id !== interestId)
+        : [...prev, interestId]
+    )
   }
 
   // Auto-save profile fields on change with 5-second debounce
@@ -233,9 +289,8 @@ export default function SettingsPage() {
             <div className="pt-6 border-t border-stone-200">
               <div className="mb-6 flex items-center justify-between">
                 <span className="text-xs tracking-[0.15em] text-stone-400 uppercase font-medium">Social Links</span>
-                <span className="text-xs text-stone-400 italic">Coming Soon</span>
               </div>
-              <div className="grid sm:grid-cols-2 gap-6 opacity-50 pointer-events-none">
+              <div className="grid sm:grid-cols-2 gap-6">
                 <div>
                   <label className="text-xs tracking-wide text-stone-600 uppercase block mb-2 font-medium">GitHub</label>
                   <input
@@ -243,8 +298,7 @@ export default function SettingsPage() {
                     value={githubUrl}
                     onChange={(e) => setGithubUrl(e.target.value)}
                     placeholder="https://github.com/username"
-                    disabled
-                    className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 bg-stone-50 focus:border-stone-900 focus:outline-none transition-colors"
+                    className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 placeholder:text-stone-400 bg-white focus:border-stone-900 focus:outline-none transition-colors"
                   />
                 </div>
                 <div>
@@ -254,8 +308,7 @@ export default function SettingsPage() {
                     value={twitterUrl}
                     onChange={(e) => setTwitterUrl(e.target.value)}
                     placeholder="https://twitter.com/username"
-                    disabled
-                    className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 bg-stone-50 focus:border-stone-900 focus:outline-none transition-colors"
+                    className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 placeholder:text-stone-400 bg-white focus:border-stone-900 focus:outline-none transition-colors"
                   />
                 </div>
                 <div className="sm:col-span-2">
@@ -265,8 +318,7 @@ export default function SettingsPage() {
                     value={websiteUrl}
                     onChange={(e) => setWebsiteUrl(e.target.value)}
                     placeholder="https://yoursite.com"
-                    disabled
-                    className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 bg-stone-50 focus:border-stone-900 focus:outline-none transition-colors"
+                    className="w-full border border-stone-300 px-4 py-3 text-sm text-stone-900 placeholder:text-stone-400 bg-white focus:border-stone-900 focus:outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -334,31 +386,51 @@ export default function SettingsPage() {
           )}
         </div>
 
-        {/* Quick Links */}
-        <div className="border border-stone-300 bg-white p-8 sm:p-12">
+        {/* Alpha Access Request - TEMPORARILY DISABLED FOR DEBUGGING */}
+        {/* {userRole === 'user' && (
+          <div>Alpha section commented out</div>
+        )} */}
+
+        {/* Resources */}
+        <div className="border border-stone-300 bg-white p-8 sm:p-12" data-ux-component="resource-cards" data-theme-version="v1.0-luxury-stationery" data-privacy="public">
           <div className="mb-8">
-            <span className="text-xs tracking-[0.15em] text-stone-400 uppercase font-medium">Resources</span>
+            <span className="text-xs tracking-[0.2em] text-stone-400 uppercase font-medium">Resources</span>
           </div>
-          <div className="space-y-4">
+          <div className="grid sm:grid-cols-3 gap-4">
             <Link
               href="/privacy"
-              className="block text-sm text-stone-600 hover:text-stone-900 transition-colors"
+              className="group relative flex flex-col gap-3 p-6 bg-stone-50/50 border border-stone-200/60 hover:bg-white hover:border-stone-300 hover:shadow-sm transition-all duration-300"
+              data-ai-meta="legal-privacy"
             >
-              Privacy Policy →
+              <span className="text-[10px] tracking-[0.25em] text-stone-400/80 uppercase font-medium">Legal</span>
+              <div className="flex items-baseline justify-between">
+                <span className="text-sm text-stone-900 font-light tracking-wide">Privacy Policy</span>
+                <span className="text-stone-300 group-hover:text-stone-400 transition-colors text-xs">→</span>
+              </div>
             </Link>
             <Link
               href="/terms"
-              className="block text-sm text-stone-600 hover:text-stone-900 transition-colors"
+              className="group relative flex flex-col gap-3 p-6 bg-stone-50/50 border border-stone-200/60 hover:bg-white hover:border-stone-300 hover:shadow-sm transition-all duration-300"
+              data-ai-meta="legal-terms"
             >
-              Terms of Use →
+              <span className="text-[10px] tracking-[0.25em] text-stone-400/80 uppercase font-medium">Legal</span>
+              <div className="flex items-baseline justify-between">
+                <span className="text-sm text-stone-900 font-light tracking-wide">Terms of Use</span>
+                <span className="text-stone-300 group-hover:text-stone-400 transition-colors text-xs">→</span>
+              </div>
             </Link>
             <a
-              href="https://github.com/PS-Lang/ps-lang"
+              href={siteConfig.urls.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-sm text-stone-600 hover:text-stone-900 transition-colors"
+              className="group relative flex flex-col gap-3 p-6 bg-stone-50/50 border border-stone-200/60 hover:bg-white hover:border-stone-300 hover:shadow-sm transition-all duration-300"
+              data-ai-meta="open-source-github"
             >
-              GitHub Repository ↗
+              <span className="text-[10px] tracking-[0.25em] text-stone-400/80 uppercase font-medium">Open Source</span>
+              <div className="flex items-baseline justify-between">
+                <span className="text-sm text-stone-900 font-light tracking-wide">GitHub</span>
+                <span className="text-stone-300 group-hover:text-stone-400 transition-colors text-xs">↗</span>
+              </div>
             </a>
           </div>
         </div>

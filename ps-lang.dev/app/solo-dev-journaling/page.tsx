@@ -2,17 +2,26 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { useUser, SignInButton, UserButton } from "@clerk/nextjs"
+import { useUser, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs"
 import { getUserRole, getRoleDisplayName, getRoleBadgeColor } from "@/lib/roles"
-import AlphaSignupModal from "@/components/alpha-signup-modal"
 import NewsletterModal from "@/components/newsletter-modal"
+import AlphaSignupModal from "@/components/alpha-signup-modal"
+import { useQuery } from "convex/react"
+import { api } from "@/convex/_generated/api"
 
 export default function JournalingPage() {
   const { isSignedIn, user } = useUser()
   const userRole = getUserRole(user)
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false)
   const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false)
-  const [isAlphaSignupModalOpen, setIsAlphaSignupModalOpen] = useState(false)
+  const [isAlphaModalOpen, setIsAlphaModalOpen] = useState(false)
+
+  // Check if user has already signed up for alpha
+  const alphaSignup = useQuery(
+    api.alphaSignups.getByEmail,
+    user?.primaryEmailAddress?.emailAddress ? { email: user.primaryEmailAddress.emailAddress } : "skip"
+  )
+  const hasJoinedAlpha = !!alphaSignup
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -31,7 +40,7 @@ export default function JournalingPage() {
         </div>
 
         {/* Alpha Signup CTA */}
-        {!isSignedIn && (
+        {!isSignedIn ? (
           <div className="mb-16">
             <div className="border text-white p-8 sm:p-10 text-center" style={{ backgroundColor: '#C5B9AA', borderColor: '#C5B9AA' }}>
               <div className="inline-block mb-3">
@@ -41,15 +50,52 @@ export default function JournalingPage() {
                 Help Shape PS-LANG's Future
               </h2>
               <p className="text-sm text-white/90 mb-6 max-w-md mx-auto leading-relaxed font-light">
-                Join our alpha testing program. Early access, direct feedback channel, and influence on feature roadmap.
+                Create an account to request alpha access. Early access, direct feedback channel, and influence on feature roadmap.
               </p>
-              <button
-                onClick={() => setIsAlphaSignupModalOpen(true)}
-                className="px-8 py-3 bg-white font-light text-sm hover:bg-white/90 transition-colors font-mono tracking-wide"
-                style={{ color: '#C5B9AA' }}
-              >
-                Sign Up for Alpha →
-              </button>
+              <SignUpButton mode="modal">
+                <button
+                  className="px-8 py-3 bg-white font-light text-sm hover:bg-white/90 transition-colors font-mono tracking-wide"
+                  style={{ color: '#C5B9AA' }}
+                >
+                  Create Account →
+                </button>
+              </SignUpButton>
+            </div>
+          </div>
+        ) : userRole === 'user' && (
+          <div className="mb-16">
+            <div className="border text-white p-8 sm:p-10 text-center" style={{ backgroundColor: '#C5B9AA', borderColor: '#C5B9AA' }}>
+              <div className="inline-block mb-3">
+                <span className="text-[10px] tracking-[0.25em] text-white/70 font-medium uppercase font-mono">Alpha Testing</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-light mb-4 tracking-tight">
+                Request Alpha Access
+              </h2>
+              <p className="text-sm text-white/90 mb-6 max-w-md mx-auto leading-relaxed font-light">
+                Complete your alpha access request in Settings to join our testing program.
+              </p>
+              {hasJoinedAlpha ? (
+                <div className="inline-flex items-center gap-3 bg-white px-6 py-3">
+                  <svg className="w-5 h-5" style={{ color: '#C5B9AA' }} fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span className="font-light text-sm font-mono tracking-wide" style={{ color: '#C5B9AA' }}>
+                    You're on the waitlist
+                  </span>
+                </div>
+              ) : (
+                <label className="inline-flex items-center gap-3 cursor-pointer group bg-white px-6 py-3 hover:bg-white/90 transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={isAlphaModalOpen}
+                    onChange={(e) => setIsAlphaModalOpen(e.target.checked)}
+                    className="w-5 h-5 border border-stone-300 text-stone-900 focus:ring-stone-900 focus:ring-1 cursor-pointer"
+                  />
+                  <span className="font-light text-sm font-mono tracking-wide" style={{ color: '#C5B9AA' }}>
+                    Join the Journal waitlist
+                  </span>
+                </label>
+              )}
             </div>
           </div>
         )}
@@ -209,8 +255,8 @@ export default function JournalingPage() {
 
       {/* Alpha Signup Modal */}
       <AlphaSignupModal
-        isOpen={isAlphaSignupModalOpen}
-        onClose={() => setIsAlphaSignupModalOpen(false)}
+        isOpen={isAlphaModalOpen}
+        onClose={() => setIsAlphaModalOpen(false)}
       />
     </div>
   )

@@ -2,9 +2,11 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import AlphaSignupModal from '@/components/alpha-signup-modal'
 
 export default function AnnouncementBar() {
   const [isVisible, setIsVisible] = useState(true)
+  const [isAlphaModalOpen, setIsAlphaModalOpen] = useState(false)
 
   useEffect(() => {
     // Check if announcement was dismissed
@@ -40,12 +42,12 @@ export default function AnnouncementBar() {
             <span className="font-semibold">Alpha Testing Open</span>
             <span className="hidden sm:inline"> — Help shape PS-LANG's future</span>
           </span>
-          <Link
-            href="/journal"
+          <button
+            onClick={() => setIsAlphaModalOpen(true)}
             className="underline hover:opacity-80 transition-opacity font-medium text-white"
           >
             Join Now →
-          </Link>
+          </button>
         </div>
       </div>
       <button
@@ -57,6 +59,11 @@ export default function AnnouncementBar() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
+
+      <AlphaSignupModal
+        isOpen={isAlphaModalOpen}
+        onClose={() => setIsAlphaModalOpen(false)}
+      />
     </div>
   )
 }

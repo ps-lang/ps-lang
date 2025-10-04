@@ -4,12 +4,16 @@ import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
 import { useUser, SignInButton, useClerk } from "@clerk/nextjs"
 import { getUserRole, getRoleDisplayName, getRoleBadgeColor } from "@/lib/roles"
+import AlphaSignupModal from "@/components/alpha-signup-modal"
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isAccountOpen, setIsAccountOpen] = useState(false)
+  const [isJournalOpen, setIsJournalOpen] = useState(false)
   const [isPlaygroundOpen, setIsPlaygroundOpen] = useState(false)
+  const [isAlphaModalOpen, setIsAlphaModalOpen] = useState(false)
   const accountRef = useRef<HTMLDivElement>(null)
+  const journalRef = useRef<HTMLDivElement>(null)
   const playgroundRef = useRef<HTMLDivElement>(null)
   const { user, isSignedIn } = useUser()
   const { signOut } = useClerk()
@@ -18,11 +22,17 @@ export default function Navigation() {
   // Show dashboard for admins only
   const showDashboard = userRole === 'super_admin' || userRole === 'admin'
 
+  // Show papers for super_admin, admin, and reviewer
+  const showPapers = userRole === 'super_admin' || userRole === 'admin' || userRole === 'reviewer'
+
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (accountRef.current && !accountRef.current.contains(event.target as Node)) {
         setIsAccountOpen(false)
+      }
+      if (journalRef.current && !journalRef.current.contains(event.target as Node)) {
+        setIsJournalOpen(false)
       }
       if (playgroundRef.current && !playgroundRef.current.contains(event.target as Node)) {
         setIsPlaygroundOpen(false)
@@ -83,33 +93,46 @@ export default function Navigation() {
                 </div>
               )}
             </div>
-            {isSignedIn ? (
+            <Link href="/solo-dev-journaling" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
+              Journal
+            </Link>
+            <Link href="/research-papers" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
+              Papers
+            </Link>
+            {!isSignedIn ? (
+              <SignInButton mode="modal">
+                <button className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
+                  Sign In
+                </button>
+              </SignInButton>
+            ) : (
               <div className="relative" ref={accountRef}>
                 <button
                   onClick={() => setIsAccountOpen(!isAccountOpen)}
                   className="flex items-center gap-1 text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide"
                 >
-                  <span>Journal</span>
+                  <span>Account</span>
                   <span className={`transition-transform duration-200 ${isAccountOpen ? 'rotate-180' : ''}`}>▾</span>
                 </button>
 
                 {isAccountOpen && (
                   <div className="absolute right-0 mt-3 min-w-[200px] bg-white border border-stone-200">
                     <div className="py-2">
-                      <Link
-                        href="/journal"
-                        onClick={() => setIsAccountOpen(false)}
-                        className="block px-6 py-2 text-base text-stone-900 hover:bg-stone-50 transition-colors"
-                      >
-                        Journal
-                      </Link>
+                      {showDashboard && (
+                        <Link
+                          href="/journal/admin"
+                          onClick={() => setIsAccountOpen(false)}
+                          className="block px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors"
+                        >
+                          Admin Dashboard
+                        </Link>
+                      )}
                       <Link
                         href="/settings"
-                        className="flex items-center gap-3 px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors"
                         onClick={() => setIsAccountOpen(false)}
+                        className="block px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors"
                       >
-                        <span className="w-px h-4 bg-stone-300"></span>
-                        <span>Settings</span>
+                        Settings
                       </Link>
                       <button
                         onClick={() => signOut()}
@@ -122,10 +145,6 @@ export default function Navigation() {
                   </div>
                 )}
               </div>
-            ) : (
-              <Link href="/journal" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
-                Journal
-              </Link>
             )}
           </div>
 
@@ -154,32 +173,42 @@ export default function Navigation() {
                 1-Shot Prompt Editor →
               </Link>
             </div>
-            <Link href="/journal" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
+            <Link href="/solo-dev-journaling" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
               Journal
             </Link>
-            <Link href="/settings" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
-              Settings
+            <Link href="/research-papers" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
+              Papers
             </Link>
             {isSignedIn && (
-              <div className="pt-4 border-t border-stone-200">
-                <div className="mb-3">
-                  <p className="font-mono text-xs text-stone-500 mb-1">Signed in as</p>
-                  <p className="font-mono text-xs text-stone-900 truncate">{user?.primaryEmailAddress?.emailAddress}</p>
-                  <span className={`inline-block mt-2 px-2 py-0.5 rounded-full border font-mono text-xs ${getRoleBadgeColor(userRole)}`}>
-                    {getRoleDisplayName(userRole)}
-                  </span>
+              <>
+                <Link href="/settings" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
+                  Settings
+                </Link>
+                <div className="pt-4 border-t border-stone-200">
+                  <div className="mb-3">
+                    <p className="font-mono text-xs text-stone-500 mb-1">Signed in as</p>
+                    <p className="font-mono text-xs text-stone-900 truncate">{user?.primaryEmailAddress?.emailAddress}</p>
+                    <span className={`inline-block mt-2 px-2 py-0.5 rounded-full border font-mono text-xs ${getRoleBadgeColor(userRole)}`}>
+                      {getRoleDisplayName(userRole)}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => signOut()}
+                    className="w-full px-4 py-2 bg-stone-900 text-white font-light text-sm hover:bg-stone-800 transition-colors"
+                  >
+                    Sign Out
+                  </button>
                 </div>
-                <button
-                  onClick={() => signOut()}
-                  className="w-full px-4 py-2 bg-stone-900 text-white font-light text-sm hover:bg-stone-800 transition-colors"
-                >
-                  Sign Out
-                </button>
-              </div>
+              </>
             )}
           </div>
         )}
       </div>
+
+      <AlphaSignupModal
+        isOpen={isAlphaModalOpen}
+        onClose={() => setIsAlphaModalOpen(false)}
+      />
     </nav>
   )
 }

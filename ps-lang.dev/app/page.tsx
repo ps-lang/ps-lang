@@ -6,6 +6,7 @@ import { useUser, SignInButton } from "@clerk/nextjs"
 import NewsletterModal from "@/components/newsletter-modal"
 import FeedbackModal from "@/components/feedback-modal"
 import UseCaseModal from "@/components/use-case-modal"
+import { siteConfig } from "@/config/site"
 
 const PERSONA_SLOGANS: Record<string, string> = {
   explorer: 'Discover More · Learn As I Go',
@@ -83,18 +84,18 @@ export default function HomePage() {
             <span className="text-xs tracking-[0.2em] text-stone-500 font-medium uppercase">Privacy-First Script Language<sup className="text-[8px] ml-0.5">™</sup></span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-light text-stone-900 mb-6 sm:mb-8 tracking-tight px-4">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-light text-stone-900 mb-6 sm:mb-8 tracking-tight px-4 leading-tight">
             PS-LANG
           </h1>
 
-          <p className="text-base sm:text-xl text-stone-600 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed font-light px-4" data-track-section="hero-tagline">
-            Zone-based syntax for controlling what AI agents see. Better benchmarks, clean handoffs, backwards compatible.
+          <p className="text-base sm:text-lg text-stone-600 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed font-light px-4" data-track-section="hero-tagline">
+            Zone-based syntax for controlling what AI agents see. Better benchmarks, clean handoffs, backwards&nbsp;compatible.
           </p>
 
           {/* Install Instructions */}
           <div className="mb-8 sm:mb-12">
-            <div className="border border-stone-200 bg-white p-4 sm:p-6 max-w-lg mx-auto">
-              <pre className="font-mono text-xs sm:text-sm text-stone-700">
+            <div className="border border-stone-300 bg-stone-50/50 p-4 sm:p-6 max-w-lg mx-auto">
+              <pre className="font-mono text-xs sm:text-sm text-stone-800">
                 npx ps-lang@alpha init
               </pre>
             </div>
@@ -103,34 +104,47 @@ export default function HomePage() {
           {/* Hero Buttons */}
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4">
             <Link
-              href="https://www.npmjs.com/package/ps-lang"
-              className="border border-[#2D1300] px-6 sm:px-8 py-3 bg-[#2D1300] text-white hover:bg-[#1a0b00] transition-all duration-300 text-sm tracking-wide text-center"
+              href={siteConfig.urls.npm}
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-stone-900 text-white hover:bg-stone-800 transition-colors text-xs sm:text-sm font-medium uppercase tracking-[0.15em] text-center"
             >
-              VIEW ON NPM
+              View on NPM
             </Link>
             <Link
-              href="https://github.com/vummo/ps-lang"
-              className="border border-[#2D1300] px-6 sm:px-8 py-3 text-[#2D1300] hover:bg-[#2D1300] hover:text-white transition-all duration-300 text-sm tracking-wide text-center"
+              href={siteConfig.urls.github}
+              className="px-6 sm:px-8 py-3 sm:py-4 border border-stone-300 bg-white hover:bg-stone-50 hover:border-stone-400 text-stone-900 transition-all text-xs sm:text-sm font-medium uppercase tracking-[0.15em] text-center"
             >
-              VIEW ON GITHUB
+              View on GitHub
             </Link>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="border border-[#2D1300] px-6 sm:px-8 py-3 text-[#2D1300] hover:bg-[#2D1300] hover:text-white transition-all duration-300 text-sm tracking-wide"
+              className="px-6 sm:px-8 py-3 sm:py-4 border border-stone-300 bg-white hover:bg-stone-50 hover:border-stone-400 text-stone-900 transition-all text-xs sm:text-sm font-medium uppercase tracking-[0.15em]"
             >
-              SUBSCRIBE
+              Subscribe
             </button>
           </div>
         </div>
 
         {/* Alpha Launch Announcement */}
-        <div className="border-l-4 border-[#2D1300] bg-stone-100 p-4 sm:p-6 mb-12 sm:mb-16">
+        <div className="border-l-4 border-stone-900 bg-stone-100 p-4 sm:p-6 mb-6 sm:mb-8">
           <div className="flex items-start gap-3">
             <span className="text-2xl">🎉</span>
             <div>
-              <h3 className="text-sm font-medium text-stone-900 mb-2">Alpha Released - Now on npm!</h3>
+              <h3 className="text-sm font-medium text-stone-900 mb-2">PS-Lang Alpha Released</h3>
               <p className="text-xs text-stone-600 leading-relaxed">
                 PS-LANG v0.1.0-alpha.1 is now available. Install with <code className="bg-white px-2 py-1 font-mono">npx ps-lang@alpha init</code> and start controlling agent context today.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Journal Alpha Test Announcement */}
+        <div className="border-l-4 border-[#C5B9AA] bg-stone-100 p-4 sm:p-6 mb-12 sm:mb-16">
+          <div className="flex items-start gap-3">
+            <span className="text-2xl">📓</span>
+            <div>
+              <h3 className="text-sm font-medium text-stone-900 mb-2">PS-LANG Journal Alpha Testing</h3>
+              <p className="text-xs text-stone-600 leading-relaxed">
+                Join the waitlist for PS-LANG Journal. Track AI workflows, benchmark improvements, and maintain secure audit trails. <Link href="/solo-dev-journaling" className="underline hover:text-stone-900">Learn more →</Link>
               </p>
             </div>
           </div>
@@ -279,7 +293,7 @@ Pricing ideas, revenue notes`}
           </h2>
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <Link
-              href="https://github.com/vummo/ps-lang"
+              href={siteConfig.urls.github}
               className="border border-[#2D1300] px-6 sm:px-8 py-3 bg-[#2D1300] text-white hover:bg-[#1a0b00] transition-all duration-300 text-sm tracking-wide text-center"
             >
               VIEW ON GITHUB

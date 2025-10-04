@@ -7,6 +7,14 @@ const nextConfig = {
     config.stats = 'errors-only';
     return config;
   },
+  compress: true,
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [],
+  },
+  experimental: {
+    optimizePackageImports: ['@clerk/nextjs', 'framer-motion', 'convex/react'],
+  },
 };
 
 export default nextConfig;
