@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { ConvexHttpClient } from 'convex/browser'
 import { api } from '@/convex/_generated/api'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   try {
     const { userId } = await auth()

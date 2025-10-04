@@ -2,6 +2,8 @@ import { auth, clerkClient } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { getUserRole } from '@/lib/roles'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   try {
     const { userId } = await auth()
