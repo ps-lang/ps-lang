@@ -2,42 +2,22 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { siteConfig } from "@/config/site"
+import { useQuery } from "convex/react"
+import { api } from "@/convex/_generated/api"
 import PapersNewsletterModal from "@/components/papers-newsletter-modal"
-
-type Paper = {
-  slug: string
-  title: string
-  abstract: string
-  date: string
-  authors: string[]
-  category: string
-  pdfUrl?: string
-}
-
-const papers: Paper[] = [
-  {
-    slug: "zone-based-context-control-multi-agent-systems",
-    title: "Zone-Based Context Control in Multi-Agent AI Systems",
-    abstract: "We present PS-LANG, a privacy-first scripting language for controlling information flow in multi-agent AI workflows. Our approach reduces token usage by 60% while maintaining 95% context accuracy in benchmarks.",
-    date: "2025-10-04",
-    authors: ["Vummo Labs Research Team"],
-    category: "Multi-Agent Systems",
-  },
-]
+import { Breadcrumbs } from "@/components/breadcrumbs"
 
 export default function PapersPage() {
   const [isNewsletterOpen, setIsNewsletterOpen] = useState(false)
+  const papers = useQuery(api.researchPapers.getAll)
 
   return (
     <div className="min-h-screen bg-stone-50">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
-        {/* Header */}
-        <nav className="mb-8 flex items-center gap-2 text-[10px] tracking-[0.2em]">
-          <Link href="/" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Home</Link>
-          <span className="text-stone-300">→</span>
-          <span className="text-stone-600 uppercase">Papers</span>
-        </nav>
+        {/* Breadcrumbs */}
+        <div className="mb-8">
+          <Breadcrumbs items={[{ label: "Research Papers", href: "/research-papers" }]} />
+        </div>
 
         <header className="mb-16 pb-10 border-b border-stone-200/60">
           <div className="mb-6">
@@ -54,7 +34,12 @@ export default function PapersPage() {
         </header>
 
         {/* Papers Grid */}
-        <div className="space-y-8">
+        {!papers ? (
+          <div className="text-center py-12">
+            <div className="text-stone-400 text-sm">Loading papers...</div>
+          </div>
+        ) : (
+          <div className="space-y-8">
           {papers.map((paper) => (
             <article key={paper.slug} className="border border-stone-200/60 bg-white hover:border-stone-300 hover:shadow-sm transition-all duration-300">
               <Link href={`/research-papers/${paper.slug}`} className="block p-8 sm:p-10">
@@ -62,7 +47,7 @@ export default function PapersPage() {
                   <span className="text-[10px] tracking-[0.25em] text-stone-400/80 uppercase font-medium">{paper.category}</span>
                   <span className="text-stone-300/60">•</span>
                   <time className="text-[10px] tracking-[0.15em] text-stone-400/80 uppercase">
-                    {new Date(paper.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                    {new Date(paper.publicationDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                   </time>
                 </div>
 
@@ -70,7 +55,7 @@ export default function PapersPage() {
                   {paper.title}
                 </h2>
 
-                <p className="text-[15px] text-stone-600 leading-[1.8] tracking-[0.01em] mb-4">
+                <p className="text-[15px] text-stone-600 leading-[1.8] tracking-[0.01em] mb-4 line-clamp-3">
                   {paper.abstract}
                 </p>
 
@@ -88,14 +73,15 @@ export default function PapersPage() {
             </article>
           ))}
 
-          {/* Coming Soon */}
-          <div className="border border-stone-200/60 bg-stone-50/50 p-8 sm:p-10 text-center">
-            <span className="text-[10px] tracking-[0.25em] text-stone-400/80 uppercase font-medium block mb-4">Coming Soon</span>
-            <p className="text-[15px] text-stone-600 leading-relaxed tracking-[0.01em] max-w-xl mx-auto">
-              More research papers on multi-agent systems, privacy-preserving AI, and context control optimization.
-            </p>
+            {/* Coming Soon */}
+            <div className="border border-stone-200/60 bg-stone-50/50 p-8 sm:p-10 text-center">
+              <span className="text-[10px] tracking-[0.25em] text-stone-400/80 uppercase font-medium block mb-4">Coming Soon</span>
+              <p className="text-[15px] text-stone-600 leading-relaxed tracking-[0.01em] max-w-xl mx-auto">
+                More research papers on multi-agent systems, privacy-preserving AI, and context control optimization.
+              </p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <PapersNewsletterModal

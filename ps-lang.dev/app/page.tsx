@@ -89,7 +89,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-base sm:text-lg text-stone-600 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed font-light px-4" data-track-section="hero-tagline">
-            Zone-based syntax for controlling what AI agents see. Better benchmarks, clean handoffs, backwards&nbsp;compatible.
+            Zone-based syntax for controlling what AI agents see. Better benchmarks, clean handoffs, human&nbsp;compatible.
           </p>
 
           {/* Install Instructions */}

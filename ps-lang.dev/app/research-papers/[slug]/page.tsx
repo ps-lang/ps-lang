@@ -1,259 +1,191 @@
+"use client"
+
+import { useQuery, useMutation } from "convex/react"
+import { api } from "@/convex/_generated/api"
 import Link from "next/link"
-import type { Metadata } from "next"
-import { siteConfig } from "@/config/site"
-
-type Paper = {
-  slug: string
-  title: string
-  abstract: string
-  date: string
-  authors: string[]
-  category: string
-  keywords: string[]
-  content: string
-  pdfUrl?: string
-}
-
-const papers: Record<string, Paper> = {
-  "zone-based-context-control-multi-agent-systems": {
-    slug: "zone-based-context-control-multi-agent-systems",
-    title: "Zone-Based Context Control in Multi-Agent AI Systems",
-    abstract: "We present PS-LANG, a privacy-first scripting language for controlling information flow in multi-agent AI workflows. Our approach reduces token usage by 60% while maintaining 95% context accuracy in benchmarks.",
-    date: "2025-10-04",
-    authors: ["Vummo Labs Research Team"],
-    category: "Multi-Agent Systems",
-    keywords: ["multi-agent systems", "context control", "privacy", "AI workflows", "token optimization"],
-    content: `
-# Zone-Based Context Control in Multi-Agent AI Systems
-
-## Abstract
-
-Multi-agent AI systems face significant challenges in managing context flow between agents, leading to token inefficiency and privacy concerns. We introduce PS-LANG, a zone-based syntax for precise context control in agent pipelines. Our evaluation demonstrates 60% reduction in token usage and 95% context accuracy across diverse benchmarks.
-
-## 1. Introduction
-
-Traditional multi-agent systems pass entire conversation histories between agents, creating exponential token growth and context contamination. This approach wastes computational resources and exposes sensitive information unnecessarily.
-
-### 1.1 Problem Statement
-
-Current multi-agent frameworks lack fine-grained context control mechanisms, resulting in:
-
-— **Exponential Token Growth**: Each agent handoff duplicates the full context
-— **Context Contamination**: Agents receive irrelevant information
-— **Privacy Leakage**: Sensitive data propagates across agent boundaries
-— **Cost Escalation**: Higher API costs due to token waste
-
-### 1.2 Our Contribution
-
-We present PS-LANG, a domain-specific language for zone-based context control with the following contributions:
-
-— Platform-agnostic syntax for marking context zones
-— Formal semantics for zone visibility rules
-— Empirical evaluation across 20+ multi-agent benchmarks
-— Open-source implementation (MIT License)
-
-## 2. Zone Syntax
-
-PS-LANG introduces seven core zone types for context control:
-
-### 2.1 Public Zone \`<@. .>\`
-
-Visible to all agents in the pipeline. Used for shared context and final outputs.
-
-\`\`\`
-<@. Market analysis summary: Growth rate 23% YoY .>
-\`\`\`
-
-### 2.2 Private Zone \`<. .>\`
-
-Visible only to the current agent. Used for internal reasoning and sensitive data.
-
-\`\`\`
-<. Internal note: Consider alternative data sources .>
-\`\`\`
-
-### 2.3 Agent-Specific Zone \`<.agent .agent>\`
-
-Visible only to named agents. Enables precise agent-to-agent handoffs.
-
-\`\`\`
-<.researcher Focus on peer-reviewed sources .researcher>
-\`\`\`
-
-## 3. Formal Semantics
-
-We define zone visibility using a simple access control model:
-
-Let **A** = {a₁, a₂, ..., aₙ} be the set of agents in a pipeline.
-Let **Z** = {z₁, z₂, ..., zₘ} be the set of zones in a document.
-
-For each zone zᵢ, we define a visibility function **V(zᵢ) → P(A)** where:
-
-— V(<@. .>) = A (all agents)
-— V(<. .>) = {current_agent}
-— V(<.aⱼ .aⱼ>) = {aⱼ}
-
-## 4. Evaluation
-
-We evaluated PS-LANG across three dimensions: token efficiency, context accuracy, and implementation cost.
-
-### 4.1 Experimental Setup
-
-— **Benchmarks**: 20 multi-agent workflows (research, analysis, writing)
-— **Baseline**: Traditional full-context passing
-— **Metrics**: Token count, accuracy, latency, cost
-— **Models**: GPT-4, Claude 3.5 Sonnet, Llama 3
-
-### 4.2 Results
-
-| Metric | Baseline | PS-LANG | Improvement |
-|--------|----------|---------|-------------|
-| Token Usage | 15,234 | 6,094 | **60% reduction** |
-| Context Accuracy | 87% | 95% | **+8pp** |
-| API Cost | $12.50 | $5.00 | **60% savings** |
-| Pipeline Latency | 45s | 15s | **3x faster** |
-
-### 4.3 Analysis
-
-PS-LANG achieves significant token reduction by eliminating redundant context in agent handoffs. The improved accuracy stems from reduced context contamination—agents receive only relevant information, leading to better decision-making.
-
-## 5. Real-World Case Studies
-
-### 5.1 Research → Writing → Editing Pipeline
-
-A typical 3-agent workflow for content creation:
-
-**Agent 1 (Researcher)**: Gathers sources and data
-**Agent 2 (Writer)**: Drafts content based on research
-**Agent 3 (Editor)**: Reviews and refines
-
-**Without PS-LANG**: Each agent receives the full conversation history (3x token waste).
-
-**With PS-LANG**: Each agent receives only relevant zones:
-
-\`\`\`
-<@. Topic: AI benchmarking best practices .>
-<.researcher Find 5 peer-reviewed papers .researcher>
-<.writer Draft 1000-word article from research .writer>
-<.editor Focus on clarity and accuracy .editor>
-\`\`\`
-
-**Result**: 65% token reduction, 40% cost savings.
-
-## 6. Related Work
-
-Previous approaches to context management in multi-agent systems:
-
-— **LangChain Memory**: Limited to conversation summarization
-— **AutoGPT Context Windows**: Fixed-size truncation loses critical context
-— **Custom Prompt Engineering**: Manual and error-prone
-
-PS-LANG provides a declarative, platform-agnostic alternative with formal semantics.
-
-## 7. Limitations and Future Work
-
-Current limitations:
-
-— No encryption support (planned for v1.0)
-— Manual zone annotation required (future: auto-tagging)
-— Limited to text-based context (future: multimodal support)
-
-Future research directions:
-
-— Automatic zone inference using ML
-— Integration with RAG systems
-— Privacy-preserving zone encryption
-
-## 8. Conclusion
-
-PS-LANG demonstrates that zone-based context control is both practical and effective for multi-agent AI systems. Our approach achieves 60% token reduction while improving context accuracy, making it a valuable tool for developers building agent pipelines.
-
-## References
-
-[1] Anthropic. (2024). Model Context Protocol Specification.
-[2] OpenAI. (2024). Function Calling and Agent Design Patterns.
-[3] LangChain Documentation. (2024). Memory Management in Chains.
-
-## Appendix A: Implementation
-
-Full implementation available at: ${siteConfig.urls.github}
-
-\`\`\`bash
-npx ps-lang@alpha init
-\`\`\`
-
-## Appendix B: Benchmark Data
-
-Raw benchmark results and reproducibility scripts available in our GitHub repository.
-    `,
-  },
-}
-
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const paper = papers[params.slug]
-
-  if (!paper) {
-    return { title: "Paper Not Found | PS-LANG Research" }
+import { useEffect, useState } from "react"
+import { notFound } from "next/navigation"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
+import { Heart, ThumbsUp, CornerDownRight } from "lucide-react"
+import { useInteractionTracking } from "@/lib/useInteractionTracking"
+import { Breadcrumbs } from "@/components/breadcrumbs"
+
+export default function ResearchPaperPage({ params }: { params: { slug: string } }) {
+  const paper = useQuery(api.researchPapers.getBySlug, { slug: params.slug })
+  const incrementViews = useMutation(api.researchPapers.incrementViews)
+  const { track } = useInteractionTracking("research-paper", params.slug)
+  const [hasIncrementedView, setHasIncrementedView] = useState(false)
+  const [likedKeywords, setLikedKeywords] = useState<Set<string>>(new Set())
+  const [keywordToggleCounts, setKeywordToggleCounts] = useState<Record<string, number>>({})
+  const [abstractLiked, setAbstractLiked] = useState(false)
+  const [activeTab, setActiveTab] = useState<"original" | "summarized" | "psl">("original")
+
+  // Handle URL hash for tab sharing
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '')
+    if (hash === 'academic' || hash === 'summarized' || hash === 'psl') {
+      setActiveTab(hash === 'academic' ? 'original' : hash)
+    }
+  }, [])
+
+  const handleTabChange = (tab: "original" | "summarized" | "psl", label: string) => {
+    setActiveTab(tab)
+
+    // Update URL hash for sharing
+    const hashMap: Record<string, string> = {
+      'original': 'academic',
+      'summarized': 'summarized',
+      'psl': 'psl'
+    }
+    window.history.replaceState(null, '', `#${hashMap[tab]}`)
+
+    // Track interaction
+    track({
+      interactionType: "click",
+      category: "paper-format",
+      target: `${label.toLowerCase()}-format`,
+      metadata: {
+        paperTitle: paper?.title,
+        paperCategory: paper?.category,
+      },
+    })
   }
 
-  return {
-    title: `${paper.title} | PS-LANG Research`,
-    description: paper.abstract,
-    keywords: paper.keywords.join(", "),
-    authors: paper.authors.map(name => ({ name })),
-    openGraph: {
-      title: paper.title,
-      description: paper.abstract,
-      type: "article",
-      publishedTime: paper.date,
-      authors: paper.authors,
-    },
-  }
-}
-
-export async function generateStaticParams() {
-  return Object.keys(papers).map((slug) => ({ slug }))
-}
-
-// Prevent typographic widows/orphans in titles
-function balanceTitle(title: string): string {
-  const words = title.split(' ')
-  if (words.length < 4) return title
-
-  // Check if last word is short (potential widow)
-  const lastWord = words[words.length - 1]
-  if (lastWord.length <= 3) {
-    // Add non-breaking space before last two words
-    words[words.length - 2] = words[words.length - 2] + '\u00A0' + lastWord
-    words.pop()
+  // Strip intro content (title, subtitle, abstract, keywords) from markdown for academic tab
+  const stripIntroFromMarkdown = (content: string) => {
+    // Find the first "## 1." or "## Introduction" section
+    const introSectionMatch = content.match(/\n## 1\./m) || content.match(/\n## Introduction/m)
+    if (introSectionMatch && introSectionMatch.index) {
+      return content.substring(introSectionMatch.index).trim()
+    }
+    return content
   }
 
-  return words.join(' ')
-}
+  const handleKeywordClick = (keyword: string) => {
+    // Toggle keyword like state
+    const isCurrentlyLiked = likedKeywords.has(keyword)
+    const newLikedKeywords = new Set(likedKeywords)
 
-export default function PaperPage({ params }: { params: { slug: string } }) {
-  const paper = papers[params.slug]
+    if (isCurrentlyLiked) {
+      newLikedKeywords.delete(keyword)
+    } else {
+      newLikedKeywords.add(keyword)
+    }
 
-  if (!paper) {
+    setLikedKeywords(newLikedKeywords)
+
+    // Increment toggle count
+    const newToggleCount = (keywordToggleCounts[keyword] || 0) + 1
+    setKeywordToggleCounts(prev => ({
+      ...prev,
+      [keyword]: newToggleCount
+    }))
+
+    // Track interaction
+    track({
+      interactionType: "toggle",
+      category: "paper-keyword",
+      target: keyword,
+      value: {
+        liked: !isCurrentlyLiked,
+        toggleCount: newToggleCount,
+      },
+      metadata: {
+        paperTitle: paper?.title,
+        paperCategory: paper?.category,
+      },
+    })
+  }
+
+  const handleAbstractClick = () => {
+    const newLikedState = !abstractLiked
+    setAbstractLiked(newLikedState)
+
+    // Track interaction
+    track({
+      interactionType: "toggle",
+      category: "paper-abstract",
+      target: "abstract",
+      value: {
+        liked: newLikedState,
+      },
+      metadata: {
+        paperTitle: paper?.title,
+        paperCategory: paper?.category,
+      },
+    })
+  }
+
+  const jumpToSection = (sectionText: string) => {
+    // Switch to Academic format
+    setActiveTab("original")
+
+    // Track the jump
+    track({
+      interactionType: "click",
+      category: "paper-navigation",
+      target: `jump-to-${sectionText.toLowerCase().replace(/\s+/g, "-")}`,
+      metadata: {
+        paperTitle: paper?.title,
+        paperCategory: paper?.category,
+      },
+    })
+
+    // Wait for tab switch, then scroll to section
+    setTimeout(() => {
+      // Find heading that contains this text
+      const headings = document.querySelectorAll('article h1, article h2, article h3, article h4')
+      const targetHeading = Array.from(headings).find(h =>
+        h.textContent?.toLowerCase().includes(sectionText.toLowerCase())
+      )
+
+      if (targetHeading) {
+        targetHeading.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        // Add a highlight effect
+        targetHeading.classList.add('bg-yellow-100/50')
+        setTimeout(() => targetHeading.classList.remove('bg-yellow-100/50'), 2000)
+      }
+    }, 100)
+  }
+
+  useEffect(() => {
+    if (paper && !hasIncrementedView) {
+      // Check if this paper has been viewed in this session
+      const viewedPapers = JSON.parse(sessionStorage.getItem('viewedPapers') || '[]')
+
+      if (!viewedPapers.includes(params.slug)) {
+        // Track this view
+        incrementViews({ slug: params.slug })
+
+        // Mark as viewed in session
+        viewedPapers.push(params.slug)
+        sessionStorage.setItem('viewedPapers', JSON.stringify(viewedPapers))
+      }
+
+      setHasIncrementedView(true)
+    }
+  }, [paper, hasIncrementedView, params.slug, incrementViews])
+
+  if (paper === undefined) {
     return (
       <div className="min-h-screen bg-stone-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-light text-stone-900 mb-4">Paper Not Found</h1>
-          <Link href="/research-papers" className="text-stone-600 hover:text-stone-900 underline">
-            Back to Papers
-          </Link>
-        </div>
+        <div className="text-stone-400 text-sm">Loading...</div>
       </div>
     )
   }
 
-  // JSON-LD structured data for research paper
-  const jsonLd = {
+  if (paper === null) {
+    notFound()
+  }
+
+  // JSON-LD structured data for SEO
+  const jsonLd = paper ? {
     "@context": "https://schema.org",
     "@type": "ScholarlyArticle",
     "headline": paper.title,
+    "alternativeHeadline": paper.subtitle,
     "abstract": paper.abstract,
-    "datePublished": paper.date,
     "author": paper.authors.map(name => ({
       "@type": "Person",
       "name": name
@@ -263,159 +195,440 @@ export default function PaperPage({ params }: { params: { slug: string } }) {
       "name": "Vummo Labs",
       "url": "https://ps-lang.dev"
     },
+    "datePublished": new Date(paper.publicationDate).toISOString(),
+    "dateModified": new Date(paper.updatedAt || paper.publicationDate).toISOString(),
     "keywords": paper.keywords.join(", "),
-    "url": `https://ps-lang.dev/research-papers/${paper.slug}`,
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://ps-lang.dev/research-papers/${paper.slug}`
-    },
-    "articleSection": paper.category,
-    "inLanguage": "en-US",
-    "license": "https://creativecommons.org/licenses/by/4.0/"
-  }
+    "inLanguage": "en",
+    "url": `https://ps-lang.dev/research-papers/${params.slug}`,
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "citation": paper.citations || [],
+    "about": {
+      "@type": "Thing",
+      "name": paper.category
+    }
+  } : null
 
   return (
     <div className="min-h-screen bg-stone-50">
-      {/* JSON-LD structured data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {/* JSON-LD for SEO */}
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
 
-      <article className="max-w-4xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
-        {/* Breadcrumb */}
-        <nav className="mb-8 flex items-center gap-2 text-[10px] tracking-[0.2em]">
-          <Link href="/" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Home</Link>
-          <span className="text-stone-300">→</span>
-          <Link href="/research-papers" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Papers</Link>
-          <span className="text-stone-300">→</span>
-          <span className="text-stone-600 uppercase">{paper.category}</span>
-        </nav>
+      {/* Header */}
+      <div className="border-b border-stone-200/60 bg-white">
+        <div className="max-w-5xl mx-auto px-6 sm:px-8 py-8">
+          <div className="mb-8">
+            <Breadcrumbs
+              items={[
+                { label: "Research Papers", href: "/research-papers" },
+                { label: paper.title, href: `/research-papers/${params.slug}` }
+              ]}
+            />
+          </div>
 
-        {/* Paper Header */}
-        <header className="mb-16 pb-10 border-b border-stone-200/60">
-          <div className="mb-8 flex items-center gap-3 flex-wrap">
+          <div className="mb-6 flex items-center gap-3 flex-wrap">
             <span className="text-[10px] tracking-[0.25em] text-stone-400/80 uppercase font-medium">{paper.category}</span>
             <span className="text-stone-300/60">•</span>
             <time className="text-[10px] tracking-[0.15em] text-stone-400/80 uppercase">
-              {new Date(paper.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              {new Date(paper.publicationDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
             </time>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-light text-stone-900 mb-8 tracking-tight leading-[1.15] max-w-4xl">
-            {balanceTitle(paper.title)}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-light text-stone-900 mb-4 tracking-tight leading-[1.1] [text-wrap:balance] max-w-4xl">
+            {paper.title}
           </h1>
 
-          <div className="mb-8">
-            <p className="text-[12px] tracking-[0.05em] text-stone-500 mb-2">Authors</p>
-            <p className="text-[15px] text-stone-600 tracking-[0.01em]">{paper.authors.join(", ")}</p>
+          {paper.subtitle && (
+            <h2 className="text-xl sm:text-2xl font-light text-stone-600 mb-6 tracking-tight [text-wrap:balance] max-w-3xl">
+              {paper.subtitle}
+            </h2>
+          )}
+
+          <div className="flex items-center gap-2 text-[12px] text-stone-500 mb-6">
+            <span className="tracking-[0.05em]">By {paper.authors.join(", ")}</span>
           </div>
 
-          {paper.pdfUrl && (
-            <div className="mt-6">
-              <a
-                href={paper.pdfUrl}
-                className="inline-flex items-center gap-2 border border-stone-300 bg-white hover:bg-stone-50 hover:border-stone-400 text-stone-900 px-6 py-3 transition-all duration-300 text-[11px] font-medium uppercase tracking-[0.2em] shadow-sm hover:shadow"
-              >
-                Download PDF
-              </a>
+          {/* Abstract */}
+          <div
+            onClick={handleAbstractClick}
+            className="mt-8 p-6 bg-stone-50 border border-stone-200/60 cursor-pointer hover:bg-stone-100/50 transition-colors relative group"
+          >
+            <div className="flex items-center gap-1.5 mb-3">
+              <h3 className="text-[10px] tracking-[0.25em] text-stone-400/80 uppercase font-medium leading-none">Abstract</h3>
+              <ThumbsUp
+                className={`w-2.5 h-2.5 transition-all ${
+                  abstractLiked
+                    ? "fill-stone-600 stroke-stone-600 opacity-100"
+                    : "fill-none stroke-stone-400 opacity-0 group-hover:opacity-100"
+                }`}
+              />
             </div>
-          )}
-        </header>
+            <p className="text-[15px] text-stone-700 leading-[1.8] tracking-[0.01em]">
+              {paper.abstract}
+            </p>
+          </div>
 
-        {/* Paper Content - Refined Research Journal */}
-        <div className="prose prose-stone max-w-none
-          prose-headings:font-light prose-headings:text-stone-900
-          prose-h1:text-4xl prose-h1:mb-12 prose-h1:mt-0 prose-h1:font-light prose-h1:tracking-tight prose-h1:leading-[1.2] prose-h1:max-w-3xl
-          prose-h2:text-3xl prose-h2:mt-16 prose-h2:mb-8 prose-h2:font-light prose-h2:tracking-tight prose-h2:leading-tight
-          prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-6 prose-h3:font-normal prose-h3:text-stone-800 prose-h3:leading-snug
-          prose-p:text-xl prose-p:text-stone-700 prose-p:leading-relaxed prose-p:mb-6
-          prose-a:text-stone-900 prose-a:underline prose-a:decoration-stone-300 hover:prose-a:decoration-stone-600 prose-a:transition-colors
-          prose-code:text-stone-800 prose-code:bg-stone-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:font-normal
-          prose-pre:bg-stone-900 prose-pre:text-stone-100 prose-pre:p-6 prose-pre:my-8 prose-pre:overflow-x-auto prose-pre:font-mono prose-pre:text-sm
-          prose-ul:my-8 prose-ul:space-y-4 prose-ul:pl-0 prose-ul:ml-0
-          prose-ol:my-8 prose-ol:space-y-4 prose-ol:pl-0 prose-ol:ml-0
-          prose-li:text-xl prose-li:text-stone-700 prose-li:leading-relaxed prose-li:pl-0
-          marker:text-stone-400
-          prose-strong:text-stone-900 prose-strong:font-semibold
-          prose-em:text-stone-700 prose-em:italic
-          prose-table:w-full prose-table:my-10 prose-table:border-collapse
-          prose-th:bg-stone-100 prose-th:p-4 prose-th:text-left prose-th:text-xl prose-th:font-medium prose-th:text-stone-900 prose-th:border prose-th:border-stone-200
-          prose-td:p-4 prose-td:text-xl prose-td:text-stone-700 prose-td:border prose-td:border-stone-200
-        ">
-          <div dangerouslySetInnerHTML={{ __html: (() => {
-            const lines = paper.content.trim().split('\n')
-            const result: string[] = []
-            let inList = false
-            let listType = ''
+          {/* Keywords */}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {paper.keywords.map((keyword) => {
+              const isLiked = likedKeywords.has(keyword)
+              return (
+                <button
+                  key={keyword}
+                  onClick={() => handleKeywordClick(keyword)}
+                  className="px-3 py-1 bg-white border border-stone-200/60 text-[10px] tracking-[0.1em] text-stone-600 uppercase hover:bg-stone-50 hover:border-stone-300 transition-all cursor-pointer inline-flex items-center gap-1.5"
+                >
+                  <Heart
+                    className={`w-3 h-3 transition-all ${
+                      isLiked
+                        ? "fill-stone-600 stroke-stone-600"
+                        : "fill-none stroke-stone-400"
+                    }`}
+                  />
+                  {keyword}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      </div>
 
-            lines.forEach((line, i) => {
-              const nextLine = lines[i + 1]
-              const isListItem = line.startsWith('— ') || line.match(/^\d+\. /)
-              const nextIsListItem = nextLine && (nextLine.startsWith('— ') || nextLine.match(/^\d+\. /))
+      {/* Format Tabs */}
+      <div className="bg-stone-50 border-b border-stone-200">
+        <div className="max-w-5xl mx-auto px-6 sm:px-8 pt-8">
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => handleTabChange("original", "Academic")}
+              className={`px-4 py-3 text-xs uppercase tracking-wider font-medium transition-colors border-b-2 ${
+                activeTab === "original"
+                  ? "text-stone-900 border-stone-900"
+                  : "text-stone-500 border-transparent hover:text-stone-700"
+              }`}
+            >
+              Academic
+            </button>
+            <button
+              onClick={() => handleTabChange("summarized", "Summarized")}
+              className={`px-4 py-3 text-xs uppercase tracking-wider font-medium transition-colors border-b-2 ${
+                activeTab === "summarized"
+                  ? "text-stone-900 border-stone-900"
+                  : "text-stone-500 border-transparent hover:text-stone-700"
+              }`}
+            >
+              Summarized
+            </button>
+            {/* PSL Format - Hidden for now */}
+            {/* <button
+              onClick={() => {
+                setActiveTab("psl")
+                track({
+                  interactionType: "click",
+                  category: "paper-format",
+                  target: "psl-format",
+                  metadata: {
+                    paperTitle: paper?.title,
+                    paperCategory: paper?.category,
+                  },
+                })
+              }}
+              className={`px-4 py-3 text-xs uppercase tracking-wider font-medium transition-colors border-b-2 ${
+                activeTab === "psl"
+                  ? "text-stone-900 border-stone-900"
+                  : "text-stone-500 border-transparent hover:text-stone-700"
+              }`}
+            >
+              PSL Format
+            </button> */}
+            {paper?.artifactUrl && (
+              <a
+                href={paper.artifactUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  track({
+                    interactionType: "click",
+                    category: "paper-external-link",
+                    target: "claude-ai-artifact",
+                    metadata: {
+                      paperTitle: paper?.title,
+                      paperCategory: paper?.category,
+                    },
+                  })
+                }}
+                className="px-4 py-3 text-xs uppercase tracking-wider font-medium text-stone-500 hover:text-stone-700 transition-colors border-b-2 border-transparent"
+              >
+                Claude.ai Paper →
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
 
-              if (line.startsWith('# ')) {
-                result.push(`<h1>${line.slice(2)}</h1>`)
-              } else if (line.startsWith('## ')) {
-                result.push(`<h2>${line.slice(3)}</h2>`)
-              } else if (line.startsWith('### ')) {
-                result.push(`<h3>${line.slice(4)}</h3>`)
-              } else if (isListItem) {
-                const currentListType = line.startsWith('— ') ? 'ul' : 'ol'
+      {/* Paper Content */}
+      <div className="mx-auto px-4 sm:px-6 py-16 sm:py-20" style={{ maxWidth: activeTab === "psl" ? "680px" : activeTab === "summarized" ? "800px" : "900px" }}>
+        {activeTab === "summarized" ? (
+          // Summarized Format - Executive Summary
+          <article className="prose prose-stone prose-lg max-w-none
+            prose-headings:font-serif prose-headings:font-normal prose-headings:text-stone-900
+            prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:leading-[1.3] prose-h2:mb-4 prose-h2:mt-8 prose-h2:tracking-tight
+            prose-h3:text-xl sm:prose-h3:text-2xl prose-h3:leading-[1.4] prose-h3:mb-3 prose-h3:mt-6
+            prose-p:text-lg prose-p:leading-[1.7] prose-p:text-stone-800 prose-p:mb-6
+            prose-ul:text-lg prose-ul:leading-[1.7] prose-ul:my-6 prose-ul:space-y-2
+            prose-li:text-stone-800
+            prose-strong:text-stone-900 prose-strong:font-semibold
+            prose-blockquote:border-l-4 prose-blockquote:border-stone-900 prose-blockquote:pl-6 prose-blockquote:py-2
+            prose-blockquote:text-xl prose-blockquote:leading-[1.6] prose-blockquote:italic prose-blockquote:text-stone-700
+            prose-blockquote:my-8
+          ">
+            <div className="group relative">
+              <h2 className="inline">Executive Summary</h2>
+            </div>
+            <p>
+              <strong>PS-LANG introduces zone-based context control</strong> to solve the privacy paradox in AI systems.
+              Users need AI assistants that understand their full context, but traditional approaches force an all-or-nothing choice:
+              either share everything or get limited help.
+            </p>
 
-                if (!inList) {
-                  const listStyle = currentListType === 'ul' ? 'disc' : 'decimal'
-                  result.push(`<${currentListType} style="list-style-type: ${listStyle}; list-style-position: inside;">`)
-                  inList = true
-                  listType = currentListType
-                }
+            <div className="group relative">
+              <h3 className="inline">The Problem</h3>
+              <button
+                onClick={() => jumpToSection("introduction")}
+                className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center gap-1 text-stone-400 hover:text-stone-600"
+                title="Jump to full section"
+              >
+                <CornerDownRight className="w-4 h-4" />
+              </button>
+            </div>
+            <ul>
+              <li><strong>85% of users</strong> report privacy concerns when sharing personal data with AI</li>
+              <li><strong>73% accuracy drop</strong> when users withhold context to protect privacy</li>
+              <li><strong>No granular control</strong> - current systems offer binary access (all or nothing)</li>
+            </ul>
 
-                const content = line.startsWith('— ') ? line.slice(2) : line.replace(/^\d+\. /, '')
-                result.push(`<li>${content}</li>`)
+            <div className="group relative">
+              <h3 className="inline">The Solution: Zone-Based Context Control</h3>
+              <button
+                onClick={() => jumpToSection("zone-based")}
+                className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center gap-1 text-stone-400 hover:text-stone-600"
+                title="Jump to full section"
+              >
+                <CornerDownRight className="w-4 h-4" />
+              </button>
+            </div>
+            <p>
+              PS-LANG enables <strong>selective information flow</strong> through declarative zones that define exactly
+              what AI can access and when:
+            </p>
+            <ul>
+              <li>🔒 <strong>Private zones</strong> - Never visible to AI</li>
+              <li>📤 <strong>Shareable zones</strong> - Controlled, opt-in sharing</li>
+              <li>✏️ <strong>Readable/writable zones</strong> - AI can interact but not leak data</li>
+              <li>🏷️ <strong>Metadata zones</strong> - Share insights without raw data</li>
+              <li>💼 <strong>Ephemeral zones</strong> - Temporary access that auto-expires</li>
+            </ul>
 
-                if (!nextIsListItem) {
-                  result.push(`</${listType}>`)
-                  inList = false
-                  listType = ''
-                }
-              } else if (line.startsWith('```')) {
-                const lang = line.slice(3)
-                result.push(line.includes('```') && !lang ? '</code></pre>' : `<pre><code class="language-${lang}">`)
-              } else if (line.startsWith('|')) {
-                const cells = line.split('|').filter(c => c.trim())
-                const isHeader = cells.some(c => c.includes('---'))
-                if (!isHeader) {
-                  const tag = line.match(/Metric|Token/) ? 'th' : 'td'
-                  result.push(`<tr>${cells.map(c => `<${tag}>${c.trim()}</${tag}>`).join('')}</tr>`)
-                }
-              } else if (line.trim() === '') {
-                result.push('<br/>')
-              } else {
-                result.push(`<p>${line}</p>`)
-              }
-            })
+            <div className="group relative">
+              <h3 className="inline">Results & Impact</h3>
+              <button
+                onClick={() => jumpToSection("results")}
+                className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center gap-1 text-stone-400 hover:text-stone-600"
+                title="Jump to full section"
+              >
+                <CornerDownRight className="w-4 h-4" />
+              </button>
+            </div>
+            <blockquote>
+              "Zone-based control increased user trust by 89% while maintaining 94% task accuracy -
+              proving privacy and utility aren't mutually exclusive."
+            </blockquote>
+            <ul>
+              <li><strong>89% increase</strong> in user trust and confidence</li>
+              <li><strong>94% accuracy</strong> maintained with selective context</li>
+              <li><strong>67% reduction</strong> in unintended data exposure</li>
+              <li><strong>Zero-overhead</strong> runtime performance (compile-time checks)</li>
+            </ul>
 
-            return result.join('\n')
-          })() }} />
+            <div className="group relative">
+              <h3 className="inline">Real-World Applications</h3>
+              <button
+                onClick={() => jumpToSection("applications")}
+                className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center gap-1 text-stone-400 hover:text-stone-600"
+                title="Jump to full section"
+              >
+                <CornerDownRight className="w-4 h-4" />
+              </button>
+            </div>
+            <ul>
+              <li><strong>Healthcare</strong> - AI access to symptoms but not patient identifiers</li>
+              <li><strong>Finance</strong> - Budget analysis without exposing account numbers</li>
+              <li><strong>Journaling</strong> - AI writing assistance with private thoughts protected</li>
+              <li><strong>Multi-agent systems</strong> - Different AI agents with different permission levels</li>
+            </ul>
+
+            <div className="group relative">
+              <h3 className="inline">Technical Innovation</h3>
+              <button
+                onClick={() => jumpToSection("implementation")}
+                className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center gap-1 text-stone-400 hover:text-stone-600"
+                title="Jump to full section"
+              >
+                <CornerDownRight className="w-4 h-4" />
+              </button>
+            </div>
+            <p>
+              PS-LANG compiles to static access policies verified at build time, ensuring <strong>zero-cost abstraction</strong>
+              for privacy controls. The type system guarantees that zone boundaries cannot be violated, even in complex
+              multi-agent scenarios.
+            </p>
+
+            <div className="group relative">
+              <h3 className="inline">Next Steps</h3>
+              <button
+                onClick={() => jumpToSection("conclusion")}
+                className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center gap-1 text-stone-400 hover:text-stone-600"
+                title="Jump to full section"
+              >
+                <CornerDownRight className="w-4 h-4" />
+              </button>
+            </div>
+            <p>
+              The paper demonstrates that <strong>privacy-first AI is achievable without sacrificing capability</strong>.
+              Zone-based context control offers a practical framework for building AI systems users can trust while
+              maintaining the contextual awareness needed for sophisticated assistance.
+            </p>
+          </article>
+        ) : activeTab === "psl" ? (
+          // PSL Format - Medium-style Typography
+          <article className="prose prose-stone prose-lg max-w-none
+            prose-headings:font-serif prose-headings:font-normal prose-headings:text-stone-900
+            prose-h1:text-4xl sm:prose-h1:text-5xl prose-h1:leading-[1.15] prose-h1:mb-8 prose-h1:mt-16 prose-h1:tracking-tight
+            prose-h2:text-3xl sm:prose-h2:text-4xl prose-h2:leading-[1.2] prose-h2:mb-6 prose-h2:mt-14 prose-h2:tracking-tight
+            prose-h3:text-2xl sm:prose-h3:text-3xl prose-h3:leading-[1.3] prose-h3:mb-5 prose-h3:mt-12 prose-h3:tracking-tight
+            prose-h4:text-xl sm:prose-h4:text-2xl prose-h4:leading-[1.4] prose-h4:mb-4 prose-h4:mt-10
+
+            prose-p:text-xl prose-p:leading-[1.75] prose-p:tracking-[-0.003em] prose-p:text-stone-800 prose-p:mb-8 prose-p:font-normal
+            prose-p:first-of-type:text-[1.375rem] prose-p:first-of-type:leading-[1.7]
+
+            prose-a:text-stone-900 prose-a:underline prose-a:decoration-stone-400 prose-a:underline-offset-2
+            hover:prose-a:decoration-stone-700 prose-a:transition-colors
+
+            prose-strong:text-stone-900 prose-strong:font-semibold
+            prose-em:text-stone-800 prose-em:italic
+
+            prose-ul:text-xl prose-ul:leading-[1.75] prose-ul:my-8 prose-ul:space-y-2
+            prose-ol:text-xl prose-ol:leading-[1.75] prose-ol:my-8 prose-ol:space-y-2
+            prose-li:text-stone-800 prose-li:marker:text-stone-400
+
+            prose-blockquote:border-l-4 prose-blockquote:border-stone-900 prose-blockquote:pl-6 prose-blockquote:py-2
+            prose-blockquote:text-2xl prose-blockquote:leading-[1.6] prose-blockquote:italic prose-blockquote:text-stone-700
+            prose-blockquote:my-10 prose-blockquote:font-normal
+
+            prose-code:text-[0.9em] prose-code:bg-stone-100 prose-code:px-2 prose-code:py-1
+            prose-code:rounded prose-code:text-stone-800 prose-code:font-mono
+            prose-code:before:content-[''] prose-code:after:content-['']
+
+            prose-pre:bg-stone-900 prose-pre:text-stone-100 prose-pre:rounded-lg
+            prose-pre:text-base prose-pre:leading-relaxed prose-pre:my-10 prose-pre:p-6
+
+            prose-hr:border-stone-200 prose-hr:my-12
+
+            prose-table:text-lg prose-table:my-10
+            prose-thead:border-b-2 prose-thead:border-stone-300
+            prose-th:text-stone-900 prose-th:font-semibold prose-th:text-left prose-th:px-4 prose-th:py-3
+            prose-td:text-stone-700 prose-td:px-4 prose-td:py-3 prose-td:border-t prose-td:border-stone-200
+
+            prose-img:rounded-lg prose-img:my-10 prose-img:shadow-lg
+            prose-figcaption:text-center prose-figcaption:text-base prose-figcaption:text-stone-600 prose-figcaption:mt-3
+          ">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {stripIntroFromMarkdown(paper.pslContent || paper.content)}
+            </ReactMarkdown>
+          </article>
+        ) : (
+          // Academic Format - Enhanced Readability (uses originalContent if available, falls back to content)
+          <article className="prose prose-stone max-w-none
+            prose-headings:font-light prose-headings:tracking-tight prose-headings:text-stone-900
+
+            prose-h1:text-3xl prose-h1:mb-6 prose-h1:mt-12 prose-h1:font-normal
+            prose-h2:text-2xl prose-h2:mb-5 prose-h2:mt-10 prose-h2:pb-3 prose-h2:border-b-2 prose-h2:border-stone-300
+            prose-h3:text-xl prose-h3:mb-4 prose-h3:mt-8 prose-h3:font-medium
+            prose-h4:text-lg prose-h4:mb-3 prose-h4:mt-6 prose-h4:font-medium prose-h4:text-stone-800
+
+            prose-p:text-[15px] prose-p:leading-[1.9] prose-p:tracking-[0.01em] prose-p:text-stone-700 prose-p:mb-5
+
+            prose-a:text-stone-900 prose-a:underline prose-a:decoration-stone-300 hover:prose-a:decoration-stone-600 prose-a:transition-colors
+
+            prose-strong:text-stone-900 prose-strong:font-semibold
+            prose-em:text-stone-800 prose-em:italic
+
+            prose-ul:text-[15px] prose-ul:leading-[1.9] prose-ul:my-6 prose-ul:space-y-2
+            prose-ol:text-[15px] prose-ol:leading-[1.9] prose-ol:my-6 prose-ol:space-y-2
+            prose-li:text-stone-700 prose-li:mb-2
+            prose-li:marker:text-stone-500 prose-li:marker:font-medium
+
+            prose-code:text-[13px] prose-code:bg-stone-100 prose-code:px-1.5 prose-code:py-0.5
+            prose-code:rounded prose-code:text-stone-800 prose-code:font-mono
+            prose-code:before:content-[''] prose-code:after:content-['']
+
+            prose-pre:bg-stone-900 prose-pre:text-stone-100 prose-pre:text-[13px]
+            prose-pre:leading-relaxed prose-pre:rounded-lg prose-pre:p-4 prose-pre:my-6
+
+            prose-blockquote:border-l-4 prose-blockquote:border-stone-400
+            prose-blockquote:pl-6 prose-blockquote:py-3 prose-blockquote:my-6
+            prose-blockquote:text-stone-700 prose-blockquote:italic prose-blockquote:text-base
+            prose-blockquote:bg-stone-50/50
+
+            prose-table:text-[14px] prose-table:my-8 prose-table:border-collapse
+            prose-thead:border-b-2 prose-thead:border-stone-400 prose-thead:bg-stone-50
+            prose-th:text-stone-900 prose-th:font-semibold prose-th:text-left
+            prose-th:px-4 prose-th:py-3 prose-th:tracking-wide
+            prose-td:text-stone-700 prose-td:px-4 prose-td:py-3
+            prose-td:border-t prose-td:border-stone-200
+            prose-td:align-top
+
+            prose-hr:border-stone-300 prose-hr:my-10
+
+            prose-img:rounded prose-img:shadow-sm prose-img:my-6
+          ">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {stripIntroFromMarkdown(paper.originalContent || paper.content)}
+            </ReactMarkdown>
+          </article>
+        )}
+
+        {/* Paper Attribution Footer - Shared across all tabs */}
+        <div className="mt-16 pt-8 border-t border-stone-200/60">
+          <div className="text-sm text-stone-600 space-y-2">
+            <p><strong>Paper Status:</strong> {paper.status}</p>
+            <p><strong>Date:</strong> {new Date(paper.publicationDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
+            <p><strong>Authors:</strong> {paper.authors.join(", ")}</p>
+            <p><strong>Contact:</strong> hello@vummo.com</p>
+            <p><strong>License:</strong> MIT (for PS-LANG implementation)</p>
+            <p><strong>Website:</strong> <a href="https://ps-lang.dev" className="text-stone-700 hover:text-stone-900 underline">https://ps-lang.dev</a></p>
+            {paper.artifactUrl && (
+              <p><strong>Public Artifact:</strong> <a href={paper.artifactUrl} className="text-stone-700 hover:text-stone-900 underline break-all">{paper.artifactUrl}</a></p>
+            )}
+            {paper.pdfUrl && (
+              <p className="mt-4"><a href={paper.pdfUrl} className="text-stone-700 hover:text-stone-900 underline">Download PDF →</a></p>
+            )}
+          </div>
         </div>
 
-        {/* Paper Footer */}
-        <footer className="mt-20 pt-10 border-t border-stone-200/60">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <Link href="/journal/papers" className="group flex items-center gap-2 text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
-              <span className="text-stone-300 group-hover:text-stone-600 transition-colors">←</span>
-              <span className="text-[11px] uppercase tracking-[0.15em]">Back to Papers</span>
-            </Link>
-
-            <a
-              href={siteConfig.urls.github}
-              className="border border-stone-300 bg-white hover:bg-stone-50 hover:border-stone-400 text-stone-900 px-8 py-3 transition-all duration-300 text-[11px] font-medium uppercase tracking-[0.2em] shadow-sm hover:shadow"
-            >
-              View on GitHub
-            </a>
-          </div>
-        </footer>
-      </article>
+        {/* Back to Papers */}
+        <div className="mt-8">
+          <Link
+            href="/research-papers"
+            className="inline-flex items-center gap-2 text-[11px] text-stone-500 hover:text-stone-900 tracking-[0.1em] uppercase transition-colors"
+          >
+            ← Back to Research Papers
+          </Link>
+        </div>
+      </div>
     </div>
   )
 }

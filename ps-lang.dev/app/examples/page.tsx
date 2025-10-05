@@ -1,4 +1,5 @@
 import Navigation from "@/components/navigation"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 
 export default function ExamplesPage() {
   return (
@@ -6,6 +7,10 @@ export default function ExamplesPage() {
       <Navigation />
 
       <div className="max-w-6xl mx-auto px-6 py-8">
+        {/* Breadcrumbs */}
+        <div className="mb-8">
+          <Breadcrumbs items={[{ label: "Examples", href: "/examples" }]} />
+        </div>
         <div className="paper-card stacked-papers p-8 mb-8">
           <div className="flex items-center justify-between mb-6">
             <h1 className="font-editorial text-4xl font-bold text-ink">Examples</h1>

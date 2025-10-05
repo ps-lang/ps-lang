@@ -3,21 +3,30 @@
 import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
 import { useUser, SignInButton, useClerk } from "@clerk/nextjs"
+import { useQuery } from "convex/react"
+import { api } from "@/convex/_generated/api"
 import { getUserRole, getRoleDisplayName, getRoleBadgeColor } from "@/lib/roles"
 import AlphaSignupModal from "@/components/alpha-signup-modal"
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isAccountOpen, setIsAccountOpen] = useState(false)
-  const [isJournalOpen, setIsJournalOpen] = useState(false)
+  const [isJournalPlusOpen, setIsJournalPlusOpen] = useState(false)
   const [isPlaygroundOpen, setIsPlaygroundOpen] = useState(false)
   const [isAlphaModalOpen, setIsAlphaModalOpen] = useState(false)
   const accountRef = useRef<HTMLDivElement>(null)
-  const journalRef = useRef<HTMLDivElement>(null)
+  const journalPlusRef = useRef<HTMLDivElement>(null)
   const playgroundRef = useRef<HTMLDivElement>(null)
   const { user, isSignedIn } = useUser()
   const { signOut } = useClerk()
   const userRole = getUserRole(user)
+
+  // Check if user is in alpha test
+  const alphaSignup = useQuery(
+    api.alphaSignups.getByEmail,
+    user?.primaryEmailAddress?.emailAddress ? { email: user.primaryEmailAddress.emailAddress } : "skip"
+  )
+  const isAlphaTester = !!alphaSignup
 
   // Show dashboard for admins only
   const showDashboard = userRole === 'super_admin' || userRole === 'admin'
@@ -31,8 +40,8 @@ export default function Navigation() {
       if (accountRef.current && !accountRef.current.contains(event.target as Node)) {
         setIsAccountOpen(false)
       }
-      if (journalRef.current && !journalRef.current.contains(event.target as Node)) {
-        setIsJournalOpen(false)
+      if (journalPlusRef.current && !journalPlusRef.current.contains(event.target as Node)) {
+        setIsJournalPlusOpen(false)
       }
       if (playgroundRef.current && !playgroundRef.current.contains(event.target as Node)) {
         setIsPlaygroundOpen(false)
@@ -93,9 +102,38 @@ export default function Navigation() {
                 </div>
               )}
             </div>
-            <Link href="/postscript-journaling" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
-              Journal
-            </Link>
+            <div className="relative" ref={journalPlusRef}>
+              <button
+                onClick={() => setIsJournalPlusOpen(!isJournalPlusOpen)}
+                className="flex items-center gap-1 text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide"
+              >
+                <span>Journal</span>
+                <span className={`transition-transform duration-200 ${isJournalPlusOpen ? 'rotate-180' : ''}`}>▾</span>
+              </button>
+
+              {isJournalPlusOpen && (
+                <div className="absolute left-0 mt-3 min-w-[240px] bg-white border border-stone-200">
+                  <div className="py-2">
+                    {isAlphaTester && (
+                      <Link
+                        href="/journal-plus"
+                        onClick={() => setIsJournalPlusOpen(false)}
+                        className="block px-6 py-2 text-sm text-stone-900 hover:bg-stone-50 transition-colors"
+                      >
+                        Journal Plus
+                      </Link>
+                    )}
+                    <Link
+                      href="/postscript-journaling"
+                      className="block px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors"
+                      onClick={() => setIsJournalPlusOpen(false)}
+                    >
+                      PostScript Journaling
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
             <Link href="/research-papers" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
               Papers
             </Link>
@@ -173,8 +211,8 @@ export default function Navigation() {
                 1-Shot Prompt Editor →
               </Link>
             </div>
-            <Link href="/postscript-journaling" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
-              Journal
+            <Link href={isAlphaTester ? "/journal-plus" : "/postscript-journaling"} className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
+              {isAlphaTester ? 'Journal Plus' : 'Journal'}
             </Link>
             <Link href="/research-papers" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
               Papers
