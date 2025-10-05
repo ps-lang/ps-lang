@@ -254,7 +254,7 @@ export default function PaperPage({ params }: { params: { slug: string } }) {
         <nav className="mb-8 flex items-center gap-2 text-[10px] tracking-[0.2em]">
           <Link href="/" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Home</Link>
           <span className="text-stone-300">→</span>
-          <Link href="/solo-dev-journaling" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Journal</Link>
+          <Link href="/postscript-journaling" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Journal</Link>
           <span className="text-stone-300">→</span>
           <Link href="/journal/papers" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Papers</Link>
           <span className="text-stone-300">→</span>

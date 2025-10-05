@@ -93,7 +93,7 @@ export default function Navigation() {
                 </div>
               )}
             </div>
-            <Link href="/solo-dev-journaling" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
+            <Link href="/postscript-journaling" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
               Journal
             </Link>
             <Link href="/research-papers" className="text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide">
@@ -173,7 +173,7 @@ export default function Navigation() {
                 1-Shot Prompt Editor →
               </Link>
             </div>
-            <Link href="/solo-dev-journaling" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
+            <Link href="/postscript-journaling" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
               Journal
             </Link>
             <Link href="/research-papers" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>

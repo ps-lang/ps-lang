@@ -144,7 +144,7 @@ export default function HomePage() {
             <div>
               <h3 className="text-sm font-medium text-stone-900 mb-2">PS-LANG Journal Alpha Testing</h3>
               <p className="text-xs text-stone-600 leading-relaxed">
-                Join the waitlist for PS-LANG Journal. Track AI workflows, benchmark improvements, and maintain secure audit trails. <Link href="/solo-dev-journaling" className="underline hover:text-stone-900">Learn more →</Link>
+                Join the waitlist for PS-LANG Journal. Track AI workflows, benchmark improvements, and maintain secure audit trails. <Link href="/postscript-journaling" className="underline hover:text-stone-900">Learn more →</Link>
               </p>
             </div>
           </div>

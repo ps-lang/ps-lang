@@ -62,7 +62,7 @@ export default async function BlogPage() {
         <nav className="mb-6 flex items-center gap-2 font-mono text-[10px] tracking-wide">
           <Link href="/" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Home</Link>
           <span className="text-stone-300">→</span>
-          <Link href="/solo-dev-journaling" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Journal</Link>
+          <Link href="/postscript-journaling" className="text-stone-400 hover:text-stone-900 transition-colors uppercase">Journal</Link>
           <span className="text-stone-300">→</span>
           <span className="text-stone-900 font-semibold uppercase">Blog</span>
         </nav>

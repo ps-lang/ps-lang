@@ -31,7 +31,7 @@ export const ROLE_LEVELS: Record<UserRole, number> = {
 // Route permissions
 export const ROUTE_PERMISSIONS = {
   '/journal/admin': ['super_admin', 'admin'],
-  '/solo-dev-journaling': ['super_admin', 'admin', 'reviewer'],
+  '/postscript-journaling': ['super_admin', 'admin', 'reviewer'],
   '/playground': ['super_admin', 'admin', 'reviewer', 'alpha_tester'],
   '/admin/roles': ['super_admin'],
   '/admin/data': ['super_admin', 'admin'],

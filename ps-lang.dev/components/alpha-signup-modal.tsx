@@ -483,7 +483,7 @@ export default function AlphaSignupModal({ isOpen, onClose }: AlphaSignupModalPr
                           { value: 'multi_agent', label: 'Multi-Agent Workflows' },
                           { value: 'benchmarking', label: 'Benchmarking & Testing' },
                           { value: 'privacy', label: 'Privacy-First AI Tools' },
-                          { value: 'journaling', label: 'Solo Dev Journaling' },
+                          { value: 'journaling', label: 'PostScript Journaling' },
                           { value: 'mcp_integration', label: 'MCP Integration' },
                         ].map(item => (
                           <label key={item.value} className="flex items-center gap-2.5 cursor-pointer">

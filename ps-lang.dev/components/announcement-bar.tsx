@@ -2,13 +2,29 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { useUser } from '@clerk/nextjs'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 import AlphaSignupModal from '@/components/alpha-signup-modal'
 
 export default function AnnouncementBar() {
+  const { user } = useUser()
   const [isVisible, setIsVisible] = useState(true)
   const [isAlphaModalOpen, setIsAlphaModalOpen] = useState(false)
 
+  // Check if user has already signed up for alpha
+  const alphaSignup = useQuery(
+    api.alphaSignups.getByEmail,
+    user?.primaryEmailAddress?.emailAddress ? { email: user.primaryEmailAddress.emailAddress } : "skip"
+  )
+
   useEffect(() => {
+    // Hide if user already signed up for alpha
+    if (alphaSignup) {
+      setIsVisible(false)
+      return
+    }
+
     // Check if announcement was dismissed
     const dismissedAt = localStorage.getItem('announcement-bar-dismissed')
     if (dismissedAt) {
@@ -24,7 +40,7 @@ export default function AnnouncementBar() {
         localStorage.removeItem('announcement-bar-dismissed')
       }
     }
-  }, [])
+  }, [alphaSignup])
 
   const handleDismiss = () => {
     setIsVisible(false)

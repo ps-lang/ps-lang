@@ -189,10 +189,10 @@ export default function RootLayout({
           },
           {
             "@type": "Question",
-            "name": "What is Solo Dev Journaling?",
+            "name": "What is PostScript Journaling?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Solo Dev Journaling is PS-LANG's premium feature for tracking AI workflows, benchmarking improvements, and maintaining secure audit trails. It uses end-to-end encryption to store prompt history and workflow analytics."
+              "text": "PostScript Journaling is PS-LANG's premium feature for tracking AI workflows, benchmarking improvements, and maintaining secure audit trails. It uses end-to-end encryption to store prompt history and workflow analytics."
             }
           },
           {

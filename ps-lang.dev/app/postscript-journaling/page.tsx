@@ -32,7 +32,7 @@ export default function JournalingPage() {
             <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">AI Workflow Tracking</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-light text-stone-900 mb-6 tracking-tight">
-            Solo Dev Journaling<sup className="text-[11px] ml-1 -top-3 relative">™</sup>
+            PostScript Journaling<sup className="text-[11px] ml-1 -top-3 relative">™</sup>
           </h1>
           <p className="text-lg text-stone-600 max-w-2xl mx-auto leading-relaxed font-light">
             Track AI workflows, benchmark improvements, and maintain secure audit trails

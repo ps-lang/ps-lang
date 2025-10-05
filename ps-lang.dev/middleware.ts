@@ -13,12 +13,29 @@ const isPublicRoute = createRouteMatcher([
   '/terms(.*)',
   '/privacy(.*)',
   '/playground(.*)',
-  '/solo-dev-journaling(.*)',
+  '/postscript-journaling(.*)',
+  '/research-papers(.*)',
+  '/blog(.*)',
+  '/docs(.*)',
+  '/sitemap.xml',
+  '/robots.txt',
+  '/llms.txt',
+  '/llms-full.txt',
+  '/favicon.ico',
+  '/favicon-16x16.png',
+  '/favicon-32x32.png',
+  '/favicon-48x48.png',
+  '/apple-touch-icon.png',
+  '/android-chrome-192x192.png',
+  '/android-chrome-512x512.png',
+  '/og-image.png',
+  '/ps-lang-logomark.png',
+  '/ps-lang-logomark-black.png',
 ])
 
 // Routes that require role-based access
 const isJournalAdminRoute = createRouteMatcher(['/journal/admin(.*)'])
-const isJournalRoute = createRouteMatcher(['/solo-dev-journaling(.*)'])
+const isJournalRoute = createRouteMatcher(['/postscript-journaling(.*)'])
 const isPlaygroundRoute = createRouteMatcher(['/playground(.*)'])
 const isAdminRoute = createRouteMatcher(['/admin(.*)'])
 
