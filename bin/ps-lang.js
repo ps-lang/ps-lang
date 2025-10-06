@@ -270,7 +270,7 @@ function showHelp() {
   console.log('  - Privacy-first default: <. lazy close syntax');
   console.log('  - Directional context: <-. backward, .-> forward');
   console.log('  - Named zones: <.id:description chaining');
-  console.log('  - Parser implementation: Coming in v0.2.0-alpha.2');
+  console.log('  - Parser implementation: Coming in v0.2.1-alpha.2');
   console.log('  - Read: docs/SYNTAX-V2-QUICK-REF.md\n');
 
   console.log('Learn more:');

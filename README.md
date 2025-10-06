@@ -28,7 +28,7 @@
 
 ---
 
-## 🎉 New in v0.2.0-alpha.1
+## 🎉 New in v0.2.1-alpha.1
 
 **Specification Released!** PS-LANG v0.2 introduces powerful new syntax features:
 
@@ -36,7 +36,7 @@
 - ✅ **Directional context** - `<-.` (backward), `<--.` (further back), `.->` (forward)
 - ✅ **Named zones** - `<.auth:description .>` for selector-based chaining
 - ✅ **Auto-boundary detection** - Parser intelligently closes zones
-- ⏳ **Parser implementation** - Coming in v0.2.0-alpha.2 (v0.1 fully supported)
+- ⏳ **Parser implementation** - Coming in v0.2.1-alpha.2 (v0.1 fully supported)
 
 **Read the spec:**
 - [Full Specification](./docs/SYNTAX-V2.md)
@@ -489,4 +489,4 @@ MIT - See [LICENSE](./LICENSE)
 
 ---
 
-**PS-LANG™ v0.2.0-alpha.1** · PS-LANG is a trademark of Vummo Labs
+**PS-LANG™ v0.2.1-alpha.1** · PS-LANG is a trademark of Vummo Labs

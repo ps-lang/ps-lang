@@ -203,7 +203,7 @@ export default function AboutPage() {
                   PS-LANG v0.2 specification is now available! New features: privacy-first default, lazy close syntax, directional context, and named zone chaining.
                 </p>
                 <p className="text-xs text-stone-500 leading-relaxed max-w-2xl">
-                  Parser implementation coming in v0.2.0-alpha.2 (v0.1 syntax fully supported)
+                  Parser implementation coming in v0.2.1-alpha.2 (v0.1 syntax fully supported)
                 </p>
               </div>
             </div>

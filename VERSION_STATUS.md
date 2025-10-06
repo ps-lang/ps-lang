@@ -6,7 +6,7 @@
 
 ---
 
-## What's in v0.2.0-alpha.1?
+## What's in v0.2.1-alpha.1?
 
 ### ✅ Complete
 
@@ -26,14 +26,14 @@
 - [x] Auto-boundary detection rules
 
 #### Version Updates
-- [x] package.json → v0.2.0-alpha.1
+- [x] package.json → v0.2.1-alpha.1
 - [x] Config files updated
 - [x] llms.txt metadata updated
 - [x] Website about page updated
 - [x] README with v0.2 notice
 - [x] CLI help text updated
 
-### ⏳ Pending (v0.2.0-alpha.2)
+### ⏳ Pending (v0.2.1-alpha.2)
 
 #### Parser Implementation
 - [ ] Lazy close regex patterns
@@ -130,7 +130,7 @@ npx ps-lang@alpha version
    - CLI tools operational
    - VS Code themes available
 
-### ⏳ Coming Soon (v0.2.0-alpha.2)
+### ⏳ Coming Soon (v0.2.1-alpha.2)
 
 1. **Parser support for v0.2 syntax**
 2. **Enhanced CLI validation**
@@ -147,19 +147,19 @@ npx ps-lang@alpha version
 - ✅ Example files published
 - ⏳ Community feedback collection
 
-### v0.2.0-alpha.2 (Next - Est. 2-3 weeks)
+### v0.2.1-alpha.2 (Next - Est. 2-3 weeks)
 - [ ] Parser implementation
 - [ ] CLI tool updates
 - [ ] Unit tests
 - [ ] Alpha testing with 50 users
 
-### v0.2.0-alpha.3 (Est. 4-6 weeks)
+### v0.2.1-alpha.3 (Est. 4-6 weeks)
 - [ ] RLHF feedback system
 - [ ] Usage analytics dashboard
 - [ ] Performance optimization
 - [ ] Syntax refinements based on feedback
 
-### v0.2.0-beta (Est. 8-12 weeks)
+### v0.2.1-beta (Est. 8-12 weeks)
 - [ ] Production-ready parser
 - [ ] Full test coverage
 - [ ] VS Code extension
@@ -222,4 +222,4 @@ npx ps-lang@alpha version
 ---
 
 **Last Updated:** 2025-10-06
-**Next Review:** Upon v0.2.0-alpha.2 parser implementation
+**Next Review:** Upon v0.2.1-alpha.2 parser implementation
