@@ -93,7 +93,7 @@ export default function LiveChat() {
   }
 
   return (
-    <div className="border border-stone-200 bg-white h-[600px] flex flex-col">
+    <div className="bg-white h-full flex flex-col">
       {/* Header */}
       <div className="border-b border-stone-200 px-6 py-4 flex items-center justify-between bg-stone-50">
         <h3 className="text-lg font-light text-stone-900" style={{ fontFamily: 'var(--font-crimson)' }}>
@@ -101,21 +101,18 @@ export default function LiveChat() {
         </h3>
         <div className="flex gap-2">
           <button
-            onClick={() => setProvider("claude")}
-            className={`px-4 py-2 text-xs transition-all ${
-              provider === "claude"
-                ? "bg-purple-600 text-white"
-                : "bg-stone-200 text-stone-600 hover:bg-stone-300"
-            }`}
+            disabled
+            className="px-4 py-2 text-xs font-mono bg-stone-100 text-stone-400 border border-stone-200 cursor-not-allowed opacity-50"
+            title="Claude API temporarily disabled"
           >
             Claude
           </button>
           <button
             onClick={() => setProvider("chatgpt")}
-            className={`px-4 py-2 text-xs transition-all ${
+            className={`px-4 py-2 text-xs font-mono transition-all ${
               provider === "chatgpt"
-                ? "bg-green-600 text-white"
-                : "bg-stone-200 text-stone-600 hover:bg-stone-300"
+                ? "bg-stone-900 text-white border border-stone-900"
+                : "bg-white text-stone-600 border border-stone-300 hover:border-stone-400"
             }`}
           >
             ChatGPT

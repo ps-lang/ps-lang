@@ -11,12 +11,13 @@ import JournalPage from "@/components/jp-journal-page"
 import ConnectorModal from "@/components/connector-modal"
 import ConversationHistory from "@/components/conversation-history"
 import AgentQueryDemo from "@/components/agent-query-demo"
-import LiveChat from "@/components/live-chat"
+import LiveChatModal from "@/components/live-chat-modal"
 
 export default function JournalPlusPage() {
   const { isSignedIn, user } = useUser()
   const userRole = getUserRole(user)
   const [isConnectorModalOpen, setIsConnectorModalOpen] = useState(false)
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false)
 
   // Check if user is in alpha
   const alphaSignup = useQuery(
@@ -137,18 +138,38 @@ export default function JournalPlusPage() {
 
       {/* Live Chat - Create new conversations */}
       <div className="max-w-5xl mx-auto px-8 py-12">
-        <div className="text-center mb-8">
+        <div
+          className="border border-stone-200 bg-white shadow-sm p-12 text-center"
+          data-ai-section="live-chat-cta"
+          data-ai-interaction="modal-trigger"
+        >
+          <div className="inline-block mb-6">
+            <div className="w-16 h-16 border-2 border-stone-300 flex items-center justify-center">
+              <svg className="w-8 h-8 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+          </div>
+
           <h2
-            className="text-4xl font-light text-stone-900 mb-4 tracking-tight"
+            className="text-3xl font-light text-stone-900 mb-4 tracking-tight"
             style={{ fontFamily: 'var(--font-crimson)' }}
           >
             Chat & Auto-Journal
           </h2>
-          <p className="text-sm text-stone-600 max-w-2xl mx-auto">
+
+          <p className="text-base text-stone-600 max-w-2xl mx-auto mb-8 leading-relaxed" style={{ fontFamily: 'var(--font-crimson)' }}>
             Chat with Claude or ChatGPT. Every conversation auto-saves to Journal Plus with PS-LANG transformation.
           </p>
+
+          <button
+            onClick={() => setIsChatModalOpen(true)}
+            className="px-8 py-3 bg-stone-900 text-white font-light text-sm hover:bg-stone-800 transition-colors tracking-wide"
+            data-ai-action="open-live-chat"
+          >
+            Start New Conversation →
+          </button>
         </div>
-        <LiveChat />
       </div>
 
       {/* Onboarding Demo - Show PS-LANG transformation */}
@@ -183,6 +204,12 @@ export default function JournalPlusPage() {
       <ConnectorModal
         isOpen={isConnectorModalOpen}
         onClose={() => setIsConnectorModalOpen(false)}
+      />
+
+      {/* Live Chat Modal */}
+      <LiveChatModal
+        isOpen={isChatModalOpen}
+        onClose={() => setIsChatModalOpen(false)}
       />
     </div>
   )
