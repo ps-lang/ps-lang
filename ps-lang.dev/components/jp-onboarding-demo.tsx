@@ -36,7 +36,7 @@ Compare performance metrics with similar features.
           className="text-3xl font-light text-stone-900 mb-4 tracking-tight"
           style={{ fontFamily: 'var(--font-crimson)' }}
         >
-          See PS-LANG in Action
+          See .PSL in Action
         </h2>
         <p className="text-sm text-stone-600 max-w-2xl mx-auto leading-relaxed">
           Watch how an ordinary prompt becomes a structured super prompt with PS-LANG zones

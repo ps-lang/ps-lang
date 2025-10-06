@@ -23,7 +23,7 @@ export default function PlaygroundLandingPage() {
             <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">Interactive Demos</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-light text-stone-900 mb-6 tracking-tight">
-            PS-LANG Playground
+            PromptScript Playground
           </h1>
           <p className="text-lg text-stone-600 max-w-2xl mx-auto leading-relaxed font-light">
             Explore how zone-based syntax improves context control and token efficiency

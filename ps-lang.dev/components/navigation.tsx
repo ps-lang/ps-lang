@@ -44,6 +44,9 @@ export default function Navigation() {
     if (pathname?.includes('/postscript-journaling') || pathname?.includes('/journal-plus')) {
       return '/ps-lang-journal-logomark.svg'
     }
+    if (pathname?.includes('/research-papers')) {
+      return '/ps-journal-logomark.svg'
+    }
     return '/ps-lang-logomark.svg'
   }
 
@@ -113,7 +116,7 @@ export default function Navigation() {
                       onClick={() => setIsPlaygroundOpen(false)}
                       className="block px-6 py-2 text-base text-stone-900 hover:bg-stone-50 transition-colors"
                     >
-                      Playground
+                      PromptScript Playground
                     </Link>
                     <Link
                       href="/playground/token-comparison"
@@ -147,22 +150,23 @@ export default function Navigation() {
               {isJournalPlusOpen && (
                 <div className="absolute left-0 mt-3 min-w-[240px] bg-white border border-stone-200">
                   <div className="py-2">
-                    {isAlphaTester && (
-                      <Link
-                        href="/journal-plus"
-                        onClick={() => setIsJournalPlusOpen(false)}
-                        className="block px-6 py-2 text-sm text-stone-900 hover:bg-stone-50 transition-colors"
-                      >
-                        Journal Plus
-                      </Link>
-                    )}
                     <Link
                       href="/postscript-journaling"
-                      className="block px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors"
+                      className="block px-6 py-2 text-base text-stone-900 hover:bg-stone-50 transition-colors"
                       onClick={() => setIsJournalPlusOpen(false)}
                     >
                       PostScript Journaling
                     </Link>
+                    {(isAlphaTester || userRole === 'super_admin' || userRole === 'admin') && (
+                      <Link
+                        href="/journal-plus"
+                        onClick={() => setIsJournalPlusOpen(false)}
+                        className="flex items-center gap-3 px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors"
+                      >
+                        <span className="w-px h-4 bg-stone-300"></span>
+                        <span>Journal Plus</span>
+                      </Link>
+                    )}
                   </div>
                 </div>
               )}

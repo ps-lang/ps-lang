@@ -133,7 +133,7 @@ export default function JournalingPage() {
             <div className="flex items-center gap-3 mb-6">
               <span className="text-3xl">📓</span>
               <h2 className="text-2xl font-light text-stone-900 tracking-tight">
-                PS-LANG Journal<sup className="text-[9px] ml-0.5 -top-2.5 relative">™</sup>
+                PS-LANG Journal
               </h2>
             </div>
             <p className="text-sm text-stone-500 mb-2">Open Source • MIT Licensed</p>

@@ -25,9 +25,10 @@ export default function JournalPlusPage() {
     user?.primaryEmailAddress?.emailAddress ? { email: user.primaryEmailAddress.emailAddress } : "skip"
   )
   const isAlphaTester = !!alphaSignup
+  const hasAccess = isAlphaTester || userRole === 'super_admin' || userRole === 'admin'
 
-  // If not signed in or not in alpha, redirect to regular journal page
-  if (!isSignedIn || !isAlphaTester) {
+  // If not signed in or doesn't have access, redirect to regular journal page
+  if (!isSignedIn || !hasAccess) {
     if (typeof window !== 'undefined') {
       window.location.href = '/postscript-journaling'
     }

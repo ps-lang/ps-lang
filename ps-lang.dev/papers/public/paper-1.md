@@ -39,10 +39,10 @@ Consider a typical research-to-writing pipeline where a research agent gathers i
 - 🗑️ Redundant metadata that inflates token counts
 
 This approach:
-- **Wastes computational resources**
-- **Increases API costs** linearly with pipeline depth
-- **Compromises data privacy**
-- **Makes accurate benchmarking impossible** due to context contamination
+- ⚠️ **Wastes computational resources**
+- 💰 **Increases API costs** linearly with pipeline depth
+- 🔓 **Compromises data privacy**
+- 📉 **Makes accurate benchmarking impossible** due to context contamination
 
 ---
 
@@ -166,7 +166,7 @@ PS-LANG introduces **five primary zone types**:
 - **Sensitive credentials** and API keys
 - **Agent-specific instructions**
 
-```
+```ps-lang
 <. Current agent only - hidden from next agent .>
 Research notes, debug info, internal reasoning
 ```
@@ -182,7 +182,7 @@ Research notes, debug info, internal reasoning
 - **Clean handoff data**
 - **Results** without intermediate reasoning
 
-```
+```ps-lang
 <#. Pass to next agent - clean context only .#>
 Processed findings ready for Agent B
 ```
@@ -198,7 +198,7 @@ Processed findings ready for Agent B
 - **Collaborative editing zones**
 - **Work-in-progress content**
 
-```
+```ps-lang
 <@. Active workspace - current agent can edit .@>
 Collaborative zone for current work
 ```
@@ -214,7 +214,7 @@ Collaborative zone for current work
 - Performance metrics
 - Automatic tagging
 
-```
+```ps-lang
 <.bm AI-managed metadata - auto-generated .bm>
 Timestamps, tags, benchmarks
 ```
@@ -230,7 +230,7 @@ Timestamps, tags, benchmarks
 - Revenue considerations
 - Business logic
 
-```
+```ps-lang
 <$. Business context - monetization strategy .$>
 Pricing ideas, revenue notes
 ```
@@ -250,19 +250,19 @@ A zone **Z** is a tuple `(type, content, agent_scope)` where:
 #### Visibility Rules
 
 **For private zones:**
-```
+```text
 visible(Z_private, A_i) = true  if current_agent = A_i
                          false  otherwise
 ```
 
 **For pass-through zones:**
-```
+```text
 visible(Z_passthrough, A_i) = true  if i > current_agent_index
                               false  otherwise
 ```
 
 **For workspace zones:**
-```
+```text
 visible(Z_workspace, A_i) = true  if i ≥ workspace_owner_index
 editable(Z_workspace, A_i) = true  if i = current_agent_index
 ```
@@ -270,7 +270,7 @@ editable(Z_workspace, A_i) = true  if i = current_agent_index
 #### Information Flow
 
 The context **C_i** visible to agent **A_i** is:
-```
+```text
 C_i = {Z | Z ∈ all_zones ∧ visible(Z, A_i)}
 ```
 
@@ -291,7 +291,7 @@ PS-LANG provides **semantic commands** that automatically structure output:
 | `.logout` | End session |
 
 #### Example workflow:
-```
+```ps-lang
 <.journal 09-26-25-ps-lang
   <#. Pass to writing agent: Built PS-LANG specification #.>
   <. Hidden from agents: Debug notes, API keys, raw research data .>

@@ -107,6 +107,7 @@ Document all security findings and remediation steps for audit trail.
 export default function JournalPage() {
   const [selectedPrompt, setSelectedPrompt] = useState<DemoPrompt | null>(null)
   const [showMetaTags, setShowMetaTags] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const getZoneColor = (zone: string) => {
     switch (zone) {
@@ -188,12 +189,24 @@ export default function JournalPage() {
               <h3 className="text-xl font-light text-stone-900" style={{ fontFamily: 'var(--font-crimson)' }}>
                 {selectedPrompt.title}
               </h3>
-              <button
-                onClick={() => setShowMetaTags(!showMetaTags)}
-                className="px-4 py-2 border border-stone-300 text-sm text-stone-700 hover:border-stone-900 hover:bg-white transition-all"
-              >
-                {showMetaTags ? "Hide Meta-Tags" : "Show Meta-Tags"}
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(selectedPrompt.fullPrompt)
+                    setCopied(true)
+                    setTimeout(() => setCopied(false), 2000)
+                  }}
+                  className="px-4 py-2 border border-stone-300 text-sm text-stone-700 hover:border-stone-900 hover:bg-white transition-all"
+                >
+                  {copied ? "✓ Copied!" : "Copy .PSL"}
+                </button>
+                <button
+                  onClick={() => setShowMetaTags(!showMetaTags)}
+                  className="px-4 py-2 border border-stone-300 text-sm text-stone-700 hover:border-stone-900 hover:bg-white transition-all"
+                >
+                  {showMetaTags ? "Hide Meta-Tags" : "Show Meta-Tags"}
+                </button>
+              </div>
             </div>
 
             {/* Full Prompt */}
