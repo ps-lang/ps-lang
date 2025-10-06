@@ -16,7 +16,7 @@
   </p>
 
   <p>
-    <strong>Version:</strong> 0.1.0-alpha.1 &nbsp;|&nbsp; <strong>Status:</strong> Alpha Testing Phase
+    <strong>Version:</strong> 0.2.0-alpha.1 &nbsp;|&nbsp; <strong>Status:</strong> v0.2 Spec Released — Parser Coming Soon
   </p>
 
   <p>
@@ -25,6 +25,24 @@
 </div>
 
 <br/>
+
+---
+
+## 🎉 New in v0.2.0-alpha.1
+
+**Specification Released!** PS-LANG v0.2 introduces powerful new syntax features:
+
+- ✅ **Privacy-first default** - `<. lazy close` (no closing tag needed)
+- ✅ **Directional context** - `<-.` (backward), `<--.` (further back), `.->` (forward)
+- ✅ **Named zones** - `<.auth:description .>` for jQuery-style chaining
+- ✅ **Auto-boundary detection** - Parser intelligently closes zones
+- ⏳ **Parser implementation** - Coming in v0.2.0-alpha.2 (v0.1 fully supported)
+
+**Read the spec:**
+- [Full Specification](./docs/SYNTAX-V2.md)
+- [Quick Reference](./docs/SYNTAX-V2-QUICK-REF.md)
+- [v1 vs v2 Comparison](./docs/V1-VS-V2-COMPARISON.md)
+- [Working Example](./examples/v2-multi-agent-workflow.psl)
 
 ---
 
@@ -57,9 +75,9 @@ As someone who writes prompts daily (Claude Code, Cursor, ChatGPT, etc.), PS-LAN
 // "Hey Claude, build auth. Don't show the next agent my messy notes about passwords."
 
 // After: Structured with PS-LANG
-<@. Build JWT authentication @.>
+<@. Build JWT authentication .@>
 <. Private: passwords are hashed with bcrypt, 10 rounds .>
-<#. Next agent: uses bcrypt for hashing, 15min token expiry #.>
+<#. Next agent: uses bcrypt for hashing, 15min token expiry .#>
 ```
 
 **Two ways to use it:**
@@ -87,9 +105,9 @@ Start using zones in your everyday prompts. **Lazy closing works** - you don't n
 ```markdown
 <. Private note: trying a new approach >
 <#. Context for next agent: using JWT auth >
-<@. Current task: fix the login bug .>
+<@. Current task: fix the login bug >
 <?. Should we add 2FA? >
-<.bm target: 50ms response time .>
+<.bm target: 50ms response time .bm>
 
 # All of these are valid:
 <. text .>    # Match closing
@@ -105,19 +123,19 @@ Use nested zones for complex workflows:
 # Authentication System
 
 <@. Active: Building JWT authentication
-  <#. For next agent: This uses bcrypt for hashing #.>
+  <#. For next agent: This uses bcrypt for hashing .#>
   <. Private: Still unsure about refresh token strategy .>
   <.bm current_performance
     login: 45ms
     token_gen: 12ms
   .bm>
-@.>
+.@>
 
 <#. API Endpoints:
 - POST /login
 - POST /refresh
 - GET /user
-#.>
+.#>
 ```
 
 ---
@@ -127,7 +145,7 @@ Use nested zones for complex workflows:
 Ready for CLI tools, themes, and templates?
 
 ```bash
-npx ps-lang init
+npx ps-lang@alpha init
 ```
 
 This creates a `.ps-lang/` folder in your project with:
@@ -157,11 +175,11 @@ These 7 zones cover most use cases, but you can invent your own:
 
 ```markdown
 <. Current agent only note .>
-<#. Pass-through info for next agent #.>
-<@. Active workspace @.>
-<~. AI-generated metadata ~.>
-<$. Business/monetization context $.>
-<?. Question for later ?.>
+<#. Pass-through info for next agent .#>
+<@. Active workspace .@>
+<~. AI-generated metadata .~>
+<$. Business/monetization context .$>
+<?. Question for later .?>
 <.bm metric: value .bm>
 ```
 
@@ -178,13 +196,13 @@ Current agent only:
 For next agent:
 - Context item 1
 - Context item 2
-#.>
+.#>
 
 <@.
 Active workspace:
 - Current task
 - Work in progress
-@.>
+.@>
 
 <.bm performance
 load_time: 45ms
@@ -224,10 +242,10 @@ Examples discovered by users:
 **You don't need to match closing tags exactly.** These all work:
 
 ```markdown
-<. private note .>          # Traditional: match opening
+<. private note .>          # Traditional: symmetrical
 <. private note .>          # Universal close: just .>
 <. private note >           # Minimal: just >
-<#. context #.>             # Match opening
+<#. context .#>             # Symmetrical: <#. mirrors to .#>
 <#. context .>              # Universal close
 <#. context >               # Minimal close
 ```
@@ -243,7 +261,7 @@ Examples discovered by users:
 ## Real-World Example
 
 ```markdown
-<@. Active: Building user authentication @.>
+<@. Active: Building user authentication .@>
 
 ## Authentication Flow
 
@@ -252,7 +270,7 @@ Next agent needs this context:
 - Using JWT tokens
 - 15-minute expiry
 - Refresh token pattern
-#.>
+.#>
 
 <.
 Current agent only: Consider adding 2FA later
@@ -471,4 +489,4 @@ MIT - See [LICENSE](./LICENSE)
 
 ---
 
-**PS-LANG™ v0.1.0-alpha.1** · PS-LANG is a trademark of Vummo Labs
+**PS-LANG™ v0.2.0-alpha.1** · PS-LANG is a trademark of Vummo Labs

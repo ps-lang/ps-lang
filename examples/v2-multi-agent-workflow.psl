@@ -1,0 +1,368 @@
+<~.
+meta-tags: {
+  "workflow_type": "research-to-blog-post",
+  "agents": ["researcher", "writer", "editor", "seo-optimizer"],
+  "ps_lang_version": "0.2.0",
+  "privacy_model": "privacy-first-default",
+  "created": "2025-10-06",
+  "project": "ps-lang-v2-showcase"
+}
+~.>
+
+# Multi-Agent Blog Workflow Example (PS-LANG v0.2)
+
+**Demonstrates:** Lazy close, directional context, named zones, chaining
+
+---
+
+## Agent 1: Researcher
+
+<@.research:initial research phase
+**Task:** Research context control in multi-agent AI systems
+
+**Findings:**
+1. Current AI tools lack fine-grained privacy controls
+2. Developers need zone-based context management
+3. jQuery-style selectors resonate with devs
+4. Privacy should be default, not opt-in
+
+**Sources:**
+- Academic papers on multi-agent systems
+- Developer surveys on AI tool usage
+- Privacy concerns in code editors
+
+**Status:** Research complete ✓
+.@>
+
+<. Researcher private notes:
+Found conflicting opinions on syntax complexity
+Some devs want simpler, others want more power
+Leaning toward "simple by default, powerful when needed"
+Will recommend lazy close as default
+
+<.bm.research:research metrics
+Papers reviewed: 15
+Surveys analyzed: 3
+Time spent: 4 hours
+Confidence: high
+.bm>
+
+<#.writer:handoff to writing agent
+**Task:** Write 1200-word blog post
+
+**Target audience:** Developers using Claude Code, Cursor, Copilot
+
+**Key points to cover:**
+1. Why privacy-first matters
+2. How lazy close reduces friction
+3. Directional context for multi-agent workflows
+4. Real-world example (this file!)
+
+**Tone:** Technical but friendly, use code examples
+
+**Reference zones:**
+- Research findings above (use <-.research)
+- Benchmark metrics (use <-.bm.research)
+
+**Deadline:** Draft by end of day
+.#>
+
+---
+
+## Agent 2: Writer
+
+<-.research
+Based on the research findings, I'll structure the post around the 4 key insights...
+.->
+
+<@.writing:blog post draft phase
+**Status:** Drafting in progress
+
+**Outline:**
+1. Hook: Privacy is broken in AI tools
+2. Problem: Current tools expose everything
+3. Solution: PS-LANG v0.2 privacy-first approach
+4. Demo: Show lazy close in action
+5. CTA: Try it yourself
+.@>
+
+<.draft:main blog content
+# Privacy-First AI Context Control: PS-LANG v0.2
+
+**tl;dr:** Control what AI agents see in your code with privacy-first zones, lazy close syntax, and directional context awareness.
+
+## The Privacy Problem
+
+You're coding with Claude Code. You have sensitive notes in your files:
+
+```markdown
+# TODO: API key is sk-xxxxxxxxxxxxx (don't commit!)
+# Note to self: client wants 2FA but budget is tight
+```
+
+**Current reality:** Your AI assistant sees everything. Every comment, every TODO, every private note.
+
+**What if you could hide things?** Enter PS-LANG v0.2.
+
+## Privacy-First by Default
+
+<-.research
+Using insight #4 from research: privacy should be default
+.->
+
+New in v0.2: Every prompt starts private unless you explicitly share it.
+
+```markdown
+<. This is private - AI can't see it
+
+<#. This is public - next agent can use it
+```
+
+No closing tag needed for simple zones (lazy close):
+
+```markdown
+<. Private strategy notes
+<. Internal TODO
+<. Don't share this
+```
+
+The parser auto-detects boundaries. Simple.
+
+## Directional Context for Multi-Agent Workflows
+
+Real-world scenario: Research → Writing → Editing pipeline.
+
+**Old way:** Copy-paste context between agents. Messy.
+
+**New way:** Reference previous agent's work:
+
+```markdown
+<@.research:findings
+Found 3 key insights about privacy
+.@>
+
+<!-- Later, writing agent: -->
+<-.research
+Based on findings above, I'll write...
+.>
+```
+
+The `<-.` syntax means "look backward for context." It's like `git log` for your prompts.
+
+## jQuery-Style Chaining
+
+Big files? Name your zones and chain references:
+
+```markdown
+<.api:endpoint docs
+GET /users - Returns user list
+.>
+
+<.db:schema notes
+Users table: id, email, created_at
+.>
+
+<!-- Benchmark combining both: -->
+<-.bm.api.db
+Full request cycle: 67ms
+Database query: 23ms
+API serialization: 44ms
+.>
+```
+
+<-.bm.research
+Using research metrics: developers love familiar patterns
+jQuery-style selectors = instant recognition
+.>
+
+## Real-World Example
+
+This very file uses PS-LANG v0.2:
+
+- ✅ Private researcher notes (you can't see them)
+- ✅ Public handoff instructions for writer
+- ✅ Named zones for easy reference
+- ✅ Directional context lookups
+
+**Try it:**
+
+```bash
+npx ps-lang@alpha --init
+# Start using <. in your prompts
+```
+
+## Why This Matters
+
+<-.research
+Insight #1: Fine-grained privacy is missing in current tools
+.->
+
+**Before PS-LANG:**
+- All-or-nothing context sharing
+- No privacy zones in prompts
+- Manual copy-paste between agents
+
+**After PS-LANG v0.2:**
+- Default privacy protection
+- Granular context control
+- Seamless multi-agent handoffs
+
+## Get Started
+
+**Zero install needed:**
+Just add `<.` to your next prompt in Claude Code.
+
+**Want CLI tools?**
+```bash
+npx ps-lang@alpha --init
+```
+
+**Learn more:** https://ps-lang.dev
+
+---
+
+**Word count:** ~1,340 words
+**Target:** 1,200-1,500 ✓
+.>
+
+<. Writer private notes:
+Draft feels solid but intro could be punchier
+Need to verify code examples work
+Should I add more about RLHF feedback system?
+Leaving that for v0.3 content
+
+<.bm.draft:draft metrics
+Word count: 1,340
+Code examples: 5
+Reading time: 6 min
+Flesch score: 68 (good)
+.bm>
+
+<#.editor:handoff to editor
+**Task:** Review and polish draft above
+
+**Check for:**
+- ✅ Grammar and clarity
+- ✅ Code example accuracy
+- ✅ Flow and transitions
+- ✅ SEO keywords naturally integrated
+
+**Reference:** Use <-.draft to see full content
+
+**Timeline:** Edit + publish today
+.#>
+
+---
+
+## Agent 3: Editor
+
+<-.draft
+Reviewing the draft now...
+.->
+
+<@.editing:editorial review
+**Changes made:**
+1. Shortened intro (was too long)
+2. Added subheadings for scannability
+3. Verified all code examples
+4. Checked PS-LANG syntax accuracy
+
+**Status:** Ready for SEO review
+.@>
+
+<?.editor:questions for team
+Should we add visual diagrams?
+Is "jQuery-style" clear to non-JS devs?
+Do we need a FAQ section?
+.?>
+
+<. Editor notes:
+Draft is strong, writer nailed the tone
+Only minor tweaks needed
+Love the meta aspect of using PS-LANG to write about PS-LANG
+
+<.bm.editing:edit metrics
+Grammar fixes: 8
+Clarity improvements: 12
+Code blocks verified: 5/5
+Time spent: 45 min
+.bm>
+
+<#.seo:handoff to SEO optimizer
+**Task:** Final SEO optimization
+
+**Primary keywords:**
+- "AI context control"
+- "privacy-first AI"
+- "multi-agent workflows"
+- "PS-LANG"
+
+**Meta description:** Write 155-char description
+
+**Reference:** Use <-.draft for content, <-.bm.draft for metrics
+.#>
+
+---
+
+## Agent 4: SEO Optimizer
+
+<-.draft
+Analyzing content for SEO...
+.->
+
+<.bm.seo:final SEO metrics
+Keyword density:
+- "privacy-first": 8 mentions ✓
+- "AI context": 6 mentions ✓
+- "multi-agent": 5 mentions ✓
+
+Readability: Flesch 68 (college level) ✓
+Headers: H1(1), H2(6) ✓
+Internal links: 2 ✓
+External links: 1 (ps-lang.dev) ✓
+
+Meta description:
+"Control what AI agents see with PS-LANG v0.2. Privacy-first zones, lazy close syntax, and directional context for multi-agent workflows. Try it free."
+(154 chars) ✓
+
+**Status:** Ready to publish 🚀
+.bm>
+
+---
+
+## Workflow Summary
+
+**Agent pipeline:**
+1. 🔬 Researcher: Found key insights → `<@.research`
+2. ✍️ Writer: Created draft → `<-.research` + `<.draft`
+3. ✏️ Editor: Polished content → `<-.draft`
+4. 📊 SEO: Optimized for search → `<-.bm.seo`
+
+**Total time:** ~6 hours
+**Zone types used:** 6 different zones
+**Directional references:** 8 backward lookups
+**Named zones:** 5 chains
+
+**Privacy model:**
+- 🔒 Private notes: 4 zones (agent-blind)
+- 📤 Public handoffs: 4 zones (visible)
+- 📊 Benchmarks: 5 zones (metrics only)
+
+---
+
+<~.
+workflow_complete: true
+agents_used: 4
+total_zones: 13
+privacy_preserved: true
+agentic_meta_tags: {
+  "outcome": "blog-post-ready-to-publish",
+  "quality_score": "high",
+  "collaboration_efficiency": "excellent",
+  "privacy_compliance": "100%"
+}
+.~>
+
+**This file itself is a working example of PS-LANG v0.2 in action.**
+
+Try running: `npx ps-lang extract examples/v2-multi-agent-workflow.psl`

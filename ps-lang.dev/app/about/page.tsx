@@ -197,21 +197,25 @@ export default function AboutPage() {
               </div>
               <div>
                 <h2 className="text-xl font-light text-stone-900 mb-3 tracking-tight">
-                  v0.1.0-alpha.1
+                  v0.2.0-alpha.1 — Spec Released
                 </h2>
-                <p className="text-sm text-stone-600 leading-relaxed max-w-2xl">
-                  PS-LANG is in active alpha testing. We're gathering feedback on zone syntax, CLI tools, and real-world usage patterns.
+                <p className="text-sm text-stone-600 leading-relaxed max-w-2xl mb-3">
+                  PS-LANG v0.2 specification is now available! New features: privacy-first default, lazy close syntax, directional context, and named zone chaining.
+                </p>
+                <p className="text-xs text-stone-500 leading-relaxed max-w-2xl">
+                  Parser implementation coming in v0.2.0-alpha.2 (v0.1 syntax fully supported)
                 </p>
               </div>
             </div>
 
             <div className="space-y-4 text-sm text-stone-600 leading-relaxed max-w-3xl">
-              <p className="font-medium text-stone-900">Help us test:</p>
+              <p className="font-medium text-stone-900">Help us test v0.2 syntax:</p>
               <ul className="list-disc list-inside space-y-2 pl-4">
-                <li>Is the zone syntax clear and intuitive?</li>
-                <li>Are 7 zones enough, or do you need custom zones?</li>
-                <li>Does it solve your multi-agent workflow problems?</li>
-                <li>Any performance issues or integration friction?</li>
+                <li>Is lazy close syntax intuitive for quick annotations?</li>
+                <li>Do directional references (&lt;-. and .-&gt;) make sense for multi-agent workflows?</li>
+                <li>Is jQuery-style chaining (&lt;.id:desc&gt;) clear for organization?</li>
+                <li>Does privacy-first default align with your needs?</li>
+                <li>Read the spec: <code className="text-xs bg-white px-1 py-0.5">docs/SYNTAX-V2-QUICK-REF.md</code></li>
               </ul>
             </div>
           </div>

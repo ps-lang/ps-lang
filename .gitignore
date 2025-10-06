@@ -69,10 +69,17 @@ temp/
 handoffs/
 
 # Development docs (specs, analysis, research)
-docs/
+docs/*
+# But allow v0.2 specification docs
+!docs/SYNTAX-V2.md
+!docs/SYNTAX-V2-QUICK-REF.md
+!docs/V1-VS-V2-COMPARISON.md
+!docs/V2-IMPLEMENTATION-ROADMAP.md
 
 # Examples (case studies, real-world usage)
-examples/
+examples/*
+# But allow v0.2 example files
+!examples/v2-multi-agent-workflow.psl
 # PS-LANG user-specific files
 .ps-lang/
 .ps-lang/config/user-*.json
@@ -83,6 +90,8 @@ examples/
 v-todos.md
 v-todos.md.psl
 *.psl
+# But allow v0.2 example .psl files
+!examples/v2-multi-agent-workflow.psl
 CLAUDE.md
 /ps-lang.dev/papers/private
 # Allow public research papers

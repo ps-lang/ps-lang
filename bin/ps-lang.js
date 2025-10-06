@@ -227,7 +227,8 @@ function check() {
 function showHelp() {
   log('\n╔═══════════════════════════════════════════════════════╗', 'cyan');
   log('║         PS-LANG CLI - Alpha Testing Phase            ║', 'cyan');
-  log('║     Privacy-First Scripting Language v0.1.0-alpha.1  ║', 'cyan');
+  log('║     Privacy-First Scripting Language v0.2.0-alpha.1  ║', 'cyan');
+  log('║     v0.2 Spec Released | Parser Implementation Soon  ║', 'cyan');
   log('╚═══════════════════════════════════════════════════════╝\n', 'cyan');
 
   console.log('Usage:');
@@ -265,6 +266,13 @@ function showHelp() {
   console.log('  - .ps-lang folder contains all project-specific config');
   console.log('  - Custom commands auto-loaded by Claude Code\n');
 
+  console.log('v0.2 Syntax (Spec Released):');
+  console.log('  - Privacy-first default: <. lazy close syntax');
+  console.log('  - Directional context: <-. backward, .-> forward');
+  console.log('  - Named zones: <.id:description chaining');
+  console.log('  - Parser implementation: Coming in v0.2.0-alpha.2');
+  console.log('  - Read: docs/SYNTAX-V2-QUICK-REF.md\n');
+
   console.log('Learn more:');
   console.log('  Website:   https://ps-lang.dev');
   console.log('  GitHub:    https://github.com/vummo/ps-lang');
@@ -275,7 +283,8 @@ function showVersion() {
   const packagePath = join(__dirname, '..', 'package.json');
   const pkg = JSON.parse(readFileSync(packagePath, 'utf-8'));
   log(`\nPS-LANG v${pkg.version}`, 'bright');
-  log('Claude Code Support (Alpha)\n', 'cyan');
+  log('v0.2 Syntax: Privacy-first default, lazy close, directional context, named zones', 'cyan');
+  log('Parser Implementation: In Progress (v0.1 syntax fully supported)\n', 'yellow');
 }
 
 function showZones() {

@@ -1,7 +1,7 @@
 {
   "name": "ps-lang",
-  "version": "0.1.0-alpha.1",
-  "description": "Privacy-First Scripting Language for multi-agent context control. Claude Code support for alpha testing.",
+  "version": "0.2.0-alpha.1",
+  "description": "Privacy-First Scripting Language for multi-agent context control. v0.2 spec: lazy close, directional context, chainable zones.",
   "main": "dist/index.js",
   "type": "module",
   "bin": {
@@ -52,12 +52,15 @@
   "homepage": "https://ps-lang.dev",
   "preferGlobal": true,
   "psLang": {
-    "version": "0.1.0",
+    "version": "0.2.0",
     "features": [
+      "privacy-first-default",
+      "lazy-close-syntax",
+      "directional-context",
+      "named-zones-chaining",
       "privacy-zones",
       "ai-meta-tagging",
       "rl-training-support",
-      "sp-pattern-recognition",
       "agent-awareness",
       "npx-compatibility"
     ],
