@@ -141,11 +141,11 @@ npm run generate:og        # Creates 1200x630 social preview
 Zone-based syntax for controlling what AI agents see in multi-agent workflows.
 
 **Core concept:**
-- `<.>` Current agent only
-- `<#.>` Pass to next agent
-- `<@.>` Active workspace
-- `<$.>` Business/monetization context
-- `<~.>` AI-managed metadata
+- `<. .>` Current agent only
+- `<#. .#>` Pass to next agent
+- `<@. .@>` Active workspace
+- `<$. .$>` Business/monetization context
+- `<~. .~>` AI-managed metadata
 
 **Why it matters:**
 - **Context engineering**: Control what each agent sees

@@ -109,9 +109,9 @@ export default function AboutPage() {
               <p className="text-stone-600 mb-6">"Hey Claude, build a data pipeline. Don't show the next agent my rough notes about the schema."</p>
 
               <p className="text-stone-500 mb-4">// After: Structured with PS-LANG</p>
-              <p className="text-stone-900">&lt;@. Build ETL pipeline for user analytics @.&gt;</p>
+              <p className="text-stone-900">&lt;@. Build ETL pipeline for user analytics .@&gt;</p>
               <p className="text-stone-600">&lt;. Private: still deciding between Convex or Supabase realtime .&gt;</p>
-              <p className="text-stone-900">&lt;#. Next agent: uses daily batch processing, 24hr retention #.&gt;</p>
+              <p className="text-stone-900">&lt;#. Next agent: uses daily batch processing, 24hr retention .#&gt;</p>
             </div>
 
             <div className="space-y-4">
@@ -163,11 +163,11 @@ export default function AboutPage() {
             <div className="space-y-4">
               {[
                 { zone: "Current Agent Only", syntax: "<. text .>", purpose: "Only current agent sees" },
-                { zone: "Pass-Through", syntax: "<#. text #.>", purpose: "Documentation for next agent" },
-                { zone: "Active Workspace", syntax: "<@. text @.>", purpose: "Current agent's work area" },
-                { zone: "AI-Managed", syntax: "<~. text ~.>", purpose: "AI-generated metadata" },
-                { zone: "Business/Monetization", syntax: "<$. text $.>", purpose: "Business strategy, pricing" },
-                { zone: "Questions", syntax: "<?. text ?.>", purpose: "Open questions" },
+                { zone: "Pass-Through", syntax: "<#. text .#>", purpose: "Documentation for next agent" },
+                { zone: "Active Workspace", syntax: "<@. text .@>", purpose: "Current agent's work area" },
+                { zone: "AI-Managed", syntax: "<~. text .~>", purpose: "AI-generated metadata" },
+                { zone: "Business/Monetization", syntax: "<$. text .$>", purpose: "Business strategy, pricing" },
+                { zone: "Questions", syntax: "<?. text .?>", purpose: "Open questions" },
                 { zone: "Benchmark", syntax: "<.bm text .bm>", purpose: "Metrics or references" }
               ].map((item, i) => (
                 <div key={i} className="border border-stone-200 p-4">
@@ -182,7 +182,7 @@ export default function AboutPage() {
 
             <div className="mt-8 p-6 bg-stone-50 border border-stone-200">
               <p className="text-sm text-stone-600 leading-relaxed">
-                <span className="font-medium text-stone-900">Infinitely extensible:</span> Create any zone that makes sense for your workflow. The pattern is <code className="font-mono bg-white px-2 py-1">&lt;symbol. content symbol.&gt;</code>
+                <span className="font-medium text-stone-900">Infinitely extensible:</span> Create any zone that makes sense for your workflow. The pattern is <code className="font-mono bg-white px-2 py-1">&lt;symbol. content .symbol&gt;</code>
               </p>
             </div>
           </div>

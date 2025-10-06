@@ -229,9 +229,9 @@ Pricing ideas, revenue notes`}
 
 # Example: .journal auto-generates zones
 <.journal 09-26-25-ps-lang
-  <#. Pass to writing agent: Built PS-LANG specification #.>
+  <#. Pass to writing agent: Built PS-LANG specification .#>
   <. Hidden from agents: Debug notes, API keys, raw research data .>
-  <@. Agent workspace: Generate blog post from today's work @.>
+  <@. Agent workspace: Generate blog post from today's work .@>
 >`}
           </pre>
         </div>

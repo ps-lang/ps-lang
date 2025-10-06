@@ -197,16 +197,16 @@ memory: 128mb
 | Zone | Syntax | Purpose |
 |------|--------|---------|
 | **Current Agent Only** | `<. text .>` | Only current agent sees |
-| **Pass-Through** | `<#. text #.>` | Documentation for next agent |
-| **Active Workspace** | `<@. text @.>` | Current agent's work area |
-| **AI-Managed** | `<~. text ~.>` | AI-generated metadata |
-| **Business/Monetization** | `<$. text $.>` | Business strategy, pricing, revenue |
-| **Questions** | `<?. text ?.>` | Open questions |
+| **Pass-Through** | `<#. text .#>` | Documentation for next agent |
+| **Active Workspace** | `<@. text .@>` | Current agent's work area |
+| **AI-Managed** | `<~. text .~>` | AI-generated metadata |
+| **Business/Monetization** | `<$. text .$>` | Business strategy, pricing, revenue |
+| **Questions** | `<?. text .?>` | Open questions |
 | **Benchmark** | `<.bm text .bm>` | Metrics or references |
 
 ### Invent Your Own
 
-**The pattern:** `<symbol. content symbol.>`
+**The pattern:** `<symbol. content .symbol>`
 
 Examples discovered by users:
 ```markdown

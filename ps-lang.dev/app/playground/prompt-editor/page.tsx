@@ -70,75 +70,52 @@ export default function PlaygroundPage() {
   }
 
   const parsePromptToPSL = (rawPrompt: string, persona?: Persona): string => {
-    // Check if prompt already has zones - if so, add metadata to existing zones
-    const zoneRegex = /<([#$@?!~*]?)\.([^>]*)\1\.?>/g
-    const hasZones = zoneRegex.test(rawPrompt)
+    const timestamp = new Date().toISOString()
+    const wordCount = rawPrompt.split(/\s+/).length
+    const charCount = rawPrompt.length
 
-    if (hasZones) {
-      // Prompt has zones - add AI metadata after each zone
-      let enriched = rawPrompt.replace(
-        /<([#$@?!~*]?)\.([^>]*)\1\.?>/g,
-        (match, prefix, content) => {
-          const timestamp = new Date().toISOString()
-          const wordCount = content.trim().split(/\s+/).length
-          const charCount = content.trim().length
+    // Format similar to the example with cleaner structure
+    let enrichedPrompt = `# ${persona?.charAt(0).toUpperCase()}${persona?.slice(1)} Prompt\n\n`
 
-          return `${match}\n<.bm zone_metadata: type="${prefix || 'passthrough'}", words=${wordCount}, chars=${charCount}, parsed_at="${timestamp}" .bm>\n`
-        }
-      )
+    // Main task zone
+    enrichedPrompt += `<#. task: ${rawPrompt.split('.')[0]}... .#>\n\n`
 
-      // Add overall benchmark at the end
-      if (persona) {
-        const timestamp = new Date().toISOString()
-        enriched += `\n\n<.bm prompt_metadata: persona="${persona}", model="claude-sonnet-4.5", timestamp="${timestamp}", total_zones=${(rawPrompt.match(zoneRegex) || []).length} .bm>`
-      }
+    // Objective section
+    enrichedPrompt += `## Objective\n${rawPrompt}\n\n`
 
-      return enriched
+    // Add persona-specific metadata
+    if (persona === 'analyst') {
+      enrichedPrompt += `## Required Metrics\n<$. metrics_required:\n  - revenue\n  - customer_acquisition\n  - product_performance\n.$>\n\n`
+    } else if (persona === 'developer') {
+      enrichedPrompt += `## Technical Requirements\n<@. requirements:\n  - code_quality\n  - test_coverage\n  - performance_metrics\n.@>\n\n`
+    } else if (persona === 'designer') {
+      enrichedPrompt += `## Design Specs\n<@. design_specs:\n  - responsive_layout\n  - accessibility\n  - brand_consistency\n.@>\n\n`
+    } else if (persona === 'marketer') {
+      enrichedPrompt += `## Campaign Goals\n<$. campaign_goals:\n  - conversion_rate\n  - engagement_metrics\n  - roi_targets\n.$>\n\n`
+    } else if (persona === 'researcher') {
+      enrichedPrompt += `## Research Scope\n<#. research_scope:\n  - literature_review\n  - methodology\n  - findings_synthesis\n.#>\n\n`
+    } else if (persona === 'manager') {
+      enrichedPrompt += `## Project Requirements\n<@. project_requirements:\n  - timeline_milestones\n  - resource_allocation\n  - success_criteria\n.@>\n\n`
     }
 
-    // No zones - parse and add zones with metadata
-    const lines = rawPrompt.split('\n')
-    let enrichedPrompt = ''
-    let zoneCount = 0
+    // Analysis steps
+    enrichedPrompt += `## Analysis Steps\n\n`
+    enrichedPrompt += `<. debug_notes:\n  - Data validation: PASSED\n  - Date range: Q4 2024 (Oct-Dec)\n  - Cross-reference: Q3 baseline established\n.>\n\n`
 
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].trim()
+    enrichedPrompt += `Make sure to highlight key trends and provide actionable recommendations.\n\n`
 
-      if (!line) {
-        enrichedPrompt += '\n'
-        continue
-      }
+    // Output format
+    enrichedPrompt += `<@. output_format:\n  type: structured_report\n  sections: [executive_summary, revenue_analysis, customer_metrics, product_performance, trends, recommendations]\n  charts: true\n.@>\n\n`
 
-      const timestamp = new Date().toISOString()
-      const wordCount = line.split(/\s+/).length
-      const charCount = line.length
-      zoneCount++
+    enrichedPrompt += `---\n\n`
 
-      // Detect prompt patterns and wrap with appropriate zones + metadata
-      if (line.toLowerCase().includes('analyze') || line.toLowerCase().includes('create') || line.toLowerCase().includes('build')) {
-        enrichedPrompt += `<#. ${line} #.>\n<.bm zone_metadata: type="passthrough", words=${wordCount}, chars=${charCount}, parsed_at="${timestamp}" .bm>\n\n`
-      } else if (line.includes('data') || line.includes('Q4') || line.includes('sales') || line.includes('revenue')) {
-        enrichedPrompt += `<$. ${line} $.>\n<.bm zone_metadata: type="public", words=${wordCount}, chars=${charCount}, parsed_at="${timestamp}" .bm>\n\n`
-      } else if (line.toLowerCase().includes('format') || line.toLowerCase().includes('output') || line.toLowerCase().includes('provide') || line.toLowerCase().includes('include')) {
-        enrichedPrompt += `<@. ${line} @.>\n<.bm zone_metadata: type="action", words=${wordCount}, chars=${charCount}, parsed_at="${timestamp}" .bm>\n\n`
-      } else if (line.toLowerCase().includes('debug') || line.toLowerCase().includes('note') || line.toLowerCase().includes('baseline')) {
-        enrichedPrompt += `<. ${line} .>\n<.bm zone_metadata: type="private", words=${wordCount}, chars=${charCount}, parsed_at="${timestamp}" .bm>\n\n`
-      } else if (line.toLowerCase().includes('example') || line.includes('sample')) {
-        enrichedPrompt += `<*. ${line} *.>\n<.bm zone_metadata: type="example", words=${wordCount}, chars=${charCount}, parsed_at="${timestamp}" .bm>\n\n`
-      } else if (line.toLowerCase().includes('context:') || line.toLowerCase().includes('domain:')) {
-        enrichedPrompt += `<!. ${line} !.>\n<.bm zone_metadata: type="metadata", words=${wordCount}, chars=${charCount}, parsed_at="${timestamp}" .bm>\n\n`
-      } else {
-        enrichedPrompt += `<#. ${line} #.>\n<.bm zone_metadata: type="passthrough", words=${wordCount}, chars=${charCount}, parsed_at="${timestamp}" .bm>\n\n`
-      }
-    }
+    // Zone metadata
+    enrichedPrompt += `<.bm zone_metadata: type="passthrough", words=${wordCount}, chars=${charCount}, parsed_at="${timestamp}" .bm>\n\n`
 
-    // Add overall benchmark metadata at the end if persona provided
-    if (persona) {
-      const timestamp = new Date().toISOString()
-      enrichedPrompt += `<.bm prompt_metadata: persona="${persona}", model="claude-sonnet-4.5", timestamp="${timestamp}", total_zones=${zoneCount} .bm>`
-    }
+    // Prompt metadata
+    enrichedPrompt += `<.bm prompt_metadata: persona="${persona}", model="claude-sonnet-4.5", timestamp="${timestamp}", total_zones=4 .bm>`
 
-    return enrichedPrompt.trim()
+    return enrichedPrompt
   }
 
   const loadPersonaPrompt = (persona: Persona) => {
@@ -165,15 +142,15 @@ export default function PlaygroundPage() {
 
     // Single-line zone insertion examples
     const zoneExamples = {
-      'pass-through': '<#. task: analyze_sales_data #.>',
+      'pass-through': '<#. task: analyze_sales_data .#>',
       'private': '<. debug_notes: data_validation_passed .>',
-      'public': '<$. required_metrics: revenue, customer_acquisition, product_performance $.>',
-      'action': '<@. output_format: structured_report with charts @.>',
-      'question': '<?. clarification_needed: date_range and scope ?.>',
+      'public': '<$. required_metrics: revenue, customer_acquisition, product_performance .$>',
+      'action': '<@. output_format: structured_report with charts .@>',
+      'question': '<?. clarification_needed: date_range and scope .?>',
       'benchmark': '<.bm ai_metadata: analysis_type=quarterly_sales, model=claude-sonnet-4.5 .bm>',
-      'metadata': '<!. context: domain=business_analytics, complexity=moderate !.>',
-      'config': '<~. settings: temperature=0.7, max_tokens=2000 ~.>',
-      'example': '<*. sample_output: Q4 revenue: $2.4M (+18% YoY) *.>'
+      'metadata': '<!. context: domain=business_analytics, complexity=moderate .!>',
+      'config': '<~. settings: temperature=0.7, max_tokens=2000 .~>',
+      'example': '<*. sample_output: Q4 revenue: $2.4M (+18% YoY) .*>'
     }
 
     const example = zoneExamples[zoneType as keyof typeof zoneExamples] || ''
@@ -208,15 +185,15 @@ export default function PlaygroundPage() {
     if (!selection.text) return
 
     const zoneWrappers = {
-      'pass-through': { start: '<#. ', end: ' #.>' },
+      'pass-through': { start: '<#. ', end: ' .#>' },
       'private': { start: '<. ', end: ' .>' },
-      'public': { start: '<$. ', end: ' $.>' },
-      'action': { start: '<@. ', end: ' @.>' },
-      'question': { start: '<?. ', end: ' ?.>' },
+      'public': { start: '<$. ', end: ' .$>' },
+      'action': { start: '<@. ', end: ' .@>' },
+      'question': { start: '<?. ', end: ' .?>' },
       'benchmark': { start: '<.bm ', end: ' .bm>' },
-      'metadata': { start: '<!. ', end: ' !.>' },
-      'config': { start: '<~. ', end: ' ~.>' },
-      'example': { start: '<*. ', end: ' *.>' }
+      'metadata': { start: '<!. ', end: ' .!>' },
+      'config': { start: '<~. ', end: ' .~>' },
+      'example': { start: '<*. ', end: ' .*>' }
     }
 
     const wrapper = zoneWrappers[zoneType as keyof typeof zoneWrappers]
@@ -322,7 +299,7 @@ export default function PlaygroundPage() {
     }
   }, [isResizing, startY, startHeight])
 
-  const filterResult = filterForAgent(prompt, "agent-b")
+  const filterResult = filterForAgent(enrichedPrompt, "agent-b")
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -387,7 +364,7 @@ export default function PlaygroundPage() {
 
                 {/* Persona Selector */}
                 <div className="mb-6">
-                  <h5 className="text-xs font-typewriter text-stone-500 uppercase tracking-wider mb-3">Select Persona</h5>
+                  <h5 className="text-xs font-typewriter text-stone-500 uppercase tracking-wider mb-3">Prompt Type</h5>
                   <div className="grid grid-cols-3 gap-2">
                     <button
                       onClick={() => loadPersonaPrompt('developer')}
@@ -574,7 +551,8 @@ export default function PlaygroundPage() {
                       onMouseUp={handleTextSelect}
                       onKeyUp={handleTextSelect}
                       placeholder="Type or select a persona to load a prompt..."
-                      className="w-full h-32 font-mono text-[13px] leading-[1.6] text-stone-900 bg-transparent border-none focus:outline-none resize-none"
+                      readOnly
+                      className="w-full h-32 font-mono text-[13px] leading-[1.6] text-stone-900 bg-transparent border-none focus:outline-none resize-none cursor-default select-text"
                     />
 
                     {/* Selection Tooltip */}
@@ -649,7 +627,7 @@ export default function PlaygroundPage() {
                     <span className="text-[10px] font-typewriter text-stone-500 uppercase tracking-wider">Enriched.psl (Auto-generated WIP)</span>
                   </div>
                   <div className="p-4 font-mono text-[12px] leading-[1.6] text-stone-700 whitespace-pre-wrap">
-                    {enrichedPrompt || EXAMPLE_PROMPTS.enriched}
+                    {enrichedPrompt}
                   </div>
                 </div>
               </div>
