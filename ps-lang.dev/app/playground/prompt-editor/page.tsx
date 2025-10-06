@@ -384,7 +384,7 @@ export default function PlaygroundPage() {
               <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">Interactive Demo</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-light text-stone-900 mb-4 sm:mb-6 tracking-tight">
-              PS-LANG Playground
+              PromptScript Playground
             </h1>
             <p className="text-base sm:text-lg text-stone-600 mb-3 sm:mb-4 max-w-2xl mx-auto leading-relaxed font-light">
               Small syntax investment → Compounding efficiency gains

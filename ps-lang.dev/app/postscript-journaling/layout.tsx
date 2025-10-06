@@ -96,7 +96,7 @@ export default function JournalLayout({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'PS-LANG Journal',
+    name: 'PostScript Journal',
     applicationCategory: 'DeveloperApplication',
     applicationSubCategory: 'AI Workflow Tracking',
     operatingSystem: 'Web, Self-hosted',

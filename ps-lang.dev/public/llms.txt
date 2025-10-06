@@ -12,7 +12,7 @@ ps-lang:agentic-signature: agentic_ux_v1
 ps-lang:data-stream: public-metadata-stream
 ps-lang:access-model: public_secrets_key:enabled
 
-# PS-LANG Journal Metadata
+# PostScript Journal Metadata
 journal-signature: OSS_v1.0.0_public-access
 journal-tier: OSS|Plus
 encryption-model: self-hosted:user-managed-keys
@@ -70,7 +70,7 @@ Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Co
 /research-papers/zone-based-context-control-multi-agent-systems
 # Academic research and technical deep-dives
 
-[ps-lang-journal]
+[postscript-journal]
 /postscript-journaling
 # Self-hosted AI workflow tracking
 # Features: zone parsing, benchmark tracking, ChatGPT & Claude.ai integration
