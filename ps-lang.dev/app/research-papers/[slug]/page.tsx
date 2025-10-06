@@ -344,7 +344,10 @@ export default function ResearchPaperPage({ params }: { params: { slug: string }
               style={{ textWrap: 'pretty' } as any}
             >
               {paper.title}
-              <span className="inline-block whitespace-nowrap">
+              <span
+                className="inline-block whitespace-nowrap"
+                title={titleLiked ? "Unlike this paper title" : "Like this paper title"}
+              >
                 <ThumbsUp
                   className={`inline-block ml-2 w-5 h-5 align-baseline transition-all cursor-pointer ${
                     titleLiked
@@ -352,7 +355,6 @@ export default function ResearchPaperPage({ params }: { params: { slug: string }
                       : "fill-none stroke-stone-400 opacity-0 group-hover:opacity-100"
                   }`}
                   aria-label="Like this paper title"
-                  title={titleLiked ? "Unlike this paper title" : "Like this paper title"}
                 />
               </span>
             </h1>
@@ -507,15 +509,16 @@ export default function ResearchPaperPage({ params }: { params: { slug: string }
                 className="inline cursor-pointer"
               >
                 Executive Summary
-                <ThumbsUp
-                  className={`inline-block ml-2 w-4 h-4 align-baseline transition-all cursor-pointer ${
-                    executiveSummaryLiked
-                      ? "fill-stone-600 stroke-stone-600 opacity-100"
-                      : "fill-none stroke-stone-400 opacity-0 group-hover:opacity-100"
-                  }`}
-                  aria-label="Like Executive Summary section"
-                  title={executiveSummaryLiked ? "Unlike Executive Summary" : "Like Executive Summary"}
-                />
+                <span title={executiveSummaryLiked ? "Unlike Executive Summary" : "Like Executive Summary"}>
+                  <ThumbsUp
+                    className={`inline-block ml-2 w-4 h-4 align-baseline transition-all cursor-pointer ${
+                      executiveSummaryLiked
+                        ? "fill-stone-600 stroke-stone-600 opacity-100"
+                        : "fill-none stroke-stone-400 opacity-0 group-hover:opacity-100"
+                    }`}
+                    aria-label="Like Executive Summary section"
+                  />
+                </span>
               </h2>
             </div>
             <p>
