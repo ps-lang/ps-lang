@@ -66,6 +66,27 @@ const files = [
     replacements: [
       { pattern: /v[\d.]+-alpha\.\d+ — Spec Released/, replacement: `v${newVersion} — Spec Released` }
     ]
+  },
+  {
+    path: 'llms.txt',
+    replacements: [
+      { pattern: /# llms\.txt — PS-LANG v[\d.]+-alpha\.\d+/, replacement: `# llms.txt — PS-LANG v${newVersion}` },
+      { pattern: /PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control \(v[\d.]+-alpha\.\d+\)/, replacement: `PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v${newVersion})` }
+    ]
+  },
+  {
+    path: 'llms-full.txt',
+    replacements: [
+      { pattern: /# llms-full\.txt — PS-LANG v[\d.]+-alpha\.\d+/, replacement: `# llms-full.txt — PS-LANG v${newVersion}` },
+      { pattern: /Version: [\d.]+-alpha\.\d+/, replacement: `Version: ${newVersion}` },
+      { pattern: /PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control \(v[\d.]+-alpha\.\d+\)/, replacement: `PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v${newVersion})` }
+    ]
+  },
+  {
+    path: 'bin/ps-lang.js',
+    replacements: [
+      { pattern: /Privacy-First Scripting Language v[\d.]+-alpha\.\d+/, replacement: `Privacy-First Scripting Language v${newVersion}` }
+    ]
   }
 ];
 

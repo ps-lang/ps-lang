@@ -227,7 +227,7 @@ function check() {
 function showHelp() {
   log('\n╔═══════════════════════════════════════════════════════╗', 'cyan');
   log('║         PS-LANG CLI - Alpha Testing Phase            ║', 'cyan');
-  log('║     Privacy-First Scripting Language v0.2.1-alpha.1  ║', 'cyan');
+  log('║     Privacy-First Scripting Language v0.2.3-alpha.1  ║', 'cyan');
   log('║     v0.2 Spec Released | Parser Implementation Soon  ║', 'cyan');
   log('╚═══════════════════════════════════════════════════════╝\n', 'cyan');
 

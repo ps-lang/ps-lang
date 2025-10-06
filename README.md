@@ -16,7 +16,7 @@
   </p>
 
   <p>
-    <strong>Version:</strong> 0.2.2-alpha.2 &nbsp;|&nbsp; <strong>Status:</strong> v0.2 Spec Released — Parser Coming Soon
+    <strong>Version:</strong> 0.2.3-alpha.1 &nbsp;|&nbsp; <strong>Status:</strong> v0.2 Spec Released — Parser Coming Soon
   </p>
 
   <p>
@@ -28,7 +28,7 @@
 
 ---
 
-## 🎉 New in v0.2.2-alpha.2
+## 🎉 New in v0.2.3-alpha.1
 
 **Specification Released!** PS-LANG v0.2 introduces powerful new syntax features:
 
@@ -489,4 +489,4 @@ MIT - See [LICENSE](./LICENSE)
 
 ---
 
-**PS-LANG™ v0.2.2-alpha.2** · PS-LANG is a trademark of Vummo Labs
+**PS-LANG™ v0.2.3-alpha.1** · PS-LANG is a trademark of Vummo Labs

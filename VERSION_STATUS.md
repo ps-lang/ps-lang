@@ -1,12 +1,12 @@
 # PS-LANG Version Status
 
-**Current Version:** v0.2.2-alpha.2
+**Current Version:** v0.2.3-alpha.1
 **Release Date:** 2025-10-06
 **Status:** Specification Released, Parser Implementation Pending
 
 ---
 
-## What's in v0.2.2-alpha.2?
+## What's in v0.2.3-alpha.1?
 
 ### ✅ Complete
 
@@ -26,7 +26,7 @@
 - [x] Auto-boundary detection rules
 
 #### Version Updates
-- [x] package.json → v0.2.2-alpha.2
+- [x] package.json → v0.2.3-alpha.1
 - [x] Config files updated
 - [x] llms.txt metadata updated
 - [x] Website about page updated
@@ -93,7 +93,7 @@
 
 ## NPM Package Status
 
-**Published:** `ps-lang@0.2.2-alpha.2`
+**Published:** `ps-lang@0.2.3-alpha.1`
 
 ```bash
 # Install
@@ -141,7 +141,7 @@ npx ps-lang@alpha version
 
 ## Roadmap
 
-### v0.2.2-alpha.2 (Current)
+### v0.2.3-alpha.1 (Current)
 - ✅ Specification released
 - ✅ Documentation complete
 - ✅ Example files published
@@ -175,7 +175,7 @@ npx ps-lang@alpha version
 
 ## Known Limitations
 
-### Current (v0.2.2-alpha.2)
+### Current (v0.2.3-alpha.1)
 
 **Parser:**
 - ⚠️ v0.2 syntax not yet parsed (spec-only release)

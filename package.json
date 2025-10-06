@@ -1,6 +1,6 @@
 {
   "name": "ps-lang",
-  "version": "0.2.2-alpha.2",
+  "version": "0.2.3-alpha.1",
   "description": "Privacy-First Scripting Language for multi-agent context control. v0.2 spec: lazy close, directional context, chainable zones.",
   "main": "dist/index.js",
   "type": "module",
