@@ -34,7 +34,7 @@
 
 - ✅ **Privacy-first default** - `<. lazy close` (no closing tag needed)
 - ✅ **Directional context** - `<-.` (backward), `<--.` (further back), `.->` (forward)
-- ✅ **Named zones** - `<.auth:description .>` for jQuery-style chaining
+- ✅ **Named zones** - `<.auth:description .>` for selector-based chaining
 - ✅ **Auto-boundary detection** - Parser intelligently closes zones
 - ⏳ **Parser implementation** - Coming in v0.2.0-alpha.2 (v0.1 fully supported)
 

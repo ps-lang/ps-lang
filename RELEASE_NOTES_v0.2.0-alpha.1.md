@@ -54,7 +54,7 @@ Based on findings above...
 .>
 ```
 
-#### 4. **Named Zones & jQuery-Style Chaining** 🔗
+#### 4. **Named Zones & Selector-Based Chaining** 🔗
 - Name zones: `<.auth:JWT implementation notes .>`
 - Chain references: `<-.bm.auth.db`
 - Organize large files with selectors

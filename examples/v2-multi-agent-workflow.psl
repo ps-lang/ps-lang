@@ -23,7 +23,7 @@ meta-tags: {
 **Findings:**
 1. Current AI tools lack fine-grained privacy controls
 2. Developers need zone-based context management
-3. jQuery-style selectors resonate with devs
+3. Selector-based chaining resonates with devs
 4. Privacy should be default, not opt-in
 
 **Sources:**
@@ -149,7 +149,7 @@ Based on findings above, I'll write...
 
 The `<-.` syntax means "look backward for context." It's like `git log` for your prompts.
 
-## jQuery-Style Chaining
+## Selector-Based Chaining
 
 Big files? Name your zones and chain references:
 
@@ -172,7 +172,7 @@ API serialization: 44ms
 
 <-.bm.research
 Using research metrics: developers love familiar patterns
-jQuery-style selectors = instant recognition
+Selector-based chaining = instant recognition
 .>
 
 ## Real-World Example
@@ -272,7 +272,7 @@ Reviewing the draft now...
 
 <?.editor:questions for team
 Should we add visual diagrams?
-Is "jQuery-style" clear to non-JS devs?
+Is "selector-based chaining" clear to all devs?
 Do we need a FAQ section?
 .?>
 

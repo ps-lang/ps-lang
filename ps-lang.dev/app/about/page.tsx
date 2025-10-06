@@ -213,7 +213,7 @@ export default function AboutPage() {
               <ul className="list-disc list-inside space-y-2 pl-4">
                 <li>Is lazy close syntax intuitive for quick annotations?</li>
                 <li>Do directional references (&lt;-. and .-&gt;) make sense for multi-agent workflows?</li>
-                <li>Is jQuery-style chaining (&lt;.id:desc&gt;) clear for organization?</li>
+                <li>Is selector-based chaining (&lt;.id:desc&gt;) clear for organization?</li>
                 <li>Does privacy-first default align with your needs?</li>
                 <li>Read the spec: <code className="text-xs bg-white px-1 py-0.5">docs/SYNTAX-V2-QUICK-REF.md</code></li>
               </ul>

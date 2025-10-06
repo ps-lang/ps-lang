@@ -99,7 +99,7 @@ Declare metrics here
 
 ---
 
-## 3. jQuery-Style Chaining & Selectors
+## 3. Selector-Based Chaining & Named Zones
 
 ### Named Zones
 
@@ -235,7 +235,7 @@ Back to normal text
 | `<-.` | Backward | Previous context | Reference earlier work |
 | `<--.` | Far backward | Older context | Deep history lookup |
 | `.->` | Forward | Future context | Declare for later use |
-| `<.id:desc` | Named | Chainable reference | jQuery-style selectors |
+| `<.id:desc` | Named | Chainable reference | Selector-based chaining |
 
 ---
 

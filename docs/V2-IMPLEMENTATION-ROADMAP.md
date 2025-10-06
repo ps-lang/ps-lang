@@ -14,7 +14,7 @@
    - Privacy-first default behavior
    - Lazy close rules
    - Directional context (`<-.`, `<--.`, `.->`)
-   - jQuery-style chaining (`<.id:desc .>`)
+   - Selector-based chaining (`<.id:desc .>`)
    - Auto-boundary detection rules
    - Migration guide from v0.1
 
