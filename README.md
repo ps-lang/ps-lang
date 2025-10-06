@@ -16,7 +16,7 @@
   </p>
 
   <p>
-    <strong>Version:</strong> 0.2.0-alpha.1 &nbsp;|&nbsp; <strong>Status:</strong> v0.2 Spec Released — Parser Coming Soon
+    <strong>Version:</strong> 0.2.1-alpha.1 &nbsp;|&nbsp; <strong>Status:</strong> v0.2 Spec Released — Parser Coming Soon
   </p>
 
   <p>

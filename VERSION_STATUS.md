@@ -1,6 +1,6 @@
 # PS-LANG Version Status
 
-**Current Version:** v0.2.0-alpha.1
+**Current Version:** v0.2.1-alpha.1
 **Release Date:** 2025-10-06
 **Status:** Specification Released, Parser Implementation Pending
 
@@ -93,7 +93,7 @@
 
 ## NPM Package Status
 
-**Published:** `ps-lang@0.2.0-alpha.1`
+**Published:** `ps-lang@0.2.1-alpha.1`
 
 ```bash
 # Install
@@ -141,7 +141,7 @@ npx ps-lang@alpha version
 
 ## Roadmap
 
-### v0.2.0-alpha.1 (Current)
+### v0.2.1-alpha.1 (Current)
 - ✅ Specification released
 - ✅ Documentation complete
 - ✅ Example files published
@@ -175,7 +175,7 @@ npx ps-lang@alpha version
 
 ## Known Limitations
 
-### Current (v0.2.0-alpha.1)
+### Current (v0.2.1-alpha.1)
 
 **Parser:**
 - ⚠️ v0.2 syntax not yet parsed (spec-only release)

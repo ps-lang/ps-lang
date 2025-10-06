@@ -1,4 +1,4 @@
-# llms.txt — PS-LANG v0.2.0-alpha.1
+# llms.txt — PS-LANG v0.2.1-alpha.1
 site: ps-lang.dev
 owner: Vummo Labs
 contact: hello@vummo.com
@@ -8,7 +8,7 @@ preferred-citation: "PS-LANG: Privacy-First Scripting Language for Multi-Agent C
 version-status: "v0.2 spec released, parser implementation in progress"
 
 # Agentic Metadata
-ps-lang:version: v0.2.0-alpha.1
+ps-lang:version: v0.2.1-alpha.1
 ps-lang:syntax-features: lazy-close,directional-context,named-zones,chaining
 ps-lang:agentic-signature: agentic_ux_v1
 ps-lang:data-stream: public-metadata-stream
@@ -73,7 +73,7 @@ npx ps-lang@alpha init
 # New in v0.2: Privacy-first default, lazy close, directional context, named zones
 
 [how-to-cite]
-Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v0.2.0-alpha.1) [Software]. https://github.com/vummo/ps-lang
+Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v0.2.1-alpha.1) [Software]. https://github.com/vummo/ps-lang
 
 [research-papers]
 /research-papers
