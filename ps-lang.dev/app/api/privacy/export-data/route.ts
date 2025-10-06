@@ -5,6 +5,9 @@ import { api } from '@/convex/_generated/api'
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!)
 
+// Force dynamic rendering (uses auth headers)
+export const dynamic = 'force-dynamic'
+
 /**
  * DSAR (Data Subject Access Request) Export Endpoint
  * GDPR Article 15 - Right of Access
