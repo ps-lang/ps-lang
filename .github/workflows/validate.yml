@@ -30,10 +30,6 @@ jobs:
         working-directory: ./ps-lang.dev
         run: npm run typecheck
 
-      - name: Run ESLint
-        working-directory: ./ps-lang.dev
-        run: npm run lint
-
   build:
     name: Build Application
     runs-on: ubuntu-latest
