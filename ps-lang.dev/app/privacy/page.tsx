@@ -150,32 +150,95 @@ export default function PrivacyPage() {
 
           {/* Your Rights */}
           <section className="mb-12">
-            <h2 className="text-xl font-light text-stone-900 mb-4">Your Rights</h2>
-            <p className="text-sm text-stone-600 leading-relaxed mb-4">You have the right to:</p>
+            <h2 className="text-xl font-light text-stone-900 mb-4">Your Privacy Rights</h2>
+            <p className="text-sm text-stone-600 leading-relaxed mb-4">
+              Under GDPR (European Union), CCPA/CPRA (California), and PIPEDA (Canada), you have the following rights:
+            </p>
             <ul className="text-sm text-stone-600 leading-relaxed space-y-2">
-              <li><strong>Access:</strong> Request a copy of your data</li>
-              <li><strong>Correction:</strong> Update your email or preferences</li>
-              <li><strong>Deletion:</strong> Request deletion of your data</li>
-              <li><strong>Unsubscribe:</strong> Opt out of our newsletter anytime (link in every email)</li>
-              <li><strong>Opt-out of Analytics:</strong> Use browser tools like Do Not Track or ad blockers</li>
+              <li><strong>Right to Access:</strong> Request a copy of all personal data we hold about you</li>
+              <li><strong>Right to Correction:</strong> Update or correct your email, preferences, or profile information</li>
+              <li><strong>Right to Deletion:</strong> Request complete deletion of your data from our systems</li>
+              <li><strong>Right to Data Portability:</strong> Receive your data in a structured, machine-readable format</li>
+              <li><strong>Right to Opt-Out:</strong> Withdraw consent for analytics tracking at any time via our <Link href="/cookies" className="underline hover:text-stone-900">Cookie Preferences</Link> page</li>
+              <li><strong>Right to Unsubscribe:</strong> Opt out of our newsletter anytime (link in every email)</li>
+              <li><strong>Right to Object:</strong> Object to processing of your personal data for specific purposes</li>
+              <li><strong>Right to Non-Discrimination:</strong> We will not discriminate against you for exercising your privacy rights</li>
             </ul>
-            <p className="text-sm text-stone-600 leading-relaxed mt-4">
-              To exercise these rights, email us at{" "}
+            <p className="text-sm text-stone-600 leading-relaxed mt-6">
+              To exercise any of these rights, email us at{" "}
               <a href="mailto:privacy@vummo.com" className="underline hover:text-stone-900">
                 privacy@vummo.com
               </a>
+              {" "}with your request. We will respond within 30 days.
             </p>
+
+            <div className="bg-stone-50 border border-stone-200 p-4 mt-6">
+              <p className="text-sm text-stone-900 font-medium mb-2">Export Your Data</p>
+              <p className="text-sm text-stone-600 mb-3">
+                Signed-in users can download a complete export of their personal data in JSON format.
+              </p>
+              <a
+                href="/api/privacy/export-data"
+                className="inline-block px-4 py-2 bg-stone-900 text-white text-sm font-medium hover:bg-stone-800 transition-colors"
+                download
+              >
+                Download My Data
+              </a>
+            </div>
           </section>
 
-          {/* Cookies */}
+          {/* Cookies & Consent */}
           <section className="mb-12">
-            <h2 className="text-xl font-light text-stone-900 mb-4">Cookies</h2>
+            <h2 className="text-xl font-light text-stone-900 mb-4">Cookies & Your Consent</h2>
             <p className="text-sm text-stone-600 leading-relaxed mb-4">
-              We use cookies for analytics and session management. You can disable cookies in your browser settings, but this may affect site functionality.
+              We use cookies and similar technologies to improve your experience and analyze site usage. We respect your privacy and comply with GDPR (Europe), CCPA/CPRA (California), and PIPEDA (Canada) regulations.
             </p>
-            <div className="space-y-2">
-              <p className="text-sm text-stone-600"><strong>Essential:</strong> Session cookies for functionality</p>
-              <p className="text-sm text-stone-600"><strong>Analytics:</strong> Google Analytics (_ga, _gid), PostHog (ph_*)</p>
+
+            <h3 className="text-lg font-light text-stone-900 mb-3 mt-6">Cookie Categories</h3>
+            <div className="space-y-4 mb-6">
+              <div>
+                <p className="text-sm text-stone-900 font-medium mb-1">Essential Cookies (Always Active)</p>
+                <p className="text-sm text-stone-600 leading-relaxed">
+                  Required for site functionality including session management, authentication (Clerk), and security features. These cannot be disabled.
+                </p>
+              </div>
+
+              <div>
+                <p className="text-sm text-stone-900 font-medium mb-1">Analytics & Performance Cookies (Requires Consent)</p>
+                <p className="text-sm text-stone-600 leading-relaxed mb-2">
+                  Help us understand how you use our site. Only loaded after you grant consent. Includes:
+                </p>
+                <ul className="text-sm text-stone-600 space-y-1 ml-4">
+                  <li>• <strong>Google Analytics</strong> (_ga, _gid, _gat) - Page views, navigation patterns, demographics</li>
+                  <li>• <strong>PostHog</strong> (ph_*) - Event tracking, session recording (with sensitive data masked), feature usage</li>
+                  <li>• <strong>Performance Monitoring</strong> - Core Web Vitals (LCP, FID, CLS)</li>
+                  <li>• <strong>Engagement Tracking</strong> - Text selection, scroll depth, interaction patterns</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 className="text-lg font-light text-stone-900 mb-3">Managing Your Preferences</h3>
+            <p className="text-sm text-stone-600 leading-relaxed mb-4">
+              You control your cookie preferences. You can:
+            </p>
+            <ul className="text-sm text-stone-600 space-y-2 mb-4">
+              <li>• Accept or decline analytics cookies via our consent banner (shown on first visit)</li>
+              <li>• Change your preferences anytime on our <Link href="/cookies" className="underline hover:text-stone-900">Cookie Preferences</Link> page</li>
+              <li>• Revoke consent at any time (will clear existing cookies and reload the page)</li>
+              <li>• Use browser settings to block cookies (may affect site functionality)</li>
+            </ul>
+
+            <div className="bg-stone-50 border border-stone-200 p-4 mt-6">
+              <p className="text-sm text-stone-900 font-medium mb-2">Your Consent Preference</p>
+              <p className="text-sm text-stone-600 mb-3">
+                Manage your cookie settings and view detailed information about each cookie type.
+              </p>
+              <Link
+                href="/cookies"
+                className="inline-block px-4 py-2 bg-stone-900 text-white text-sm font-medium hover:bg-stone-800 transition-colors"
+              >
+                Manage Cookie Preferences
+              </Link>
             </div>
           </section>
 

@@ -186,3 +186,28 @@ export const getUserHistory = query({
     return interactions;
   },
 });
+
+// Get all interactions for a specific user (for DSAR export)
+export const getUserInteractions = query({
+  args: {
+    userId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const interactions = await ctx.db
+      .query("userInteractions")
+      .withIndex("by_userId", (q) => q.eq("userId", args.userId))
+      .collect();
+
+    return interactions.map(interaction => ({
+      id: interaction._id,
+      timestamp: new Date(interaction.timestamp).toISOString(),
+      page: interaction.page,
+      pageId: interaction.pageId,
+      interactionType: interaction.interactionType,
+      category: interaction.category,
+      target: interaction.target,
+      value: interaction.value,
+      metadata: interaction.metadata,
+    }));
+  },
+});

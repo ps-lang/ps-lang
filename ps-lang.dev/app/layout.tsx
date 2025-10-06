@@ -8,6 +8,7 @@ import PostHogIdentifier from '@/components/posthog-identifier'
 import AnnouncementBar from '@/components/announcement-bar'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
+import CookieConsent from '@/components/cookie-consent'
 import { siteConfig } from '@/config/site'
 
 import { Courier_Prime, Crimson_Text, Inter, JetBrains_Mono } from 'next/font/google'
@@ -226,15 +227,18 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        {/* Google Analytics */}
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
+        {/* Consent-Gated Google Analytics */}
+        <Script id="ga-consent-check" strategy="afterInteractive">
+          {`
+            (function() {
+              const consent = localStorage.getItem('ps_lang_cookie_consent');
+              if (consent === 'granted' && '${process.env.NEXT_PUBLIC_GA_ID}') {
+                // Load Google Analytics
+                var script = document.createElement('script');
+                script.src = 'https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}';
+                script.async = true;
+                document.head.appendChild(script);
+
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
@@ -243,70 +247,82 @@ export default function RootLayout({
                     'ps_lang_project': '${process.env.NEXT_PUBLIC_PARENT_COMPANY}_property'
                   }
                 });
-              `}
-            </Script>
-          </>
-        )}
-
-        {/* PostHog Analytics */}
-        {process.env.NEXT_PUBLIC_POSTHOG_KEY && (
-          <Script id="posthog-init" strategy="afterInteractive">
-            {`
-              !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-              posthog.init('${process.env.NEXT_PUBLIC_POSTHOG_KEY}', {
-                api_host: '${process.env.NEXT_PUBLIC_POSTHOG_HOST}',
-                person_profiles: 'identified_only',
-                session_recording: {
-                  enabled: true,
-                  maskAllInputs: true,
-                  maskTextSelector: '.ph-no-capture, [data-private]',
-                  recordCanvas: false,
-                  recordCrossOriginIframes: false
-                }
-              });
-            `}
-          </Script>
-        )}
-
-        {/* Text Selection Tracking */}
-        <Script id="selection-tracking" strategy="afterInteractive">
-          {`
-            document.addEventListener('mouseup', function() {
-              const selectedText = window.getSelection().toString().trim();
-              if (selectedText && selectedText.length > 3) {
-                const selection = window.getSelection();
-                const container = selection.anchorNode?.parentElement?.closest('[data-track-section]');
-                const section = container?.getAttribute('data-track-section') || 'unknown';
-
-                // PostHog tracking
-                if (window.posthog) {
-                  window.posthog.capture('text_selected', {
-                    selected_text: selectedText,
-                    text_length: selectedText.length,
-                    section: section,
-                    page: window.location.pathname
-                  });
-                }
-
-                // Google Analytics tracking
-                if (window.gtag) {
-                  window.gtag('event', 'text_selection', {
-                    event_category: 'engagement',
-                    event_label: section,
-                    text_length: selectedText.length,
-                    selected_text: selectedText.substring(0, 100) // First 100 chars
-                  });
-                }
               }
-            });
+            })();
           `}
         </Script>
 
-        {/* Zoom/Pinch Tracking */}
+        {/* Consent-Gated PostHog Analytics */}
+        <Script id="posthog-consent-check" strategy="afterInteractive">
+          {`
+            (function() {
+              const consent = localStorage.getItem('ps_lang_cookie_consent');
+              if (consent === 'granted' && '${process.env.NEXT_PUBLIC_POSTHOG_KEY}') {
+                !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+                posthog.init('${process.env.NEXT_PUBLIC_POSTHOG_KEY}', {
+                  api_host: '${process.env.NEXT_PUBLIC_POSTHOG_HOST}',
+                  person_profiles: 'identified_only',
+                  session_recording: {
+                    enabled: true,
+                    maskAllInputs: true,
+                    maskTextSelector: '.ph-no-capture, [data-private]',
+                    recordCanvas: false,
+                    recordCrossOriginIframes: false
+                  }
+                });
+              }
+            })();
+          `}
+        </Script>
+
+        {/* Consent-Gated Text Selection Tracking */}
+        <Script id="selection-tracking" strategy="afterInteractive">
+          {`
+            (function() {
+              const consent = localStorage.getItem('ps_lang_cookie_consent');
+              if (consent !== 'granted') return;
+
+              document.addEventListener('mouseup', function() {
+                const selectedText = window.getSelection().toString().trim();
+                if (selectedText && selectedText.length > 3) {
+                  const selection = window.getSelection();
+                  const container = selection.anchorNode?.parentElement?.closest('[data-track-section]');
+                  const section = container?.getAttribute('data-track-section') || 'unknown';
+
+                  // PostHog tracking
+                  if (window.posthog) {
+                    window.posthog.capture('text_selected', {
+                      selected_text: selectedText,
+                      text_length: selectedText.length,
+                      section: section,
+                      page: window.location.pathname
+                    });
+                  }
+
+                  // Google Analytics tracking
+                  if (window.gtag) {
+                    window.gtag('event', 'text_selection', {
+                      event_category: 'engagement',
+                      event_label: section,
+                      text_length: selectedText.length,
+                      selected_text: selectedText.substring(0, 100) // First 100 chars
+                    });
+                  }
+                }
+              });
+            })();
+          `}
+        </Script>
+
+        {/* Consent-Gated Zoom/Pinch Tracking */}
         <Script id="zoom-tracking" strategy="afterInteractive">
           {`
-            let initialPinchDistance = 0;
-            let currentZoomLevel = 1;
+            (function() {
+              const consent = localStorage.getItem('ps_lang_cookie_consent');
+              if (consent !== 'granted') return;
+
+              let initialPinchDistance = 0;
+              let currentZoomLevel = 1;
 
             // Track pinch-to-zoom on mobile
             document.addEventListener('touchstart', function(e) {
@@ -362,14 +378,16 @@ export default function RootLayout({
                 lastZoomLevel = currentDPR;
               }
             });
+            })();
           `}
         </Script>
 
-        {/* Core Web Vitals Tracking */}
+        {/* Consent-Gated Core Web Vitals Tracking */}
         <Script id="web-vitals" strategy="afterInteractive">
           {`
-            // Import web-vitals library
             (function() {
+              const consent = localStorage.getItem('ps_lang_cookie_consent');
+              if (consent !== 'granted') return;
               // Largest Contentful Paint (LCP)
               if (typeof PerformanceObserver !== 'undefined') {
                 try {
@@ -483,6 +501,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <CookieConsent />
         </body>
       </html>
     </ClerkProvider>
