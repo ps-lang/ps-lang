@@ -12,6 +12,28 @@ export const subscribe = mutation({
   },
   handler: async (ctx, args) => {
     const emailDomain = args.email.split('@')[1];
+    const timestamp = Date.now();
+
+    // Build agentic metadata for data stream
+    const agenticMetadata = {
+      // User segmentation
+      userSegment: emailDomain.includes('gmail.com') || emailDomain.includes('yahoo.com') ? 'consumer' : 'business',
+      intentLevel: args.interests.length > 0 ? 'high_intent' : 'general_interest',
+
+      // Workflow tracking
+      workflowStage: 'lead_capture',
+      conversionFunnel: 'newsletter_signup',
+      dataStream: 'agentic_ux_v1',
+
+      // Context metadata
+      interestCount: args.interests.length,
+      hasName: !!(args.firstName || args.lastName),
+      sourceContext: args.source,
+
+      // Platform metadata
+      platformVersion: 'v0.1.0-alpha.1',
+      capturedAt: timestamp
+    };
 
     // Check if email already exists
     const existing = await ctx.db
@@ -20,21 +42,24 @@ export const subscribe = mutation({
       .first();
 
     if (existing) {
-      // Update existing subscriber
+      // Update existing subscriber with new metadata
       await ctx.db.patch(existing._id, {
         firstName: args.firstName,
         lastName: args.lastName,
         interests: args.interests,
         source: args.source,
+        agenticMetadata,
+        updatedAt: timestamp,
       });
       return existing._id;
     }
 
-    // Create new subscriber
+    // Create new subscriber with agentic metadata
     const subscriberId = await ctx.db.insert("newsletter", {
       ...args,
       emailDomain,
-      subscribedAt: Date.now(),
+      subscribedAt: timestamp,
+      agenticMetadata,
     });
 
     return subscriberId;

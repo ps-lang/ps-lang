@@ -6,6 +6,23 @@ license-code: MIT
 license-docs: CC BY 4.0
 preferred-citation: "PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (MIT License)"
 
+# Agentic Metadata
+ps-lang:version: v0.1.0-alpha.1
+ps-lang:agentic-signature: agentic_ux_v1
+ps-lang:data-stream: public-metadata-stream
+ps-lang:access-model: public_secrets_key:enabled
+
+# PS-LANG Journal Metadata
+journal-signature: OSS_v1.0.0_public-access
+journal-tier: OSS|Plus
+encryption-model: self-hosted:user-managed-keys
+privacy-token: private-label:user-controlled
+
+# Mission, Vision, Goals
+mission: Empower developers with self-hosted AI workflow tracking
+vision: Privacy-first AI productivity tools for individuals and teams
+goals: 100% data ownership, zero vendor lock-in, open source forever
+
 [overview]
 /README.md
 /llms-full.txt
@@ -52,6 +69,16 @@ Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Co
 /research-papers
 /research-papers/zone-based-context-control-multi-agent-systems
 # Academic research and technical deep-dives
+
+[ps-lang-journal]
+/postscript-journaling
+# Self-hosted AI workflow tracking
+# Features: zone parsing, benchmark tracking, ChatGPT & Claude.ai integration
+# License: MIT (OSS) | Plus tier available
+# Privacy: local-first, user-controlled encryption
+# Export: JSON, CSV
+# Token model: Clerk-based, private-by-default
+# Public access key: user-controlled-settings
 
 [faqs]
 # Frequently Asked Questions

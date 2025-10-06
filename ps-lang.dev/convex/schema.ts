@@ -24,6 +24,19 @@ export default defineSchema({
     source: v.string(),
     emailDomain: v.string(),
     subscribedAt: v.number(),
+    updatedAt: v.optional(v.number()),
+    agenticMetadata: v.optional(v.object({
+      userSegment: v.string(),
+      intentLevel: v.string(),
+      workflowStage: v.string(),
+      conversionFunnel: v.string(),
+      dataStream: v.string(),
+      interestCount: v.number(),
+      hasName: v.boolean(),
+      sourceContext: v.string(),
+      platformVersion: v.string(),
+      capturedAt: v.number(),
+    })),
   })
     .index("by_email", ["email"])
     .index("by_subscribedAt", ["subscribedAt"]),
@@ -196,6 +209,74 @@ export default defineSchema({
     .index("by_type", ["type"])
     .index("by_userId", ["userId"])
     .index("by_createdAt", ["createdAt"]),
+
+  // Hero Tagline A/B Testing & RLHF
+  headlineVariants: defineTable({
+    variantId: v.string(), // e.g., "option-1", "option-2"
+    page: v.string(), // "postscript-journaling"
+    component: v.string(), // "hero-tagline"
+    text: v.string(), // actual headline text
+    activeStatus: v.string(), // "active", "testing", "archived"
+
+    // Public metadata (shareable via public_secrets_key)
+    publicMetadata: v.object({
+      category: v.string(),
+      createdAt: v.string(),
+      impressions: v.number(), // total views
+      interactions: v.number(), // total interactions
+    }),
+
+    // Private metadata (user-controlled, Clerk-based)
+    privateMetadata: v.optional(v.object({
+      performanceScore: v.optional(v.number()),
+      conversionRate: v.optional(v.number()),
+      avgTimeOnPage: v.optional(v.number()),
+      scrollDepth: v.optional(v.number()),
+      ctaClicks: v.optional(v.number()),
+    })),
+
+    // RLHF datastream
+    rlhfMetadata: v.optional(v.object({
+      positiveSignals: v.number(),
+      negativeSignals: v.number(),
+      neutralSignals: v.number(),
+      lastUpdated: v.number(),
+    })),
+
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_variantId", ["variantId"])
+    .index("by_page", ["page"])
+    .index("by_activeStatus", ["activeStatus"]),
+
+  // Headline Interaction Events (RLHF datastream)
+  headlineInteractions: defineTable({
+    variantId: v.string(),
+    interactionType: v.string(), // "view", "scroll", "cta_click", "feedback"
+    userId: v.optional(v.string()), // clerkUserId (if authenticated)
+    sessionId: v.string(), // anonymous session tracking
+
+    // Interaction metadata
+    value: v.optional(v.number()), // feedback score, scroll percentage, etc.
+    userSegment: v.string(), // "authenticated", "public"
+    deviceType: v.string(), // "desktop", "mobile"
+
+    // Agentic metadata
+    agenticMetadata: v.object({
+      component: v.string(),
+      dataStream: v.string(), // "agentic_ux_v1"
+      rlhfSignal: v.string(), // "positive", "negative", "neutral"
+      privacyLabel: v.string(), // "private" or "public"
+    }),
+
+    timestamp: v.number(),
+  })
+    .index("by_variantId", ["variantId"])
+    .index("by_userId", ["userId"])
+    .index("by_sessionId", ["sessionId"])
+    .index("by_timestamp", ["timestamp"])
+    .index("by_interactionType", ["interactionType"]),
 
   // AI Connectors (ChatGPT, Claude, etc.)
   aiConnectors: defineTable({

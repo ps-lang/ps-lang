@@ -15,11 +15,31 @@ export default function NewsletterSignup({ onSuccess, source = 'newsletter_modal
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [message, setMessage] = useState("")
 
-  const interestOptions = [
-    "Multi-Agent Workflows",
-    "Agent Benchmarking",
-    "Privacy-First Tools"
-  ]
+  // Contextual interest options based on source
+  const getInterestOptions = () => {
+    switch (source) {
+      case 'journal_page':
+        return [
+          "PS-LANG Journal Features",
+          "AI Workflow Tracking",
+          "Benchmark Insights"
+        ]
+      case 'homepage':
+        return [
+          "Multi-Agent Workflows",
+          "Agent Benchmarking",
+          "Privacy-First Tools"
+        ]
+      default:
+        return [
+          "Multi-Agent Workflows",
+          "Agent Benchmarking",
+          "Privacy-First Tools"
+        ]
+    }
+  }
+
+  const interestOptions = getInterestOptions()
 
   const toggleInterest = (interest: string) => {
     setInterests(prev =>
@@ -34,6 +54,41 @@ export default function NewsletterSignup({ onSuccess, source = 'newsletter_modal
     setStatus("loading")
     setMessage("")
 
+    // Build agentic metadata
+    const emailDomain = email.split('@')[1]
+    const timestamp = new Date().toISOString()
+    const agenticMetadata = {
+      // Component identity
+      component: 'newsletter-signup',
+      component_version: 'v1.0.0',
+      interaction_type: 'form_submission',
+
+      // User context
+      source: source,
+      interests: interests,
+      interest_count: interests.length,
+      has_name: !!(firstName || lastName),
+
+      // Segmentation
+      email_domain: emailDomain,
+      user_segment: emailDomain.includes('gmail.com') || emailDomain.includes('yahoo.com') ? 'consumer' : 'business',
+      intent_level: interests.length > 0 ? 'high_intent' : 'general_interest',
+
+      // Agentic UX metadata
+      ui_variant: 'contextual_interests',
+      interest_options_shown: getInterestOptions(),
+      timestamp: timestamp,
+
+      // AI workflow tracking
+      workflow_stage: 'lead_capture',
+      conversion_funnel: 'newsletter_signup',
+      data_stream: 'agentic_ux_v1',
+
+      // Platform metadata
+      project: 'ps-lang',
+      platform_version: 'v0.1.0-alpha.1'
+    }
+
     try {
       const response = await fetch("/api/newsletter", {
         method: "POST",
@@ -46,19 +101,40 @@ export default function NewsletterSignup({ onSuccess, source = 'newsletter_modal
       if (response.ok) {
         setStatus("success")
         setMessage(data.message || "Successfully subscribed!")
+
+        const successMetadata = {
+          ...agenticMetadata,
+          outcome: 'success',
+          response_metadata: data.metadata
+        }
+
+        // Track in PostHog with enriched metadata
+        if (typeof window !== 'undefined' && (window as any).posthog) {
+          (window as any).posthog.capture('newsletter_signup_success', successMetadata)
+
+          // Set user properties for segmentation
+          (window as any).posthog.people?.set({
+            newsletter_subscriber: true,
+            newsletter_source: source,
+            newsletter_interests: interests,
+            newsletter_signup_date: timestamp
+          })
+        }
+
+        // Track in Google Analytics with enriched metadata
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'newsletter_signup', {
+            event_category: 'engagement',
+            event_label: source,
+            value: interests.length,
+            ...successMetadata
+          })
+        }
+
         setEmail("")
         setFirstName("")
         setLastName("")
         setInterests([])
-
-        // Track successful signup in PostHog
-        if (typeof window !== 'undefined' && (window as any).posthog) {
-          (window as any).posthog.capture('newsletter_signup', {
-            email_domain: email.split('@')[1],
-            source: source,
-            interests: interests
-          })
-        }
 
         // Call onSuccess callback after 2 seconds
         if (onSuccess) {
@@ -69,10 +145,41 @@ export default function NewsletterSignup({ onSuccess, source = 'newsletter_modal
       } else {
         setStatus("error")
         setMessage(data.error || "Failed to subscribe")
+
+        const errorMetadata = {
+          ...agenticMetadata,
+          outcome: 'error',
+          error_message: data.error
+        }
+
+        // Track errors in PostHog
+        if (typeof window !== 'undefined' && (window as any).posthog) {
+          (window as any).posthog.capture('newsletter_signup_error', errorMetadata)
+        }
+
+        // Track errors in Google Analytics
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'newsletter_error', {
+            event_category: 'error',
+            event_label: data.error,
+            ...errorMetadata
+          })
+        }
       }
     } catch (error) {
       setStatus("error")
       setMessage("Something went wrong. Please try again.")
+
+      const exceptionMetadata = {
+        ...agenticMetadata,
+        outcome: 'exception',
+        error_type: 'network_error'
+      }
+
+      // Track exceptions in PostHog
+      if (typeof window !== 'undefined' && (window as any).posthog) {
+        (window as any).posthog.capture('newsletter_signup_exception', exceptionMetadata)
+      }
     }
 
     // Reset status after 5 seconds
@@ -85,16 +192,32 @@ export default function NewsletterSignup({ onSuccess, source = 'newsletter_modal
   }
 
   return (
-    <div className="w-full">
-      <form onSubmit={handleSubmit} className="space-y-6">
+    <div
+      className="w-full"
+      data-component="newsletter-signup"
+      data-component-version="v1.0.0"
+      data-source={source}
+      data-data-stream="agentic_ux_v1"
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-6"
+        data-workflow-stage="lead_capture"
+        data-conversion-funnel="newsletter_signup"
+      >
         {/* Interests checkboxes */}
-        <div className="space-y-3">
+        <div
+          className="space-y-3"
+          data-interaction="interest-selection"
+          data-ui-variant="contextual_interests"
+        >
           <p className="text-xs text-stone-500 font-medium uppercase tracking-wider">Interests (Optional)</p>
           <div className="space-y-2.5">
             {interestOptions.map((interest) => (
               <label
                 key={interest}
                 className="flex items-start gap-3 cursor-pointer group"
+                data-interest-option={interest}
               >
                 <input
                   type="checkbox"
@@ -102,6 +225,8 @@ export default function NewsletterSignup({ onSuccess, source = 'newsletter_modal
                   onChange={() => toggleInterest(interest)}
                   disabled={status === "loading"}
                   className="mt-0.5 w-4 h-4 border-2 border-stone-300 rounded bg-white checked:bg-[#2D1300] checked:border-[#2D1300] focus:outline-none focus:ring-2 focus:ring-[#2D1300] focus:ring-offset-2 disabled:opacity-50 cursor-pointer transition-all"
+                  data-tracking="interest-checkbox"
+                  data-value={interest}
                 />
                 <span className="text-sm text-stone-600 group-hover:text-stone-900 transition-colors leading-snug">
                   {interest}

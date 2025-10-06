@@ -21,16 +21,40 @@ export async function POST(request: Request) {
   const emailDomain = email.split('@')[1];
   const timestamp = new Date().toISOString();
 
-  // AI Metadata for analytics and personalization
-  const aiMetadata = {
+  // Agentic AI Metadata for analytics, personalization, and data streams
+  const agenticMetadata = {
+    // Component identity
+    component: 'newsletter-signup',
+    component_version: 'v1.0.0',
+    interaction_type: 'form_submission',
+
+    // User context
     signup_source: source || 'newsletter_modal',
     interests: interests || [],
+    interest_count: interests?.length || 0,
+    has_name: !!(firstName || lastName),
+
+    // Segmentation
     email_domain: emailDomain,
-    timestamp: timestamp,
-    project: 'ps-lang',
-    version: 'v0.1.0-alpha.1',
     user_segment: emailDomain.includes('gmail.com') || emailDomain.includes('yahoo.com') ? 'consumer' : 'business',
-    intent: interests?.length > 0 ? 'high_intent' : 'general_interest'
+    intent_level: interests?.length > 0 ? 'high_intent' : 'general_interest',
+
+    // Agentic UX metadata
+    ui_variant: 'contextual_interests',
+    timestamp: timestamp,
+
+    // AI workflow tracking
+    workflow_stage: 'lead_capture',
+    conversion_funnel: 'newsletter_signup',
+    data_stream: 'agentic_ux_v1',
+
+    // Platform metadata
+    project: 'ps-lang',
+    platform_version: 'v0.1.0-alpha.1',
+
+    // Server-side tracking
+    server_timestamp: new Date().toISOString(),
+    api_endpoint: '/api/newsletter'
   };
 
   try {
@@ -52,17 +76,17 @@ export async function POST(request: Request) {
       unsubscribed: false,
     });
 
-    // Log AI metadata for future use (can be sent to PostHog, stored in DB, etc.)
-    console.log('Newsletter signup with AI metadata:', {
+    // Log agentic metadata for data stream analysis
+    console.log('Newsletter signup with agentic metadata:', {
       email: email.replace(/(?<=.{2}).(?=.*@)/g, '*'), // Partial redaction for logs
-      ...aiMetadata
+      ...agenticMetadata
     });
 
     return NextResponse.json(
       {
         success: true,
         message: 'Successfully subscribed to PS-LANG updates!',
-        metadata: aiMetadata
+        metadata: agenticMetadata
       },
       { status: 200 }
     );
@@ -89,7 +113,7 @@ export async function POST(request: Request) {
           {
             success: true,
             message: 'Successfully updated your subscription!',
-            metadata: aiMetadata
+            metadata: agenticMetadata
           },
           { status: 200 }
         );

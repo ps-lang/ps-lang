@@ -55,8 +55,8 @@ export default function AnnouncementBar() {
         <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-white">
           <span className="font-mono">
             <span className="hidden sm:inline">👋 </span>
-            <span className="font-semibold">Alpha Testing Open</span>
-            <span className="hidden sm:inline"> — Help shape PS-LANG's future</span>
+            <span className="font-semibold">Journal Alpha Testing</span>
+            <span className="hidden sm:inline"> — Help shape the future</span>
           </span>
           <button
             onClick={() => setIsAlphaModalOpen(true)}

@@ -84,4 +84,6 @@ v-todos.md
 v-todos.md.psl
 *.psl
 CLAUDE.md
-/ps-lang.dev/papers
+/ps-lang.dev/papers/private
+# Allow public research papers
+!/ps-lang.dev/papers/public

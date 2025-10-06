@@ -33,13 +33,20 @@ interface FAQSectionProps {
   subtitle?: string
   faqs: FAQItem[]
   className?: string
+  // Agentic metadata
+  page?: string
+  component?: string
+  dataStream?: string
 }
 
 export default function FAQSection({
   title,
   subtitle = 'FAQ',
   faqs,
-  className = ''
+  className = '',
+  page = 'unknown',
+  component = 'faq-section',
+  dataStream = 'agentic_ux_v1'
 }: FAQSectionProps) {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null)
 
@@ -66,7 +73,14 @@ export default function FAQSection({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <div className={`mb-8 mt-12 ${className}`}>
+      <div
+        className={`mb-20 mt-20 ${className}`}
+        data-ps-lang-component={component}
+        data-page={page}
+        data-data-stream={dataStream}
+        data-ps-lang-version="v0.1.0-alpha.1"
+        data-agentic-signature={`${dataStream}:${component}`}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-8">
           <div className="mb-8 text-center">
             <div className="inline-block mb-4">
@@ -82,12 +96,19 @@ export default function FAQSection({
           <div className="border border-stone-300 bg-white">
             <div className="divide-y divide-stone-200">
               {faqs.map((faq, index) => (
-                <div key={index} data-faq-item={index}>
+                <div
+                  key={index}
+                  data-faq-item={index}
+                  data-faq-question={faq.question}
+                  data-interaction="faq-toggle"
+                >
                   <button
                     onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
                     className="w-full text-left p-6 sm:p-8 hover:bg-stone-50 transition-colors flex items-start justify-between gap-4"
                     aria-expanded={openFaqIndex === index}
                     aria-controls={`faq-answer-${index}`}
+                    data-tracking="faq-question-click"
+                    data-faq-index={index}
                   >
                     <h3 className="text-base font-light text-stone-900 pr-4">
                       {faq.question}

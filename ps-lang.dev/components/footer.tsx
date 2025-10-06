@@ -39,7 +39,7 @@ export default function Footer() {
             <PageContextHeader zoneOnly />
           </div>
           <div className="flex items-baseline gap-3">
-            <h1 className="text-2xl font-light text-stone-900 tracking-tight">
+            <h1 className="text-2xl font-medium text-stone-900 tracking-tight">
               PS-LANG<sup className="text-[10px] ml-0.5 -top-2">™</sup>
             </h1>
             <button
@@ -47,7 +47,7 @@ export default function Footer() {
               className="text-xs text-stone-500 font-mono hover:text-stone-900 transition-colors cursor-pointer"
               title="Click to provide feedback on this version"
             >
-              Feedback on v0.1.0-alpha.1 →
+              v0.1.0-alpha.1 →
             </button>
           </div>
         </div>

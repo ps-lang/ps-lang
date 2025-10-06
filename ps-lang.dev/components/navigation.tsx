@@ -1,14 +1,28 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useState, useRef, useEffect } from "react"
+import { usePathname } from "next/navigation"
 import { useUser, SignInButton, useClerk } from "@clerk/nextjs"
 import { useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { getUserRole, getRoleDisplayName, getRoleBadgeColor } from "@/lib/roles"
 import AlphaSignupModal from "@/components/alpha-signup-modal"
 
+// Persona icon mapping (minimal icon set)
+const PERSONA_ICONS: Record<string, string> = {
+  explorer: '→',
+  solo_developer: '/',
+  researcher: '∆',
+  creator: '~',
+  analyst: '#',
+  generalist: '◆',
+  prefer_not_to_say: '○',
+}
+
 export default function Navigation() {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [isAccountOpen, setIsAccountOpen] = useState(false)
   const [isJournalPlusOpen, setIsJournalPlusOpen] = useState(false)
@@ -20,6 +34,18 @@ export default function Navigation() {
   const { user, isSignedIn } = useUser()
   const { signOut } = useClerk()
   const userRole = getUserRole(user)
+
+  // Get user's persona from metadata
+  const userPersona = (user?.unsafeMetadata?.persona as string) || 'explorer'
+  const personaIcon = PERSONA_ICONS[userPersona] || '🧭'
+
+  // Determine which logomark to use based on page
+  const getLogomark = () => {
+    if (pathname?.includes('/postscript-journaling') || pathname?.includes('/journal-plus')) {
+      return '/ps-lang-journal-logomark.svg'
+    }
+    return '/ps-lang-logomark.svg'
+  }
 
   // Check if user is in alpha test
   const alphaSignup = useQuery(
@@ -55,8 +81,15 @@ export default function Navigation() {
     <nav className="sticky top-0 z-40 bg-white/95">
       <div className="max-w-6xl mx-auto px-8 py-6">
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-xl font-light text-stone-900 tracking-wide hover:text-stone-600 transition-colors">
-            PS-LANG
+          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Image
+              src={getLogomark()}
+              alt="PS-LANG"
+              width={32}
+              height={32}
+              className="w-8 h-8"
+              priority
+            />
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
@@ -147,10 +180,11 @@ export default function Navigation() {
               <div className="relative" ref={accountRef}>
                 <button
                   onClick={() => setIsAccountOpen(!isAccountOpen)}
-                  className="flex items-center gap-1 text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide"
+                  className="flex items-center justify-center text-stone-600 hover:text-stone-900 transition-colors font-mono text-xl"
+                  aria-label="Account menu"
+                  title={`Account (${userPersona.replace('_', ' ')})`}
                 >
-                  <span>Account</span>
-                  <span className={`transition-transform duration-200 ${isAccountOpen ? 'rotate-180' : ''}`}>▾</span>
+                  {personaIcon}
                 </button>
 
                 {isAccountOpen && (

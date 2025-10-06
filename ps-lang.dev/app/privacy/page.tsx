@@ -21,7 +21,7 @@ export default function PrivacyPage() {
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-8 py-12 sm:py-16">
         <h1 className="text-3xl sm:text-4xl font-light text-stone-900 mb-4">Privacy Policy</h1>
-        <p className="text-sm text-stone-500 mb-12">Last updated: October 1, 2025</p>
+        <p className="text-sm text-stone-500 mb-12">Last updated: October 6, 2025</p>
 
         <div className="prose prose-stone max-w-none">
           {/* Introduction */}
@@ -41,7 +41,9 @@ export default function PrivacyPage() {
 
             <h3 className="text-lg font-light text-stone-900 mb-3 mt-6">1. Information You Provide</h3>
             <ul className="text-sm text-stone-600 leading-relaxed space-y-2 mb-6">
+              <li><strong>Account Registration:</strong> Email address, optional display name, persona selection, social profiles (GitHub, Twitter, website)</li>
               <li><strong>Newsletter Subscription:</strong> Email address, optional interests (AI engineering, multi-agent systems, etc.)</li>
+              <li><strong>Alpha Access Requests:</strong> GitHub URL, areas of interest</li>
               <li><strong>Email Domain:</strong> We track your email domain (e.g., gmail.com, company.com) to understand our audience</li>
             </ul>
 
@@ -97,6 +99,28 @@ export default function PrivacyPage() {
                   <br />
                   <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline hover:text-stone-900">
                     Resend Privacy Policy
+                  </a>
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-light text-stone-900 mb-2">Clerk</h3>
+                <p className="text-sm text-stone-600 leading-relaxed">
+                  We use Clerk for user authentication and account management. Clerk handles secure login, session management, and user profile data.
+                  <br />
+                  <a href="https://clerk.com/legal/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-stone-900">
+                    Clerk Privacy Policy
+                  </a>
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-light text-stone-900 mb-2">Convex</h3>
+                <p className="text-sm text-stone-600 leading-relaxed">
+                  We use Convex for real-time database storage of alpha signups, newsletter subscribers, and user preferences. Data is stored securely on Convex's US servers.
+                  <br />
+                  <a href="https://www.convex.dev/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-stone-900">
+                    Convex Privacy Policy
                   </a>
                 </p>
               </div>

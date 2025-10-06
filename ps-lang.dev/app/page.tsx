@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useState, useEffect } from "react"
 import { useUser, SignInButton } from "@clerk/nextjs"
 import NewsletterModal from "@/components/newsletter-modal"
@@ -140,7 +141,7 @@ export default function HomePage() {
         {/* Journal Alpha Test Announcement */}
         <div className="border-l-4 border-[#C5B9AA] bg-stone-100 p-4 sm:p-6 mb-12 sm:mb-16">
           <div className="flex items-start gap-3">
-            <span className="text-2xl">📓</span>
+            <span className="text-2xl mt-0.5">📓</span>
             <div>
               <h3 className="text-sm font-medium text-stone-900 mb-2">PS-LANG Journal Alpha Testing</h3>
               <p className="text-xs text-stone-600 leading-relaxed">
