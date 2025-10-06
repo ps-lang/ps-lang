@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import FAQSection from "@/components/faq-section"
 import { siteConfig } from "@/config/site"
+import { useInteractionTracking } from "@/lib/useInteractionTracking"
 
 type ViewMode = "original" | "enriched" | "agent-1" | "agent-2"
 type Persona = "developer" | "analyst" | "designer" | "marketer" | "researcher" | "manager"
@@ -23,6 +24,36 @@ export default function PlaygroundPage() {
   const [showTooltip, setShowTooltip] = useState(false)
   const [enrichedPrompt, setEnrichedPrompt] = useState(EXAMPLE_PROMPTS.enriched)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  // Analytics tracking
+  const { track } = useInteractionTracking('prompt_editor')
+
+  // Track page load
+  useEffect(() => {
+    const startTime = Date.now()
+
+    track({
+      interactionType: 'page_load',
+      category: 'navigation',
+      target: 'prompt_editor',
+      value: {
+        referrer: typeof window !== 'undefined' ? document.referrer : '',
+        viewport: typeof window !== 'undefined' ? `${window.innerWidth}x${window.innerHeight}` : '',
+      },
+    })
+
+    return () => {
+      const timeSpent = Math.round((Date.now() - startTime) / 1000)
+      track({
+        interactionType: 'page_exit',
+        category: 'navigation',
+        target: 'prompt_editor',
+        value: {
+          time_spent_seconds: timeSpent,
+        },
+      })
+    }
+  }, [track])
 
   const personaPrompts: Record<Persona, string[]> = {
     developer: [
@@ -130,6 +161,17 @@ export default function PlaygroundPage() {
     // Generate enriched version for .psl view
     const enriched = parsePromptToPSL(rawPrompt, persona)
     setEnrichedPrompt(enriched)
+
+    // Track persona selection
+    track({
+      interactionType: 'persona_selected',
+      category: 'prompt_type',
+      target: persona,
+      value: {
+        prompt_length: rawPrompt.length,
+        word_count: rawPrompt.split(/\s+/).length,
+      },
+    })
   }
 
   const insertZone = (zoneType: string) => {
@@ -169,6 +211,17 @@ export default function PlaygroundPage() {
     // Update enriched view - parse the prompt to add AI metadata to all zones
     const enriched = parsePromptToPSL(newPrompt, selectedPersona || undefined)
     setEnrichedPrompt(enriched)
+
+    // Track zone insertion
+    track({
+      interactionType: 'zone_inserted',
+      category: 'zone_type',
+      target: zoneType,
+      value: {
+        cursor_position: cursorPos,
+        prompt_length: newPrompt.length,
+      },
+    })
 
     // Move cursor after inserted zone
     setTimeout(() => {
@@ -210,6 +263,17 @@ export default function PlaygroundPage() {
     const enriched = parsePromptToPSL(newPrompt, selectedPersona || undefined)
     setEnrichedPrompt(enriched)
     setShowTooltip(false)
+
+    // Track text wrapping
+    track({
+      interactionType: 'text_wrapped',
+      category: 'zone_type',
+      target: zoneType,
+      value: {
+        selected_text_length: selected.length,
+        selected_word_count: selected.split(/\s+/).length,
+      },
+    })
   }
 
   const handleTextSelect = useCallback(() => {
