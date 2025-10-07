@@ -1,11 +1,11 @@
-# llms-full.txt — PS-LANG v0.1.0-alpha.1
+# llms-full.txt — PS-LANG v0.2.3-alpha.1
 
 SUMMARY:
-PS-LANG (Privacy-First Scripting Language) is a zone-based syntax for controlling what AI agents see in multi-agent workflows. It uses 7 zones to mark content as private, pass-through, active workspace, AI-managed, sensitive, questions, or benchmarks. Built for Claude Code alpha testing, designed to be platform-agnostic.
+PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. PostScript Journals is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PostScript Journaling as your digital journal. Built for Claude Code alpha testing, designed to be platform-agnostic.
 
 PROJECT INFO:
 Name: PS-LANG
-Version: 0.1.0-alpha.1
+Version: 0.2.3-alpha.1
 Repository: https://github.com/vummo/ps-lang
 Website: https://ps-lang.dev
 License: MIT (code), CC BY 4.0 (docs)
@@ -13,7 +13,7 @@ Contact: hello@vummo.com
 Support: Claude Code (alpha), future support for GPT Copilot, Cursor, etc.
 
 CORE CONCEPT:
-Multi-agent pipelines suffer from context contamination. PS-LANG lets developers explicitly control what each agent sees, preventing information pollution, protecting sensitive data, and optimizing token usage.
+PS-LANG is the framework—the zone syntax and agentic UX patterns. PostScript Journals is what you build with it—journal instances for tracking AI development work. Multi-agent pipelines suffer from context contamination. PS-LANG lets developers explicitly control what each agent sees, preventing information pollution, protecting sensitive data, and optimizing token usage.
 
 THE 7 ZONES:
 
@@ -180,7 +180,7 @@ ATTRIBUTION:
 - Spec refinement: Multi-agent collaboration
 
 CITATION:
-Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v0.1.0-alpha.1) [Software]. https://github.com/vummo/ps-lang
+Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v0.2.3-alpha.1) [Software]. https://github.com/vummo/ps-lang
 
 CONTACT:
 - Issues: https://github.com/vummo/ps-lang/issues

@@ -48,7 +48,9 @@
 
 ## What is PS-LANG?
 
-**PS-LANG** (Privacy-First Scripting Language) is a flexible, platform-agnostic syntax for controlling what AI agents see in multi-agent workflows. Use **zones** to mark content as private, pass-through, or active workspace.
+**PS-LANG** is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. **PostScript Journals** is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PostScript Journaling as your digital journal.
+
+Use **zones** to mark content as private, pass-through, or active workspace.
 
 **Designed to evolve with you:**
 - Override and extend the syntax for your needs

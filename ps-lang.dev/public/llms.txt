@@ -1,4 +1,4 @@
-# llms.txt — PS-LANG v0.2.1-alpha.1
+# llms.txt — PS-LANG v0.2.3-alpha.1
 site: ps-lang.dev
 owner: Vummo Labs
 contact: hello@vummo.com
@@ -6,24 +6,6 @@ license-code: MIT
 license-docs: CC BY 4.0
 preferred-citation: "PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (MIT License)"
 version-status: "v0.2 spec released, parser implementation in progress"
-
-# Agentic Metadata
-ps-lang:version: v0.2.1-alpha.1
-ps-lang:syntax-features: lazy-close,directional-context,named-zones,chaining
-ps-lang:agentic-signature: agentic_ux_v1
-ps-lang:data-stream: public-metadata-stream
-ps-lang:access-model: public_secrets_key:enabled
-
-# PostScript Journal Metadata
-journal-signature: OSS_v1.0.0_public-access
-journal-tier: OSS|Plus
-encryption-model: self-hosted:user-managed-keys
-privacy-token: private-label:user-controlled
-
-# Mission, Vision, Goals
-mission: Empower developers with self-hosted AI workflow tracking
-vision: Privacy-first AI productivity tools for individuals and teams
-goals: 100% data ownership, zero vendor lock-in, open source forever
 
 [overview]
 /README.md
@@ -73,28 +55,7 @@ npx ps-lang@alpha init
 # New in v0.2: Privacy-first default, lazy close, directional context, named zones
 
 [how-to-cite]
-Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v0.2.1-alpha.1) [Software]. https://github.com/vummo/ps-lang
-
-[research-papers]
-/research-papers
-/research-papers/zone-based-context-control-multi-agent-systems
-# Academic research and technical deep-dives
-
-[postscript-journal]
-/postscript-journaling
-# Self-hosted AI workflow tracking
-# Features: zone parsing, benchmark tracking, ChatGPT & Claude.ai integration
-# License: MIT (OSS) | Plus tier available
-# Privacy: local-first, user-controlled encryption
-# Export: JSON, CSV
-# Token model: Clerk-based, private-by-default
-# Public access key: user-controlled-settings
-
-[faqs]
-# Frequently Asked Questions
-/playground/prompt-editor#faq
-/playground/token-comparison#faq
-/schemas/faq-schema.jsonld
+Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v0.2.3-alpha.1) [Software]. https://github.com/vummo/ps-lang
 
 [rate-limits]
 crawl: polite

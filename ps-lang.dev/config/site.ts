@@ -8,7 +8,7 @@
 
 export const siteConfig = {
   name: 'PS-LANG',
-  description: 'Privacy-first multi-agent context control language',
+  description: 'Framework for multi-agent context control. Build PostScript Journals to track AI collaborations.',
   url: 'https://ps-lang.dev',
 
   // Canonical URLs

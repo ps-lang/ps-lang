@@ -36,8 +36,8 @@ const crimsonText = Crimson_Text({
 })
 
 export const metadata = {
-  title: "PS-LANG - Multi-Agent Context Control Language",
-  description: "Control what each AI agent sees in multi-agent workflows. Clean handoffs, better benchmarks, precise context control.",
+  title: "PS-LANG - Multi-Agent Context Control Framework",
+  description: "Framework for controlling what AI agents see. Build PostScript Journals to track AI collaborations. Clean handoffs, better benchmarks, precise context control.",
   keywords: "ps-lang, multi-agent, AI pipelines, agent handoff, context control, benchmarking, MCP integration, agent workflows",
   authors: [{ name: "Anton K." }],
   robots: {
@@ -66,8 +66,8 @@ export const metadata = {
     shortcut: '/favicon-32x32.png',
   },
   openGraph: {
-    title: "PS-LANG - Multi-Agent Context Control Language",
-    description: "Control what each AI agent sees in multi-agent workflows. Clean handoffs, better benchmarks, precise context control.",
+    title: "PS-LANG - Multi-Agent Context Control Framework",
+    description: "Framework for controlling what AI agents see. Build PostScript Journals to track AI collaborations.",
     url: "https://ps-lang.dev",
     siteName: "PS-LANG",
     type: "website",
@@ -82,8 +82,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PS-LANG - Multi-Agent Context Control",
-    description: "Clean handoffs for AI agent pipelines",
+    title: "PS-LANG - Multi-Agent Context Control Framework",
+    description: "Framework for AI agents. Build PostScript Journals to track collaborations.",
     images: ['https://ps-lang.dev/og-image.png'],
   },
 }
@@ -116,7 +116,7 @@ export default function RootLayout({
         "@id": "https://ps-lang.dev/#softwareapplication",
         "name": "PS-LANG",
         "applicationCategory": "DeveloperApplication",
-        "description": "Multi-Agent Context Control Language for AI workflows. Control what each AI agent sees in agent pipelines with clean handoffs and accurate benchmarks.",
+        "description": "Open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. Build PostScript Journals—your own journal instance for tracking AI collaborations.",
         "url": "https://ps-lang.dev",
         "offers": {
           "@type": "Offer",
@@ -151,7 +151,7 @@ export default function RootLayout({
             "name": "What is PS-LANG?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "PS-LANG is a zone-based syntax language for controlling what AI agents see in multi-agent workflows. It provides 7 privacy zones that let you control context flow between agents, reduce token usage by up to 60%, and create cleaner agent handoffs in AI pipelines."
+              "text": "PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. PostScript Journals is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PostScript Journaling as your digital journal. It provides 7 privacy zones that let you control context flow between agents, reduce token usage by up to 60%, and create cleaner agent handoffs."
             }
           },
           {
