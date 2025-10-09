@@ -192,7 +192,7 @@ Zones can be nested for complex scenarios:
 - **Docs:** https://ps-lang.dev/docs
 - **Examples:** `.ps-lang/examples/`
 - **Issues:** https://github.com/vummo/ps-lang/issues
-- **Email:** hello@vummo.com
+- **Email:** hello@ps-lang.dev
 
 ---
 

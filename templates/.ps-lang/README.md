@@ -95,7 +95,7 @@ You're using **PS-LANG v0.1.0-alpha.1** with Claude Code support.
 
 **Feedback welcome:**
 - GitHub Issues: https://github.com/vummo/ps-lang/issues
-- Email: hello@vummo.com
+- Email: hello@ps-lang.dev
 - Website: https://ps-lang.dev
 
 **What to report:**
