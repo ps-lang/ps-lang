@@ -143,7 +143,7 @@ export default function HomePage() {
           <div className="flex items-start gap-3">
             <span className="text-2xl mt-0.5">📓</span>
             <div>
-              <h3 className="text-sm font-medium text-stone-900 mb-2">PS Journals™ Alpha — Help shape the future</h3>
+              <h3 className="text-sm font-medium text-stone-900 mb-2">PS-LANG Journaling<sup className="text-[0.5em] top-[-0.5em]">™</sup> Alpha — Help shape the future</h3>
               <p className="text-xs text-stone-600 leading-relaxed">
                 Join the waitlist for PS-LANG Journal. Track AI workflows, benchmark improvements, and maintain secure audit trails. <Link href="/postscript-journaling" className="underline hover:text-stone-900">Learn more →</Link>
               </p>
