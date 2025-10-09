@@ -42,7 +42,7 @@ export default function JournalingPage() {
             <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">AI Workflow Collaboration</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-light text-stone-900 mb-6 tracking-tight">
-            PostScript Journaling<sup className="text-[11px] ml-1 -top-3 relative">™</sup>
+            PS Journaling<sup className="text-[11px] ml-1 -top-3 relative">™</sup>
           </h1>
           <p
             className="text-lg text-stone-600 max-w-2xl mx-auto leading-relaxed font-light"
@@ -57,16 +57,16 @@ export default function JournalingPage() {
         {/* Alpha Signup CTA */}
         {!isSignedIn ? (
           <div className="mb-16">
-            <div className="relative overflow-hidden border border-stone-200/50 bg-gradient-to-br from-stone-100 via-white to-stone-50 p-12 sm:p-16 text-center shadow-sm">
+            <div className="relative overflow-hidden border border-stone-200/50 bg-gradient-to-br from-stone-100 via-white to-stone-50 p-12 sm:p-16 text-center shadow-sm" data-ps-lang-benchmark="journaling-page-alpha-cta-v1">
               {/* Subtle background pattern */}
               <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(0 0 0) 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
 
               <div className="relative z-10">
                 <div className="inline-block mb-4">
-                  <span className="text-[9px] tracking-[0.3em] text-stone-400 font-medium uppercase">Alpha Testing</span>
+                  <span className="text-[9px] tracking-[0.3em] text-stone-400 font-medium uppercase">PS Journals™ Alpha</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-light mb-3 tracking-tight text-stone-900">
-                  Request Early Access
+                  Help shape the future
                 </h2>
                 <p className="text-sm text-stone-600 mb-10 max-w-md mx-auto leading-relaxed">
                   Join our testing program to get early access to PS-LANG Journal features.
@@ -87,10 +87,10 @@ export default function JournalingPage() {
 
               <div className="relative z-10">
                 <div className="inline-block mb-4">
-                  <span className="text-[9px] tracking-[0.3em] text-stone-400 font-medium uppercase">Alpha Testing</span>
+                  <span className="text-[9px] tracking-[0.3em] text-stone-400 font-medium uppercase">PS Journals™ Alpha</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-light mb-3 tracking-tight text-stone-900">
-                  Request Early Access
+                  Help shape the future
                 </h2>
                 <p className="text-sm text-stone-600 mb-10 max-w-md mx-auto leading-relaxed">
                   Join our testing program to get early access to PS-LANG Journal features.
@@ -343,8 +343,8 @@ export default function JournalingPage() {
           component="journal-faq"
           faqs={[
             {
-              question: "What's the difference between PS-LANG and PostScript Journaling?",
-              answer: "PS-LANG is the open source framework with zone syntax and agentic UX. PostScript Journaling is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the tool, and PostScript Journaling as what you build."
+              question: "What's the difference between PS-LANG and PS Journaling?",
+              answer: "PS-LANG is the open source framework with zone syntax and agentic UX. PS Journaling is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the tool, and PS Journaling as what you build."
             },
             {
               question: "Is this free to use?",

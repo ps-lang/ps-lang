@@ -1,6 +1,6 @@
 /**
  * Hero Tagline A/B Test Variants
- * PostScript Journaling Page
+ * PS Journaling Page
  *
  * Agentic RLHF Stack: Public & Private References
  * @version v1.0.0

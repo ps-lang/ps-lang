@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 
 export const metadata: Metadata = {
-  title: "PostScript Journaling - AI Workflow Collaboration | PS-LANG",
-  description: "Collaborate with AI, benchmark improvements, and maintain secure audit trails with PostScript Journaling. Self-hosted OSS tool with end-to-end encryption. MIT licensed.",
+  title: "PS Journaling - AI Workflow Collaboration | PS-LANG",
+  description: "Collaborate with AI, benchmark improvements, and maintain secure audit trails with PS Journaling. Self-hosted OSS tool with end-to-end encryption. MIT licensed.",
   keywords: [
     "AI workflow collaboration",
     "postscript journal",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     canonical: 'https://ps-lang.dev/postscript-journaling',
   },
   openGraph: {
-    title: "PostScript Journaling - AI Workflow Collaboration",
+    title: "PS Journaling - AI Workflow Collaboration",
     description: "Self-hosted AI workflow collaboration with full control over your data and encryption keys. Collaborate with ChatGPT & Claude.ai through agentic UX, benchmark improvements, maintain audit trails. MIT licensed.",
     url: "https://ps-lang.dev/postscript-journaling",
     siteName: "PS-LANG",
@@ -40,13 +40,13 @@ export const metadata: Metadata = {
         url: 'https://ps-lang.dev/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'PS-LANG PostScript Journaling - AI Workflow Tracking',
+        alt: 'PS-LANG PS Journaling - AI Workflow Tracking',
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PostScript Journaling - AI Workflow Collaboration",
+    title: "PS Journaling - AI Workflow Collaboration",
     description: "Self-hosted AI workflow collaboration. Your secrets stay with you. MIT licensed.",
     images: ['https://ps-lang.dev/og-image.png'],
     creator: "@vummo_labs",
@@ -96,7 +96,7 @@ export default function JournalLayout({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'PostScript Journal',
+    name: 'PS Journal',
     applicationCategory: 'DeveloperApplication',
     applicationSubCategory: 'AI Workflow Tracking',
     operatingSystem: 'Web, Self-hosted',

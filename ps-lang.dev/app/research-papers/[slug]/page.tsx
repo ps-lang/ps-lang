@@ -894,7 +894,7 @@ export default function ResearchPaperPage({ params }: { params: { slug: string }
             <p><strong>Paper Status:</strong> {paper.status}</p>
             <p><strong>Date:</strong> {new Date(paper.publicationDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
             <p><strong>Authors:</strong> {paper.authors.join(", ")}</p>
-            <p><strong>Contact:</strong> hello@vummo.com</p>
+            <p><strong>Contact:</strong> hello@ps-lang.dev</p>
             <p><strong>License:</strong> MIT (for PS-LANG implementation)</p>
             <p><strong>Website:</strong> <a href="https://ps-lang.dev" className="text-stone-700 hover:text-stone-900 underline">https://ps-lang.dev</a></p>
             {paper.artifactUrl && (

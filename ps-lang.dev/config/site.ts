@@ -8,20 +8,20 @@
 
 export const siteConfig = {
   name: 'PS-LANG',
-  description: 'Framework for multi-agent context control. Build PostScript Journals to track AI collaborations.',
+  description: 'Framework for multi-agent context control. Build PS Journals™ to track AI collaborations.',
   url: 'https://ps-lang.dev',
 
   // Canonical URLs
   urls: {
-    github: 'https://github.com/vummo/ps-lang',
+    github: 'https://github.com/ps-lang/ps-lang',
     npm: 'https://www.npmjs.com/package/ps-lang',
     vummoLabs: 'https://vummo.com',
-    license: 'https://github.com/vummo/ps-lang/blob/main/LICENSE',
+    license: 'https://github.com/ps-lang/ps-lang/blob/main/LICENSE',
   },
 
   // Social & External Links
   social: {
-    github: 'https://github.com/vummo/ps-lang',
+    github: 'https://github.com/ps-lang/ps-lang',
     twitter: 'https://twitter.com/vummo',
   },
 
@@ -37,8 +37,8 @@ export const siteConfig = {
     promptEditor: '/playground/prompt-editor',
   },
 
-  // Version
-  version: 'v0.1.0-alpha.1',
+  // Version (should match root package.json)
+  version: 'v0.2.3-alpha.1',
 
   // Analytics
   posthog: {

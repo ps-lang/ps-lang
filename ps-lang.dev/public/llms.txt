@@ -1,7 +1,7 @@
 # llms.txt — PS-LANG v0.2.3-alpha.1
 site: ps-lang.dev
 owner: Vummo Labs
-contact: hello@vummo.com
+contact: hello@ps-lang.dev
 license-code: MIT
 license-docs: CC BY 4.0
 preferred-citation: "PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (MIT License)"
@@ -55,7 +55,7 @@ npx ps-lang@alpha init
 # New in v0.2: Privacy-first default, lazy close, directional context, named zones
 
 [how-to-cite]
-Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v0.2.3-alpha.1) [Software]. https://github.com/vummo/ps-lang
+Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v0.2.3-alpha.1) [Software]. https://github.com/ps-lang/ps-lang
 
 [rate-limits]
 crawl: polite

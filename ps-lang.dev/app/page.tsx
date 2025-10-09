@@ -69,7 +69,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-stone-50">
       <NewsletterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} source="homepage" />
-      <FeedbackModal isOpen={isFeedbackModalOpen} onClose={() => setIsFeedbackModalOpen(false)} version="v0.1.0-alpha.1" />
+      <FeedbackModal isOpen={isFeedbackModalOpen} onClose={() => setIsFeedbackModalOpen(false)} version={siteConfig.version} />
       <UseCaseModal
         isOpen={isUseCaseModalOpen}
         onClose={() => setIsUseCaseModalOpen(false)}
@@ -90,7 +90,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-base sm:text-lg text-stone-600 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed font-light px-4" data-track-section="hero-tagline">
-            The framework for controlling what AI agents see. Build PostScript Journals—your instance for tracking AI collaborations. PS-LANG is the pen, PostScript Journaling is your digital&nbsp;journal.
+            The framework for controlling what AI agents see. Build PS Journals—your instance for tracking AI collaborations. PS-LANG is the pen, PS Journaling is your digital&nbsp;journal.
           </p>
 
           {/* Install Instructions */}
@@ -132,18 +132,18 @@ export default function HomePage() {
             <div>
               <h3 className="text-sm font-medium text-stone-900 mb-2">PS-Lang Alpha Released</h3>
               <p className="text-xs text-stone-600 leading-relaxed">
-                PS-LANG v0.1.0-alpha.1 is now available. Install with <code className="bg-white px-2 py-1 font-mono">npx ps-lang@alpha init</code> and start controlling agent context today.
+                PS-LANG {siteConfig.version} is now available. Install with <code className="bg-white px-2 py-1 font-mono">npx ps-lang@alpha init</code> and start controlling agent context today.
               </p>
             </div>
           </div>
         </div>
 
         {/* Journal Alpha Test Announcement */}
-        <div className="border-l-4 border-[#C5B9AA] bg-stone-100 p-4 sm:p-6 mb-12 sm:mb-16">
+        <div className="border-l-4 border-[#C5B9AA] bg-stone-100 p-4 sm:p-6 mb-12 sm:mb-16" data-ps-lang-benchmark="homepage-alpha-cta-v1">
           <div className="flex items-start gap-3">
             <span className="text-2xl mt-0.5">📓</span>
             <div>
-              <h3 className="text-sm font-medium text-stone-900 mb-2">PS-LANG Journal Alpha Testing</h3>
+              <h3 className="text-sm font-medium text-stone-900 mb-2">PS Journals™ Alpha — Help shape the future</h3>
               <p className="text-xs text-stone-600 leading-relaxed">
                 Join the waitlist for PS-LANG Journal. Track AI workflows, benchmark improvements, and maintain secure audit trails. <Link href="/postscript-journaling" className="underline hover:text-stone-900">Learn more →</Link>
               </p>

@@ -305,10 +305,10 @@ Privacy-first AI productivity tools for individuals and teams
 
 ## Contact & Support
 
-- **Email:** hello@vummo.com
+- **Email:** hello@ps-lang.dev
 - **Website:** https://ps-lang.dev
 - **Documentation:** https://ps-lang.dev/docs
-- **GitHub:** https://github.com/vummo/ps-lang
+- **GitHub:** https://github.com/ps-lang/ps-lang
 
 ## License
 

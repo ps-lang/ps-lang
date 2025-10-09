@@ -33,10 +33,10 @@ export async function POST(request: Request) {
       version,
     });
 
-    // Send email to hello@vummo.com (keep existing email notification)
+    // Send email to hello@ps-lang.dev (keep existing email notification)
     await resend.emails.send({
       from: 'PS-LANG Feedback <noreply@ps-lang.dev>',
-      to: 'hello@vummo.com',
+      to: 'hello@ps-lang.dev',
       subject: `PS-LANG ${version} Feedback: ${feedbackType}`,
       html: `
         <h2>New Feedback Received</h2>

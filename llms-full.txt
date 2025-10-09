@@ -1,19 +1,19 @@
 # llms-full.txt — PS-LANG v0.2.3-alpha.1
 
 SUMMARY:
-PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. PostScript Journals is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PostScript Journaling as your digital journal. Built for Claude Code alpha testing, designed to be platform-agnostic.
+PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. PS Journals is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PS Journaling as your digital journal. Built for Claude Code alpha testing, designed to be platform-agnostic.
 
 PROJECT INFO:
 Name: PS-LANG
 Version: 0.2.3-alpha.1
-Repository: https://github.com/vummo/ps-lang
+Repository: https://github.com/ps-lang/ps-lang
 Website: https://ps-lang.dev
 License: MIT (code), CC BY 4.0 (docs)
-Contact: hello@vummo.com
+Contact: hello@ps-lang.dev
 Support: Claude Code (alpha), future support for GPT Copilot, Cursor, etc.
 
 CORE CONCEPT:
-PS-LANG is the framework—the zone syntax and agentic UX patterns. PostScript Journals is what you build with it—journal instances for tracking AI development work. Multi-agent pipelines suffer from context contamination. PS-LANG lets developers explicitly control what each agent sees, preventing information pollution, protecting sensitive data, and optimizing token usage.
+PS-LANG is the framework—the zone syntax and agentic UX patterns. PS Journals is what you build with it—journal instances for tracking AI development work. Multi-agent pipelines suffer from context contamination. PS-LANG lets developers explicitly control what each agent sees, preventing information pollution, protecting sensitive data, and optimizing token usage.
 
 THE 7 ZONES:
 
@@ -184,7 +184,7 @@ Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Co
 
 CONTACT:
 - Issues: https://github.com/vummo/ps-lang/issues
-- Email: hello@vummo.com
+- Email: hello@ps-lang.dev
 - Website: https://ps-lang.dev
 - Docs: https://ps-lang.dev/docs
 

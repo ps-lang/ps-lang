@@ -45,7 +45,7 @@ export default function AboutPage() {
               What is PS-LANG?
             </h2>
             <p className="text-base text-stone-600 leading-relaxed max-w-3xl mb-6">
-              PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. PostScript Journals is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PostScript Journaling as your digital journal.
+              PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. PS Journals is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PS Journaling as your digital journal.
             </p>
             <div className="space-y-3 text-sm text-stone-600 leading-relaxed max-w-3xl">
               <p className="font-medium text-stone-900">Designed to evolve with you:</p>

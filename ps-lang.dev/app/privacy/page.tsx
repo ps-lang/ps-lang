@@ -21,7 +21,7 @@ export default function PrivacyPage() {
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-8 py-12 sm:py-16">
         <h1 className="text-3xl sm:text-4xl font-light text-stone-900 mb-4">Privacy Policy</h1>
-        <p className="text-sm text-stone-500 mb-12">Last updated: October 6, 2025</p>
+        <p className="text-sm text-stone-500 mb-12">Last updated: October 8, 2025</p>
 
         <div className="prose prose-stone max-w-none">
           {/* Introduction */}
@@ -138,16 +138,6 @@ export default function PrivacyPage() {
             </div>
           </section>
 
-          {/* Data Retention */}
-          <section className="mb-12">
-            <h2 className="text-xl font-light text-stone-900 mb-4">Data Retention</h2>
-            <ul className="text-sm text-stone-600 leading-relaxed space-y-2">
-              <li><strong>Newsletter Subscribers:</strong> Retained until you unsubscribe</li>
-              <li><strong>Analytics Data:</strong> Retained for 26 months (Google Analytics default)</li>
-              <li><strong>PostHog Events:</strong> Retained for 7 years (configurable)</li>
-            </ul>
-          </section>
-
           {/* Your Rights */}
           <section className="mb-12">
             <h2 className="text-xl font-light text-stone-900 mb-4">Your Privacy Rights</h2>
@@ -159,6 +149,7 @@ export default function PrivacyPage() {
               <li><strong>Right to Correction:</strong> Update or correct your email, preferences, or profile information</li>
               <li><strong>Right to Deletion:</strong> Request complete deletion of your data from our systems</li>
               <li><strong>Right to Data Portability:</strong> Receive your data in a structured, machine-readable format</li>
+              <li><strong>Right to Data Retention Control:</strong> Choose how long we keep your data (30 days to 5 years) in <Link href="/settings" className="underline hover:text-stone-900">Account Settings</Link></li>
               <li><strong>Right to Opt-Out:</strong> Withdraw consent for analytics tracking at any time via our <Link href="/cookies" className="underline hover:text-stone-900">Cookie Preferences</Link> page</li>
               <li><strong>Right to Unsubscribe:</strong> Opt out of our newsletter anytime (link in every email)</li>
               <li><strong>Right to Object:</strong> Object to processing of your personal data for specific purposes</li>
@@ -166,8 +157,8 @@ export default function PrivacyPage() {
             </ul>
             <p className="text-sm text-stone-600 leading-relaxed mt-6">
               To exercise any of these rights, email us at{" "}
-              <a href="mailto:privacy@vummo.com" className="underline hover:text-stone-900">
-                privacy@vummo.com
+              <a href="mailto:privacy@ps-lang.dev" className="underline hover:text-stone-900">
+                privacy@ps-lang.dev
               </a>
               {" "}with your request. We will respond within 30 days.
             </p>
@@ -242,6 +233,57 @@ export default function PrivacyPage() {
             </div>
           </section>
 
+          {/* Data Retention & AI Research */}
+          <section className="mb-12" id="data-retention">
+            <h2 className="text-xl font-light text-stone-900 mb-4">Data Retention & AI Research</h2>
+            <p className="text-sm text-stone-600 leading-relaxed mb-4">
+              You control how long we keep your data and whether it's used for AI research. We offer three tiers:
+            </p>
+
+            <div className="space-y-6">
+              <div className="border border-stone-200 p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xl">🔒</span>
+                  <h3 className="text-lg font-light text-stone-900">Privacy First (Default)</h3>
+                </div>
+                <ul className="text-sm text-stone-600 space-y-1 ml-8">
+                  <li>• <strong>Retention:</strong> 30 days, automatic deletion</li>
+                  <li>• <strong>AI Training:</strong> Never used</li>
+                  <li>• <strong>Analytics:</strong> Minimal, debugging only</li>
+                </ul>
+              </div>
+
+              <div className="border border-stone-200 p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xl">⚖️</span>
+                  <h3 className="text-lg font-light text-stone-900">Standard (Recommended)</h3>
+                </div>
+                <ul className="text-sm text-stone-600 space-y-1 ml-8">
+                  <li>• <strong>Retention:</strong> 2 years (anonymized after 90 days)</li>
+                  <li>• <strong>AI Training:</strong> Aggregated insights only</li>
+                  <li>• <strong>Analytics:</strong> UX analytics, interaction patterns</li>
+                </ul>
+              </div>
+
+              <div className="border border-stone-200 p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xl">🚀</span>
+                  <h3 className="text-lg font-light text-stone-900">Research Contributor</h3>
+                </div>
+                <ul className="text-sm text-stone-600 space-y-1 ml-8">
+                  <li>• <strong>Retention:</strong> 5 years (anonymized after 90 days)</li>
+                  <li>• <strong>AI Training:</strong> Yes, for multi-agent models</li>
+                  <li>• <strong>Benefits:</strong> Early access, research credits, exclusive badge</li>
+                </ul>
+              </div>
+            </div>
+
+            <p className="text-sm text-stone-600 leading-relaxed mt-4">
+              Change your tier anytime in <Link href="/settings" className="underline hover:text-stone-900">Account Settings</Link>.
+              Changes take effect immediately.
+            </p>
+          </section>
+
           {/* Data Security */}
           <section className="mb-12">
             <h2 className="text-xl font-light text-stone-900 mb-4">Data Security</h2>
@@ -260,7 +302,7 @@ export default function PrivacyPage() {
           <section className="mb-12">
             <h2 className="text-xl font-light text-stone-900 mb-4">Children's Privacy</h2>
             <p className="text-sm text-stone-600 leading-relaxed">
-              PS-LANG is not intended for users under 13. We do not knowingly collect data from children. If you believe a child has provided us with personal information, contact us at privacy@vummo.com.
+              PS-LANG is not intended for users under 13. We do not knowingly collect data from children. If you believe a child has provided us with personal information, contact us at privacy@ps-lang.dev.
             </p>
           </section>
 
@@ -289,14 +331,14 @@ export default function PrivacyPage() {
             <div className="mt-4 space-y-2">
               <p className="text-sm text-stone-600">
                 <strong>Email:</strong>{" "}
-                <a href="mailto:privacy@vummo.com" className="underline hover:text-stone-900">
-                  privacy@vummo.com
+                <a href="mailto:privacy@ps-lang.dev" className="underline hover:text-stone-900">
+                  privacy@ps-lang.dev
                 </a>
               </p>
               <p className="text-sm text-stone-600">
                 <strong>GitHub:</strong>{" "}
                 <a href={`${siteConfig.urls.github}/issues`} target="_blank" rel="noopener noreferrer" className="underline hover:text-stone-900">
-                  github.com/vummo/ps-lang/issues
+                  github.com/ps-lang/ps-lang/issues
                 </a>
               </p>
               <p className="text-sm text-stone-600">

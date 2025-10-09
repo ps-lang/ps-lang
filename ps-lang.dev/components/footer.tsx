@@ -47,7 +47,7 @@ export default function Footer() {
               className="text-xs text-stone-500 font-mono hover:text-stone-900 transition-colors cursor-pointer"
               title="Click to provide feedback on this version"
             >
-              v0.1.0-alpha.1 →
+              {siteConfig.version} →
             </button>
           </div>
         </div>
@@ -177,7 +177,7 @@ export default function Footer() {
       <FeedbackModal
         isOpen={isFeedbackModalOpen}
         onClose={() => setIsFeedbackModalOpen(false)}
-        version="v0.1.0-alpha.1"
+        version={siteConfig.version}
       />
     </footer>
   )

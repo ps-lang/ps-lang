@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Script from 'next/script'
+import { siteConfig } from '@/config/site'
 
 /**
  * FAQSection - Global FAQ component with structured data
@@ -78,7 +79,7 @@ export default function FAQSection({
         data-ps-lang-component={component}
         data-page={page}
         data-data-stream={dataStream}
-        data-ps-lang-version="v0.1.0-alpha.1"
+        data-ps-lang-version={siteConfig.version}
         data-agentic-signature={`${dataStream}:${component}`}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-8">

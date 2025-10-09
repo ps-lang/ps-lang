@@ -1,6 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { canAccessRoute, getUserRole } from './lib/roles'
+import { getConsentFromCookie } from './lib/consent'
 
 // Define which routes are public (don't require authentication)
 const isPublicRoute = createRouteMatcher([
@@ -47,16 +48,26 @@ export default clerkMiddleware(async (auth, request) => {
   const { userId, sessionClaims } = await auth()
   const pathname = request.nextUrl.pathname
 
+  // Check cookie consent status (server-side)
+  const cookieHeader = request.headers.get('cookie')
+  const hasConsent = getConsentFromCookie(cookieHeader || '')
+
+  // Add consent status to response headers for downstream use
+  const response = NextResponse.next()
+  response.headers.set('x-consent-status', hasConsent ? 'granted' : 'denied')
+
   // Allow public routes without authentication
   if (isPublicRoute(request)) {
-    return NextResponse.next()
+    return response
   }
 
   // Require authentication for all protected routes
   if (!userId) {
     const signInUrl = new URL('/sign-in', request.url)
     signInUrl.searchParams.set('redirect_url', pathname)
-    return NextResponse.redirect(signInUrl)
+    const redirectResponse = NextResponse.redirect(signInUrl)
+    redirectResponse.headers.set('x-consent-status', hasConsent ? 'granted' : 'denied')
+    return redirectResponse
   }
 
   // Only check role-based access for admin routes
@@ -85,11 +96,14 @@ export default clerkMiddleware(async (auth, request) => {
 
     if (!canAccessRoute(userRole, pathname)) {
       // Redirect to unauthorized page
-      return NextResponse.redirect(new URL('/unauthorized', request.url))
+      const unauthorizedResponse = NextResponse.redirect(new URL('/unauthorized', request.url))
+      unauthorizedResponse.headers.set('x-consent-status', hasConsent ? 'granted' : 'denied')
+      return unauthorizedResponse
     }
   }
 
-  return NextResponse.next()
+  response.headers.set('x-consent-status', hasConsent ? 'granted' : 'denied')
+  return response
 })
 
 export const config = {

@@ -432,7 +432,7 @@ We need your help testing:
 **We want to hear from you!**
 
 - **Issues:** https://github.com/vummo/ps-lang/issues
-- **Email:** ps-lang@vummo.com
+- **Email:** hello@ps-lang.dev
 - **Discord:** Coming soon
 - **Docs:** https://ps-lang.dev
 
@@ -497,7 +497,7 @@ See **[Privacy Roadmap](./docs/PRIVACY-ROADMAP.md)** for full implementation sta
 **Your Privacy Rights:**
 - Choose your retention tier in [Account Settings](https://ps-lang.dev/settings)
 - [Export your data](https://ps-lang.dev/api/privacy/export-data) anytime
-- Request deletion: privacy@vummo.com
+- Request deletion: privacy@ps-lang.dev
 - Read our [Privacy Policy](https://ps-lang.dev/privacy)
 
 ---
@@ -514,7 +514,7 @@ We welcome contributions across all areas:
 **Get Involved:**
 - GitHub Issues: https://github.com/ps-lang/ps-lang/issues
 - Discussions: https://github.com/ps-lang/ps-lang/discussions
-- Email: hello@vummo.com
+- Email: hello@ps-lang.dev
 
 ---
 

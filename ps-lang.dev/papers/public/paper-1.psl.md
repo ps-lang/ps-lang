@@ -585,7 +585,7 @@ Interactive demos for exploring zone-based syntax:
 - **Multi-Agent Simulator:** Visualize context flow between agents in complex workflows with interactive diagrams
 </#.>
 
-### 8.2 PostScript Journaling
+### 8.2 PS Journaling
 
 **Workflow Tracking:**
 Track AI workflows, benchmark improvements, and maintain secure audit trails.
@@ -693,7 +693,7 @@ This work was developed by the Vummo Labs Research Team. We thank the PS-LANG al
 <.bm
   paper-status: preprint-converted-to-psl
   date: 2025-10-05
-  contact: hello@vummo.com
+  contact: hello@ps-lang.dev
   license: MIT (for PS-LANG implementation)
   website: https://ps-lang.dev
   public-artifact: https://claude.ai/public/artifacts/f107ece1-1aa9-4be3-80fd-93904b008901

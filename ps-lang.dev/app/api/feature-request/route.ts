@@ -26,7 +26,7 @@ export async function POST(request: Request) {
   try {
     await resend.emails.send({
       from: 'PS-LANG <noreply@ps-lang.dev>',
-      to: process.env.ADMIN_EMAIL || 'hello@vummo.com',
+      to: process.env.ADMIN_EMAIL || 'hello@ps-lang.dev',
       subject: `Feature Request: ${title}`,
       html: `
         <!DOCTYPE html>

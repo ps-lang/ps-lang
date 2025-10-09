@@ -155,7 +155,7 @@ export default function Navigation() {
                       className="block px-6 py-2 text-base text-stone-900 hover:bg-stone-50 transition-colors"
                       onClick={() => setIsJournalPlusOpen(false)}
                     >
-                      PostScript Journaling
+                      PS Journaling
                     </Link>
                     {(isAlphaTester || userRole === 'super_admin' || userRole === 'admin') && (
                       <Link

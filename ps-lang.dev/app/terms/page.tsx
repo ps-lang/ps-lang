@@ -21,7 +21,7 @@ export default function TermsPage() {
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-8 py-12 sm:py-16">
         <h1 className="text-3xl sm:text-4xl font-light text-stone-900 mb-4">Terms of Use</h1>
-        <p className="text-sm text-stone-500 mb-12">Last updated: October 1, 2025</p>
+        <p className="text-sm text-stone-500 mb-12">Last updated: October 8, 2025</p>
 
         <div className="prose prose-stone max-w-none">
           {/* Acceptance */}
@@ -63,7 +63,7 @@ export default function TermsPage() {
             <p className="text-sm text-stone-600 leading-relaxed mt-4">
               View the full license:{" "}
               <a href={siteConfig.urls.license} target="_blank" rel="noopener noreferrer" className="underline hover:text-stone-900">
-                github.com/vummo/ps-lang/blob/main/LICENSE
+                {siteConfig.urls.license}
               </a>
             </p>
           </section>
@@ -72,7 +72,7 @@ export default function TermsPage() {
           <section className="mb-12">
             <h2 className="text-xl font-light text-stone-900 mb-4">4. Alpha Software Disclaimer</h2>
             <p className="text-sm text-stone-600 leading-relaxed mb-4">
-              PS-LANG is currently in <strong>alpha testing phase (v0.1.0-alpha.1)</strong>. By using the Service, you acknowledge:
+              PS-LANG is currently in <strong>alpha testing phase ({siteConfig.version})</strong>. By using the Service, you acknowledge:
             </p>
             <ul className="text-sm text-stone-600 leading-relaxed space-y-2">
               <li>The software may contain bugs, errors, or incomplete features</li>
@@ -217,8 +217,8 @@ export default function TermsPage() {
             <div className="space-y-2">
               <p className="text-sm text-stone-600">
                 <strong>Email:</strong>{" "}
-                <a href="mailto:hello@vummo.com" className="underline hover:text-stone-900">
-                  hello@vummo.com
+                <a href="mailto:hello@ps-lang.dev" className="underline hover:text-stone-900">
+                  hello@ps-lang.dev
                 </a>
               </p>
               <p className="text-sm text-stone-600">

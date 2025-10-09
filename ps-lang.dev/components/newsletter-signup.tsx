@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { siteConfig } from "@/config/site"
 
 interface NewsletterSignupProps {
   onSuccess?: () => void
@@ -86,7 +87,7 @@ export default function NewsletterSignup({ onSuccess, source = 'newsletter_modal
 
       // Platform metadata
       project: 'ps-lang',
-      platform_version: 'v0.1.0-alpha.1'
+      platform_version: siteConfig.version
     }
 
     try {

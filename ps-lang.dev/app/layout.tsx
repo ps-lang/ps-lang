@@ -37,7 +37,7 @@ const crimsonText = Crimson_Text({
 
 export const metadata = {
   title: "PS-LANG - Multi-Agent Context Control Framework",
-  description: "Framework for controlling what AI agents see. Build PostScript Journals to track AI collaborations. Clean handoffs, better benchmarks, precise context control.",
+  description: "Framework for controlling what AI agents see. Build PS Journals to track AI collaborations. Clean handoffs, better benchmarks, precise context control.",
   keywords: "ps-lang, multi-agent, AI pipelines, agent handoff, context control, benchmarking, MCP integration, agent workflows",
   authors: [{ name: "Anton K." }],
   robots: {
@@ -67,7 +67,7 @@ export const metadata = {
   },
   openGraph: {
     title: "PS-LANG - Multi-Agent Context Control Framework",
-    description: "Framework for controlling what AI agents see. Build PostScript Journals to track AI collaborations.",
+    description: "Framework for controlling what AI agents see. Build PS Journals to track AI collaborations.",
     url: "https://ps-lang.dev",
     siteName: "PS-LANG",
     type: "website",
@@ -83,7 +83,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "PS-LANG - Multi-Agent Context Control Framework",
-    description: "Framework for AI agents. Build PostScript Journals to track collaborations.",
+    description: "Framework for AI agents. Build PS Journals to track collaborations.",
     images: ['https://ps-lang.dev/og-image.png'],
   },
 }
@@ -116,7 +116,7 @@ export default function RootLayout({
         "@id": "https://ps-lang.dev/#softwareapplication",
         "name": "PS-LANG",
         "applicationCategory": "DeveloperApplication",
-        "description": "Open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. Build PostScript Journals—your own journal instance for tracking AI collaborations.",
+        "description": "Open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. Build PS Journals—your own journal instance for tracking AI collaborations.",
         "url": "https://ps-lang.dev",
         "offers": {
           "@type": "Offer",
@@ -151,7 +151,7 @@ export default function RootLayout({
             "name": "What is PS-LANG?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. PostScript Journals is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PostScript Journaling as your digital journal. It provides 7 privacy zones that let you control context flow between agents, reduce token usage by up to 60%, and create cleaner agent handoffs."
+              "text": "PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. PS Journals is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PS Journaling as your digital journal. It provides 7 privacy zones that let you control context flow between agents, reduce token usage by up to 60%, and create cleaner agent handoffs."
             }
           },
           {
@@ -188,10 +188,10 @@ export default function RootLayout({
           },
           {
             "@type": "Question",
-            "name": "What is PostScript Journaling?",
+            "name": "What is PS Journaling?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "PostScript Journaling is PS-LANG's premium feature for tracking AI workflows, benchmarking improvements, and maintaining secure audit trails. It uses end-to-end encryption to store prompt history and workflow analytics."
+              "text": "PS Journaling is PS-LANG's premium feature for tracking AI workflows, benchmarking improvements, and maintaining secure audit trails. It uses end-to-end encryption to store prompt history and workflow analytics."
             }
           },
           {

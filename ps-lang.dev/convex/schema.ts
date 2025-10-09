@@ -136,7 +136,7 @@ export default defineSchema({
     .index("by_user", ["userId"])
     .index("by_feature_and_user", ["featureRequestId", "userId"]),
 
-  // Agentic UX: Consent Records
+  // Agentic UX: Consent Records (legacy for agentic features)
   consentRecords: defineTable({
     userId: v.string(), // clerkUserId
     scopes: v.array(v.string()), // ["meta.public", "meta.private", "analytics.rl", "export.artifacts"]
@@ -146,6 +146,69 @@ export default defineSchema({
   })
     .index("by_userId", ["userId"])
     .index("by_grantedAt", ["grantedAt"]),
+
+  // Cookie Consent Audit Trail (GDPR/CCPA compliance)
+  cookieConsentHistory: defineTable({
+    userId: v.optional(v.string()), // clerkUserId if authenticated
+    sessionId: v.string(), // anonymous session ID
+    action: v.string(), // "granted", "denied", "updated", "revoked"
+    status: v.string(), // "granted" or "denied"
+
+    // Granular consent preferences
+    granular: v.object({
+      analytics: v.boolean(),
+      sessionReplay: v.boolean(),
+      performance: v.boolean(),
+    }),
+
+    // Context
+    gpcDetected: v.boolean(),
+    ipAddress: v.optional(v.string()), // hashed for privacy
+    userAgent: v.optional(v.string()),
+    referrer: v.optional(v.string()),
+
+    // Expiry tracking
+    expiresAt: v.number(), // consent expiry timestamp (12 months default)
+
+    timestamp: v.number(),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_sessionId", ["sessionId"])
+    .index("by_timestamp", ["timestamp"])
+    .index("by_expiresAt", ["expiresAt"])
+    .index("by_action", ["action"]),
+
+  // Data Retention Preferences (AI Training & Research)
+  dataRetentionPreferences: defineTable({
+    userId: v.string(), // clerkUserId
+    tier: v.string(), // "privacy_first", "standard", "research_contributor"
+
+    // Retention settings
+    retentionDays: v.number(), // 30, 730 (2 years), or 1825 (5 years)
+    anonymizationDays: v.number(), // when PII is stripped (90 days for standard/research)
+
+    // Granular controls
+    allowAITraining: v.boolean(),
+    allowBenchmarkCreation: v.boolean(),
+    allowAcademicResearch: v.boolean(),
+    allowSessionRecording: v.boolean(),
+
+    // Research Contributor benefits
+    isResearchContributor: v.boolean(),
+    researchContributorSince: v.optional(v.number()),
+    allowPublicationCredit: v.optional(v.boolean()),
+    allowRevenueShare: v.optional(v.boolean()),
+
+    // Audit trail
+    previousTier: v.optional(v.string()),
+    tierChangedAt: v.optional(v.number()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_tier", ["tier"])
+    .index("by_isResearchContributor", ["isResearchContributor"])
+    .index("by_updatedAt", ["updatedAt"]),
 
   // Agentic UX: Stream Events
   streamEvents: defineTable({

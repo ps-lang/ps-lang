@@ -483,12 +483,12 @@ export default function TokenComparisonPage() {
 
         {/* Alpha Testing CTA */}
         <div className="max-w-4xl mx-auto px-4 sm:px-8 mt-16 sm:mt-20 mb-16">
-          <div className="border border-stone-300 bg-gradient-to-br from-stone-50 to-white p-8 sm:p-12 text-center">
+          <div className="border border-stone-300 bg-gradient-to-br from-stone-50 to-white p-8 sm:p-12 text-center" data-ps-lang-benchmark="playground-alpha-cta-v1">
             <div className="inline-block mb-4">
-              <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">Alpha Testing</span>
+              <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">PS Journals™ Alpha</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-light text-stone-900 mb-4 tracking-tight">
-              Help Shape PS-LANG
+              Help shape the future
             </h2>
             <p className="text-base text-stone-600 mb-8 max-w-2xl mx-auto leading-relaxed">
               Join our alpha testing program to get early access, influence development priorities, and work directly with the team to build better multi-agent workflows.

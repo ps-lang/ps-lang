@@ -19,6 +19,8 @@ import type * as aiConnectors from "../aiConnectors.js";
 import type * as alphaRequests from "../alphaRequests.js";
 import type * as alphaSignups from "../alphaSignups.js";
 import type * as conversationFeedback from "../conversationFeedback.js";
+import type * as cookieConsent from "../cookieConsent.js";
+import type * as dataRetention from "../dataRetention.js";
 import type * as featureRequests from "../featureRequests.js";
 import type * as feedback from "../feedback.js";
 import type * as mockConversations from "../mockConversations.js";
@@ -42,6 +44,8 @@ declare const fullApi: ApiFromModules<{
   alphaRequests: typeof alphaRequests;
   alphaSignups: typeof alphaSignups;
   conversationFeedback: typeof conversationFeedback;
+  cookieConsent: typeof cookieConsent;
+  dataRetention: typeof dataRetention;
   featureRequests: typeof featureRequests;
   feedback: typeof feedback;
   mockConversations: typeof mockConversations;

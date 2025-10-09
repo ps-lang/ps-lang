@@ -315,10 +315,10 @@ export default function AlphaSignupModal({ isOpen, onClose }: AlphaSignupModalPr
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="inline-block mb-2">
-                      <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">Alpha Testing</span>
+                      <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">PS Journals™ Alpha</span>
                     </div>
                     <h2 className="text-2xl font-light text-stone-900 tracking-tight">
-                      {pendingVerification ? 'Check Your Email' : 'Join Alpha Testing'}
+                      {pendingVerification ? 'Check Your Email' : 'Join PS Journals™ Alpha'}
                     </h2>
                   </div>
                   <button
@@ -483,7 +483,7 @@ export default function AlphaSignupModal({ isOpen, onClose }: AlphaSignupModalPr
                           { value: 'multi_agent', label: 'Multi-Agent Workflows' },
                           { value: 'benchmarking', label: 'Benchmarking & Testing' },
                           { value: 'privacy', label: 'Privacy-First AI Tools' },
-                          { value: 'journaling', label: 'PostScript Journaling' },
+                          { value: 'journaling', label: 'PS Journaling' },
                           { value: 'mcp_integration', label: 'MCP Integration' },
                         ].map(item => (
                           <label key={item.value} className="flex items-center gap-2.5 cursor-pointer">

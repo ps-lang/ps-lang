@@ -590,7 +590,7 @@ Interactive demos for exploring zone-based syntax:
 
 ---
 
-### 8.2 PostScript Journaling
+### 8.2 PS Journaling
 
 #### Workflow Tracking
 Track AI workflows, benchmark improvements, and maintain secure audit trails.

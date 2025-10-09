@@ -65,6 +65,12 @@ temp/
 # NPM tarballs
 *.tgz
 
+# PS-LANG version tracking
+.ps-lang-version
+
+# Case studies (internal)
+case-studies/
+
 # Handoffs (agent-to-agent docs)
 handoffs/
 
@@ -75,6 +81,9 @@ docs/*
 !docs/SYNTAX-V2-QUICK-REF.md
 !docs/V1-VS-V2-COMPARISON.md
 !docs/V2-IMPLEMENTATION-ROADMAP.md
+# Allow release notes
+!docs/releases/
+!docs/releases/*.md
 
 # Examples (case studies, real-world usage)
 examples/*
@@ -96,3 +105,5 @@ CLAUDE.md
 /ps-lang.dev/papers/private
 # Allow public research papers
 !/ps-lang.dev/papers/public
+/journal-plus
+/osm-tokens

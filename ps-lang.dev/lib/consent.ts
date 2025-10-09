@@ -17,6 +17,8 @@ export interface ConsentPreferences {
   granular: GranularConsent
   gpcDetected: boolean
   timestamp: string
+  expiresAt?: string // Added for consent expiry tracking
+  sessionId?: string // Added for audit trail
 }
 
 const DEFAULT_CONSENT: GranularConsent = {
@@ -86,11 +88,12 @@ export function getConsentDate(): Date | null {
 }
 
 /**
- * Save consent preferences (granular)
+ * Save consent preferences (granular) with Convex audit trail
  */
 export function saveConsentPreferences(
   status: ConsentStatus,
-  granular: Partial<GranularConsent> = {}
+  granular: Partial<GranularConsent> = {},
+  action: 'granted' | 'denied' | 'updated' | 'revoked' = 'granted'
 ): void {
   if (typeof window === 'undefined') return
 
@@ -101,6 +104,13 @@ export function saveConsentPreferences(
     status = 'denied'
   }
 
+  // Generate or retrieve session ID
+  const sessionId = getOrCreateSessionId()
+
+  // Calculate expiry (12 months from now)
+  const TWELVE_MONTHS_MS = 365 * 24 * 60 * 60 * 1000
+  const expiresAt = new Date(Date.now() + TWELVE_MONTHS_MS).toISOString()
+
   const prefs: ConsentPreferences = {
     status,
     granular: {
@@ -109,6 +119,8 @@ export function saveConsentPreferences(
     },
     gpcDetected,
     timestamp: new Date().toISOString(),
+    expiresAt,
+    sessionId,
   }
 
   // Save to localStorage
@@ -117,6 +129,11 @@ export function saveConsentPreferences(
   // Save to cookie for server-side detection
   const cookieValue = status === 'granted' ? 'granted' : 'denied'
   document.cookie = `ps_lang_consent=${cookieValue}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`
+
+  // Save to Convex for audit trail (async - don't block user)
+  saveConsentToConvex(action, prefs).catch(err => {
+    console.warn('Failed to save consent to Convex:', err)
+  })
 
   // Update Google Consent Mode v2
   updateGoogleConsentMode(prefs)
@@ -228,9 +245,9 @@ function initializeAnalytics(granular: GranularConsent): void {
         }
       })
 
-      // Set initial consent state
+      // Set initial consent state - only grant if user explicitly consented
       gtag('consent', 'default', {
-        'analytics_storage': 'granted',
+        'analytics_storage': granular.analytics ? 'granted' : 'denied',
         'ad_storage': 'denied',
         'ad_user_data': 'denied',
         'ad_personalization': 'denied',
@@ -278,15 +295,26 @@ function disableAnalytics(): void {
 }
 
 /**
- * Clear analytics cookies
+ * Clear analytics cookies with subdomain support
  */
 function clearAnalyticsCookies(): void {
   if (typeof window === 'undefined') return
 
+  const hostname = window.location.hostname
+  const domains = [
+    hostname,
+    `.${hostname}`,
+    hostname.split('.').slice(-2).join('.'), // e.g., example.com from www.example.com
+    `.${hostname.split('.').slice(-2).join('.')}`,
+  ]
+
   // Clear Google Analytics cookies
   const gaCookies = ['_ga', '_gat', '_gid']
   gaCookies.forEach(cookie => {
-    document.cookie = `${cookie}=; path=/; domain=${window.location.hostname}; max-age=0; SameSite=Lax`
+    domains.forEach(domain => {
+      document.cookie = `${cookie}=; path=/; domain=${domain}; max-age=0; SameSite=Lax`
+    })
+    // Also clear without domain
     document.cookie = `${cookie}=; path=/; max-age=0; SameSite=Lax`
   })
 
@@ -295,7 +323,9 @@ function clearAnalyticsCookies(): void {
   cookies.forEach(cookie => {
     const [name] = cookie.split('=')
     if (name.trim().startsWith('ph_')) {
-      document.cookie = `${name.trim()}=; path=/; domain=${window.location.hostname}; max-age=0; SameSite=Lax`
+      domains.forEach(domain => {
+        document.cookie = `${name.trim()}=; path=/; domain=${domain}; max-age=0; SameSite=Lax`
+      })
       document.cookie = `${name.trim()}=; path=/; max-age=0; SameSite=Lax`
     }
   })
@@ -347,4 +377,82 @@ export function trackConsentEvent(action: 'granted' | 'denied' | 'updated' | 're
       })
     }
   }
+}
+
+/**
+ * Generate or retrieve session ID for anonymous tracking
+ */
+function getOrCreateSessionId(): string {
+  if (typeof window === 'undefined') return 'server'
+
+  let sessionId = localStorage.getItem('ps_lang_session_id')
+  if (!sessionId) {
+    sessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`
+    localStorage.setItem('ps_lang_session_id', sessionId)
+  }
+  return sessionId
+}
+
+/**
+ * Save consent to Convex for audit trail
+ */
+async function saveConsentToConvex(
+  action: 'granted' | 'denied' | 'updated' | 'revoked',
+  prefs: ConsentPreferences
+): Promise<void> {
+  if (typeof window === 'undefined') return
+
+  try {
+    // Get Clerk user ID if available
+    const w = window as any
+    const userId = w.Clerk?.user?.id
+
+    // Make API call to save consent
+    const response = await fetch('/api/consent/save', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId,
+        sessionId: prefs.sessionId,
+        action,
+        status: prefs.status,
+        granular: prefs.granular,
+        gpcDetected: prefs.gpcDetected,
+        userAgent: navigator.userAgent,
+        referrer: document.referrer,
+      }),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Failed to save consent: ${response.statusText}`)
+    }
+  } catch (error) {
+    console.error('Error saving consent to Convex:', error)
+    throw error
+  }
+}
+
+/**
+ * Check if consent has expired
+ */
+export function isConsentExpired(): boolean {
+  const prefs = getConsentPreferences()
+  if (!prefs || !prefs.expiresAt) return true
+
+  const expiryDate = new Date(prefs.expiresAt)
+  return expiryDate < new Date()
+}
+
+/**
+ * Check if consent needs renewal soon (within 30 days)
+ */
+export function needsConsentRenewal(): boolean {
+  const prefs = getConsentPreferences()
+  if (!prefs || !prefs.expiresAt) return true
+
+  const expiryDate = new Date(prefs.expiresAt)
+  const thirtyDaysFromNow = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+  return expiryDate < thirtyDaysFromNow
 }
