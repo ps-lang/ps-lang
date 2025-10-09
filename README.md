@@ -12,7 +12,7 @@
   <p>
     <a href="https://www.npmjs.com/package/ps-lang"><img src="https://img.shields.io/npm/v/ps-lang.svg?style=flat-square&color=2D5AA0" alt="npm version"/></a>
     <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-2D5AA0.svg?style=flat-square" alt="MIT License"/></a>
-    <a href="https://github.com/vummo/ps-lang"><img src="https://img.shields.io/github/stars/vummo/ps-lang?style=flat-square&color=2D5AA0" alt="GitHub stars"/></a>
+    <a href="https://github.com/ps-lang/ps-lang"><img src="https://img.shields.io/github/stars/ps-lang/ps-lang?style=flat-square&color=2D5AA0" alt="GitHub stars"/></a>
   </p>
 
   <p>
@@ -48,7 +48,7 @@
 
 ## What is PS-LANG?
 
-**PS-LANG** is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. **PostScript Journals** is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PostScript Journaling as your digital journal.
+**PS-LANG** is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. **PS Journaling™** is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PS Journaling™ as your digital journal.
 
 Use **zones** to mark content as private, pass-through, or active workspace.
 
@@ -479,9 +479,42 @@ rm -rf .ps-lang
 
 ---
 
+## Privacy & Data Retention (Alpha)
+
+PS-LANG offers three data retention tiers that give users full control:
+
+- 🔒 **Privacy First** (Default): 30 days, no AI training
+- ⚖️ **Standard**: 2 years, anonymized insights only
+- 🚀 **Research Contributor**: 5 years, full AI training with benefits
+
+**Current Alpha Status:**
+- ✅ User tier selection UI (live in v0.2.3)
+- ✅ Preference storage and management
+- 🚧 Automated enforcement coming in Beta
+
+See **[Privacy Roadmap](./docs/PRIVACY-ROADMAP.md)** for full implementation status and timeline.
+
+**Your Privacy Rights:**
+- Choose your retention tier in [Account Settings](https://ps-lang.dev/settings)
+- [Export your data](https://ps-lang.dev/api/privacy/export-data) anytime
+- Request deletion: privacy@vummo.com
+- Read our [Privacy Policy](https://ps-lang.dev/privacy)
+
+---
+
 ## Contributing
 
-We welcome new zone proposals, syntax improvements, and real-world use cases.
+We welcome contributions across all areas:
+
+- **Syntax & Zones**: New zone proposals, syntax improvements
+- **Privacy Infrastructure**: Help build automated enforcement ([see roadmap](./docs/PRIVACY-ROADMAP.md))
+- **Documentation**: Real-world use cases, tutorials, examples
+- **Testing**: GDPR/CCPA compliance verification
+
+**Get Involved:**
+- GitHub Issues: https://github.com/ps-lang/ps-lang/issues
+- Discussions: https://github.com/ps-lang/ps-lang/discussions
+- Email: hello@vummo.com
 
 ---
 

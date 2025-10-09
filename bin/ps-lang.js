@@ -275,7 +275,7 @@ function showHelp() {
 
   console.log('Learn more:');
   console.log('  Website:   https://ps-lang.dev');
-  console.log('  GitHub:    https://github.com/vummo/ps-lang');
+  console.log('  GitHub:    https://github.com/ps-lang/ps-lang');
   console.log('  Docs:      https://ps-lang.dev/docs\n');
 }
 

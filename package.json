@@ -1,7 +1,7 @@
 {
   "name": "ps-lang",
   "version": "0.2.3-alpha.1",
-  "description": "Open source framework for multi-agent context control. Build PostScript Journals to track AI collaborations. Zone-based syntax: lazy close, directional context, chainable zones.",
+  "description": "Open source framework for multi-agent context control. Build PS Journals™ to track AI collaborations. Zone-based syntax: lazy close, directional context, chainable zones.",
   "main": "dist/index.js",
   "type": "module",
   "bin": {
@@ -45,10 +45,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vummo/ps-lang.git"
+    "url": "https://github.com/ps-lang/ps-lang.git"
   },
   "bugs": {
-    "url": "https://github.com/vummo/ps-lang/issues"
+    "url": "https://github.com/ps-lang/ps-lang/issues"
   },
   "homepage": "https://ps-lang.dev",
   "preferGlobal": true,
