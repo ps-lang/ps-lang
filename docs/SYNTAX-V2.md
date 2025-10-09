@@ -373,4 +373,4 @@ Is the technical depth appropriate?
 **PS-LANG v0.2 Syntax** — Privacy-first, context-aware, infinitely extensible
 
 **Status:** Draft for community feedback
-**Contribute:** https://github.com/vummo/ps-lang/discussions
+**Contribute:** https://github.com/ps-lang/ps-lang/discussions
