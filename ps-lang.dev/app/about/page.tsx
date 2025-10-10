@@ -199,11 +199,8 @@ export default function AboutPage() {
                 <h2 className="text-xl font-light text-stone-900 mb-3 tracking-tight">
                   v0.2.3-alpha.1 — Spec Released
                 </h2>
-                <p className="text-sm text-stone-600 leading-relaxed max-w-2xl mb-3">
-                  PS-LANG v0.2 specification is now available! New features: privacy-first default, lazy close syntax, directional context, and named zone chaining.
-                </p>
-                <p className="text-xs text-stone-500 leading-relaxed max-w-2xl">
-                  Parser implementation coming in v0.2.1-alpha.2 (v0.1 syntax fully supported)
+                <p className="text-sm text-stone-600 leading-relaxed max-w-2xl">
+                  PS-LANG v0.2 specification is now available! New features: privacy-first default, lazy close syntax, directional context, and named zone chaining. v0.1 syntax fully supported.
                 </p>
               </div>
             </div>

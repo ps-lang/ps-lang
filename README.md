@@ -36,7 +36,7 @@
 - ✅ **Directional context** - `<-.` (backward), `<--.` (further back), `.->` (forward)
 - ✅ **Named zones** - `<.auth:description .>` for selector-based chaining
 - ✅ **Auto-boundary detection** - Parser intelligently closes zones
-- ⏳ **Parser implementation** - Coming in v0.2.1-alpha.2 (v0.1 fully supported)
+- ✅ **Full v0.1 support** - All v0.1 syntax continues to work
 
 **Read the spec:**
 - [Full Specification](./docs/SYNTAX-V2.md)

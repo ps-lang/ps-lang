@@ -270,7 +270,7 @@ function showHelp() {
   console.log('  - Privacy-first default: <. lazy close syntax');
   console.log('  - Directional context: <-. backward, .-> forward');
   console.log('  - Named zones: <.id:description chaining');
-  console.log('  - Parser implementation: Coming in v0.2.1-alpha.2');
+  console.log('  - Full v0.1 syntax support maintained');
   console.log('  - Read: docs/SYNTAX-V2-QUICK-REF.md\n');
 
   console.log('Learn more:');
@@ -284,7 +284,7 @@ function showVersion() {
   const pkg = JSON.parse(readFileSync(packagePath, 'utf-8'));
   log(`\nPS-LANG v${pkg.version}`, 'bright');
   log('v0.2 Syntax: Privacy-first default, lazy close, directional context, named zones', 'cyan');
-  log('Parser Implementation: In Progress (v0.1 syntax fully supported)\n', 'yellow');
+  log('Status: v0.1 syntax fully supported, v0.2 spec released\n', 'green');
 }
 
 function showZones() {
