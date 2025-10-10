@@ -107,4 +107,5 @@ CLAUDE.md
 !/ps-lang.dev/papers/public
 /journal-plus
 /osm-tokens
-ps-lang.dev/convex/_generated/api.d.ts
+ps-lang.dev/convex/_generated/
+convex/_generated/
