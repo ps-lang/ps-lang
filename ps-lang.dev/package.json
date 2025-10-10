@@ -1,18 +1,19 @@
 {
   "name": "ps-lang-dev",
-  "version": "0.1",
+  "version": "0.2.3-alpha.1",
   "private": true,
   "description": "PS-LANG - Privacy-First Agent Command Language Documentation Site",
   "author": "Anton K.",
   "scripts": {
-    "dev": "next dev",
+    "sync-version": "tsx scripts/sync-version.ts",
+    "dev": "npm run sync-version && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "typecheck": "tsc --noEmit",
     "validate": "npm run typecheck",
-    "prebuild": "npm run validate",
+    "prebuild": "npm run sync-version && npm run validate",
     "update-paper": "tsx scripts/update-paper.ts"
   },
   "dependencies": {
