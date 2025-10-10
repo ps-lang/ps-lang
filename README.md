@@ -16,7 +16,7 @@
   </p>
 
   <p>
-    <strong>Version:</strong> 0.2.3-alpha.1 &nbsp;|&nbsp; <strong>Status:</strong> v0.2 Spec Released — Parser Coming Soon
+    <strong>Version:</strong> 0.2.4-alpha.1 &nbsp;|&nbsp; <strong>Status:</strong> v0.2 Spec Released — Parser Coming Soon
   </p>
 
   <p>
@@ -28,17 +28,18 @@
 
 ---
 
-## 🎉 New in v0.2.3-alpha.1
+## ✨ New in v0.2.4-alpha.1
 
-**Specification Released!** PS-LANG v0.2 introduces powerful new syntax features:
+**Smoother Installation!** We've refined the package to make getting started even easier:
 
-- ✅ **Privacy-first default** - `<. lazy close` (no closing tag needed)
-- ✅ **Directional context** - `<-.` (backward), `<--.` (further back), `.->` (forward)
-- ✅ **Named zones** - `<.auth:description .>` for selector-based chaining
-- ✅ **Auto-boundary detection** - Parser intelligently closes zones
-- ✅ **Full v0.1 support** - All v0.1 syntax continues to work
+- ✅ **Lighter package** - 26.9 kB install, faster downloads
+- ✅ **Better project cleanup** - Auto-generated files properly ignored
+- ✅ **Improved npm compatibility** - Normalized package structure
+- ✅ **All powerful v0.2 features** - Privacy-first syntax, lazy close, directional context
 
-**Read the spec:**
+**Try it now:** `npx ps-lang@alpha init` - Get started in seconds.
+
+**v0.2 Specification:**
 - [Full Specification](./docs/SYNTAX-V2.md)
 - [Quick Reference](./docs/SYNTAX-V2-QUICK-REF.md)
 - [v1 vs v2 Comparison](./docs/V1-VS-V2-COMPARISON.md)
@@ -488,7 +489,7 @@ PS-LANG offers three data retention tiers that give users full control:
 - 🚀 **Research Contributor**: 5 years, full AI training with benefits
 
 **Current Alpha Status:**
-- ✅ User tier selection UI (live in v0.2.3)
+- ✅ User tier selection UI (live in v0.2.4)
 - ✅ Preference storage and management
 - 🚧 Automated enforcement coming in Beta
 
@@ -524,4 +525,4 @@ MIT - See [LICENSE](./LICENSE)
 
 ---
 
-**PS-LANG™ v0.2.3-alpha.1** · PS-LANG is a trademark of Vummo Labs
+**PS-LANG™ v0.2.4-alpha.1** · PS-LANG is a trademark of Vummo Labs
