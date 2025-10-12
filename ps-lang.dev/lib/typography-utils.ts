@@ -62,11 +62,3 @@ export const balancedTextClass = 'text-wrap-balance'
  * Usage: Add this class to your text elements
  */
 export const prettyTextClass = 'text-wrap-pretty'
-
-/**
- * React component helper for widow prevention
- */
-export function withWidowPrevention(text: string): JSX.Element {
-  const processed = preventWidow(text)
-  return <>{processed}</>
-}
