@@ -57,6 +57,14 @@ out/
 coverage/
 .nyc_output/
 
+# Playwright (private for now)
+test-results/
+playwright-report/
+playwright/.cache/
+.playwright/
+TESTING_PLAN.md
+TESTING_STRATEGY.md
+
 # Temporary files
 tmp/
 temp/

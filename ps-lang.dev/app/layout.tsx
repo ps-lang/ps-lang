@@ -5,6 +5,7 @@ import ConvexClientProvider from '@/components/convex-client-provider'
 
 import "./globals.css"
 import PostHogIdentifier from '@/components/posthog-identifier'
+import AnalyticsProvider from '@/components/analytics-provider'
 import AnnouncementBar from '@/components/announcement-bar'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
@@ -256,99 +257,150 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        {/* Consent-Gated Google Analytics */}
+        {/* Tier-Gated & Consent-Gated Google Analytics */}
         <Script id="ga-consent-check" strategy="afterInteractive">
           {`
             (function() {
-              const consent = localStorage.getItem('ps_lang_cookie_consent');
-              if (consent === 'granted' && '${process.env.NEXT_PUBLIC_GA_ID}') {
-                // Load Google Analytics
-                var script = document.createElement('script');
-                script.src = 'https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}';
-                script.async = true;
-                document.head.appendChild(script);
+              // Wait for tier info to be set by AnalyticsProvider
+              function checkAndInitGA() {
+                const consent = localStorage.getItem('ps_lang_cookie_consent');
+                const tierAllowsAnalytics = window.__ps_lang_tier_allows_analytics;
 
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-                  custom_map: {
-                    'ps_lang_project': '${process.env.NEXT_PUBLIC_PARENT_COMPANY}_property'
-                  }
-                });
+                // Two-layer check: consent AND tier
+                if (consent === 'granted' && tierAllowsAnalytics !== false && '${process.env.NEXT_PUBLIC_GA_ID}') {
+                  // Load Google Analytics
+                  var script = document.createElement('script');
+                  script.src = 'https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}';
+                  script.async = true;
+                  document.head.appendChild(script);
+
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  window.gtag = gtag;
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+                    custom_map: {
+                      'ps_lang_project': '${process.env.NEXT_PUBLIC_PARENT_COMPANY}_property'
+                    }
+                  });
+                }
+              }
+
+              // Try immediately, or wait for tier info
+              if (window.__ps_lang_tier_allows_analytics !== undefined) {
+                checkAndInitGA();
+              } else {
+                setTimeout(checkAndInitGA, 500);
               }
             })();
           `}
         </Script>
 
-        {/* Consent-Gated PostHog Analytics */}
+        {/* Tier-Gated & Consent-Gated PostHog Analytics */}
         <Script id="posthog-consent-check" strategy="afterInteractive">
           {`
             (function() {
-              const consent = localStorage.getItem('ps_lang_cookie_consent');
-              if (consent === 'granted' && '${process.env.NEXT_PUBLIC_POSTHOG_KEY}') {
-                !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-                posthog.init('${process.env.NEXT_PUBLIC_POSTHOG_KEY}', {
-                  api_host: '${process.env.NEXT_PUBLIC_POSTHOG_HOST}',
-                  person_profiles: 'identified_only',
-                  session_recording: {
-                    enabled: true,
-                    maskAllInputs: true,
-                    maskTextSelector: '.ph-no-capture, [data-private]',
-                    recordCanvas: false,
-                    recordCrossOriginIframes: false
+              function checkAndInitPostHog() {
+                const consent = localStorage.getItem('ps_lang_cookie_consent');
+                const tierAllowsAnalytics = window.__ps_lang_tier_allows_analytics;
+                const tierAllowsSessionReplay = window.__ps_lang_tier_allows_session_replay;
+
+                // Two-layer check: consent AND tier
+                if (consent === 'granted' && tierAllowsAnalytics !== false && '${process.env.NEXT_PUBLIC_POSTHOG_KEY}') {
+                  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys getNextSurveyStep onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+
+                  // Initialize with tier-appropriate settings
+                  posthog.init('${process.env.NEXT_PUBLIC_POSTHOG_KEY}', {
+                    api_host: '${process.env.NEXT_PUBLIC_POSTHOG_HOST}',
+                    person_profiles: 'identified_only',
+                    session_recording: {
+                      enabled: tierAllowsSessionReplay === true, // Only if tier allows
+                      maskAllInputs: true,
+                      maskTextSelector: '.ph-no-capture, [data-private]',
+                      recordCanvas: false,
+                      recordCrossOriginIframes: false
+                    }
+                  });
+
+                  // Explicitly disable session replay if tier doesn't allow it
+                  if (tierAllowsSessionReplay === false) {
+                    posthog.stopSessionRecording?.();
                   }
-                });
+                }
+              }
+
+              // Try immediately, or wait for tier info
+              if (window.__ps_lang_tier_allows_analytics !== undefined) {
+                checkAndInitPostHog();
+              } else {
+                setTimeout(checkAndInitPostHog, 500);
               }
             })();
           `}
         </Script>
 
-        {/* Consent-Gated Text Selection Tracking */}
+        {/* Tier-Gated & Consent-Gated Text Selection Tracking */}
         <Script id="selection-tracking" strategy="afterInteractive">
           {`
             (function() {
               const consent = localStorage.getItem('ps_lang_cookie_consent');
               if (consent !== 'granted') return;
 
-              document.addEventListener('mouseup', function() {
-                const selectedText = window.getSelection().toString().trim();
-                if (selectedText && selectedText.length > 3) {
-                  const selection = window.getSelection();
-                  const container = selection.anchorNode?.parentElement?.closest('[data-track-section]');
-                  const section = container?.getAttribute('data-track-section') || 'unknown';
+              // Check tier permissions (behavior tracking)
+              function checkTierAndTrack() {
+                const tierPermissions = window.__ps_lang_tier_permissions;
+                if (!tierPermissions || !tierPermissions.allowBehaviorTracking) return;
 
-                  // PostHog tracking
-                  if (window.posthog) {
-                    window.posthog.capture('text_selected', {
-                      selected_text: selectedText,
-                      text_length: selectedText.length,
-                      section: section,
-                      page: window.location.pathname
-                    });
-                  }
+                document.addEventListener('mouseup', function() {
+                  const selectedText = window.getSelection().toString().trim();
+                  if (selectedText && selectedText.length > 3) {
+                    const selection = window.getSelection();
+                    const container = selection.anchorNode?.parentElement?.closest('[data-track-section]');
+                    const section = container?.getAttribute('data-track-section') || 'unknown';
 
-                  // Google Analytics tracking
-                  if (window.gtag) {
-                    window.gtag('event', 'text_selection', {
-                      event_category: 'engagement',
-                      event_label: section,
-                      text_length: selectedText.length,
-                      selected_text: selectedText.substring(0, 100) // First 100 chars
-                    });
+                    // PostHog tracking
+                    if (window.posthog) {
+                      window.posthog.capture('text_selected', {
+                        selected_text: selectedText,
+                        text_length: selectedText.length,
+                        section: section,
+                        page: window.location.pathname
+                      });
+                    }
+
+                    // Google Analytics tracking
+                    if (window.gtag) {
+                      window.gtag('event', 'text_selection', {
+                        event_category: 'engagement',
+                        event_label: section,
+                        text_length: selectedText.length,
+                        selected_text: selectedText.substring(0, 100) // First 100 chars
+                      });
+                    }
                   }
-                }
-              });
+                });
+              }
+
+              // Wait for tier info
+              if (window.__ps_lang_tier_permissions !== undefined) {
+                checkTierAndTrack();
+              } else {
+                setTimeout(checkTierAndTrack, 500);
+              }
             })();
           `}
         </Script>
 
-        {/* Consent-Gated Zoom/Pinch Tracking */}
+        {/* Tier-Gated & Consent-Gated Zoom/Pinch Tracking */}
         <Script id="zoom-tracking" strategy="afterInteractive">
           {`
             (function() {
               const consent = localStorage.getItem('ps_lang_cookie_consent');
               if (consent !== 'granted') return;
+
+              function checkTierAndTrack() {
+                const tierPermissions = window.__ps_lang_tier_permissions;
+                if (!tierPermissions || !tierPermissions.allowBehaviorTracking) return;
 
               let initialPinchDistance = 0;
               let currentZoomLevel = 1;
@@ -407,16 +459,29 @@ export default function RootLayout({
                 lastZoomLevel = currentDPR;
               }
             });
+              }
+
+              // Wait for tier info
+              if (window.__ps_lang_tier_permissions !== undefined) {
+                checkTierAndTrack();
+              } else {
+                setTimeout(checkTierAndTrack, 500);
+              }
             })();
           `}
         </Script>
 
-        {/* Consent-Gated Core Web Vitals Tracking */}
+        {/* Tier-Gated & Consent-Gated Core Web Vitals Tracking */}
         <Script id="web-vitals" strategy="afterInteractive">
           {`
             (function() {
               const consent = localStorage.getItem('ps_lang_cookie_consent');
               if (consent !== 'granted') return;
+
+              function checkTierAndTrack() {
+                const tierPermissions = window.__ps_lang_tier_permissions;
+                if (!tierPermissions || !tierPermissions.allowPerformanceMonitoring) return;
+
               // Largest Contentful Paint (LCP)
               if (typeof PerformanceObserver !== 'undefined') {
                 try {
@@ -518,6 +583,14 @@ export default function RootLayout({
                   console.error('CLS observer error:', e);
                 }
               }
+              }
+
+              // Wait for tier info
+              if (window.__ps_lang_tier_permissions !== undefined) {
+                checkTierAndTrack();
+              } else {
+                setTimeout(checkTierAndTrack, 500);
+              }
             })();
           `}
         </Script>
@@ -529,6 +602,7 @@ export default function RootLayout({
             enableSystem={false}
             themes={['default', 'fermi']}
           >
+            <AnalyticsProvider />
             <PostHogIdentifier />
             <AnnouncementBar />
             <Navigation />

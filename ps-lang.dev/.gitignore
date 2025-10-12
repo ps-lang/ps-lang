@@ -9,6 +9,14 @@
 # testing
 /coverage
 
+# playwright (private for now)
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/.playwright/
+/e2e/
+playwright.config.ts
+
 # next.js
 /.next/
 /out/
