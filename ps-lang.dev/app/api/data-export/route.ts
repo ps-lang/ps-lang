@@ -7,6 +7,9 @@
 import { auth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 
+// Force dynamic rendering - this route requires server-side auth
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: Request) {
   try {
     // Authenticate user

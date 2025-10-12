@@ -66,8 +66,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-output
-          path: ps-lang.dev/.next
+          path: .next
           retention-days: 7
+        working-directory: ./ps-lang.dev
 
   smoke-tests:
     name: Smoke Tests (Playwright)
