@@ -30,7 +30,7 @@ export default function JournalPlusPage() {
   // If not signed in or doesn't have access, redirect to regular journal page
   if (!isSignedIn || !hasAccess) {
     if (typeof window !== 'undefined') {
-      window.location.href = '/postscript-journaling'
+      window.location.href = '/ps-journaling'
     }
     return null
   }

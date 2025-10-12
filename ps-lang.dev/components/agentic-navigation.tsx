@@ -27,7 +27,7 @@ export default function AgenticNavigationHeader({
 
   // Determine which logomark to use based on page
   const getLogomark = () => {
-    if (pathname?.includes('/postscript-journaling') || pathname?.includes('/journal-plus')) {
+    if (pathname?.includes('/ps-journaling') || pathname?.includes('/journal-plus')) {
       return {
         src: '/ps-lang-journal-logomark.svg',
         type: 'journal'
@@ -118,7 +118,7 @@ export default function AgenticNavigationHeader({
  *    - data-access-level: Clerk-based authentication level
  *
  * 4. **Dynamic Logomark**: Automatically selects journal vs. default logomark
- *    - /postscript-journaling → ps-lang-journal-logomark.svg
+ *    - /ps-journaling → ps-lang-journal-logomark.svg
  *    - /journal-plus → ps-lang-journal-logomark.svg
  *    - All other pages → ps-lang-logomark.svg
  *    - data-logomark-type: "journal" or "default"

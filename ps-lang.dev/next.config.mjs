@@ -15,6 +15,15 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['@clerk/nextjs', 'framer-motion', 'convex/react'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/postscript-journaling',
+        destination: '/ps-journaling',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

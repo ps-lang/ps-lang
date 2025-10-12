@@ -8,7 +8,7 @@ import { useTheme } from "next-themes"
 import { useUser, SignInButton, useClerk } from "@clerk/nextjs"
 import { useQuery, useMutation } from "convex/react"
 import { api } from "@/convex/_generated/api"
-import { getUserRole, getRoleDisplayName, getRoleBadgeColor } from "@/lib/roles"
+import { getUserRole, getRoleDisplayName, getRoleBadgeColor, canAccessThemeSettings } from "@/lib/roles"
 import AlphaSignupModal from "@/components/alpha-signup-modal"
 import { setTheme as setThemeStorage } from "@/lib/theme-storage"
 import { cn } from "@/lib/utils"
@@ -106,6 +106,9 @@ export default function Navigation() {
 
   // Show papers for super_admin, admin, and reviewer
   const showPapers = userRole === 'super_admin' || userRole === 'admin' || userRole === 'reviewer'
+
+  // Show theme toggle for super_admin, admin, and designer only
+  const canToggleTheme = canAccessThemeSettings(userRole)
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -257,13 +260,15 @@ export default function Navigation() {
                       >
                         Settings
                       </Link>
-                      <button
-                        onClick={handleThemeChange}
-                        className="flex items-center gap-3 px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors w-full text-left"
-                      >
-                        <span className="w-px h-4 bg-stone-300"></span>
-                        <span>Theme: {theme === 'fermi' ? 'Fermi' : 'Default'}</span>
-                      </button>
+                      {canToggleTheme && (
+                        <button
+                          onClick={handleThemeChange}
+                          className="flex items-center gap-3 px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors w-full text-left"
+                        >
+                          <span className="w-px h-4 bg-stone-300"></span>
+                          <span>Theme: {theme === 'fermi' ? 'Fermi' : 'Default'}</span>
+                        </button>
+                      )}
                       <button
                         onClick={() => signOut()}
                         className="flex items-center gap-3 px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors w-full text-left"
@@ -290,53 +295,115 @@ export default function Navigation() {
         </div>
 
         {isOpen && (
-          <div className="md:hidden mt-6 space-y-6 pb-6">
-            <Link href="/about" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
-              About
-            </Link>
-            <div>
-              <div className="text-xs uppercase tracking-wider text-stone-400 mb-2 font-medium">Playground</div>
-              <Link href="/playground/token-comparison" className="block pl-3 text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
-                Token Usage Comparison →
+          <div className="md:hidden fixed inset-0 top-[72px] bg-white z-50 overflow-y-auto">
+            <div className="px-6 py-8 space-y-1">
+              {/* Main Navigation */}
+              <Link
+                href="/about"
+                className="block py-3 text-sm text-stone-900 tracking-wide border-b border-stone-100"
+                onClick={() => setIsOpen(false)}
+              >
+                About
               </Link>
-              <Link href="/playground/prompt-editor" className="block pl-3 mt-2 text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
-                1-Shot Prompt Editor →
-              </Link>
-            </div>
-            <Link href={isAlphaTester ? "/journal-plus" : "/ps-journaling"} className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
-              {isAlphaTester ? 'Journal Plus' : 'Journal'}
-            </Link>
-            <Link href="/research-papers" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
-              Papers
-            </Link>
-            {isSignedIn && (
-              <>
-                <Link href="/settings" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
-                  Settings
-                </Link>
-                <button
-                  onClick={handleThemeChange}
-                  className="block text-left text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide pl-3"
+
+              {/* Playground Section */}
+              <div className="border-b border-stone-100">
+                <Link
+                  href="/playground"
+                  className="block py-3 text-sm text-stone-900 tracking-wide"
+                  onClick={() => setIsOpen(false)}
                 >
-                  Theme: {theme === 'fermi' ? 'Fermi' : 'Default'}
-                </button>
-                <div className="pt-4 border-t border-stone-200">
-                  <div className="mb-3">
-                    <p className="font-mono text-xs text-stone-500 mb-1">Signed in as</p>
-                    <p className="font-mono text-xs text-stone-900 truncate">{user?.primaryEmailAddress?.emailAddress}</p>
-                    <span className={`inline-block mt-2 px-2 py-0.5 rounded-full border font-mono text-xs ${getRoleBadgeColor(userRole)}`}>
-                      {getRoleDisplayName(userRole)}
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => signOut()}
-                    className="w-full px-4 py-2 bg-stone-900 text-white font-light text-sm hover:bg-stone-800 transition-colors"
+                  Playground
+                </Link>
+                <Link
+                  href="/playground/token-comparison"
+                  className="block py-3 pl-4 text-sm text-stone-600 hover:text-stone-900 transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Token Usage Comparison →
+                </Link>
+                <Link
+                  href="/playground/prompt-editor"
+                  className="block py-3 pl-4 text-sm text-stone-600 hover:text-stone-900 transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  1-Shot Prompt Editor →
+                </Link>
+              </div>
+
+              {/* Journal Section */}
+              <div className="border-b border-stone-100">
+                <Link
+                  href="/ps-journaling"
+                  className="block py-3 text-sm text-stone-900 tracking-wide"
+                  onClick={() => setIsOpen(false)}
+                >
+                  PS Journaling
+                </Link>
+                {(isAlphaTester || userRole === 'super_admin' || userRole === 'admin') && (
+                  <Link
+                    href="/journal-plus"
+                    className="block py-3 pl-4 text-sm text-stone-600 hover:text-stone-900 transition-colors"
+                    onClick={() => setIsOpen(false)}
                   >
-                    Sign Out
-                  </button>
-                </div>
-              </>
-            )}
+                    Journal Plus →
+                  </Link>
+                )}
+              </div>
+
+              {/* Papers */}
+              <Link
+                href="/research-papers"
+                className="block py-3 text-sm text-stone-900 tracking-wide border-b border-stone-100"
+                onClick={() => setIsOpen(false)}
+              >
+                Papers
+              </Link>
+
+              {/* Account Section */}
+              {isSignedIn && (
+                <>
+                  <Link
+                    href="/settings"
+                    className="block py-3 text-sm text-stone-900 tracking-wide border-b border-stone-100"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Settings
+                  </Link>
+
+                  {canToggleTheme && (
+                    <button
+                      onClick={() => {
+                        handleThemeChange()
+                        setIsOpen(false)
+                      }}
+                      className="w-full text-left py-3 pl-4 text-sm text-stone-600 hover:text-stone-900 transition-colors border-b border-stone-100"
+                    >
+                      Theme: {theme === 'fermi' ? 'Fermi' : 'Default'}
+                    </button>
+                  )}
+
+                  {/* User Info & Sign Out */}
+                  <div className="pt-6 pb-4">
+                    <div className="mb-4 pb-4 border-b border-stone-100">
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="text-[10px] uppercase tracking-[0.15em] text-stone-400">Signed in as</p>
+                        <span className={`px-2.5 py-1 rounded-full text-[9px] font-medium uppercase tracking-wider ${getRoleBadgeColor(userRole)}`}>
+                          {getRoleDisplayName(userRole)}
+                        </span>
+                      </div>
+                      <p className="text-xs text-stone-900 truncate">{user?.primaryEmailAddress?.emailAddress}</p>
+                    </div>
+                    <button
+                      onClick={() => signOut()}
+                      className="w-full py-3 bg-stone-900 text-white text-sm uppercase tracking-wider hover:bg-stone-800 transition-colors"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         )}
       </div>

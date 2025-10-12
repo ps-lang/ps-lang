@@ -102,6 +102,14 @@ export default function RoleManagementPage() {
             </div>
             <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
               <h3 className="font-typewriter font-bold text-sm text-ink mb-2">
+                🎨 Designer
+              </h3>
+              <p className="font-typewriter text-xs text-ink-light">
+                • Theme customization + Journal + Playground
+              </p>
+            </div>
+            <div className="bg-stone-50 border border-stone-200 rounded-lg p-4">
+              <h3 className="font-typewriter font-bold text-sm text-ink mb-2">
                 ⚙️ Admin
               </h3>
               <p className="font-typewriter text-xs text-ink-light">
@@ -150,6 +158,7 @@ export default function RoleManagementPage() {
                       <option value={ROLES.USER}>User</option>
                       <option value={ROLES.ALPHA_TESTER}>Alpha Tester</option>
                       <option value={ROLES.REVIEWER}>Reviewer</option>
+                      <option value={ROLES.DESIGNER}>Designer</option>
                       <option value={ROLES.ADMIN}>Admin</option>
                       <option value={ROLES.SUPER_ADMIN}>Super Admin</option>
                     </select>
@@ -168,7 +177,7 @@ export default function RoleManagementPage() {
               <li>Go to Clerk Dashboard → Users</li>
               <li>Click on a user</li>
               <li>Scroll to "Public metadata"</li>
-              <li>Add: <code className="bg-blue-100 px-1 py-0.5 rounded">{"{ \"role\": \"alpha_tester\" }"}</code></li>
+              <li>Add: <code className="bg-blue-100 px-1 py-0.5 rounded">{"{ \"role\": \"designer\" }"}</code> (or admin, reviewer, etc.)</li>
               <li>Save changes</li>
             </ol>
           </div>

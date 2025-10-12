@@ -4,16 +4,18 @@
  * Hierarchy (highest to lowest):
  * - super_admin: Full access, can assign roles
  * - admin: Access to journal + playground
+ * - designer: Access to theme customization + journal + playground
  * - reviewer: Access to journal + playground (read-focused)
  * - alpha_tester: Access to playground only
  * - user: Public access only
  */
 
-export type UserRole = 'super_admin' | 'admin' | 'reviewer' | 'alpha_tester' | 'user'
+export type UserRole = 'super_admin' | 'admin' | 'designer' | 'reviewer' | 'alpha_tester' | 'user'
 
 export const ROLES = {
   SUPER_ADMIN: 'super_admin',
   ADMIN: 'admin',
+  DESIGNER: 'designer',
   REVIEWER: 'reviewer',
   ALPHA_TESTER: 'alpha_tester',
   USER: 'user',
@@ -23,6 +25,7 @@ export const ROLES = {
 export const ROLE_LEVELS: Record<UserRole, number> = {
   super_admin: 100,
   admin: 80,
+  designer: 70,
   reviewer: 60,
   alpha_tester: 40,
   user: 0,
@@ -31,8 +34,8 @@ export const ROLE_LEVELS: Record<UserRole, number> = {
 // Route permissions
 export const ROUTE_PERMISSIONS = {
   '/journal/admin': ['super_admin', 'admin'],
-  '/postscript-journaling': ['super_admin', 'admin', 'reviewer'],
-  '/playground': ['super_admin', 'admin', 'reviewer', 'alpha_tester'],
+  '/ps-journaling': ['super_admin', 'admin', 'designer', 'reviewer'],
+  '/playground': ['super_admin', 'admin', 'designer', 'reviewer', 'alpha_tester'],
   '/admin/roles': ['super_admin'],
   '/admin/data': ['super_admin', 'admin'],
   '/admin': ['super_admin', 'admin'],
@@ -92,6 +95,7 @@ export function getRoleDisplayName(role: UserRole): string {
   const names: Record<UserRole, string> = {
     super_admin: 'Super Admin',
     admin: 'Admin',
+    designer: 'Designer',
     reviewer: 'Reviewer',
     alpha_tester: 'Alpha Tester',
     user: 'User',
@@ -106,9 +110,19 @@ export function getRoleBadgeColor(role: UserRole): string {
   const colors: Record<UserRole, string> = {
     super_admin: 'bg-purple-100 text-purple-800 border-purple-300',
     admin: 'bg-blue-100 text-blue-800 border-blue-300',
+    designer: 'bg-pink-100 text-pink-800 border-pink-300',
     reviewer: 'bg-green-100 text-green-800 border-green-300',
     alpha_tester: 'bg-yellow-100 text-yellow-800 border-yellow-300',
     user: 'bg-stone-100 text-stone-800 border-stone-300',
   }
   return colors[role]
+}
+
+/**
+ * Check if user can access theme settings
+ * Allows: super_admin, admin, designer, and alpha_tester
+ */
+export function canAccessThemeSettings(userRole: UserRole | undefined): boolean {
+  if (!userRole) return false
+  return ['super_admin', 'admin', 'designer', 'alpha_tester'].includes(userRole)
 }
