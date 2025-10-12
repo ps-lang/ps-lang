@@ -26,12 +26,12 @@ export const metadata: Metadata = {
   creator: "Vummo Labs",
   publisher: "PS-LANG",
   alternates: {
-    canonical: 'https://ps-lang.dev/postscript-journaling',
+    canonical: 'https://ps-lang.dev/ps-journaling',
   },
   openGraph: {
     title: "PS Journaling - AI Workflow Collaboration",
     description: "Self-hosted AI workflow collaboration with full control over your data and encryption keys. Collaborate with ChatGPT & Claude.ai through agentic UX, benchmark improvements, maintain audit trails. MIT licensed.",
-    url: "https://ps-lang.dev/postscript-journaling",
+    url: "https://ps-lang.dev/ps-journaling",
     siteName: "PS-LANG",
     type: "website",
     locale: "en_US",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
   other: {
     // Agentic metadata for AI crawlers and tools
     'ps-lang:version': 'v0.1.0-alpha.1',
-    'ps-lang:component': 'postscript-journaling-page',
+    'ps-lang:component': 'ps-journaling-page',
     'ps-lang:data-stream': 'agentic_ux_v1',
     'ps-lang:access-level': 'public',
     'ps-lang:license': 'MIT',
@@ -180,7 +180,7 @@ export default function JournalLayout({
 
       {/* PS-LANG Journal Signature Meta Tags */}
       <meta name="ps-lang:journal-signature" content="OSS_v1.0.0_public-access" />
-      <meta name="ps-lang:agentic-signature" content="agentic_ux_v1:postscript-journaling" />
+      <meta name="ps-lang:agentic-signature" content="agentic_ux_v1:ps-journaling" />
       <meta name="ps-lang:mission" content="Empower developers with self-hosted AI workflow tracking" />
       <meta name="ps-lang:vision" content="Privacy-first AI productivity tools for individuals and teams" />
       <meta name="ps-lang:goals" content="100% data ownership, zero vendor lock-in, open source forever" />

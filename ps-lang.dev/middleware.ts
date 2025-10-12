@@ -17,7 +17,7 @@ const isPublicRoute = createRouteMatcher([
   '/terms(.*)',
   '/privacy(.*)',
   '/playground(.*)',
-  '/postscript-journaling(.*)',
+  '/ps-journaling(.*)',
   '/journal-plus(.*)',
   '/research-papers(.*)',
   '/blog(.*)',
@@ -40,7 +40,7 @@ const isPublicRoute = createRouteMatcher([
 
 // Routes that require role-based access
 const isJournalAdminRoute = createRouteMatcher(['/journal/admin(.*)'])
-const isJournalRoute = createRouteMatcher(['/postscript-journaling(.*)'])
+const isJournalRoute = createRouteMatcher(['/ps-journaling(.*)'])
 const isPlaygroundRoute = createRouteMatcher(['/playground(.*)'])
 const isAdminRoute = createRouteMatcher(['/admin(.*)'])
 
@@ -52,9 +52,27 @@ export default clerkMiddleware(async (auth, request) => {
   const cookieHeader = request.headers.get('cookie')
   const hasConsent = getConsentFromCookie(cookieHeader || '')
 
-  // Add consent status to response headers for downstream use
+  // Read theme from cookie (if consent granted)
+  let theme = 'default'
+  if (hasConsent && cookieHeader) {
+    const themeCookie = cookieHeader.split('; ').find(c => c.startsWith('ps-lang-theme='))
+    if (themeCookie) {
+      const themeValue = themeCookie.split('=')[1]
+      if (themeValue === 'fermi' || themeValue === 'default') {
+        theme = themeValue
+      }
+    }
+  }
+
+  // Default to fermi for ps-journaling page (only if no saved theme)
+  if (pathname.startsWith('/ps-journaling') && theme === 'default' && !cookieHeader?.includes('ps-lang-theme=')) {
+    theme = 'fermi'
+  }
+
+  // Add headers for downstream use
   const response = NextResponse.next()
   response.headers.set('x-consent-status', hasConsent ? 'granted' : 'denied')
+  response.headers.set('x-theme', theme)
 
   // Allow public routes without authentication
   if (isPublicRoute(request)) {

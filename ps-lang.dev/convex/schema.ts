@@ -436,6 +436,20 @@ export default defineSchema({
     .index("by_publicationDate", ["publicationDate"])
     .index("by_views", ["views"]),
 
+  // User Preferences (theme, settings, etc.)
+  userPreferences: defineTable({
+    userId: v.string(), // clerkUserId
+    theme: v.string(), // "default" or "fermi"
+
+    // Future preferences can be added here
+    // e.g., emailNotifications, autoSync, etc.
+
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_updatedAt", ["updatedAt"]),
+
   // User Interactions - Universal tracking for all site interactions
   userInteractions: defineTable({
     // Who

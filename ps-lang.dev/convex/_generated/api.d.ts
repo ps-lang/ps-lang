@@ -28,6 +28,7 @@ import type * as newsletter from "../newsletter.js";
 import type * as papersNewsletter from "../papersNewsletter.js";
 import type * as researchPapers from "../researchPapers.js";
 import type * as userInteractions from "../userInteractions.js";
+import type * as userPreferences from "../userPreferences.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -53,6 +54,7 @@ declare const fullApi: ApiFromModules<{
   papersNewsletter: typeof papersNewsletter;
   researchPapers: typeof researchPapers;
   userInteractions: typeof userInteractions;
+  userPreferences: typeof userPreferences;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

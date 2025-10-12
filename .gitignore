@@ -96,6 +96,10 @@ examples/*
 
 # Benchmarks (private internal metrics)
 .benchmarks/
+
+# Spec-kit (local development tool for specification workflows)
+.specify/
+specs/
 v-todos.md
 v-todos.md.psl
 *.psl
@@ -109,3 +113,7 @@ CLAUDE.md
 /osm-tokens
 ps-lang.dev/convex/_generated/
 convex/_generated/
+/research-papers
+/agentic-figures
+/psl-memo
+/memos

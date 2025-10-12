@@ -517,6 +517,22 @@ We welcome contributions across all areas:
 - Discussions: https://github.com/ps-lang/ps-lang/discussions
 - Email: hello@ps-lang.dev
 
+### For Core Contributors
+
+**Specification Workflow** - This project uses [spec-kit](https://github.com/github/spec-kit) for feature specifications:
+
+```bash
+# Install spec-kit (one-time setup)
+wsl uvx --from git+https://github.com/github/spec-kit.git specify init --here --ai claude
+
+# Create specifications, plans, and tasks
+/speckit.specify "feature description"
+/speckit.plan
+/speckit.tasks
+```
+
+Spec-kit workflows enable benchmarking specifications across multiple agents for future agentic signature and PS-LANG journal authorship systems.
+
 ---
 
 ## License

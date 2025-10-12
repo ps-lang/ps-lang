@@ -2,21 +2,37 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useUser, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs"
+import { useTheme } from "next-themes"
 import { getUserRole, getRoleDisplayName, getRoleBadgeColor } from "@/lib/roles"
 import NewsletterModal from "@/components/newsletter-modal"
 import AlphaSignupModal from "@/components/alpha-signup-modal"
 import FAQSection from "@/components/faq-section"
+import HeroSection from "@/components/hero-section"
+import HeroCardIllustration from "@/components/hero-card-illustration"
+import ReferenceDotsFermi from "@/components/reference-dots-fermi"
+import SpheresIllustration from "@/components/spheres-illustration"
 import { useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
+import { cn } from "@/lib/utils"
 
 export default function JournalingPage() {
   const { isSignedIn, user } = useUser()
   const userRole = getUserRole(user)
+  const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false)
   const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false)
   const [isAlphaModalOpen, setIsAlphaModalOpen] = useState(false)
+
+  // Avoid hydration mismatch by rendering fermi initially (matches server/inline script)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Use fermi as default for SSR, then actual theme after mount
+  const effectiveTheme = mounted ? (theme || 'fermi') : 'fermi'
 
   // Check if user has already signed up for alpha
   const alphaSignup = useQuery(
@@ -26,37 +42,61 @@ export default function JournalingPage() {
   const hasJoinedAlpha = !!alphaSignup
 
   return (
-    <div
-      className="min-h-screen bg-stone-50"
-      data-page="postscript-journaling"
-      data-ps-lang-version="v0.1.0-alpha.1"
-      data-agentic-signature="agentic_ux_v1:postscript-journaling"
-      data-journal-tier={isSignedIn ? (userRole === 'alpha_tester' ? 'Plus' : 'OSS') : 'public'}
-      data-access-level={isSignedIn ? 'authenticated' : 'public'}
-      data-data-stream="agentic_ux_v1"
-    >
+    <>
+      <div
+        className={cn(
+          "min-h-screen transition-colors duration-150",
+          effectiveTheme === "fermi" ? "bg-[#F8F5F2]" : "bg-[#fafaf9]"
+        )}
+        data-page="postscript-journaling"
+        data-ps-lang-version="v0.1.0-alpha.1"
+        data-agentic-signature="agentic_ux_v1:ps-journaling"
+        data-journal-tier="ps-lang-journal"
+        data-access-level={isSignedIn ? 'authenticated' : 'public'}
+        data-data-stream="agentic_ux_v1"
+        suppressHydrationWarning
+      >
+      {/* Hero Section */}
+      <div style={{ opacity: mounted ? 1 : 0, transition: 'opacity 150ms ease-in' }}>
+        <HeroSection
+          eyebrow="AGENTIC WORKFLOW COLLABORATION"
+          headline={effectiveTheme === 'fermi' ? (
+            <>Master Your AI{'\u00A0'}Workflows</>
+          ) : (
+            <>PS Journaling<sup className="text-[11px] font-light ml-[2px] -top-[12px]">™</sup></>
+          )}
+          description="Collaborate, benchmark, and improve your AI workflows for better results"
+          primaryCTA={effectiveTheme === 'fermi' ? {
+            text: "Request Early Access",
+            onClick: () => setIsAlphaModalOpen(true),
+          } : undefined}
+          secondaryCTA={effectiveTheme === 'fermi' && !isSignedIn ? {
+            text: "Create Account",
+            onClick: () => {
+              // Trigger Clerk signup modal
+              const signupButton = document.querySelector('[data-clerk-signup]') as HTMLButtonElement
+              signupButton?.click()
+            },
+            variant: "outline",
+          } : undefined}
+          illustration={effectiveTheme === 'fermi' ? <ReferenceDotsFermi /> : undefined}
+          theme="warm"
+          layout={effectiveTheme === 'fermi' ? "split" : "centered"}
+          forcedTheme={effectiveTheme as "default" | "fermi"}
+          dataAttributes={{
+            "data-headline-variant": "option-4-active",
+            "data-test-group": "hero-tagline-v1",
+            "data-ps-lang-component": "hero-tagline",
+            "data-current-theme": effectiveTheme,
+          }}
+        />
+      </div>
+
       <div className="max-w-6xl mx-auto px-6 py-16">
-        {/* Hero */}
-        <div className="text-center mb-16">
-          <div className="inline-block mb-4">
-            <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">AI Workflow Collaboration</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-light text-stone-900 mb-6 tracking-tight">
-            PS Journaling<sup className="text-[11px] ml-1 -top-3 relative">™</sup>
-          </h1>
-          <p
-            className="text-lg text-stone-600 max-w-2xl mx-auto leading-relaxed font-light"
-            data-headline-variant="option-4-active"
-            data-test-group="hero-tagline-v1"
-            data-ps-lang-component="hero-tagline"
-          >
-            Collaborate, benchmark, and improve your AI workflows for better results
-          </p>
-        </div>
 
         {/* Alpha Signup CTA */}
         {!isSignedIn ? (
-          <div className="mb-16">
+          <div className="mb-16" data-section="alpha-signup-cta" data-section-name="Alpha Signup CTA (Unauthenticated)">
             <div className="relative overflow-hidden border border-stone-200/50 bg-gradient-to-br from-stone-100 via-white to-stone-50 p-12 sm:p-16 text-center shadow-sm" data-ps-lang-benchmark="journaling-page-alpha-cta-v1">
               {/* Subtle background pattern */}
               <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(0 0 0) 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
@@ -80,7 +120,7 @@ export default function JournalingPage() {
             </div>
           </div>
         ) : userRole === 'user' && (
-          <div className="mb-16">
+          <div className="mb-16" data-section="alpha-waitlist-cta" data-section-name="Alpha Waitlist CTA (Authenticated Users)">
             <div className="relative overflow-hidden border border-stone-200/50 bg-gradient-to-br from-stone-100 via-white to-stone-50 p-12 sm:p-16 text-center shadow-sm">
               {/* Subtle background pattern */}
               <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(0 0 0) 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
@@ -172,7 +212,7 @@ export default function JournalingPage() {
         </div>
 
         {/* How It Works */}
-        <div className="border border-stone-300 bg-white p-12 mb-16">
+        <div className="border border-stone-300 bg-white p-12 mb-16" data-section="how-it-works" data-section-name="How PS-LANG Journaling Works">
           <h2 className="text-2xl font-light text-stone-900 mb-8 tracking-tight">
             How PS-LANG Journaling Works
           </h2>
@@ -211,7 +251,7 @@ export default function JournalingPage() {
         </div>
 
         {/* Use Cases */}
-        <div className="border border-stone-300 bg-white p-12 mb-16">
+        <div className="border border-stone-300 bg-white p-12 mb-16" data-section="use-cases" data-section-name="Perfect For (Use Cases)">
           <h2 className="text-2xl font-light text-stone-900 mb-8 tracking-tight">Perfect For</h2>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -339,7 +379,7 @@ export default function JournalingPage() {
         <FAQSection
           title="Frequently Asked Questions"
           subtitle="FAQ"
-          page="postscript-journaling"
+          page="ps-journaling"
           component="journal-faq"
           faqs={[
             {
@@ -358,7 +398,7 @@ export default function JournalingPage() {
         />
 
         {/* Newsletter CTA */}
-        <div className="border border-stone-300 bg-gradient-to-br from-stone-50 to-white p-12 sm:p-16 text-center">
+        <div className="border border-stone-300 bg-gradient-to-br from-stone-50 to-white p-12 sm:p-16 text-center" data-section="newsletter-cta" data-section-name="Newsletter Signup CTA">
           <div className="inline-block mb-4">
             <span className="text-xs tracking-[0.2em] text-stone-400 font-medium uppercase">Stay Updated</span>
           </div>
@@ -377,6 +417,11 @@ export default function JournalingPage() {
         </div>
       </div>
 
+      {/* Hidden Clerk SignUp Button (triggered by hero CTA) */}
+      <SignUpButton mode="modal">
+        <button data-clerk-signup className="hidden" aria-hidden="true" />
+      </SignUpButton>
+
       {/* Newsletter Modal */}
       <NewsletterModal
         isOpen={isNewsletterModalOpen}
@@ -389,6 +434,7 @@ export default function JournalingPage() {
         isOpen={isAlphaModalOpen}
         onClose={() => setIsAlphaModalOpen(false)}
       />
-    </div>
+      </div>
+    </>
   )
 }

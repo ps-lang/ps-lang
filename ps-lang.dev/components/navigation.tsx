@@ -4,11 +4,14 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState, useRef, useEffect } from "react"
 import { usePathname } from "next/navigation"
+import { useTheme } from "next-themes"
 import { useUser, SignInButton, useClerk } from "@clerk/nextjs"
-import { useQuery } from "convex/react"
+import { useQuery, useMutation } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { getUserRole, getRoleDisplayName, getRoleBadgeColor } from "@/lib/roles"
 import AlphaSignupModal from "@/components/alpha-signup-modal"
+import { setTheme as setThemeStorage } from "@/lib/theme-storage"
+import { cn } from "@/lib/utils"
 
 // Persona icon mapping (minimal icon set)
 const PERSONA_ICONS: Record<string, string> = {
@@ -33,15 +36,38 @@ export default function Navigation() {
   const playgroundRef = useRef<HTMLDivElement>(null)
   const { user, isSignedIn } = useUser()
   const { signOut } = useClerk()
+  const { theme, setTheme } = useTheme()
   const userRole = getUserRole(user)
+
+  // Convex mutation for saving theme
+  const saveThemeToConvex = useMutation(api.userPreferences.setTheme)
 
   // Get user's persona from metadata
   const userPersona = (user?.unsafeMetadata?.persona as string) || 'explorer'
   const personaIcon = PERSONA_ICONS[userPersona] || '🧭'
 
+  // Toggle theme handler
+  const handleThemeChange = () => {
+    const newTheme = theme === 'fermi' ? 'default' : 'fermi'
+    setTheme(newTheme)
+    // Save to cookie/localStorage for immediate SSR support
+    setThemeStorage(newTheme)
+
+    // If user is logged in, also save to Convex for cross-device sync (non-blocking)
+    if (isSignedIn && user?.id) {
+      saveThemeToConvex({
+        userId: user.id,
+        theme: newTheme,
+      }).catch((error) => {
+        console.error('Failed to save theme to Convex:', error)
+        // Silently fail - cookie/localStorage will still work
+      })
+    }
+  }
+
   // Determine which logomark to use based on page
   const getLogomark = () => {
-    if (pathname?.includes('/postscript-journaling') || pathname?.includes('/journal-plus')) {
+    if (pathname?.includes('/ps-journaling') || pathname?.includes('/journal-plus')) {
       return '/ps-lang-journal-logomark.svg'
     }
     if (pathname?.includes('/research-papers')) {
@@ -56,6 +82,24 @@ export default function Navigation() {
     user?.primaryEmailAddress?.emailAddress ? { email: user.primaryEmailAddress.emailAddress } : "skip"
   )
   const isAlphaTester = !!alphaSignup
+
+  // Get user's theme preference from Convex
+  const userThemePreference = useQuery(
+    api.userPreferences.getTheme,
+    isSignedIn && user?.id ? { userId: user.id } : "skip"
+  )
+
+  // Sync Convex theme with local theme on mount (for cross-device consistency)
+  useEffect(() => {
+    if (userThemePreference && theme && userThemePreference !== theme) {
+      // Convex has a different theme than what's in cookie/localStorage
+      // Update to match Convex (source of truth for logged-in users)
+      setTheme(userThemePreference)
+      if (userThemePreference === 'default' || userThemePreference === 'fermi') {
+        setThemeStorage(userThemePreference)
+      }
+    }
+  }, [userThemePreference, theme, setTheme])
 
   // Show dashboard for admins only
   const showDashboard = userRole === 'super_admin' || userRole === 'admin'
@@ -81,7 +125,10 @@ export default function Navigation() {
   }, [])
 
   return (
-    <nav className="sticky top-0 z-40 bg-white/95">
+    <nav className={cn(
+      "sticky top-0 z-40",
+      theme === "fermi" ? "bg-[#FAF8F6]/95" : "bg-[#fafaf9]/95"
+    )}>
       <div className="max-w-6xl mx-auto px-8 py-6">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
@@ -151,7 +198,7 @@ export default function Navigation() {
                 <div className="absolute left-0 mt-3 min-w-[240px] bg-white border border-stone-200">
                   <div className="py-2">
                     <Link
-                      href="/postscript-journaling"
+                      href="/ps-journaling"
                       className="block px-6 py-2 text-base text-stone-900 hover:bg-stone-50 transition-colors"
                       onClick={() => setIsJournalPlusOpen(false)}
                     >
@@ -211,6 +258,13 @@ export default function Navigation() {
                         Settings
                       </Link>
                       <button
+                        onClick={handleThemeChange}
+                        className="flex items-center gap-3 px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors w-full text-left"
+                      >
+                        <span className="w-px h-4 bg-stone-300"></span>
+                        <span>Theme: {theme === 'fermi' ? 'Fermi' : 'Default'}</span>
+                      </button>
+                      <button
                         onClick={() => signOut()}
                         className="flex items-center gap-3 px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors w-full text-left"
                       >
@@ -249,7 +303,7 @@ export default function Navigation() {
                 1-Shot Prompt Editor →
               </Link>
             </div>
-            <Link href={isAlphaTester ? "/journal-plus" : "/postscript-journaling"} className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
+            <Link href={isAlphaTester ? "/journal-plus" : "/ps-journaling"} className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
               {isAlphaTester ? 'Journal Plus' : 'Journal'}
             </Link>
             <Link href="/research-papers" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
@@ -260,6 +314,12 @@ export default function Navigation() {
                 <Link href="/settings" className="block text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide" onClick={() => setIsOpen(false)}>
                   Settings
                 </Link>
+                <button
+                  onClick={handleThemeChange}
+                  className="block text-left text-sm text-stone-600 hover:text-stone-900 transition-colors tracking-wide pl-3"
+                >
+                  Theme: {theme === 'fermi' ? 'Fermi' : 'Default'}
+                </button>
                 <div className="pt-4 border-t border-stone-200">
                   <div className="mb-3">
                     <p className="font-mono text-xs text-stone-500 mb-1">Signed in as</p>

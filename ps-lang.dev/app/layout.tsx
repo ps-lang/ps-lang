@@ -9,6 +9,7 @@ import AnnouncementBar from '@/components/announcement-bar'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
 import CookieConsent from '@/components/cookie-consent'
+import { ThemeProvider } from '@/components/theme-provider'
 import { siteConfig } from '@/config/site'
 
 import { Courier_Prime, Crimson_Text, Inter, JetBrains_Mono } from 'next/font/google'
@@ -218,8 +219,38 @@ export default function RootLayout({
   return (
     <ConvexClientProvider>
       <ClerkProvider>
-        <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${courierPrime.variable} ${crimsonText.variable} antialiased`}>
+        <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} ${courierPrime.variable} ${crimsonText.variable} antialiased`} suppressHydrationWarning>
         <head>
+        {/* Theme initialization - runs before React hydrates */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  // Check cookie first (respects consent and works server-side)
+                  var cookies = document.cookie.split('; ');
+                  var themeCookie = cookies.find(function(c) { return c.startsWith('ps-lang-theme='); });
+                  var theme = themeCookie ? themeCookie.split('=')[1] : null;
+
+                  // Fallback to localStorage
+                  if (!theme) {
+                    theme = localStorage.getItem('theme');
+                  }
+
+                  // Default to fermi for ps-journaling page (only if no saved preference)
+                  if (window.location.pathname.startsWith('/ps-journaling') && !theme) {
+                    theme = 'fermi';
+                  }
+
+                  // Apply theme class immediately
+                  if (theme === 'fermi' || theme === 'default') {
+                    document.documentElement.classList.add(theme);
+                  }
+                } catch (e) {}
+              })()
+            `,
+          }}
+        />
         {/* Structured Data */}
         <script
           type="application/ld+json"
@@ -492,14 +523,21 @@ export default function RootLayout({
         </Script>
         </head>
         <body className="min-h-screen bg-stone-50 text-stone-900 font-light flex flex-col">
-          <PostHogIdentifier />
-          <AnnouncementBar />
-          <Navigation />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-          <CookieConsent />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="default"
+            enableSystem={false}
+            themes={['default', 'fermi']}
+          >
+            <PostHogIdentifier />
+            <AnnouncementBar />
+            <Navigation />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+            <CookieConsent />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

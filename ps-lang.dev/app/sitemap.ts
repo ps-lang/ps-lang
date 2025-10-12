@@ -63,7 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: 'https://ps-lang.dev/postscript-journaling',
+      url: 'https://ps-lang.dev/ps-journaling',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.7,
