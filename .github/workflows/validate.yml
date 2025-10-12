@@ -106,7 +106,7 @@ jobs:
 
       - name: Run smoke tests
         working-directory: ./ps-lang.dev
-        run: npx playwright test e2e/smoke.spec.ts --project=chromium
+        run: npx playwright test e2e/smoke.spec.ts
         env:
           PLAYWRIGHT_BASE_URL: http://localhost:3000
           CI: true
