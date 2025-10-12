@@ -484,8 +484,8 @@ rm -rf .ps-lang
 
 PS-LANG offers three data retention tiers that give users full control:
 
-- 🔒 **Privacy First** (Default): 30 days, no AI training
-- ⚖️ **Standard**: 2 years, anonymized insights only
+- 🔒 **Essential**: 90 days (anonymized after 30 days), no AI training
+- ⚖️ **Standard** (Default): 2 years, anonymized insights only
 - 🚀 **Research Contributor**: 5 years, full AI training with benefits
 
 **Current Alpha Status:**

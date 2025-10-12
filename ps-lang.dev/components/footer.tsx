@@ -148,13 +148,11 @@ export default function Footer() {
             <p className="text-center sm:text-left text-stone-500">
               © 2025{" "}
               <a
-                href={siteConfig.urls.vummoLabs}
-                target="_blank"
-                rel="noopener"
+                href={siteConfig.url}
                 className="text-stone-600 hover:text-stone-900 transition-colors underline"
-                title="Vummo Labs - AI-powered development tools and multi-agent systems"
+                title="PS-LANG - Privacy-first scripting language for multi-agent context control"
               >
-                Vummo Labs
+                PS-LANG
               </a>
               {" "}·{" "}
               <a

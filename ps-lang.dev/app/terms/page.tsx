@@ -10,22 +10,22 @@ export default function TermsPage() {
   return (
     <div className="min-h-screen bg-stone-50">
       {/* Header */}
-      <header className="border-b border-stone-200 bg-white">
+      <header className="border-b border-stone-200 bg-white" data-name="page-header">
         <div className="max-w-4xl mx-auto px-4 sm:px-8 py-6">
-          <Link href="/" className="text-sm text-stone-600 hover:text-stone-900 transition-colors">
+          <Link href="/" className="text-sm text-stone-600 hover:text-stone-900 transition-colors" data-name="link-back-home">
             ← Back to Home
           </Link>
         </div>
       </header>
 
       {/* Content */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-8 py-12 sm:py-16">
+      <main className="max-w-4xl mx-auto px-4 sm:px-8 py-12 sm:py-16" data-name="page-content">
         <h1 className="text-3xl sm:text-4xl font-light text-stone-900 mb-4">Terms of Use</h1>
-        <p className="text-sm text-stone-500 mb-12">Last updated: October 8, 2025</p>
+        <p className="text-sm text-stone-500 mb-12">Last updated: October 12, 2025</p>
 
         <div className="prose prose-stone max-w-none">
           {/* Acceptance */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="acceptance">
             <h2 className="text-xl font-light text-stone-900 mb-4">1. Acceptance of Terms</h2>
             <p className="text-sm text-stone-600 leading-relaxed">
               By accessing or using PS-LANG (the "Service"), including the website at ps-lang.dev, npm package, CLI tools, and documentation, you agree to be bound by these Terms of Use ("Terms"). If you do not agree to these Terms, do not use the Service.
@@ -33,7 +33,7 @@ export default function TermsPage() {
           </section>
 
           {/* Description of Service */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="service-description">
             <h2 className="text-xl font-light text-stone-900 mb-4">2. Description of Service</h2>
             <p className="text-sm text-stone-600 leading-relaxed mb-4">
               PS-LANG is a privacy-first scripting language for multi-agent context control. The Service includes:
@@ -47,7 +47,7 @@ export default function TermsPage() {
           </section>
 
           {/* License */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="license">
             <h2 className="text-xl font-light text-stone-900 mb-4">3. Open Source License</h2>
             <p className="text-sm text-stone-600 leading-relaxed mb-4">
               PS-LANG is released under the MIT License. You are free to:
@@ -69,7 +69,7 @@ export default function TermsPage() {
           </section>
 
           {/* Alpha Software */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="alpha-disclaimer">
             <h2 className="text-xl font-light text-stone-900 mb-4">4. Alpha Software Disclaimer</h2>
             <p className="text-sm text-stone-600 leading-relaxed mb-4">
               PS-LANG is currently in <strong>alpha testing phase ({siteConfig.version})</strong>. By using the Service, you acknowledge:
@@ -84,7 +84,7 @@ export default function TermsPage() {
           </section>
 
           {/* User Responsibilities */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="user-responsibilities">
             <h2 className="text-xl font-light text-stone-900 mb-4">5. User Responsibilities</h2>
             <p className="text-sm text-stone-600 leading-relaxed mb-4">When using PS-LANG, you agree to:</p>
             <ul className="text-sm text-stone-600 leading-relaxed space-y-2">
@@ -97,7 +97,7 @@ export default function TermsPage() {
           </section>
 
           {/* Intellectual Property */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="intellectual-property">
             <h2 className="text-xl font-light text-stone-900 mb-4">6. Intellectual Property</h2>
             <div className="space-y-4">
               <div>
@@ -109,7 +109,7 @@ export default function TermsPage() {
               <div>
                 <h3 className="text-lg font-light text-stone-900 mb-2">Copyright</h3>
                 <p className="text-sm text-stone-600 leading-relaxed">
-                  © 2025 Anton Korzhuk / Vummo Labs. The PS-LANG software is MIT licensed. Website content, documentation, and branding are © Vummo Labs.
+                  © 2025 Anton Korzhuk / PS-LANG. The PS-LANG software is MIT licensed. Website content, documentation, and branding are © PS-LANG.
                 </p>
               </div>
               <div>
@@ -122,7 +122,7 @@ export default function TermsPage() {
           </section>
 
           {/* Privacy */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="privacy">
             <h2 className="text-xl font-light text-stone-900 mb-4">7. Privacy</h2>
             <p className="text-sm text-stone-600 leading-relaxed">
               Your use of the Service is also governed by our{" "}
@@ -134,7 +134,7 @@ export default function TermsPage() {
           </section>
 
           {/* Third-Party Services */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="third-party-services">
             <h2 className="text-xl font-light text-stone-900 mb-4">8. Third-Party Services</h2>
             <p className="text-sm text-stone-600 leading-relaxed mb-4">
               PS-LANG may integrate with third-party services (e.g., LangChain, AutoGen, MCP). Your use of these services is subject to their own terms and conditions. We are not responsible for third-party services.
@@ -142,7 +142,7 @@ export default function TermsPage() {
           </section>
 
           {/* Disclaimer of Warranties */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="warranties-disclaimer">
             <h2 className="text-xl font-light text-stone-900 mb-4">9. Disclaimer of Warranties</h2>
             <p className="text-sm text-stone-600 leading-relaxed mb-4">
               THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO:
@@ -155,7 +155,7 @@ export default function TermsPage() {
           </section>
 
           {/* Limitation of Liability */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="liability-limitation">
             <h2 className="text-xl font-light text-stone-900 mb-4">10. Limitation of Liability</h2>
             <p className="text-sm text-stone-600 leading-relaxed mb-4">
               TO THE MAXIMUM EXTENT PERMITTED BY LAW, VUMMO LABS SHALL NOT BE LIABLE FOR:
@@ -172,7 +172,7 @@ export default function TermsPage() {
           </section>
 
           {/* Indemnification */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="indemnification">
             <h2 className="text-xl font-light text-stone-900 mb-4">11. Indemnification</h2>
             <p className="text-sm text-stone-600 leading-relaxed">
               You agree to indemnify and hold harmless Vummo Labs, its contributors, and affiliates from any claims, damages, losses, or expenses (including legal fees) arising from:
@@ -185,7 +185,7 @@ export default function TermsPage() {
           </section>
 
           {/* Termination */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="termination">
             <h2 className="text-xl font-light text-stone-900 mb-4">12. Termination</h2>
             <p className="text-sm text-stone-600 leading-relaxed">
               We reserve the right to suspend or terminate your access to the Service at any time for any reason, including violation of these Terms. You may stop using the Service at any time.
@@ -193,7 +193,7 @@ export default function TermsPage() {
           </section>
 
           {/* Changes to Terms */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="terms-changes">
             <h2 className="text-xl font-light text-stone-900 mb-4">13. Changes to Terms</h2>
             <p className="text-sm text-stone-600 leading-relaxed">
               We may update these Terms periodically. Changes will be posted on this page with an updated "Last updated" date. Continued use of the Service after changes constitutes acceptance of the new Terms.
@@ -201,7 +201,7 @@ export default function TermsPage() {
           </section>
 
           {/* Governing Law */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="governing-law">
             <h2 className="text-xl font-light text-stone-900 mb-4">14. Governing Law</h2>
             <p className="text-sm text-stone-600 leading-relaxed">
               These Terms are governed by the laws of the United States and the State of [Your State]. Any disputes shall be resolved in the courts of [Your State].
@@ -209,7 +209,7 @@ export default function TermsPage() {
           </section>
 
           {/* Contact */}
-          <section className="mb-12">
+          <section className="mb-12" data-section="contact">
             <h2 className="text-xl font-light text-stone-900 mb-4">15. Contact</h2>
             <p className="text-sm text-stone-600 leading-relaxed mb-4">
               For questions about these Terms, contact us at:
@@ -231,18 +231,43 @@ export default function TermsPage() {
           </section>
 
           {/* Open Source */}
-          <section className="mb-12 border-t border-stone-200 pt-8">
+          <section className="mb-12 border-t border-stone-200 pt-8" data-section="open-source-commitment">
             <h2 className="text-xl font-light text-stone-900 mb-4">Open Source Commitment</h2>
-            <p className="text-sm text-stone-600 leading-relaxed mb-4">
+            <p className="text-sm text-stone-600 leading-relaxed mb-6 mt-0">
               PS-LANG is committed to being a <strong>free and open-source</strong> project. We believe in:
             </p>
-            <ul className="text-sm text-stone-600 leading-relaxed space-y-2">
-              <li>✅ Transparent development on GitHub</li>
-              <li>✅ Community-driven feature requests</li>
-              <li>✅ Permissive MIT License (commercial use allowed)</li>
-              <li>✅ No vendor lock-in or proprietary restrictions</li>
-              <li>✅ Privacy-first principles in all decisions</li>
-            </ul>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3" data-name="list-item-icon">
+                <svg className="w-5 h-5 text-stone-900 flex-shrink-0 mt-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                <p className="text-sm text-stone-600 flex-1 my-0">Transparent development on GitHub</p>
+              </div>
+              <div className="flex items-start gap-3" data-name="list-item-icon">
+                <svg className="w-5 h-5 text-stone-900 flex-shrink-0 mt-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                <p className="text-sm text-stone-600 flex-1 my-0">Community-driven feature requests</p>
+              </div>
+              <div className="flex items-start gap-3" data-name="list-item-icon">
+                <svg className="w-5 h-5 text-stone-900 flex-shrink-0 mt-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                <p className="text-sm text-stone-600 flex-1 my-0">Permissive MIT License (commercial use allowed)</p>
+              </div>
+              <div className="flex items-start gap-3" data-name="list-item-icon">
+                <svg className="w-5 h-5 text-stone-900 flex-shrink-0 mt-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                <p className="text-sm text-stone-600 flex-1 my-0">No vendor lock-in or proprietary restrictions</p>
+              </div>
+              <div className="flex items-start gap-3" data-name="list-item-icon">
+                <svg className="w-5 h-5 text-stone-900 flex-shrink-0 mt-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                <p className="text-sm text-stone-600 flex-1 my-0">Privacy-first principles in all decisions</p>
+              </div>
+            </div>
           </section>
         </div>
       </main>
