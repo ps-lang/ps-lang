@@ -9,12 +9,13 @@
 # testing
 /coverage
 
-# playwright (private for now)
+# playwright
 /test-results/
 /playwright-report/
 /playwright/.cache/
 /.playwright/
 /e2e/
+!e2e/smoke.spec.ts
 playwright.config.ts
 
 # next.js
