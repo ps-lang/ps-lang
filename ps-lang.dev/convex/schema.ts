@@ -181,7 +181,7 @@ export default defineSchema({
   // Data Retention Preferences (AI Training & Research)
   dataRetentionPreferences: defineTable({
     userId: v.string(), // clerkUserId
-    tier: v.string(), // "privacy_first", "standard", "research_contributor"
+    tier: v.string(), // "privacy_essential", "standard", "research_contributor"
 
     // Retention settings
     retentionDays: v.number(), // 30, 730 (2 years), or 1825 (5 years)
