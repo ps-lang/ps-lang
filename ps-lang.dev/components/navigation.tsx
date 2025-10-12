@@ -37,7 +37,13 @@ export default function Navigation() {
   const { user, isSignedIn } = useUser()
   const { signOut } = useClerk()
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
   const userRole = getUserRole(user)
+
+  // Prevent hydration mismatch by only rendering theme after mount
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Convex mutation for saving theme
   const saveThemeToConvex = useMutation(api.userPreferences.setTheme)
@@ -260,7 +266,7 @@ export default function Navigation() {
                       >
                         Settings
                       </Link>
-                      {canToggleTheme && (
+                      {canToggleTheme && mounted && (
                         <button
                           onClick={handleThemeChange}
                           className="flex items-center gap-3 px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors w-full text-left"
@@ -371,7 +377,7 @@ export default function Navigation() {
                     Settings
                   </Link>
 
-                  {canToggleTheme && (
+                  {canToggleTheme && mounted && (
                     <button
                       onClick={() => {
                         handleThemeChange()
