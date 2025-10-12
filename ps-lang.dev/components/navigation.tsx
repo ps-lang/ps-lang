@@ -136,7 +136,7 @@ export default function Navigation() {
   return (
     <nav className={cn(
       "sticky top-0 z-40",
-      theme === "fermi" ? "bg-[#FAF8F6]/95" : "bg-[#fafaf9]/95"
+      mounted && theme === "fermi" ? "bg-[#FAF8F6]/95" : "bg-[#fafaf9]/95"
     )}>
       <div className="max-w-6xl mx-auto px-8 py-6">
         <div className="flex items-center justify-between">
