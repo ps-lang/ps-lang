@@ -49,7 +49,7 @@
 
 ## What is PS-LANG?
 
-**PS-LANG** is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. **PS Journaling™** is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PS Journaling™ as your digital journal.
+**PS-LANG** is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows.
 
 Use **zones** to mark content as private, pass-through, or active workspace.
 
@@ -64,6 +64,41 @@ Use **zones** to mark content as private, pass-through, or active workspace.
 - Context engineering (control what each agent sees)
 - Benchmarking (clean test environments)
 - Privacy-first AI collaboration
+
+---
+
+## The PS-LANG Ecosystem
+
+**What's in this repository:**
+
+This is **PS-LANG**, the open source framework for AI context control:
+- ✅ Zone-based syntax for multi-agent workflows
+- ✅ CLI tools (`npx ps-lang`)
+- ✅ VS Code themes
+- ✅ **PS-LANG Journal** - Basic journaling features (OSS)
+- ✅ Documentation and examples
+- ✅ MIT License - free for all use
+
+**New: PS-Journal (Coming Soon):**
+
+We're also building **PS-Journal**, a commercial product with premium features:
+- Advanced theme customization
+- Team collaboration
+- Analytics and insights
+- Priority support
+- Cloud hosting
+
+**Think of it as:**
+- **PS-LANG** (this repo) = Framework + basic journal ← Free forever
+- **PS-Journal** (coming soon) = Premium features ← Commercial option
+
+PS-LANG Journal remains open source. PS-Journal is an optional upgrade for teams and professionals who need advanced features.
+
+**You can:**
+- Keep using PS-LANG Journal for free (always OSS)
+- Build your own tools with the framework
+- Upgrade to PS-Journal when you need premium features
+- Contribute to the open source framework
 
 ---
 
@@ -538,6 +573,8 @@ Spec-kit workflows enable benchmarking specifications across multiple agents for
 ## License
 
 MIT - See [LICENSE](./LICENSE)
+
+**Trademarks:** PS-LANG™, PS Journaling™, and PS-Journal™ are trademarks of Vummo Labs. See [TRADEMARK.md](./TRADEMARK.md) for usage guidelines.
 
 ---
 

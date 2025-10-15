@@ -1,4 +1,4 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { clerkMiddleware, createRouteMatcher, clerkClient } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { canAccessRoute, getUserRole } from './lib/roles'
 import { getConsentFromCookie } from './lib/consent'
@@ -39,9 +39,6 @@ const isPublicRoute = createRouteMatcher([
 ])
 
 // Routes that require role-based access
-const isJournalAdminRoute = createRouteMatcher(['/journal/admin(.*)'])
-const isJournalRoute = createRouteMatcher(['/ps-journaling(.*)'])
-const isPlaygroundRoute = createRouteMatcher(['/playground(.*)'])
 const isAdminRoute = createRouteMatcher(['/admin(.*)'])
 
 export default clerkMiddleware(async (auth, request) => {
@@ -91,26 +88,24 @@ export default clerkMiddleware(async (auth, request) => {
   // Only check role-based access for admin routes
   // Journal and Playground are now public (in alpha)
   if (isAdminRoute(request)) {
-    // Extract email from sessionClaims
-    const email = (sessionClaims as any)?.email ||
-                  (sessionClaims as any)?.primaryEmailAddress?.emailAddress ||
-                  (sessionClaims as any)?.email_addresses?.[0]?.email_address
+    // Fetch user from Clerk to get email
+    let userEmail = ''
+    try {
+      const client = await clerkClient()
+      const user = await client.users.getUser(userId)
+      userEmail = user.emailAddresses.find(e => e.id === user.primaryEmailAddressId)?.emailAddress || ''
+    } catch (error) {
+      console.error('[MIDDLEWARE] Failed to fetch user from Clerk:', error)
+    }
 
     const userWithEmail = {
       primaryEmailAddress: {
-        emailAddress: email
+        emailAddress: userEmail
       },
-      publicMetadata: (sessionClaims as any)?.publicMetadata || {}
+      publicMetadata: (sessionClaims as any)?.publicMetadata || {},
+      email: userEmail
     }
     const userRole = getUserRole(userWithEmail)
-
-    console.log('🔍 Admin Route Access Check:', {
-      pathname,
-      userRole,
-      email: userWithEmail.primaryEmailAddress?.emailAddress,
-      sessionEmail: email,
-      canAccess: canAccessRoute(userRole, pathname)
-    })
 
     if (!canAccessRoute(userRole, pathname)) {
       // Redirect to unauthorized page

@@ -47,3 +47,6 @@ next-env.d.ts
 # ps-lang specific
 ps-lang-cli.js
 ai-meta-tags.json
+
+# Session logs (may contain sensitive info)
+logs/

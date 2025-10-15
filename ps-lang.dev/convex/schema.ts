@@ -70,17 +70,16 @@ export default defineSchema({
     .index("by_status", ["status"])
     .index("by_requestedAt", ["requestedAt"]),
 
-  // User journal entries (for future use)
-  journalEntries: defineTable({
+  // Agentic signature keys for privacy and trust in multi-agent workflows
+  agenticSignatures: defineTable({
     userId: v.string(),
-    title: v.string(),
-    content: v.string(),
-    zones: v.optional(v.array(v.string())), // PS-LANG zones used
+    publicKey: v.string(),                     // SHA-256 hash (shareable)
+    privateKey: v.string(),                    // Encrypted (never shared)
     createdAt: v.number(),
-    updatedAt: v.number(),
+    lastRotated: v.optional(v.number()),       // When keys were last rotated
   })
-    .index("by_userId", ["userId"])
-    .index("by_createdAt", ["createdAt"]),
+    .index("by_user", ["userId"])
+    .index("by_publicKey", ["publicKey"]),
 
   // .psl file storage (for future use)
   pslFiles: defineTable({
@@ -492,4 +491,5 @@ export default defineSchema({
     .index("by_timestamp", ["timestamp"])
     .index("by_page_and_category", ["page", "category"])
     .index("by_page_and_type", ["page", "interactionType"]),
+
 });

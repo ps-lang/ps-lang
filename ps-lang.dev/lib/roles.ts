@@ -33,10 +33,11 @@ export const ROLE_LEVELS: Record<UserRole, number> = {
 
 // Route permissions
 export const ROUTE_PERMISSIONS = {
-  '/journal/admin': ['super_admin', 'admin'],
+  '/admin/journal': ['super_admin', 'admin'],
   '/ps-journaling': ['super_admin', 'admin', 'designer', 'reviewer'],
   '/playground': ['super_admin', 'admin', 'designer', 'reviewer', 'alpha_tester'],
-  '/admin/roles': ['super_admin'],
+  '/admin/users': ['super_admin'],
+  '/admin/journal/themes': ['super_admin', 'admin', 'designer'], // Journal theme settings
   '/admin/data': ['super_admin', 'admin'],
   '/admin': ['super_admin', 'admin'],
 } as const
@@ -67,11 +68,13 @@ export function canAccessRoute(userRole: UserRole | undefined, route: string): b
 }
 
 /**
- * Hardcoded super admin emails (fallback if Clerk metadata not set)
+ * Super admin emails from environment variable (fallback if Clerk metadata not set)
+ * Set SUPER_ADMIN_EMAILS in .env.local as comma-separated list
+ * Example: SUPER_ADMIN_EMAILS=admin@example.com,owner@example.com
  */
-const SUPER_ADMIN_EMAILS = [
-  'antonkorzhuk@gmail.com'
-]
+const SUPER_ADMIN_EMAILS: string[] = process.env.SUPER_ADMIN_EMAILS
+  ? process.env.SUPER_ADMIN_EMAILS.split(',').map(email => email.trim())
+  : []
 
 /**
  * Get user role from Clerk metadata
@@ -79,7 +82,11 @@ const SUPER_ADMIN_EMAILS = [
 export function getUserRole(user: any): UserRole {
   // Check hardcoded super admin list first
   // Handle both user object (from useUser) and sessionClaims (from middleware)
-  const userEmail = user?.primaryEmailAddress?.emailAddress || user?.email
+  const userEmail = user?.primaryEmailAddress?.emailAddress ||
+                   user?.email ||
+                   user?.emailAddress ||
+                   user?.email_address
+
   if (userEmail && SUPER_ADMIN_EMAILS.includes(userEmail)) {
     return 'super_admin'
   }

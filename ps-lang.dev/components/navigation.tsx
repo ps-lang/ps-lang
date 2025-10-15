@@ -45,6 +45,23 @@ export default function Navigation() {
     setMounted(true)
   }, [])
 
+  // Auto-sync role from env var to Clerk metadata on mount
+  useEffect(() => {
+    if (isSignedIn && user?.id) {
+      // Call sync endpoint (non-blocking, fire-and-forget)
+      fetch('/api/user/sync-role', { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+          if (data.synced) {
+            console.log('[ROLE SYNC] Role synced to Clerk metadata:', data.role)
+            // Force refresh user data from Clerk to get updated metadata
+            window.location.reload()
+          }
+        })
+        .catch(err => console.error('[ROLE SYNC] Failed:', err))
+    }
+  }, [isSignedIn, user?.id])
+
   // Convex mutation for saving theme
   const saveThemeToConvex = useMutation(api.userPreferences.setTheme)
 
@@ -250,37 +267,73 @@ export default function Navigation() {
                 {isAccountOpen && (
                   <div className="absolute right-0 mt-3 min-w-[200px] bg-white border border-stone-200">
                     <div className="py-2">
+                      {/* Admin Section */}
                       {showDashboard && (
                         <Link
-                          href="/journal/admin"
+                          href="/admin/journal"
                           onClick={() => setIsAccountOpen(false)}
                           className="block px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors"
                         >
                           Admin Dashboard
                         </Link>
                       )}
+                      {(userRole === 'super_admin' || userRole === 'admin' || userRole === 'designer') && (
+                        <div className="flex items-center justify-between px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 transition-colors group">
+                          <Link
+                            href="/admin/journal/themes"
+                            onClick={() => setIsAccountOpen(false)}
+                            className="flex-1 hover:text-stone-900"
+                          >
+                            Journal Settings
+                          </Link>
+                          {canToggleTheme && mounted && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                handleThemeChange()
+                              }}
+                              className="p-1 hover:bg-stone-100 rounded transition-colors"
+                              title={`Switch to ${theme === 'fermi' ? 'Default' : 'Fermi'} theme`}
+                            >
+                              {theme === 'fermi' ? (
+                                // Fermi theme icon (book/journal)
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
+                              ) : (
+                                // Default theme icon (notebook/document)
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                              )}
+                            </button>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Divider - only show if admin section exists */}
+                      {(showDashboard || userRole === 'super_admin' || userRole === 'admin' || userRole === 'designer') && (
+                        <div className="my-2 border-t border-stone-200"></div>
+                      )}
+
+                      {/* User Section */}
                       <Link
                         href="/settings"
                         onClick={() => setIsAccountOpen(false)}
                         className="block px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors"
                       >
-                        Settings
+                        Account Settings
                       </Link>
-                      {canToggleTheme && mounted && (
-                        <button
-                          onClick={handleThemeChange}
-                          className="flex items-center gap-3 px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors w-full text-left"
-                        >
-                          <span className="w-px h-4 bg-stone-300"></span>
-                          <span>Theme: {theme === 'fermi' ? 'Fermi' : 'Default'}</span>
-                        </button>
-                      )}
+
+                      {/* Divider */}
+                      <div className="my-2 border-t border-stone-200"></div>
+
+                      {/* Sign Out */}
                       <button
                         onClick={() => signOut()}
-                        className="flex items-center gap-3 px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors w-full text-left"
+                        className="block px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors w-full text-left"
                       >
-                        <span className="w-px h-4 bg-stone-300"></span>
-                        <span>Sign Out</span>
+                        Sign Out
                       </button>
                     </div>
                   </div>
