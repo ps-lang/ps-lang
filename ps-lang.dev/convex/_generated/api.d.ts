@@ -14,6 +14,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as agentQueries from "../agentQueries.js";
+import type * as agenticSignatures from "../agenticSignatures.js";
 import type * as agenticUX from "../agenticUX.js";
 import type * as aiConnectors from "../aiConnectors.js";
 import type * as alphaRequests from "../alphaRequests.js";
@@ -42,6 +43,7 @@ import type * as userPreferences from "../userPreferences.js";
  */
 declare const fullApi: ApiFromModules<{
   agentQueries: typeof agentQueries;
+  agenticSignatures: typeof agenticSignatures;
   agenticUX: typeof agenticUX;
   aiConnectors: typeof aiConnectors;
   alphaRequests: typeof alphaRequests;

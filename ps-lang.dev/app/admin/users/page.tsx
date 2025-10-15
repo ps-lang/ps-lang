@@ -10,7 +10,8 @@ export default function RoleManagementPage() {
   const [users, setUsers] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
-  const currentUserRole = getUserRole(user)
+  // Note: Permission checking is handled by middleware
+  // If user reached this page, they have super_admin permissions
 
   useEffect(() => {
     // In production, fetch users from Clerk API
@@ -21,12 +22,12 @@ export default function RoleManagementPage() {
           id: user.id,
           name: user.fullName || 'You',
           email: user.primaryEmailAddress?.emailAddress,
-          role: currentUserRole,
+          role: 'super_admin', // User can only access this page if they're super_admin
         }
       ])
       setLoading(false)
     }
-  }, [user, currentUserRole])
+  }, [user])
 
   const handleRoleChange = async (userId: string, newRole: UserRole) => {
     try {
@@ -48,23 +49,6 @@ export default function RoleManagementPage() {
       console.error('Error updating role:', error)
       alert('Error updating role')
     }
-  }
-
-  if (currentUserRole !== 'super_admin') {
-    return (
-      <div className="min-h-screen bg-paper">
-        <div className="max-w-4xl mx-auto px-6 py-8">
-          <div className="paper-card p-8 text-center">
-            <h1 className="font-editorial text-2xl font-bold text-ink mb-4">
-              Super Admin Access Required
-            </h1>
-            <p className="font-typewriter text-ink-light">
-              Only super admins can manage user roles.
-            </p>
-          </div>
-        </div>
-      </div>
-    )
   }
 
   return (

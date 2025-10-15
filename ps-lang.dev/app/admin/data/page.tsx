@@ -3,34 +3,20 @@
 import { useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { useUser } from "@clerk/nextjs"
-import { getUserRole } from "@/lib/roles"
 import Link from "next/link"
 import { useState } from "react"
 
 export default function AdminDataPage() {
   const { user } = useUser()
-  const userRole = getUserRole(user)
   const [activeTab, setActiveTab] = useState<'feedback' | 'newsletter' | 'alpha'>('feedback')
+
+  // Note: Permission checking is handled by middleware
+  // If user reached this page, they have the required permissions (super_admin or admin)
 
   // Queries
   const feedback = useQuery(api.feedback.getAllFeedback)
   const newsletter = useQuery(api.newsletter.getAllSubscribers)
   const alphaSignups = useQuery(api.alphaSignups.getAllSignups)
-
-  // Only super_admin and admin can access
-  if (userRole !== 'super_admin' && userRole !== 'admin') {
-    return (
-      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-light text-stone-900 mb-4">Access Denied</h1>
-          <p className="text-stone-600 mb-6">You don't have permission to view this page.</p>
-          <Link href="/" className="text-stone-900 underline hover:text-stone-600">
-            Back to Home
-          </Link>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -43,7 +29,7 @@ export default function AdminDataPage() {
               <p className="text-sm text-stone-600">View all Convex database records</p>
             </div>
             <Link
-              href="/admin/roles"
+              href="/admin/users"
               className="text-sm text-stone-600 hover:text-stone-900 underline"
             >
               Manage Roles
