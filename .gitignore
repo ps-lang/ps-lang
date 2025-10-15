@@ -125,3 +125,8 @@ convex/_generated/
 /agentic-figures
 /psl-memo
 /memos
+/ps-lang.dev/logs
+
+# Nested git repositories (independent projects)
+/ps-parser/
+/psjournal.app/
