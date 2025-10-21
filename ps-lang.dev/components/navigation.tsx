@@ -277,7 +277,7 @@ export default function Navigation() {
                           Admin Dashboard
                         </Link>
                       )}
-                      {(userRole === 'super_admin' || userRole === 'admin' || userRole === 'designer') && (
+                      {(showDashboard || userRole === 'designer') && (
                         <div className="flex items-center justify-between px-6 py-2 text-sm text-stone-600 hover:bg-stone-50 transition-colors group">
                           <Link
                             href="/admin/journal/themes"
@@ -312,7 +312,7 @@ export default function Navigation() {
                       )}
 
                       {/* Divider - only show if admin section exists */}
-                      {(showDashboard || userRole === 'super_admin' || userRole === 'admin' || userRole === 'designer') && (
+                      {(showDashboard || userRole === 'designer') && (
                         <div className="my-2 border-t border-stone-200"></div>
                       )}
 
