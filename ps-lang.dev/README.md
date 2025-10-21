@@ -151,7 +151,7 @@ Zone-based syntax for controlling what AI agents see in multi-agent workflows.
 - **Context engineering**: Control what each agent sees
 - **Better benchmarks**: Test agents without contamination
 - **Backwards compatible**: Add zones to existing logs
-- **Future:** Clerk encryption for secrets management
+- **Future:** End-to-end encryption for sensitive data
 
 ## 📦 Tech Stack
 
