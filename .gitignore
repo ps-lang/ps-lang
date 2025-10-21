@@ -132,4 +132,13 @@ convex/_generated/
 
 # Nested git repositories (independent projects)
 /ps-parser/
-/psjournal.app/
+/ps-journal.app/
+.claude/credentials.json
+
+# Temp/error files
+$
+nul
+
+# Build artifacts (keep in dist/)
+/*.tgz
+/*.tar.gz

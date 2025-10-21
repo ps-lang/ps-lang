@@ -1,0 +1,44 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.colorTheme": "Monokai",
+		"workbench.colorCustomizations": {
+			"[PS-LANG Journal]": {
+				"editor.background": "#f4f1e8",
+				"editor.foreground": "#2c2416",
+				"activityBar.background": "#ede8dc",
+				"activityBar.foreground": "#2c2416",
+				"sideBar.background": "#f4f1e8",
+				"sideBar.foreground": "#2c2416",
+				"statusBar.background": "#e6dfd0",
+				"statusBar.foreground": "#2c2416",
+				"titleBar.activeBackground": "#ede8dc",
+				"titleBar.activeForeground": "#2c2416",
+				"panel.background": "#f4f1e8",
+				"terminal.background": "#f4f1e8",
+				"terminal.foreground": "#2c2416",
+				"editor.lineHighlightBackground": "#ede8dc55",
+				"editor.selectionBackground": "#c4453644",
+				"editorCursor.foreground": "#2d5aa0",
+				"editorLineNumber.foreground": "#4a3f2a",
+				"editorIndentGuide.background": "#e6dfd088",
+				"editorBracketMatch.background": "#2d5aa033",
+				"editorBracketMatch.border": "#2d5aa0"
+			}
+		},
+		"editor.tokenColorCustomizations": {
+			"[PS-LANG Journal]": {
+				"comments": "#4a3f2a",
+				"strings": "#8b4513",
+				"keywords": "#2d5aa0",
+				"functions": "#c44536",
+				"variables": "#2c2416",
+				"types": "#2d5aa0"
+			}
+		}
+	}
+}
