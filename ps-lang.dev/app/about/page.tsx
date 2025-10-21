@@ -45,7 +45,7 @@ export default function AboutPage() {
               What is PS-LANG?
             </h2>
             <p className="text-base text-stone-600 leading-relaxed max-w-3xl mb-6">
-              PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. PS Journals is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PS Journaling as your digital journal.
+              PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. Use it to structure prompts, control context handoffs, and maintain privacy in AI collaborations. Works with any AI model—Claude, GPT, Cursor, Copilot, or custom agents.
             </p>
             <div className="space-y-3 text-sm text-stone-600 leading-relaxed max-w-3xl">
               <p className="font-medium text-stone-900">Designed to evolve with you:</p>
@@ -188,123 +188,6 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Alpha Status */}
-        <div className="mb-16">
-          <div className="border border-stone-300 bg-stone-50 p-12">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="px-3 py-1 bg-stone-900 text-white text-xs font-medium tracking-wide uppercase">
-                Alpha
-              </div>
-              <div>
-                <h2 className="text-xl font-light text-stone-900 mb-3 tracking-tight">
-                  v0.2.3-alpha.1 — Spec Released
-                </h2>
-                <p className="text-sm text-stone-600 leading-relaxed max-w-2xl">
-                  PS-LANG v0.2 specification is now available! New features: privacy-first default, lazy close syntax, directional context, and named zone chaining. v0.1 syntax fully supported.
-                </p>
-              </div>
-            </div>
-
-            <div className="space-y-4 text-sm text-stone-600 leading-relaxed max-w-3xl">
-              <p className="font-medium text-stone-900">Help us test v0.2 syntax:</p>
-              <ul className="list-disc list-inside space-y-2 pl-4">
-                <li>Is lazy close syntax intuitive for quick annotations?</li>
-                <li>Do directional references (&lt;-. and .-&gt;) make sense for multi-agent workflows?</li>
-                <li>Is selector-based chaining (&lt;.id:desc&gt;) clear for organization?</li>
-                <li>Does privacy-first default align with your needs?</li>
-                <li>Read the spec: <code className="text-xs bg-white px-1 py-0.5">docs/SYNTAX-V2-QUICK-REF.md</code></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Roadmap */}
-        <div className="mb-16">
-          <div className="border border-stone-300 bg-white p-12">
-            <h2 className="text-2xl font-light text-stone-900 mb-8 tracking-tight">
-              Roadmap
-            </h2>
-            <div className="space-y-6">
-              <div className="border-l-2 border-stone-900 pl-6">
-                <h3 className="text-base font-light text-stone-900 mb-2 tracking-tight">Alpha (Current)</h3>
-                <p className="text-sm text-stone-600 leading-relaxed">
-                  Basic zone syntax, CLI tools, VS Code themes, and community feedback collection.
-                </p>
-              </div>
-              <div className="border-l-2 border-stone-300 pl-6">
-                <h3 className="text-base font-light text-stone-900 mb-2 tracking-tight">Beta</h3>
-                <p className="text-sm text-stone-600 leading-relaxed">
-                  .psl file format, secrets management, and enhanced preprocessing tools.
-                </p>
-              </div>
-              <div className="border-l-2 border-stone-300 pl-6">
-                <h3 className="text-base font-light text-stone-900 mb-2 tracking-tight">v1.0</h3>
-                <p className="text-sm text-stone-600 leading-relaxed">
-                  Parser library, multi-agent framework integration, and official ChatGPT support.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* .PSL File Format */}
-        <div className="mb-16">
-          <div className="border border-stone-300 bg-white p-12">
-            <h2 className="text-2xl font-light text-stone-900 mb-6 tracking-tight">
-              .PSL File Format
-            </h2>
-            <p className="text-base text-stone-600 leading-relaxed max-w-3xl mb-6">
-              <span className="font-mono text-sm">.psl</span> stands for <strong>Prompt Script Language</strong> — a structured file format for organizing multi-agent workflows, context handoffs, and AI collaboration sessions.
-            </p>
-
-            <div className="bg-stone-50 border border-stone-200 p-6 mb-6">
-              <p className="text-sm text-stone-600 leading-relaxed mb-4">
-                Think of .psl files as executable prompts with zones:
-              </p>
-              <ul className="list-disc list-inside space-y-2 text-sm text-stone-600 pl-4">
-                <li>Store multi-step workflows with zone-based context control</li>
-                <li>Version control your prompt engineering work</li>
-                <li>Share reproducible AI workflows with your team</li>
-                <li>Keep sensitive notes private with agent-blind zones</li>
-              </ul>
-            </div>
-
-            <div className="space-y-4">
-              <p className="font-medium text-stone-900">Coming in Beta:</p>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="flex gap-3">
-                  <span className="text-stone-400">•</span>
-                  <div>
-                    <p className="font-medium text-stone-900 text-sm">File Templates</p>
-                    <p className="text-sm text-stone-600">Pre-built .psl templates for common workflows</p>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <span className="text-stone-400">•</span>
-                  <div>
-                    <p className="font-medium text-stone-900 text-sm">Secrets Management</p>
-                    <p className="text-sm text-stone-600">Encrypted zones for API keys and credentials</p>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <span className="text-stone-400">•</span>
-                  <div>
-                    <p className="font-medium text-stone-900 text-sm">Preprocessing Tools</p>
-                    <p className="text-sm text-stone-600">CLI commands to validate and transform .psl files</p>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <span className="text-stone-400">•</span>
-                  <div>
-                    <p className="font-medium text-stone-900 text-sm">IDE Support</p>
-                    <p className="text-sm text-stone-600">Syntax highlighting for VS Code and other editors</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* CTA Section */}
         <div>
           <div className="border border-stone-300 bg-gradient-to-br from-stone-50 to-white p-12 sm:p-16 text-center">
@@ -333,7 +216,6 @@ export default function AboutPage() {
               </a>
             </div>
             <p className="text-xs text-stone-500 mt-8">
-              PS-LANG<sup className="text-[8px]">™</sup> is a trademark of Vummo Labs ·{" "}
               <a
                 href={siteConfig.urls.license}
                 target="_blank"

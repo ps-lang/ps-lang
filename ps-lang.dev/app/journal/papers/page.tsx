@@ -21,7 +21,7 @@ const papers: Paper[] = [
     title: "Zone-Based Context Control in Multi-Agent AI Systems",
     abstract: "We present PS-LANG, a privacy-first scripting language for controlling information flow in multi-agent AI workflows. Our approach reduces token usage by 60% while maintaining 95% context accuracy in benchmarks.",
     date: "2025-10-04",
-    authors: ["Vummo Labs Research Team"],
+    authors: ["PS-LANG Research Team"],
     category: "Multi-Agent Systems",
   },
 ]

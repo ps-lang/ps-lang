@@ -50,7 +50,7 @@ export async function POST(request: Request) {
 
     // Platform metadata
     project: 'ps-lang',
-    platform_version: 'v0.1.0-alpha.1',
+    platform_version: 'v0.2.4-alpha.1',
 
     // Server-side tracking
     server_timestamp: new Date().toISOString(),

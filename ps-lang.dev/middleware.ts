@@ -17,11 +17,12 @@ const isPublicRoute = createRouteMatcher([
   '/terms(.*)',
   '/privacy(.*)',
   '/playground(.*)',
-  '/ps-journaling(.*)',
+  '/ps-lang-journal(.*)',
+  '/ps-journaling(.*)', // Redirect - handled in next.config.mjs
   '/journal-plus(.*)',
   '/research-papers(.*)',
   '/blog(.*)',
-  '/docs(.*)',
+  // '/docs(.*)', // TODO: Re-enable when docs are ready
   '/sitemap.xml',
   '/robots.txt',
   '/llms.txt',
@@ -61,8 +62,8 @@ export default clerkMiddleware(async (auth, request) => {
     }
   }
 
-  // Default to fermi for ps-journaling page (only if no saved theme)
-  if (pathname.startsWith('/ps-journaling') && theme === 'default' && !cookieHeader?.includes('ps-lang-theme=')) {
+  // Default to fermi for ps-lang-journal page (only if no saved theme)
+  if (pathname.startsWith('/ps-lang-journal') && theme === 'default' && !cookieHeader?.includes('ps-lang-theme=')) {
     theme = 'fermi'
   }
 

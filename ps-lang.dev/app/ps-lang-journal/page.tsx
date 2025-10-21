@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils"
 import { cva } from "class-variance-authority"
 
 /**
- * Theme variants for PS Journaling page sections
+ * Theme variants for PS-LANG Journal page sections
  * Based on the hero-section.tsx pattern with font-serif for fermi theme
  */
 
@@ -143,7 +143,7 @@ export default function JournalingPage() {
           effectiveTheme === "fermi" ? "bg-[#F8F5F2]" : "bg-[#fafaf9]"
         )}
         data-page="postscript-journaling"
-        data-ps-lang-version="v0.1.0-alpha.1"
+        data-ps-lang-version="v0.2.4-alpha.1"
         data-agentic-signature="agentic_ux_v1:ps-journaling"
         data-journal-tier="ps-lang-journal"
         data-access-level={isSignedIn ? 'authenticated' : 'public'}
@@ -157,7 +157,7 @@ export default function JournalingPage() {
           headline={effectiveTheme === 'fermi' ? (
             <>Master Your AI{'\u00A0'}Workflows</>
           ) : (
-            <>PS Journaling<sup className="text-[11px] font-light ml-[2px] -top-[12px]">™</sup></>
+            <>PS-LANG Journal</>
           )}
           description="Collaborate, benchmark, and improve your AI workflows for better results"
           primaryCTA={effectiveTheme === 'fermi' ? {
@@ -493,8 +493,8 @@ export default function JournalingPage() {
           component="journal-faq"
           faqs={[
             {
-              question: "What's the difference between PS-LANG and PS Journaling?",
-              answer: "PS-LANG is the open source framework with zone syntax and agentic UX. PS Journaling is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the tool, and PS Journaling as what you build."
+              question: "What's the difference between PS-LANG and PS-LANG Journal?",
+              answer: "PS-LANG is the open source framework with zone syntax. PS-LANG Journal is the OSS journaling application built on PS-LANG for tracking AI collaborations, benchmarking improvements, and maintaining secure audit trails."
             },
             {
               question: "Is this free to use?",

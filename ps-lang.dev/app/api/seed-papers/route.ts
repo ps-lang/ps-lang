@@ -31,7 +31,7 @@ export async function GET() {
       "Token optimization",
       "AI workflow management"
     ];
-    const authors = ["Vummo Labs Research Team"];
+    const authors = ["PS-LANG Research Team"];
     const category = "Multi-Agent Systems";
     const slug = "zone-based-context-control-multi-agent-systems";
     const artifactUrl = "https://claude.ai/public/artifacts/f107ece1-1aa9-4be3-80fd-93904b008901";
@@ -43,8 +43,22 @@ export async function GET() {
     });
 
     if (existingPaper) {
+      // Update existing paper
+      await convex.mutation(api.researchPapers.update, {
+        paperId: existingPaper._id,
+        title,
+        subtitle,
+        abstract,
+        keywords,
+        authors,
+        category,
+        content: paperContent,
+        publicationDate,
+        status: "preprint",
+      });
+
       return NextResponse.json(
-        { message: "Paper already exists", paperId: existingPaper._id },
+        { message: "Paper updated successfully", paperId: existingPaper._id },
         { status: 200 }
       );
     }
@@ -100,7 +114,7 @@ export async function POST() {
       "Token optimization",
       "AI workflow management"
     ];
-    const authors = ["Vummo Labs Research Team"];
+    const authors = ["PS-LANG Research Team"];
     const category = "Multi-Agent Systems";
     const slug = "zone-based-context-control-multi-agent-systems";
     const artifactUrl = "https://claude.ai/public/artifacts/f107ece1-1aa9-4be3-80fd-93904b008901";
@@ -112,8 +126,22 @@ export async function POST() {
     });
 
     if (existingPaper) {
+      // Update existing paper
+      await convex.mutation(api.researchPapers.update, {
+        paperId: existingPaper._id,
+        title,
+        subtitle,
+        abstract,
+        keywords,
+        authors,
+        category,
+        content: paperContent,
+        publicationDate,
+        status: "preprint",
+      });
+
       return NextResponse.json(
-        { message: "Paper already exists", paperId: existingPaper._id },
+        { message: "Paper updated successfully", paperId: existingPaper._id },
         { status: 200 }
       );
     }

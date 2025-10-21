@@ -170,7 +170,6 @@ Zone-based syntax for controlling what AI agents see in multi-agent workflows.
 
 **Website TODOs:**
 - [ ] Update homepage with alpha launch announcement
-- [ ] Add `/docs` pages
 - [ ] Create demo video embed
 - [ ] Add case studies section
 - [ ] Blog for launch posts

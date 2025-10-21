@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 
 export const metadata: Metadata = {
-  title: "PS Journaling - AI Workflow Collaboration | PS-LANG",
-  description: "Collaborate with AI, benchmark improvements, and maintain secure audit trails with PS Journaling. Self-hosted OSS tool with end-to-end encryption. MIT licensed.",
+  title: "PS-LANG Journal - AI Workflow Collaboration | PS-LANG",
+  description: "Collaborate with AI, benchmark improvements, and maintain secure audit trails with PS-LANG Journal. Self-hosted OSS tool with end-to-end encryption. MIT licensed.",
   keywords: [
     "AI workflow collaboration",
     "postscript journal",
@@ -22,16 +22,16 @@ export const metadata: Metadata = {
     "agentic UX",
     "RLHF datastreams"
   ].join(", "),
-  authors: [{ name: "Vummo Labs", url: "https://vummo.com" }],
-  creator: "Vummo Labs",
+  authors: [{ name: "PS-LANG", url: "https://ps-lang.dev" }],
+  creator: "PS-LANG",
   publisher: "PS-LANG",
   alternates: {
-    canonical: 'https://ps-lang.dev/ps-journaling',
+    canonical: 'https://ps-lang.dev/ps-lang-journal',
   },
   openGraph: {
-    title: "PS Journaling - AI Workflow Collaboration",
+    title: "PS-LANG Journal - AI Workflow Collaboration",
     description: "Self-hosted AI workflow collaboration with full control over your data and encryption keys. Collaborate with ChatGPT & Claude.ai through agentic UX, benchmark improvements, maintain audit trails. MIT licensed.",
-    url: "https://ps-lang.dev/ps-journaling",
+    url: "https://ps-lang.dev/ps-lang-journal",
     siteName: "PS-LANG",
     type: "website",
     locale: "en_US",
@@ -40,13 +40,13 @@ export const metadata: Metadata = {
         url: 'https://ps-lang.dev/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'PS-LANG PS Journaling - AI Workflow Tracking',
+        alt: 'PS-LANG Journal - AI Workflow Tracking',
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PS Journaling - AI Workflow Collaboration",
+    title: "PS-LANG Journal - AI Workflow Collaboration",
     description: "Self-hosted AI workflow collaboration. Your secrets stay with you. MIT licensed.",
     images: ['https://ps-lang.dev/og-image.png'],
     creator: "@vummo_labs",
@@ -65,8 +65,8 @@ export const metadata: Metadata = {
   },
   other: {
     // Agentic metadata for AI crawlers and tools
-    'ps-lang:version': 'v0.1.0-alpha.1',
-    'ps-lang:component': 'ps-journaling-page',
+    'ps-lang:version': 'v0.2.4-alpha.1',
+    'ps-lang:component': 'ps-lang-journal-page',
     'ps-lang:data-stream': 'agentic_ux_v1',
     'ps-lang:access-level': 'public',
     'ps-lang:license': 'MIT',
@@ -96,7 +96,7 @@ export default function JournalLayout({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'PS Journal',
+    name: 'PS-LANG Journal',
     applicationCategory: 'DeveloperApplication',
     applicationSubCategory: 'AI Workflow Tracking',
     operatingSystem: 'Web, Self-hosted',
@@ -109,8 +109,8 @@ export default function JournalLayout({
     },
     author: {
       '@type': 'Organization',
-      name: 'Vummo Labs',
-      url: 'https://vummo.com'
+      name: 'PS-LANG',
+      url: 'https://ps-lang.dev'
     },
     publisher: {
       '@type': 'Organization',
@@ -121,7 +121,7 @@ export default function JournalLayout({
         url: 'https://ps-lang.dev/logo.png'
       }
     },
-    softwareVersion: 'v0.1.0-alpha.1',
+    softwareVersion: 'v0.2.4-alpha.1',
     description: 'Self-hosted AI workflow collaboration with full control over your data and encryption keys. Collaborate with ChatGPT & Claude.ai through agentic UX, benchmark improvements, and maintain secure audit trails.',
     featureList: [
       'Self-hosted encryption',
@@ -180,7 +180,7 @@ export default function JournalLayout({
 
       {/* PS-LANG Journal Signature Meta Tags */}
       <meta name="ps-lang:journal-signature" content="OSS_v1.0.0_public-access" />
-      <meta name="ps-lang:agentic-signature" content="agentic_ux_v1:ps-journaling" />
+      <meta name="ps-lang:agentic-signature" content="agentic_ux_v1:ps-lang-journal" />
       <meta name="ps-lang:mission" content="Empower developers with self-hosted AI workflow tracking" />
       <meta name="ps-lang:vision" content="Privacy-first AI productivity tools for individuals and teams" />
       <meta name="ps-lang:goals" content="100% data ownership, zero vendor lock-in, open source forever" />

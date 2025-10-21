@@ -82,7 +82,7 @@ export default function HomePage() {
       <section className="max-w-4xl mx-auto px-4 sm:px-8 py-12 sm:py-24">
         <div className="text-center mb-12 sm:mb-20">
           <div className="inline-block mb-6 sm:mb-8">
-            <span className="text-xs tracking-[0.2em] text-stone-500 font-medium uppercase">Privacy-First Script Language<sup className="text-[8px] ml-0.5">™</sup></span>
+            <span className="text-xs tracking-[0.2em] text-stone-500 font-medium uppercase">Privacy-First Script Language</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-light text-stone-900 mb-6 sm:mb-8 tracking-tight px-4 leading-tight">
@@ -116,12 +116,6 @@ export default function HomePage() {
             >
               View on GitHub
             </Link>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="px-6 sm:px-8 py-3 sm:py-4 border border-stone-300 bg-white hover:bg-stone-50 hover:border-stone-400 text-stone-900 transition-all text-xs sm:text-sm font-medium uppercase tracking-[0.15em]"
-            >
-              Subscribe
-            </button>
           </div>
         </div>
 
@@ -143,9 +137,9 @@ export default function HomePage() {
           <div className="flex items-start gap-3">
             <span className="text-2xl mt-0.5">📓</span>
             <div>
-              <h3 className="text-sm font-medium text-stone-900 mb-2">PS-LANG Journaling<sup className="text-[0.5em] top-[-0.5em]">™</sup> Alpha — Help shape the future</h3>
+              <h3 className="text-sm font-medium text-stone-900 mb-2">PS-LANG Journal Alpha — Help shape the future</h3>
               <p className="text-xs text-stone-600 leading-relaxed">
-                Join the waitlist for PS-LANG Journal. Track AI workflows, benchmark improvements, and maintain secure audit trails. <Link href="/ps-journaling" className="underline hover:text-stone-900">Learn more →</Link>
+                Join the waitlist for PS-LANG Journal. Track AI workflows, benchmark improvements, and maintain secure audit trails. <Link href="/ps-lang-journal" className="underline hover:text-stone-900">Learn more →</Link>
               </p>
             </div>
           </div>
@@ -270,16 +264,16 @@ Pricing ideas, revenue notes`}
           </div>
           <div className="grid sm:grid-cols-3 gap-8 text-sm">
             <div>
-              <h4 className="font-medium text-stone-900 mb-3">Week 1-2</h4>
-              <p className="text-stone-600 text-sm leading-relaxed">Marketing sprint, blog posts, demo playground with use cases</p>
+              <h4 className="font-medium text-stone-900 mb-3">Current Focus</h4>
+              <p className="text-stone-600 text-sm leading-relaxed">OSS journal features, agentic enrichment system, demo playground development</p>
             </div>
             <div>
-              <h4 className="font-medium text-stone-900 mb-3">Week 3-4</h4>
-              <p className="text-stone-600 text-sm leading-relaxed">Filter MVP, CLI commands, LangChain adapter</p>
+              <h4 className="font-medium text-stone-900 mb-3">Near Term</h4>
+              <p className="text-stone-600 text-sm leading-relaxed">Content creation workflow, blog posts, use case examples, documentation improvements</p>
             </div>
             <div>
               <h4 className="font-medium text-stone-900 mb-3">Beta</h4>
-              <p className="text-stone-600 text-sm leading-relaxed">.psl format, Clerk encryption, secrets management</p>
+              <p className="text-stone-600 text-sm leading-relaxed">.psl format parser, filter implementation, LangChain adapter, secrets management</p>
             </div>
           </div>
         </div>

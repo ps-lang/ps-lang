@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://ps-lang.dev">
-    <img src="./ps-lang-logomark.png" alt="PS-LANG Logo" width="180"/>
+    <img src="./assets/ps-lang-logomark.png" alt="PS-LANG Logo" width="180"/>
   </a>
 
   <h1>PS-LANG™</h1>
@@ -470,7 +470,6 @@ We need your help testing:
 - **Issues:** https://github.com/vummo/ps-lang/issues
 - **Email:** hello@ps-lang.dev
 - **Discord:** Coming soon
-- **Docs:** https://ps-lang.dev
 
 **What to report:**
 - ✅ What works well

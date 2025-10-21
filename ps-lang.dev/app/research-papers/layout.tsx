@@ -1,21 +1,15 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Research Papers | PS-LANG',
-  description: 'Academic research, technical deep-dives, and formal analysis of multi-agent context control systems, privacy-preserving AI, and PS-LANG domain-specific language.',
-  keywords: [
-    'PS-LANG research',
-    'Multi-agent systems',
-    'Context control',
-    'Privacy-preserving AI',
-    'Domain-specific languages',
-    'AI research papers',
-    'Token optimization',
-    'Zone-based syntax'
-  ],
+  title: 'PS-LANG Research | Zone-Based Context Control in Multi-Agent Systems',
+  description: 'Academic research and papers on PS-LANG\'s zone-based context control for multi-agent AI systems. Privacy-first architecture, token optimization, and workflow benchmarking studies.',
+  keywords: 'AI research, multi-agent systems research, context control papers, AI privacy research, zone-based syntax',
+  alternates: {
+    canonical: 'https://ps-lang.dev/research-papers',
+  },
   openGraph: {
-    title: 'Research Papers | PS-LANG',
-    description: 'Academic research and technical deep-dives on PS-LANG, multi-agent context control, and privacy-preserving AI systems.',
+    title: 'PS-LANG Research | Zone-Based Context Control in Multi-Agent Systems',
+    description: 'Academic research and papers on PS-LANG\'s zone-based context control for multi-agent AI systems. Privacy-first architecture and token optimization studies.',
     type: 'website',
     url: 'https://ps-lang.dev/research-papers',
     siteName: 'PS-LANG',
@@ -30,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Research Papers | PS-LANG',
-    description: 'Academic research and technical deep-dives on multi-agent context control and privacy-preserving AI.',
+    title: 'PS-LANG Research | Zone-Based Context Control',
+    description: 'Academic research on PS-LANG\'s zone-based context control for multi-agent AI systems. Privacy-first architecture and workflow benchmarking.',
     images: ['https://ps-lang.dev/og-image.png'],
   },
 }

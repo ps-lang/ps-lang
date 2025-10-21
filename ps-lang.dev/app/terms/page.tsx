@@ -1,9 +1,14 @@
+import type { Metadata } from 'next'
 import Link from "next/link"
 import { siteConfig } from "@/config/site"
 
-export const metadata = {
-  title: "Terms of Use - PS-LANG",
-  description: "Terms of use for PS-LANG website and services",
+export const metadata: Metadata = {
+  title: "Terms of Service | PS-LANG Open Source Framework",
+  description: "Terms of service for PS-LANG framework and PS-LANG Journal. MIT licensed open source software. Understand usage terms and limitations.",
+  keywords: "terms of service, MIT license, open source terms, software license",
+  alternates: {
+    canonical: 'https://ps-lang.dev/terms',
+  },
 }
 
 export default function TermsPage() {

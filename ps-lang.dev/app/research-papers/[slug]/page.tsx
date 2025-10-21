@@ -290,7 +290,7 @@ export default function ResearchPaperPage({ params }: { params: { slug: string }
     })),
     "publisher": {
       "@type": "Organization",
-      "name": "Vummo Labs",
+      "name": "PS-LANG",
       "url": "https://ps-lang.dev"
     },
     "datePublished": new Date(paper.publicationDate).toISOString(),
@@ -461,27 +461,6 @@ export default function ResearchPaperPage({ params }: { params: { slug: string }
             >
               PSL Format
             </button> */}
-            {paper?.artifactUrl && (
-              <a
-                href={paper.artifactUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  track({
-                    interactionType: "click",
-                    category: "paper-external-link",
-                    target: "claude-ai-artifact",
-                    metadata: {
-                      paperTitle: paper?.title,
-                      paperCategory: paper?.category,
-                    },
-                  })
-                }}
-                className="px-4 py-3 text-xs uppercase tracking-wider font-medium text-stone-500 hover:text-stone-700 transition-colors border-b-2 border-transparent"
-              >
-                Claude.ai Paper →
-              </a>
-            )}
           </div>
         </div>
       </div>
@@ -745,8 +724,9 @@ export default function ResearchPaperPage({ params }: { params: { slug: string }
             prose-code:rounded prose-code:text-stone-800 prose-code:font-mono
             prose-code:before:content-[''] prose-code:after:content-['']
 
-            prose-pre:bg-stone-900 prose-pre:text-stone-100 prose-pre:rounded-lg
-            prose-pre:text-base prose-pre:leading-relaxed prose-pre:my-10 prose-pre:p-6
+            prose-pre:bg-stone-50 prose-pre:text-stone-800 prose-pre:rounded-md
+            prose-pre:text-base prose-pre:leading-[1.7] prose-pre:my-10 prose-pre:p-6
+            prose-pre:border prose-pre:border-stone-200 prose-pre:font-mono
 
             prose-hr:border-stone-200 prose-hr:my-12
 
@@ -788,10 +768,10 @@ export default function ResearchPaperPage({ params }: { params: { slug: string }
             prose-code:rounded prose-code:text-stone-800 prose-code:font-mono
             prose-code:before:content-[''] prose-code:after:content-['']
 
-            prose-pre:bg-stone-900 prose-pre:text-stone-100 prose-pre:text-[13px]
-            prose-pre:leading-relaxed prose-pre:rounded-lg prose-pre:p-4 prose-pre:my-6
-            [&_pre:has(code.language-ps-lang)]:bg-stone-800 [&_pre:has(code.language-ps-lang)]:border [&_pre:has(code.language-ps-lang)]:border-stone-600
-            [&_code.language-ps-lang]:text-stone-100 [&_code.language-ps-lang]:font-mono
+            prose-pre:bg-stone-50 prose-pre:text-stone-800 prose-pre:text-[14px]
+            prose-pre:leading-[1.7] prose-pre:rounded-md prose-pre:p-5 prose-pre:my-6
+            prose-pre:border prose-pre:border-stone-200
+            prose-pre:font-mono prose-pre:whitespace-pre-wrap
 
             prose-blockquote:border-l-4 prose-blockquote:border-stone-400
             prose-blockquote:pl-6 prose-blockquote:py-3 prose-blockquote:my-6
@@ -897,9 +877,6 @@ export default function ResearchPaperPage({ params }: { params: { slug: string }
             <p><strong>Contact:</strong> hello@ps-lang.dev</p>
             <p><strong>License:</strong> MIT (for PS-LANG implementation)</p>
             <p><strong>Website:</strong> <a href="https://ps-lang.dev" className="text-stone-700 hover:text-stone-900 underline">https://ps-lang.dev</a></p>
-            {paper.artifactUrl && (
-              <p><strong>Public Artifact:</strong> <a href={paper.artifactUrl} className="text-stone-700 hover:text-stone-900 underline break-all">{paper.artifactUrl}</a></p>
-            )}
             {paper.pdfUrl && (
               <p className="mt-4"><a href={paper.pdfUrl} className="text-stone-700 hover:text-stone-900 underline">Download PDF →</a></p>
             )}

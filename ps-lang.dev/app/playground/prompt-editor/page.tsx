@@ -415,7 +415,7 @@ export default function PlaygroundPage() {
                   <div className="w-3 h-3 rounded-full bg-[#28CA42] border border-[#24A53B] shadow-sm"></div>
                 </div>
                 <div className="text-xs font-mono text-stone-600 font-medium">
-                  Prompt Builder v0.1.0-alpha
+                  Prompt Builder v0.2.4-alpha
                 </div>
               </div>
             </div>

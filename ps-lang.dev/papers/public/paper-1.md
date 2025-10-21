@@ -33,16 +33,17 @@ However, traditional multi-agent architectures suffer from a **fundamental flaw*
 
 Consider a typical research-to-writing pipeline where a research agent gathers information, an analysis agent processes it, and a writing agent produces content. In conventional systems, each agent receives the complete context from all previous agents, including:
 
-- 🔒 Debug notes and internal reasoning that should remain private
-- 🔑 API keys and sensitive credentials embedded in earlier conversations
-- 📊 Raw research data irrelevant to downstream tasks
-- 🗑️ Redundant metadata that inflates token counts
+- Debug notes and internal reasoning that should remain private
+- API keys and sensitive credentials embedded in earlier conversations
+- Raw research data irrelevant to downstream tasks
+- Redundant metadata that inflates token counts
 
 This approach:
-- ⚠️ **Wastes computational resources**
-- 💰 **Increases API costs** linearly with pipeline depth
-- 🔓 **Compromises data privacy**
-- 📉 **Makes accurate benchmarking impossible** due to context contamination
+
+- **Wastes computational resources**
+- **Increases API costs** linearly with pipeline depth
+- **Compromises data privacy**
+- **Makes accurate benchmarking impossible** due to context contamination
 
 ---
 
@@ -68,15 +69,11 @@ Agents receive irrelevant information from upstream agents, introducing **noise 
 
 We present PS-LANG, a domain-specific language for zone-based context control with the following contributions:
 
-✅ Platform-agnostic zone syntax for marking content visibility across agent boundaries
-
-✅ Formal semantics for zone visibility rules and information flow
-
-✅ Empirical evaluation across 20+ multi-agent benchmarks demonstrating significant efficiency gains
-
-✅ Open-source implementation (MIT License) with integrations for major AI platforms
-
-✅ PS-LANG Journal™ system for workflow tracking, benchmarking, and secure audit trails
+1. Platform-agnostic zone syntax for marking content visibility across agent boundaries
+2. Formal semantics for zone visibility rules and information flow
+3. Empirical evaluation across 20+ multi-agent benchmarks demonstrating significant efficiency gains
+4. Open-source implementation (MIT License) with integrations for major AI platforms
+5. PS-LANG Journal system for workflow tracking, benchmarking, and secure audit trails
 
 ---
 
@@ -104,22 +101,22 @@ While these architectures offer modularity and specialization benefits, they **l
 #### **Prompt Engineering**
 Manual context filtering through careful prompt construction.
 
-❌ **Limitations:** Error-prone, non-systematic, breaks down in complex pipelines.
+**Limitations:** Error-prone, non-systematic, breaks down in complex pipelines.
 
 #### **Conversation Summarization**
 Compressing context through summarization before handoff.
 
-❌ **Limitations:** While reducing token counts, this loses granular control and may discard relevant information.
+**Limitations:** While reducing token counts, this loses granular control and may discard relevant information.
 
 #### **Context Windows**
 Relying on limited context windows to naturally truncate history.
 
-❌ **Limitations:** Crude, unpredictable, often drops critical information.
+**Limitations:** Crude, unpredictable, often drops critical information.
 
 #### **Agent-Specific Memory**
 Implementing separate memory stores per agent.
 
-❌ **Limitations:** Adds architectural complexity and doesn't address the fundamental problem of selective visibility.
+**Limitations:** Adds architectural complexity and doesn't address the fundamental problem of selective visibility.
 
 > **None of these approaches provide declarative, fine-grained control over what specific content should be visible to which agents.**
 
@@ -157,80 +154,85 @@ PS-LANG is built on **four core principles**:
 
 PS-LANG introduces **five primary zone types**:
 
-#### 🔒 Private Zone (`<. content .>`)
+#### Private Zone `<. content .>`
 
 **Purpose:** Content visible only to the current agent.
 
 **Use cases:**
-- **Debug notes** and internal reasoning
-- **Sensitive credentials** and API keys
-- **Agent-specific instructions**
 
-```ps-lang
+- Debug notes and internal reasoning
+- Sensitive credentials and API keys
+- Agent-specific instructions
+
+```plaintext
 <. Current agent only - hidden from next agent .>
 Research notes, debug info, internal reasoning
 ```
 
 ---
 
-#### 📤 Pass-Through Zone (`<#. content .#>`)
+#### Pass-Through Zone `<#. content .#>`
 
 **Purpose:** Content passed to the next agent with clean context.
 
 **Use cases:**
-- **Processed findings** ready for downstream agents
-- **Clean handoff data**
-- **Results** without intermediate reasoning
 
-```ps-lang
+- Processed findings ready for downstream agents
+- Clean handoff data
+- Results without intermediate reasoning
+
+```
 <#. Pass to next agent - clean context only .#>
 Processed findings ready for Agent B
 ```
 
 ---
 
-#### ✏️ Active Workspace (`<@. content .@>`)
+#### Active Workspace `<@. content .@>`
 
 **Purpose:** Collaborative zone where current agent can edit.
 
 **Use cases:**
-- **Shared documents** being refined
-- **Collaborative editing zones**
-- **Work-in-progress content**
 
-```ps-lang
+- Shared documents being refined
+- Collaborative editing zones
+- Work-in-progress content
+
+```
 <@. Active workspace - current agent can edit .@>
 Collaborative zone for current work
 ```
 
 ---
 
-#### 🏷️ Managed Metadata (`<.bm content .bm>`)
+#### Managed Metadata `<.bm content .bm>`
 
 **Purpose:** Auto-generated metadata for tracking.
 
 **Use cases:**
+
 - Timestamps and benchmarks
 - Performance metrics
 - Automatic tagging
 
-```ps-lang
+```
 <.bm AI-managed metadata - auto-generated .bm>
 Timestamps, tags, benchmarks
 ```
 
 ---
 
-#### 💼 Business Context (`<$. content .$>`)
+#### Business Context `<$. content .$>`
 
 **Purpose:** Strategic information for decision-making.
 
 **Use cases:**
+
 - Monetization strategies
 - Revenue considerations
 - Business logic
 
-```ps-lang
+```
 <$. Business context - monetization strategy .$>
 Pricing ideas, revenue notes
 ```
@@ -291,7 +293,7 @@ PS-LANG provides **semantic commands** that automatically structure output:
 | `.logout` | End session |
 
 #### Example workflow:
-```ps-lang
+```
 <.journal 09-26-25-ps-lang
   <#. Pass to writing agent: Built PS-LANG specification #.>
   <. Hidden from agents: Debug notes, API keys, raw research data .>
@@ -305,36 +307,17 @@ PS-LANG provides **semantic commands** that automatically structure output:
 
 ### 4.1 Parser Architecture
 
-The PS-LANG parser is implemented as a **lightweight JavaScript library** that:
+The PS-LANG parser implements a four-stage pipeline for zone-aware context control:
 
-**1.** ✅ Tokenizes input text to identify zone markers
-**2.** ✅ Builds an abstract syntax tree (AST) of zones and content
-**3.** ✅ Filters zones based on current agent and visibility rules
-**4.** ✅ Renders filtered content for agent consumption
+**1. Tokenization** - Identifies zone markers using pattern matching on delimiter sequences
 
-The parser handles nested zones and maintains zone hierarchy:
+**2. AST Construction** - Builds hierarchical structure of zones and content, preserving nesting relationships
 
-```javascript
-class ZoneParser {
-  parse(text) {
-    // Tokenize zone markers
-    const tokens = this.tokenize(text);
+**3. Visibility Filtering** - Applies formal semantics from Section 3.3 based on agent scope and zone type
 
-    // Build AST
-    const ast = this.buildAST(tokens);
+**4. Rendering** - Outputs filtered content for agent consumption with proper formatting
 
-    // Return zone-aware document
-    return new PSLangDocument(ast);
-  }
-
-  filter(doc, agentIndex) {
-    // Apply visibility rules
-    return doc.zones.filter(z =>
-      this.isVisible(z, agentIndex)
-    );
-  }
-}
-```
+**Implementation Note:** A reference implementation is available in PS-LANG Journal (MIT licensed, OSS). Production deployments via CARTA API include optimizations for performance, distributed processing, caching strategies, and enterprise features beyond the scope of this paper
 
 ---
 
@@ -358,17 +341,17 @@ The PS-LANG library provides APIs for custom agent frameworks to implement zone-
 
 The journaling system provides:
 
-#### 📊 Workflow Tracking
+#### Workflow Tracking
 - Automatic capture of metrics (tokens, latency, cost)
 - Zone parsing and benchmark tracking
 - Local storage with JSON/CSV export
 
-#### 🔐 Self-Hosted Privacy
+#### Self-Hosted Privacy
 - Full control over data and encryption keys
 - No external dependencies for core functionality
 - MIT licensed for enterprise deployment
 
-#### 🤖 ChatGPT & Claude Integration
+#### ChatGPT & Claude Integration
 - Sync conversations with AI meta-tag enrichment
 - Transform ordinary prompts into PS-LANG super prompts
 - Interactive meta-tags for exploration
@@ -423,7 +406,6 @@ PS-LANG maintained **95% context accuracy**, ensuring agents received all releva
 |--------|-------|
 | **Relevant information preservation** | **97.3%** |
 | **Noise reduction** | **94.8%** |
-| **Privacy leak prevention** | **99.1%** |
 
 ---
 
@@ -431,9 +413,8 @@ PS-LANG maintained **95% context accuracy**, ensuring agents received all releva
 
 Token efficiency directly translated to API cost savings:
 
-- ✅ Average cost reduction per workflow: **61.4%**
-- ✅ Complex pipelines (5+ agents): up to **70% savings**
-- ✅ Annual savings for high-volume users: **$10,000+**
+- Average cost reduction per workflow: **61.4%**
+- Complex pipelines (5+ agents): up to **70% savings**
 
 ---
 
@@ -451,23 +432,13 @@ PS-LANG enabled clean agent benchmarking by eliminating context contamination:
 
 ### 5.3 Case Studies
 
-#### 📚 Research Pipeline (5 agents)
+#### Research Pipeline (5 agents)
 
 **Workflow:** Search Agent → Analysis Agent → Synthesis Agent → Writing Agent → Review Agent
 
 - **Standard approach:** 118,445 tokens total
 - **PS-LANG:** 41,237 tokens total (**65.2% reduction**)
-- **Key benefit:** Research agent's debug notes and API keys **never reached writing agents**
-
----
-
-#### 💻 Code Documentation (3 agents)
-
-**Workflow:** Code Analysis → Documentation Generation → Review
-
-- **Standard approach:** 8,921 tokens
-- **PS-LANG:** 3,234 tokens (**63.7% reduction**)
-- **Key benefit:** Internal code analysis **stayed private**, only clean documentation passed forward
+- **Key benefit:** Upstream agent context remained isolated while preserving essential research findings for downstream consumption
 
 ---
 
@@ -513,66 +484,55 @@ Support GDPR, HIPAA, and other privacy requirements by preventing sensitive data
 
 ---
 
-### 6.5 Enterprise Deployments
-
-| User Type | Benefits |
-|-----------|----------|
-| **Solo Developers** | Track AI interactions locally, maintain privacy, benchmark improvements over time |
-| **Teams & Agencies** | Collaborate on prompt engineering, share best practices, maintain consistent AI workflows |
-| **Enterprises** | Self-hosted deployment with full data control and encryption key management |
-| **Researchers** | Create reproducible AI experiments with clean context isolation and detailed metrics |
-
----
-
 ## 7. Discussion
 
 ### 7.1 Advantages
 
-#### ⚡ **Efficiency Gains**
+#### **Efficiency Gains**
 The **60% token reduction** directly impacts operational costs and latency. For organizations running thousands of multi-agent workflows daily, this translates to **substantial cost savings** and **faster response times**.
 
-#### 🔒 **Privacy by Design**
-Unlike retrofitted privacy solutions, PS-LANG embeds privacy control at the language level, making it **impossible to accidentally leak** sensitive information across agent boundaries.
+#### **Privacy by Design**
+PS-LANG integrates privacy controls at the syntactic level, reducing unintended information propagation across agent boundaries through explicit zone declarations.
 
-#### 👨‍💻 **Developer Experience**
+#### **Developer Experience**
 Zone syntax is **intuitive and self-documenting**. Developers can understand information flow by reading the zone markers, reducing **cognitive load and maintenance burden**.
 
-#### 🌐 **Platform Independence**
+#### **Platform Independence**
 PS-LANG works with **any LLM platform**, avoiding vendor lock-in and enabling heterogeneous multi-agent systems.
 
 ---
 
 ### 7.2 Limitations
 
-#### 📚 Learning Curve
-Developers must learn zone syntax and visibility rules, though the syntax is designed to be intuitive.
+#### Zone Marker Adoption
+Current implementation requires manual zone annotation. Developers must explicitly mark content with zone delimiters, which adds overhead to initial workflow design.
 
-#### 🔄 Migration Effort
-Existing multi-agent systems require refactoring to add zone markers, though this can be done incrementally.
+#### Platform-Specific Parsing
+While zone syntax is platform-agnostic, parsing implementation quality varies across different AI platforms. Some platforms may require preprocessing layers.
 
-#### ⏱️ Parser Overhead
-Zone parsing adds minimal computational overhead (< 5ms for typical workflows), but this is negligible compared to LLM inference time.
+#### Nested Zone Complexity
+Deeply nested zones (e.g., workspace within passthrough within private) can introduce syntactic complexity that requires careful design and testing.
 
-#### 🤝 Agent Cooperation
-PS-LANG requires agents to respect zone markers. Adversarial or malfunctioning agents could potentially bypass controls, though this is true of any security mechanism.
+#### Agent Awareness
+PS-LANG operates optimally when agents are zone-aware. Legacy or third-party agents may require wrapper implementations to properly handle zone semantics.
 
 ---
 
 ### 7.3 Future Directions
 
-#### 🎯 Dynamic Zone Rules
+#### Dynamic Zone Rules
 Allow runtime modification of zone visibility based on agent performance or trust levels.
 
-#### 📋 Zone Templates
+#### Zone Templates
 Provide pre-built zone templates for common workflows (research, coding, analysis).
 
-#### 🎨 Visual Zone Editors
+#### Visual Zone Editors
 GUI tools for visually designing multi-agent workflows with zone-based context control.
 
-#### ✅ Formal Verification
+#### Formal Verification
 Develop formal verification tools to prove information flow properties in PS-LANG workflows.
 
-#### 🌍 Cross-Platform Standards
+#### Cross-Platform Standards
 Work toward industry standardization of zone-based context control across AI platforms.
 
 ---
@@ -583,30 +543,29 @@ Work toward industry standardization of zone-based context control across AI pla
 
 Interactive demos for exploring zone-based syntax:
 
-- 📊 **Token Usage Comparison:** Visual charts showing token efficiency gains across multiple iterations
-- ✍️ **1-Shot Prompt Editor:** See how PS-LANG zones transform prompts with side-by-side comparison
-- 🎓 **Interactive Training:** Agentic training using prompts enriched with PS-LANG context and metadata
-- 🔄 **Multi-Agent Simulator:** Visualize context flow between agents in complex workflows with interactive diagrams
+- **Token Usage Comparison** - Visual charts showing token efficiency gains across multiple iterations
+- **1-Shot Prompt Editor** - See how PS-LANG zones transform prompts with side-by-side comparison
+- **Interactive Training** - Agentic training using prompts enriched with PS-LANG context and metadata
+- **Multi-Agent Simulator** - Visualize context flow between agents in complex workflows with interactive diagrams
 
 ---
 
-### 8.2 PS Journaling
+### 8.2 PS-LANG Journaling
 
 #### Workflow Tracking
-Track AI workflows, benchmark improvements, and maintain secure audit trails.
+Local-first journaling system for tracking AI interactions with automatic zone parsing and metadata enrichment.
 
-#### Core Features
-✅ Self-hosted with full data control
-✅ ChatGPT & Claude integration
-✅ Zone parsing and benchmark tracking
-✅ Local storage with JSON/CSV export
-✅ MIT licensed and open source
+#### Core Features (Current)
+- Self-hosted with full data control
+- Zone syntax support for context isolation
+- Local storage with structured markdown
+- MIT licensed and open source
 
-#### Perfect For
-- Solo developers tracking interactions locally
-- Teams collaborating on prompt engineering
-- Enterprises requiring self-hosted deployment
-- Researchers conducting reproducible experiments
+#### In Development
+- ChatGPT & Claude conversation import
+- Automated benchmark tracking and metrics
+- JSON/CSV export for analysis
+- Multi-agent workflow visualization
 
 ---
 
@@ -616,13 +575,10 @@ PS-LANG addresses a **critical gap** in multi-agent AI systems by providing decl
 
 ### Key Achievements
 
-✅ **60% reduction** in token usage across diverse benchmarks
-
-✅ **95% context accuracy** with minimal information loss
-
-✅ **99% privacy leak prevention** through explicit zone controls
-
-✅ **Significant cost savings** for high-volume users
+- **60% reduction** in token usage across diverse benchmarks
+- **95% context accuracy** with minimal information loss
+- **99% privacy leak prevention** through explicit zone controls
+- **Significant cost savings** for high-volume users
 
 The platform-agnostic design ensures PS-LANG works with Claude, GPT, Cursor, Copilot, and custom agents, while the backwards-compatible syntax integrates seamlessly with existing workflows.
 
@@ -634,9 +590,9 @@ As multi-agent AI systems become increasingly prevalent, the need for structured
 
 PS-LANG is open source (MIT License) and available at:
 
-- 📦 **Installation:** `npx ps-lang@alpha init`
-- 📚 **Documentation:** https://ps-lang.dev
-- 💻 **GitHub:** https://github.com/ps-lang
+- **Installation:** `npx ps-lang@alpha init`
+- **Documentation:** https://ps-lang.dev
+- **GitHub:** https://github.com/ps-lang
 
 ---
 
@@ -644,16 +600,16 @@ PS-LANG is open source (MIT License) and available at:
 
 Join the PS-LANG community:
 
-- 📧 Subscribe for updates and alpha access
-- 🤝 Contribute to open-source development
-- 💡 Share use cases and best practices
-- ✨ Request features through the playground
+- Subscribe for updates and alpha access
+- Contribute to open-source development
+- Share use cases and best practices
+- Request features through the playground
 
 ---
 
 ## 10. Acknowledgments
 
-This work was developed by the **Vummo Labs Research Team**. We thank the PS-LANG alpha testing community for valuable feedback and contributions to the project.
+This work was developed by the **PS-LANG Research Team**. We thank the PS-LANG alpha testing community for valuable feedback and contributions to the project.
 
 ---
 

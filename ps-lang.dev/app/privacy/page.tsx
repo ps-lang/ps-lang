@@ -1,9 +1,14 @@
+import type { Metadata } from 'next'
 import Link from "next/link"
 import { siteConfig } from "@/config/site"
 
-export const metadata = {
-  title: "Privacy Policy - PS-LANG",
-  description: "Privacy policy for PS-LANG website and services",
+export const metadata: Metadata = {
+  title: "Privacy Policy | PS-LANG Privacy-First AI Framework",
+  description: "PS-LANG privacy policy. Learn how we handle data in our privacy-first framework. Self-hosted options, encryption, and data ownership explained.",
+  keywords: "privacy policy, data privacy, self-hosted AI, privacy-first framework",
+  alternates: {
+    canonical: 'https://ps-lang.dev/privacy',
+  },
 }
 
 export default function PrivacyPage() {

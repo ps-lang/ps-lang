@@ -66,7 +66,7 @@ We present PS-LANG, a domain-specific language for zone-based context control wi
 2. Formal semantics for zone visibility rules and information flow
 3. Empirical evaluation across 20+ multi-agent benchmarks demonstrating significant efficiency gains
 4. Open-source implementation (MIT License) with integrations for major AI platforms
-5. PS-LANG Journal™ system for workflow tracking, benchmarking, and secure audit trails
+5. PS-LANG Journal system for workflow tracking, benchmarking, and secure audit trails
 </#.>
 
 <$. BUSINESS CONTEXT
@@ -515,7 +515,7 @@ Create reproducible AI experiments with clean context isolation and detailed met
 The 60% token reduction directly impacts operational costs and latency. For organizations running thousands of multi-agent workflows daily, this translates to substantial cost savings and faster response times.
 
 **Privacy by Design:**
-Unlike retrofitted privacy solutions, PS-LANG embeds privacy control at the language level, making it impossible to accidentally leak sensitive information across agent boundaries.
+PS-LANG integrates privacy controls at the syntactic level, reducing unintended information propagation across agent boundaries through explicit zone declarations.
 
 **Developer Experience:**
 Zone syntax is intuitive and self-documenting. Developers can understand information flow by reading the zone markers, reducing cognitive load and maintenance burden.
@@ -585,23 +585,22 @@ Interactive demos for exploring zone-based syntax:
 - **Multi-Agent Simulator:** Visualize context flow between agents in complex workflows with interactive diagrams
 </#.>
 
-### 8.2 PS Journaling
+### 8.2 PS-LANG Journaling
 
 **Workflow Tracking:**
-Track AI workflows, benchmark improvements, and maintain secure audit trails.
+Local-first journaling system for tracking AI interactions with automatic zone parsing and metadata enrichment.
 
-**Core Features:**
+**Core Features (Current):**
 - Self-hosted with full data control
-- ChatGPT & Claude integration
-- Zone parsing and benchmark tracking
-- Local storage with JSON/CSV export
+- Zone syntax support for context isolation
+- Local storage with structured markdown
 - MIT licensed and open source
 
-**Perfect For:**
-- Solo developers tracking interactions locally
-- Teams collaborating on prompt engineering
-- Enterprises requiring self-hosted deployment
-- Researchers conducting reproducible experiments
+**In Development:**
+- ChatGPT & Claude conversation import
+- Automated benchmark tracking and metrics
+- JSON/CSV export for analysis
+- Multi-agent workflow visualization
 
 ---
 
@@ -653,7 +652,7 @@ Join the PS-LANG community:
   Thank reviewers by name after acceptance
 .>
 
-This work was developed by the Vummo Labs Research Team. We thank the PS-LANG alpha testing community for valuable feedback and contributions to the project.
+This work was developed by the PS-LANG Research Team. We thank the PS-LANG alpha testing community for valuable feedback and contributions to the project.
 
 ---
 

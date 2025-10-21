@@ -101,8 +101,8 @@ export default function RootLayout({
       {
         "@type": "Organization",
         "@id": "https://ps-lang.dev/#organization",
-        "name": "Vummo Labs",
-        "url": "https://vummo.com",
+        "name": "PS-LANG",
+        "url": "https://ps-lang.dev",
         "logo": {
           "@type": "ImageObject",
           "url": "https://ps-lang.dev/ps-lang-logomark.png",
@@ -153,7 +153,7 @@ export default function RootLayout({
             "name": "What is PS-LANG?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. PS Journals is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PS Journaling as your digital journal. It provides 7 privacy zones that let you control context flow between agents, reduce token usage by up to 60%, and create cleaner agent handoffs."
+              "text": "PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. Use it to structure prompts, control context handoffs, and maintain privacy in AI collaborations. Works with any AI model—Claude, GPT, Cursor, Copilot, or custom agents. It provides 7 privacy zones that let you control context flow between agents, reduce token usage by up to 60%, and create cleaner agent handoffs."
             }
           },
           {
@@ -190,10 +190,10 @@ export default function RootLayout({
           },
           {
             "@type": "Question",
-            "name": "What is PS Journaling?",
+            "name": "What is PS-LANG Journal?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "PS Journaling is PS-LANG's premium feature for tracking AI workflows, benchmarking improvements, and maintaining secure audit trails. It uses end-to-end encryption to store prompt history and workflow analytics."
+              "text": "PS-LANG Journal is the OSS journaling application built on PS-LANG for tracking AI workflows, benchmarking improvements, and maintaining secure audit trails. It uses end-to-end encryption to store prompt history and workflow analytics. MIT licensed and free forever."
             }
           },
           {
@@ -238,8 +238,8 @@ export default function RootLayout({
                     theme = localStorage.getItem('theme');
                   }
 
-                  // Default to fermi for ps-journaling page (only if no saved preference)
-                  if (window.location.pathname.startsWith('/ps-journaling') && !theme) {
+                  // Default to fermi for ps-lang-journal page (only if no saved preference)
+                  if (window.location.pathname.startsWith('/ps-lang-journal') && !theme) {
                     theme = 'fermi';
                   }
 

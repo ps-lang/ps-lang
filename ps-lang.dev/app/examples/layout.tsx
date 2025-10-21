@@ -1,21 +1,15 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Examples | PS-LANG',
-  description: 'Explore real-world PS-LANG examples from simple algorithms to complex AI collaboration patterns. Learn through practical code samples and use cases.',
-  keywords: [
-    'PS-LANG examples',
-    'Code samples',
-    'AI collaboration',
-    'Algorithm examples',
-    'Data processing',
-    'Binary search',
-    'Programming examples',
-    'Tutorial code'
-  ],
+  title: 'PS-LANG Examples | Zone Syntax Use Cases & Code Samples',
+  description: 'Real-world examples of PS-LANG zone syntax. See how developers use privacy zones, context handoffs, and multi-agent workflows for AI collaboration. Copy-paste code samples included.',
+  keywords: 'PS-LANG examples, zone syntax examples, AI workflow examples, prompt engineering examples, multi-agent code samples',
+  alternates: {
+    canonical: 'https://ps-lang.dev/examples',
+  },
   openGraph: {
-    title: 'PS-LANG Examples',
-    description: 'Real-world examples of PS-LANG programs, from simple algorithms to complex AI collaboration patterns.',
+    title: 'PS-LANG Examples | Zone Syntax Use Cases & Code Samples',
+    description: 'Real-world examples of PS-LANG zone syntax. Privacy zones, context handoffs, and multi-agent workflows with copy-paste code samples.',
     type: 'website',
     url: 'https://ps-lang.dev/examples',
     siteName: 'PS-LANG',
@@ -30,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'PS-LANG Examples',
-    description: 'Real-world PS-LANG code examples and AI collaboration patterns.',
+    title: 'PS-LANG Examples | Zone Syntax Use Cases',
+    description: 'Real-world PS-LANG zone syntax examples. Privacy zones, context handoffs, and multi-agent workflow samples.',
     images: ['https://ps-lang.dev/og-image.png'],
   },
 }

@@ -224,11 +224,11 @@ export default function Navigation() {
                 <div className="absolute left-0 mt-3 min-w-[240px] bg-white border border-stone-200">
                   <div className="py-2">
                     <Link
-                      href="/ps-journaling"
+                      href="/ps-lang-journal"
                       className="block px-6 py-2 text-base text-stone-900 hover:bg-stone-50 transition-colors"
                       onClick={() => setIsJournalPlusOpen(false)}
                     >
-                      PS Journaling
+                      PS-LANG Journal
                     </Link>
                     {(isAlphaTester || userRole === 'super_admin' || userRole === 'admin') && (
                       <Link
@@ -393,11 +393,11 @@ export default function Navigation() {
               {/* Journal Section */}
               <div className="border-b border-stone-100">
                 <Link
-                  href="/ps-journaling"
+                  href="/ps-lang-journal"
                   className="block py-3 text-sm text-stone-900 tracking-wide"
                   onClick={() => setIsOpen(false)}
                 >
-                  PS Journaling
+                  PS-LANG Journal
                 </Link>
                 {(isAlphaTester || userRole === 'super_admin' || userRole === 'admin') && (
                   <Link

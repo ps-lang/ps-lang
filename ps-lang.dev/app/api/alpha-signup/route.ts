@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     email_domain: emailDomain,
     timestamp: timestamp,
     project: 'ps-lang',
-    version: 'v0.1.0-alpha.1',
+    version: 'v0.2.4-alpha.1',
     user_segment: emailDomain.includes('gmail.com') || emailDomain.includes('yahoo.com') ? 'consumer' : 'business',
     intent: 'alpha_tester'
   }

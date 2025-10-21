@@ -1,21 +1,14 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Blog posts
-  const blogPosts = [
-    'token-efficiency-multi-agent-workflows',
-    'ps-lang-vs-traditional-context-control',
-    'building-better-ai-benchmarks',
-    'mcp-integration-guide',
-    'privacy-zones-explained'
-  ]
-
-  const blogUrls = blogPosts.map(slug => ({
-    url: `https://ps-lang.dev/blog/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }))
+  // Blog posts - TODO: Make dynamic when blog posts are published
+  // const blogPosts = []
+  // const blogUrls = blogPosts.map(slug => ({
+  //   url: `https://ps-lang.dev/blog/${slug}`,
+  //   lastModified: new Date(),
+  //   changeFrequency: 'monthly' as const,
+  //   priority: 0.6,
+  // }))
 
   // Research papers
   const researchPapers = [
@@ -42,28 +35,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
-    {
-      url: 'https://ps-lang.dev/blog',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
+    // {
+    //   url: 'https://ps-lang.dev/blog',
+    //   lastModified: new Date(),
+    //   changeFrequency: 'weekly',
+    //   priority: 0.8,
+    // },
     {
       url: 'https://ps-lang.dev/research-papers',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
-    ...blogUrls,
+    // ...blogUrls, // TODO: Re-enable when blog posts are published
     ...paperUrls,
+    // {
+    //   url: 'https://ps-lang.dev/docs',
+    //   lastModified: new Date(),
+    //   changeFrequency: 'weekly',
+    //   priority: 0.9,
+    // },
     {
-      url: 'https://ps-lang.dev/docs',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ps-lang.dev/ps-journaling',
+      url: 'https://ps-lang.dev/ps-lang-journal',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.7,

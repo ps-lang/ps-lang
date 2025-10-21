@@ -1,22 +1,15 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'How It Works | PS-LANG Journaling',
-  description: 'Learn how PS-LANG transforms ordinary AI prompts into structured super prompts with zone-based privacy control. Discover the 7 privacy zones for multi-agent context management.',
-  keywords: [
-    'PS-LANG tutorial',
-    'Zone-based syntax',
-    'AI prompt engineering',
-    'Privacy zones',
-    'Context control',
-    'Super prompts',
-    'Multi-agent systems',
-    'Journal Plus',
-    'Prompt optimization'
-  ],
+  title: 'How PS-LANG Works | Zone-Based Context Control Explained',
+  description: 'Learn how PS-LANG\'s zone-based syntax controls what AI agents see. Understand privacy zones, context handoffs, and multi-agent workflows. Step-by-step guide with visual examples.',
+  keywords: 'how PS-LANG works, zone syntax explained, context control guide, AI privacy tutorial, multi-agent workflow guide',
+  alternates: {
+    canonical: 'https://ps-lang.dev/how-it-works',
+  },
   openGraph: {
-    title: 'How PS-LANG Journaling Works',
-    description: 'Transform ordinary AI prompts into structured super prompts with zone-based privacy control. Learn the 7 PS-LANG zones.',
+    title: 'How PS-LANG Works | Zone-Based Context Control Explained',
+    description: 'Learn how PS-LANG\'s zone-based syntax controls what AI agents see. Privacy zones, context handoffs, and multi-agent workflows explained.',
     type: 'website',
     url: 'https://ps-lang.dev/how-it-works',
     siteName: 'PS-LANG',
@@ -31,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'How PS-LANG Journaling Works',
-    description: 'Transform AI prompts into structured super prompts with 7 privacy zones for precise context control.',
+    title: 'How PS-LANG Works | Context Control Guide',
+    description: 'Learn PS-LANG\'s zone-based syntax for controlling AI agent context. Step-by-step guide with visual examples.',
     images: ['https://ps-lang.dev/og-image.png'],
   },
 }

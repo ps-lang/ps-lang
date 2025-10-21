@@ -55,7 +55,7 @@ export default function AnnouncementBar() {
         <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-white">
           <span className="font-mono">
             <span className="hidden sm:inline">👋 </span>
-            <span className="font-semibold">PS Journals™ Alpha</span>
+            <span className="font-semibold">PS-LANG Journal Alpha</span>
             <span className="hidden sm:inline"> — Help shape the future</span>
           </span>
           <button

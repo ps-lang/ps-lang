@@ -1,11 +1,11 @@
-# llms-full.txt — PS-LANG v0.2.3-alpha.1
+# llms-full.txt — PS-LANG v0.2.4-alpha.1
 
 SUMMARY:
 PS-LANG is an open source framework with zone-based syntax for controlling what AI agents see in multi-agent workflows. PS Journals is what you create with it—your own journal instance for tracking AI collaborations. Think of PS-LANG as the pen, and PS Journaling as your digital journal. Built for Claude Code alpha testing, designed to be platform-agnostic.
 
 PROJECT INFO:
 Name: PS-LANG
-Version: 0.2.3-alpha.1
+Version: 0.2.4-alpha.1
 Repository: https://github.com/ps-lang/ps-lang
 Website: https://ps-lang.dev
 License: MIT (code), CC BY 4.0 (docs)
@@ -174,13 +174,13 @@ v1.0 (Future):
 - Training data collection
 
 ATTRIBUTION:
-- Core concept: Vummo Labs
+- Core concept: PS-LANG
 - Initial implementation: Claude Sonnet 4.5 (Anthropic)
 - Policy enhancements: ChatGPT-5 Thinking (OpenAI)
 - Spec refinement: Multi-agent collaboration
 
 CITATION:
-Vummo Labs. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v0.2.3-alpha.1) [Software]. https://github.com/ps-lang/ps-lang
+PS-LANG. (2025). PS-LANG: Privacy-First Scripting Language for Multi-Agent Context Control (v0.2.4-alpha.1) [Software]. https://github.com/ps-lang/ps-lang
 
 CONTACT:
 - Issues: https://github.com/ps-lang/ps-lang/issues

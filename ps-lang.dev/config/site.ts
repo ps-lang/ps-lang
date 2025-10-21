@@ -38,7 +38,7 @@ export const siteConfig = {
   },
 
   // Version (should match root package.json)
-  version: 'v0.2.3-alpha.1',
+  version: 'v0.2.4-alpha.1',
 
   // Analytics
   posthog: {

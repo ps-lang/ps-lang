@@ -19,7 +19,12 @@ const nextConfig = {
     return [
       {
         source: '/postscript-journaling',
-        destination: '/ps-journaling',
+        destination: '/ps-lang-journal',
+        permanent: true,
+      },
+      {
+        source: '/ps-journaling',
+        destination: '/ps-lang-journal',
         permanent: true,
       },
     ];

@@ -40,7 +40,7 @@ export default function Footer() {
           </div>
           <div className="flex items-baseline gap-3">
             <h1 className="text-2xl font-medium text-stone-900 tracking-tight">
-              PS-LANG<sup className="text-[10px] ml-0.5 -top-2">™</sup>
+              PS-LANG<sup className="text-[10px] ml-0.5 -top-[9px]">™</sup>
             </h1>
             <button
               onClick={() => setIsFeedbackModalOpen(true)}
